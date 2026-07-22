@@ -24,7 +24,9 @@ export function Summary({ subject }: { subject: Subject }) {
       <b>{stats.incorrect}<small>Sai</small></b>
       <b>{stats.dontKnow}<small>Không biết</small></b>
       <b>{stats.accuracy}%<small>Chính xác</small></b>
-      <b>{stats.learningCount}<small>Còn đang học</small></b>
+      <b>{stats.newCount}<small>Mới</small></b>
+      <b>{stats.learningCount}<small>Đang học</small></b>
+      <b>{stats.remainingCount}<small>Còn lại</small></b>
     </div>
     <div className="actions"><Link className="button" href={`/subjects/${subject.slug}/learn`}>Tiếp tục học</Link><Link className="secondary" href={`/subjects/${subject.slug}/learn?restart=1`}>Học lại toàn bộ</Link><Link className="secondary" href={`/subjects/${subject.slug}`}>Về môn học</Link></div>
   </section>;
