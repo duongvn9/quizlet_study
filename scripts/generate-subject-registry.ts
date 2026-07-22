@@ -1,0 +1,5 @@
+import { readdirSync, writeFileSync } from "node:fs"; import { join } from "node:path";
+const dir=join(process.cwd(),"src/data/subjects");const files=readdirSync(dir).filter(f=>f.endsWith(".json")).sort();for(const file of files)if(!/^[a-z0-9-]+\.json$/.test(file))throw new Error(`Invalid subject filename: ${file}`);
+const imports=files.map((f,i)=>`import subject${i} from "../subjects/${f}";`).join("\n");const names=files.map((_,i)=>`subject${i}`);
+const output=`${imports}\nimport { subjectSchema } from "@/domain/subjects/schemas";\nimport type { Subject } from "@/domain/subjects/types";\nexport const subjects: Subject[] = [${names.join(",")}].map(value => subjectSchema.parse(value));\nexport const subjectsBySlug = Object.fromEntries(subjects.map(subject => [subject.slug, subject])) as Record<string, Subject>;\nexport const subjectSlugs = subjects.map(subject => subject.slug);\nexport const getSubject = (slug: string) => subjectsBySlug[slug];\n`;
+writeFileSync(join(process.cwd(),"src/data/generated/subjects.generated.ts"),output);console.log(`Generated registry for ${files.length} subject(s)`);

@@ -1,0 +1,7 @@
+export type LearningStatus = "new" | "learning" | "mastered";
+export type AttemptResult = "correct" | "incorrect" | "dont-know";
+export type StudyAttempt = { id: string; queueInstanceId: string; questionId: string; selectedOptionId: string | null; result: AttemptResult; answeredAt: string };
+export type StudyQueueItem = { instanceId: string; questionId: string; reason: "initial" | "retry"; answered: boolean };
+export type QuestionProgress = { questionId: string; status: LearningStatus; totalAttempts: number; correctCount: number; incorrectCount: number; dontKnowCount: number; correctStreak: number; lastSelectedOptionId: string | null; lastResult: AttemptResult | null; firstSeenAt: string | null; lastSeenAt: string | null; masteredAt: string | null };
+export type StudySession = { schemaVersion: 1; sessionId: string; subjectId: string; subjectContentVersion: number; createdAt: string; updatedAt: string; completedAt: string | null; queue: StudyQueueItem[]; currentIndex: number; frontierIndex: number; attempts: StudyAttempt[]; settings: { shuffleQuestions: boolean; shuffleOptions: boolean; masteryStreak: number; retryGap: number } };
+export type SubjectProgress = { schemaVersion: 1; subjectId: string; subjectContentVersion: number; questionProgress: Record<string, QuestionProgress>; activeSession: StudySession | null; completedSessionCount: number; lifetimeAttempts: number; lastStudiedAt: string | null };

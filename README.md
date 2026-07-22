@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Study Flow
 
-## Getting Started
+Ứng dụng học trắc nghiệm local-first bằng Next.js App Router, React, TypeScript và Tailwind. Không tài khoản, cơ sở dữ liệu hay biến môi trường; tiến độ nằm trong `localStorage`.
 
-First, run the development server:
+## Cài đặt
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Kiểm tra
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run data:generate
+npm run data:validate
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+npx playwright install chromium
+npm run test:e2e
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Kiến trúc và dữ liệu
 
-## Learn More
+`src/domain/subjects` định nghĩa Zod schema; `src/domain/study` là engine thuần; `src/lib/storage` xác thực persistence; `src/components` và `src/app` là presentation. Mỗi subject có `schemaVersion`, `contentVersion`, metadata và questions. Mỗi question có stable `id`, `number`, `correctAnswer`, options, `needsReview`, và `reviewNotes`.
 
-To learn more about Next.js, take a look at the following resources:
+Để thêm môn: đặt JSON hợp lệ tại `src/data/subjects/<slug>.json`, chạy `npm run data:generate`, `npm run data:validate`, rồi build. Không cần sửa component.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Để sửa đáp án/nội dung: giữ nguyên `id` và `number`; cập nhật trường cần thiết; đảm bảo `correctAnswer` tồn tại trong options; tăng `contentVersion` đúng 1; chạy generate, validate, lint, typecheck, test và build; commit/push. Lần truy cập sau chỉ tiến độ môn đó bị đặt lại.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Lưu trữ
 
-## Deploy on Vercel
+Dữ liệu dùng `study-flow:v1:subject:<id>`, thiết lập `study-flow:v1:settings`, thông báo `study-flow:v1:notice:<id>`. Persisted schema là v1. Dữ liệu sai hoặc content version khác được cô lập theo môn và không xóa key không liên quan.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Âm thanh trả lời đúng
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Âm thanh phản hồi dùng tài sản nội bộ `public/assets/correct-answer.mp3` và chỉ phát một lần khi người học gửi một đáp án đúng mới. Âm thanh không phát cho đáp án sai, “Không biết”, khi xem lại lịch sử, khi khôi phục phiên sau reload, hoặc khi đáp án đã bị khóa. Lỗi tải/phát âm thanh và chính sách autoplay của trình duyệt được bỏ qua an toàn, không làm gián đoạn học tập.
+
+Công tắc **Âm thanh** trên trang học được bật mặc định. Lựa chọn được lưu riêng trên thiết bị bằng khóa `study-flow:v1:sound`; giá trị `false` tắt phản hồi ở các lần truy cập sau. Trình duyệt tải trước tệp với `preload="auto"`. Xóa dữ liệu trình duyệt sẽ đặt tùy chọn về mặc định.
+
+Các kiểm thử hook và component dùng browser `Audio` mock để xác nhận phát đúng một lần, các trường hợp không phát, lưu/khôi phục tùy chọn tắt và xử lý promise phát bị từ chối.
+
+## Triển khai Vercel
+
+Tạo repository GitHub, push dự án, chọn **Add New Project** trong Vercel, import repository, xác nhận Next.js và Deploy. Kiểm tra trang chủ, chi tiết, luồng học, reload và reset theo content version. Không cần cấu hình secrets.
+
+## Giới hạn
+
+Không đồng bộ đa thiết bị; xóa dữ liệu trình duyệt sẽ mất tiến độ; không upload tài liệu; không tài khoản; cập nhật nội dung chủ ý đặt lại môn bị ảnh hưởng.
