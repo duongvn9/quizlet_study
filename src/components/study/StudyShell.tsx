@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Subject } from "@/domain/subjects/types";
 import type { SubjectProgress } from "@/domain/study/types";
 import { createProgress, createSession } from "@/domain/study/create-session";
@@ -57,6 +57,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [storageWarning, setStorageWarning] = useState(false);
   const [settings, setSettings] = useState<StudySettings>(defaultSettings);
+  const settingsButtonRef = useRef<HTMLButtonElement>(null);
   const { enabled, setEnabled, play } = useCorrectAnswerSound();
 
   useEffect(() => {
@@ -134,6 +135,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
 
   useEffect(() => {
     if (!settingsOpen) return;
+    const trigger = settingsButtonRef.current;
     const dialog = document.querySelector<HTMLElement>("[role=dialog]");
     const focusable = dialog?.querySelectorAll<HTMLElement>("button, input, select, textarea, a[href]");
     focusable?.[0]?.focus();
@@ -154,7 +156,10 @@ export function StudyShell({ subject }: { subject: Subject }) {
       }
     };
     addEventListener("keydown", handleDialogKey);
-    return () => removeEventListener("keydown", handleDialogKey);
+    return () => {
+      removeEventListener("keydown", handleDialogKey);
+      trigger?.focus();
+    };
   }, [settingsOpen]);
 
   useEffect(() => {
@@ -185,15 +190,16 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const feedback = attempt?.result === "correct" ? "Chính xác" : attempt ? "Hãy ghi nhớ đáp án đúng" : null;
 
   return <>
+    <div inert={settingsOpen ? true : undefined}>
     <div className="study-top">
       <Link href={`/subjects/${subject.slug}`}>← Thoát</Link>
       <span>Học · {subject.code}</span>
-      <button className="secondary" type="button" onClick={() => setSettingsOpen(true)}>Cài đặt</button>
+      <button ref={settingsButtonRef} className="secondary" type="button" onClick={() => setSettingsOpen(true)}>Cài đặt</button>
       <label><input type="checkbox" checked={enabled} onChange={(event) => setEnabled(event.target.checked)} /> Âm thanh</label>
     </div>
     {notice && <div className="notice">Bộ câu hỏi đã được cập nhật. Tiến độ của môn này đã được đặt lại để bảo đảm kết quả học chính xác.</div>}
     {storageWarning && <div className="notice" role="status">Không thể lưu tiến độ vào trình duyệt lúc này. Bạn vẫn có thể học tiếp trong phiên hiện tại.</div>}
-    <div className="progress-row"><div className="bar"><i style={{ width: `${stats.percentage}%` }} /></div><span>Đã xem {stats.seenCount}/{subject.questionCount} · Đã thuộc {stats.masteredCount}</span></div>
+    <div className="progress-row"><div className="bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={stats.percentage} aria-label="Tiến độ thuộc câu hỏi"><i style={{ width: `${stats.percentage}%` }} /></div><span>Đã xem {stats.seenCount}/{subject.questionCount} · Đã thuộc {stats.masteredCount}</span></div>
     <article className="question">
       <div className="eyebrow">Câu {question.number}</div>
       <h1>{question.question}</h1>
@@ -209,7 +215,9 @@ export function StudyShell({ subject }: { subject: Subject }) {
       {!attempt && <button className="secondary" type="button" onClick={() => choose(null)}>Không biết</button>}
       {feedback && <div className="feedback" aria-live="polite"><h2>{feedback}</h2>{question.explanation?.trim() && <aside className="explanation"><strong>Giải thích</strong><p>{question.explanation}</p></aside>}{question.needsReview && <details><summary>Dữ liệu nguồn cần rà soát</summary>{question.reviewNotes.map((note) => <p key={note}>{note}</p>)}</details>}</div>}
     </article>
+    <p className="shortcut-hint">1–5 chọn đáp án · Enter tiếp tục · ← → điều hướng</p>
     <nav className="nav"><button type="button" onClick={() => navigate(-1)} disabled={session.currentIndex === 0}>Trước</button><span>{session.currentIndex + 1}/{session.queue.length}</span><button type="button" onClick={() => navigate(1)} disabled={!item?.answered}>Tiếp tục</button></nav>
+    </div>
     {settingsOpen && <div className="dialog-backdrop" role="presentation" onMouseDown={() => setSettingsOpen(false)}><section role="dialog" aria-modal="true" aria-labelledby="settings-title" className="dialog" onMouseDown={(event) => event.stopPropagation()}>
       <h2 id="settings-title">Cài đặt học</h2>
       <label><input type="checkbox" checked={settings.shuffleQuestions} onChange={(event) => updateSettings({ ...settings, shuffleQuestions: event.target.checked })} /> Xáo trộn câu hỏi</label>

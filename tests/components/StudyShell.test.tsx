@@ -131,6 +131,27 @@ describe("StudyShell interactions and sound", () => {
     expect(screen.getByText(/Áp dụng khi tạo phiên học mới/)).toBeVisible();
   });
 
+  it("restores focus, closes with Escape, traps Tab, and exposes progress semantics", async () => {
+    await renderStudy();
+    const trigger = screen.getByRole("button", { name: "Cài đặt" });
+    fireEvent.click(trigger);
+    const dialog = screen.getByRole("dialog");
+    const controls = within(dialog).getAllByRole("button");
+    controls.at(-1)!.focus();
+    fireEvent.keyDown(window, { key: "Tab" });
+    expect(within(dialog).getAllByRole("checkbox")[0]).toHaveFocus();
+    fireEvent.keyDown(window, { key: "Escape" });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+    expect(screen.getByRole("progressbar", { name: "Tiến độ thuộc câu hỏi" })).toHaveAttribute("aria-valuenow", "0");
+  });
+
+  it("keeps feedback in an aria-live region", async () => {
+    await renderStudy();
+    fireEvent.click(within(document.querySelector(".options")!).getAllByRole("button")[correctIndex]);
+    expect((await screen.findByText("Chính xác")).closest("[aria-live=polite]")).toBeInTheDocument();
+  });
+
   it("continues the same active session", async () => {
     let saved = createProgress(subject.id, subject.contentVersion, subject.questions);
     saved = { ...saved, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
