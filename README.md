@@ -2,10 +2,12 @@
 
 Ứng dụng học trắc nghiệm local-first bằng Next.js App Router, React, TypeScript và Tailwind. Không tài khoản, cơ sở dữ liệu hay biến môi trường; tiến độ nằm trong `localStorage`.
 
-## Cài đặt
+## Yêu cầu và cài đặt
+
+Node.js 22 được khuyến nghị và là phiên bản CI sử dụng.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -22,30 +24,42 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
+CI chạy tuần tự các bước trên, kiểm tra generated registry sạch, cài riêng Chromium và tải Playwright report khi thất bại.
+
+## SWD392 v2
+
+Dataset chuẩn tại `src/data/subjects/swd392.json` có `contentVersion: 2`, 249 câu: 246 câu bốn lựa chọn và các câu 19, 39, 42 có năm lựa chọn. Có 14 câu `needsReview`, 22 giải thích không rỗng và metadata ghi 21 đáp án đã hiệu chỉnh. `reviewBasis` và danh sách số câu hiệu chỉnh được lưu trong `dataQuality`; đây là provenance của dataset, không phải tuyên bố xác minh học thuật độc lập.
+
 ## Kiến trúc và dữ liệu
 
-`src/domain/subjects` định nghĩa Zod schema; `src/domain/study` là engine thuần; `src/lib/storage` xác thực persistence; `src/components` và `src/app` là presentation. Mỗi subject có `schemaVersion`, `contentVersion`, metadata và questions. Mỗi question có stable `id`, `number`, `correctAnswer`, options, `needsReview`, và `reviewNotes`.
+`src/domain/subjects` định nghĩa Zod schema; `src/domain/study` là engine thuần; `src/lib/storage` xác thực persistence; `src/components` và `src/app` là presentation. Mỗi subject có `schemaVersion`, `contentVersion`, metadata và questions. Mỗi question có stable `id`, `number`, `correctAnswer`, options, `needsReview`, `reviewNotes` và `explanation` tùy chọn.
 
-Để thêm môn: đặt JSON hợp lệ tại `src/data/subjects/<slug>.json`, chạy `npm run data:generate`, `npm run data:validate`, rồi build. Không cần sửa component.
+Để thêm môn: đặt JSON hợp lệ tại `src/data/subjects/<slug>.json`, bảo đảm filename trùng slug và ID/slug không trùng môn khác, chạy generate/validate rồi build. Generator từ chối identity trùng và không âm thầm ghi đè registry.
 
-Để sửa đáp án/nội dung: giữ nguyên `id` và `number`; cập nhật trường cần thiết; đảm bảo `correctAnswer` tồn tại trong options; tăng `contentVersion` đúng 1; chạy generate, validate, lint, typecheck, test và build; commit/push. Lần truy cập sau chỉ tiến độ môn đó bị đặt lại.
+Để sửa đáp án/nội dung: giữ nguyên `id` và `number`; cập nhật trường cần thiết; bảo đảm `correctAnswer` tồn tại trong options; tăng `contentVersion` đúng 1; chạy đầy đủ kiểm tra và commit generated output. Lần truy cập sau chỉ tiến độ môn bị cập nhật được đặt lại.
 
-## Lưu trữ
+## Phiên học và khôi phục
 
-Dữ liệu dùng `study-flow:v1:subject:<id>`, thiết lập `study-flow:v1:settings`, thông báo `study-flow:v1:notice:<id>`. Persisted schema là v1. Dữ liệu sai hoặc content version khác được cô lập theo môn và không xóa key không liên quan.
+**Tiếp tục học** khôi phục đúng queue và vị trí của phiên đang hoạt động. **Học lại toàn bộ** yêu cầu xác nhận khi thay thế phiên chưa hoàn thành, tạo `sessionId`, queue và vị trí mới nhưng giữ tiến độ dài hạn/mastery của môn. **Đặt lại tiến độ** mới xóa tiến độ dài hạn của môn hiện tại; dữ liệu môn khác không bị ảnh hưởng.
+
+Sau khi trả lời, giao diện hiển thị phản hồi và `Giải thích` khi dữ liệu có nội dung. Dữ liệu được render bằng React text, không dùng HTML thô.
+
+Dữ liệu lưu tại `study-flow:v1:subject:<id>`, thiết lập tại `study-flow:v1:settings`, âm thanh tại `study-flow:v1:sound`, thông báo tại `study-flow:v1:notice:<id>`. Persisted schema là v1. State sai shape hoặc semantic invariant được cô lập và đặt lại riêng theo môn, đồng thời hiển thị thông báo tiếng Việt; content-version mismatch cũng chỉ reset môn liên quan. Không có đồng bộ đa tab, nên hai tab mở đồng thời có thể ghi đè snapshot của nhau.
 
 ## Âm thanh trả lời đúng
 
-Âm thanh phản hồi dùng tài sản nội bộ `public/assets/correct-answer.mp3` và chỉ phát một lần khi người học gửi một đáp án đúng mới. Âm thanh không phát cho đáp án sai, “Không biết”, khi xem lại lịch sử, khi khôi phục phiên sau reload, hoặc khi đáp án đã bị khóa. Lỗi tải/phát âm thanh và chính sách autoplay của trình duyệt được bỏ qua an toàn, không làm gián đoạn học tập.
+Âm thanh nội bộ nằm tại `public/assets/correct-answer.mp3` và chỉ phát một lần cho đáp án đúng mới. Không phát cho đáp án sai, “Không biết”, lịch sử, reload hoặc đáp án đã khóa. Lỗi tải/phát được bỏ qua an toàn.
 
-Công tắc **Âm thanh** trên trang học được bật mặc định. Lựa chọn được lưu riêng trên thiết bị bằng khóa `study-flow:v1:sound`; giá trị `false` tắt phản hồi ở các lần truy cập sau. Trình duyệt tải trước tệp với `preload="auto"`. Xóa dữ liệu trình duyệt sẽ đặt tùy chọn về mặc định.
+Để thay âm thanh, thay tệp tại đúng path bằng MP3 có quyền sử dụng, giữ tên `correct-answer.mp3`, kiểm tra kích thước/tương thích trình duyệt, rồi chạy unit/component tests và Playwright. Công tắc **Âm thanh** bật mặc định và được lưu riêng trên thiết bị.
 
-Các kiểm thử hook và component dùng browser `Audio` mock để xác nhận phát đúng một lần, các trường hợp không phát, lưu/khôi phục tùy chọn tắt và xử lý promise phát bị từ chối.
+## Dependency advisories
+
+Tại ngày 2026-07-22, `npm audit --omit=dev` còn 3 finding qua Next.js 16.2.11: PostCSS `<8.5.10` (1 moderate) và sharp `<0.35.0`/libvips (2 high). Next.js 16.2.11 và `eslint-config-next` 16.2.11 là stable latest; npm chỉ đề xuất forced downgrade xuống Next 9 nên không áp dụng. Ứng dụng không nhận CSS do người dùng cung cấp và không dùng `next/image`, làm giảm exposure thực tế, nhưng rủi ro chưa được xóa. Theo dõi bản Next stable đã nâng các transitive dependency, cập nhật đồng bộ Next/eslint-config-next và chạy lại full suite ngay khi có.
 
 ## Triển khai Vercel
 
-Tạo repository GitHub, push dự án, chọn **Add New Project** trong Vercel, import repository, xác nhận Next.js và Deploy. Kiểm tra trang chủ, chi tiết, luồng học, reload và reset theo content version. Không cần cấu hình secrets.
+Import repository vào Vercel dưới dạng Next.js project; không cần secrets. Trước Preview, chạy full suite từ clean clone. Kiểm tra thư viện, chi tiết môn, continue/restart, reload, explanation, content-version recovery và summary. CI dùng Chromium với development server; production build được kiểm tra riêng.
 
 ## Giới hạn
 
-Không đồng bộ đa thiết bị; xóa dữ liệu trình duyệt sẽ mất tiến độ; không upload tài liệu; không tài khoản; cập nhật nội dung chủ ý đặt lại môn bị ảnh hưởng.
+Không đồng bộ đa thiết bị hoặc đa tab; xóa dữ liệu trình duyệt sẽ mất tiến độ; không upload tài liệu; không tài khoản. Production deployment vẫn cần quyết định chấp nhận hoặc chờ sửa các dependency advisory nêu trên.
