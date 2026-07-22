@@ -12,6 +12,8 @@ const subject = subjectSchema.parse(data);
 const first = subject.questions[0];
 const correctIndex = first.options.findIndex((option) => option.id === first.correctAnswer);
 const wrongIndex = first.options.findIndex((option) => option.id !== first.correctAnswer);
+const explained = subject.questions.find((question) => question.explanation)!;
+const explainedSubject = { ...subject, questions: [explained, ...subject.questions.filter((question) => question.id !== explained.id)] };
 
 async function renderStudy(questionNumber = 1) {
   render(<StudyShell subject={subject} />);
@@ -31,6 +33,27 @@ describe("StudyShell interactions and sound", () => {
     expect(await screen.findByText("Chính xác")).toBeVisible();
     expect(screen.getByText("✓ Đáp án đúng")).toBeVisible();
     expect(options.every((option) => option.hasAttribute("disabled"))).toBe(true);
+  });
+
+  it.each(["correct", "incorrect", "dont-know"])("shows an explanation after a %s answer", async (result) => {
+    render(<StudyShell subject={explainedSubject} />);
+    await screen.findByText(`Câu ${explained.number}`);
+    expect(screen.queryByText("Giải thích")).not.toBeInTheDocument();
+    if (result === "dont-know") {
+      fireEvent.click(screen.getByRole("button", { name: "Không biết" }));
+    } else {
+      const index = explained.options.findIndex((option) => result === "correct" ? option.id === explained.correctAnswer : option.id !== explained.correctAnswer);
+      fireEvent.click(within(document.querySelector(".options")!).getAllByRole("button")[index]);
+    }
+    expect(await screen.findByText("Giải thích")).toBeVisible();
+    expect(screen.getByText(explained.explanation!)).toBeVisible();
+  });
+
+  it("renders no explanation panel when the answered question has none", async () => {
+    await renderStudy();
+    fireEvent.click(within(document.querySelector(".options")!).getAllByRole("button")[correctIndex]);
+    expect(await screen.findByText("Chính xác")).toBeVisible();
+    expect(screen.queryByText("Giải thích")).not.toBeInTheDocument();
   });
 
   it("plays once for a correct click", async () => {

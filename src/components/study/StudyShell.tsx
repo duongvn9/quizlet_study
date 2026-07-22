@@ -207,7 +207,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
         })}
       </div>
       {!attempt && <button className="secondary" type="button" onClick={() => choose(null)}>Không biết</button>}
-      {feedback && <div className="feedback" aria-live="polite"><h2>{feedback}</h2>{question.needsReview && <details><summary>Dữ liệu nguồn cần rà soát</summary>{question.reviewNotes.map((note) => <p key={note}>{note}</p>)}</details>}</div>}
+      {feedback && <div className="feedback" aria-live="polite"><h2>{feedback}</h2>{question.explanation?.trim() && <aside className="explanation"><strong>Giải thích</strong><p>{question.explanation}</p></aside>}{question.needsReview && <details><summary>Dữ liệu nguồn cần rà soát</summary>{question.reviewNotes.map((note) => <p key={note}>{note}</p>)}</details>}</div>}
     </article>
     <nav className="nav"><button type="button" onClick={() => navigate(-1)} disabled={session.currentIndex === 0}>Trước</button><span>{session.currentIndex + 1}/{session.queue.length}</span><button type="button" onClick={() => navigate(1)} disabled={!item?.answered}>Tiếp tục</button></nav>
     {settingsOpen && <div className="dialog-backdrop" role="presentation" onMouseDown={() => setSettingsOpen(false)}><section role="dialog" aria-modal="true" aria-labelledby="settings-title" className="dialog" onMouseDown={(event) => event.stopPropagation()}>
