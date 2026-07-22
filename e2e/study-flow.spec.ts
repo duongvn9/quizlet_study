@@ -42,6 +42,23 @@ test("dont know schedules retry and history remains read-only", async ({ page })
   expect(attempts).toBe(2);
 });
 
+test("content version reset is isolated and notice is shown once", async ({ page }) => {
+  await openFreshLearn(page);
+  await page.evaluate((key) => {
+    const progress = JSON.parse(localStorage.getItem(key)!);
+    progress.subjectContentVersion = 1;
+    if (progress.activeSession) progress.activeSession.subjectContentVersion = 1;
+    localStorage.setItem(key, JSON.stringify(progress));
+    localStorage.setItem("study-flow:v1:subject:other", "keep");
+  }, progressKey);
+  await page.reload();
+  await expect(page.getByText(/Bộ câu hỏi đã được cập nhật/)).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem("study-flow:v1:subject:other"))).toBe("keep");
+  expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).subjectContentVersion, progressKey)).toBe(2);
+  await page.reload();
+  await expect(page.getByText(/Bộ câu hỏi đã được cập nhật/)).toHaveCount(0);
+});
+
 test("manual reset requires confirmation", async ({ page }) => {
   await openFreshLearn(page);
   await page.getByRole("button", { name: "Không biết" }).click();
