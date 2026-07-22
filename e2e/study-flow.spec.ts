@@ -21,7 +21,7 @@ test("start, answer, feedback, keyboard and resume", async ({ page }) => {
   await openFreshLearn(page);
   await page.keyboard.press("1");
   await expect(page.getByText(/Đáp án đúng|Chưa chính xác/)).toBeVisible();
-  await page.keyboard.press("Enter");
+  await page.keyboard.press("Space");
   await expect(page.getByText("Câu 2", { exact: true })).toBeVisible();
   const saved = await page.evaluate((key) => localStorage.getItem(key), progressKey);
   expect(saved).toContain('"currentIndex":1');

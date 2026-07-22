@@ -77,17 +77,17 @@ describe("StudyShell interactions and sound", () => {
     expect(audioMocks.play).not.toHaveBeenCalled();
   });
 
-  it("maps keyboard numbers to display order and Enter continues", async () => {
+  it("maps keyboard numbers to display order and Space continues", async () => {
     await renderStudy();
     fireEvent.keyDown(window, { key: String(correctIndex + 1) });
     expect(await screen.findByText("Chính xác")).toBeVisible();
-    fireEvent.keyDown(window, { key: "Enter" });
+    fireEvent.keyDown(window, { key: " ", code: "Space" });
     expect(await screen.findByText("Câu 2")).toBeVisible();
   });
 
   it("ignores keyboard shortcuts from controls", async () => {
     await renderStudy();
-    const sound = screen.getByRole("checkbox", { name: "Âm thanh" });
+    const sound = screen.getByRole("button", { name: "Âm thanh" });
     fireEvent.keyDown(sound, { key: String(correctIndex + 1) });
     expect(screen.queryByText("Chính xác")).not.toBeInTheDocument();
   });
@@ -117,7 +117,7 @@ describe("StudyShell interactions and sound", () => {
   it("does not play correct answers when sound is disabled", async () => {
     localStorage.setItem("study-flow:v1:sound", "false");
     await renderStudy();
-    await waitFor(() => expect(screen.getByRole("checkbox", { name: "Âm thanh" })).not.toBeChecked());
+    await waitFor(() => expect(screen.getByRole("button", { name: "Âm thanh" })).toHaveAttribute("aria-pressed", "false"));
     fireEvent.click(within(document.querySelector(".options")!).getAllByRole("button")[correctIndex]);
     expect(audioMocks.play).not.toHaveBeenCalled();
   });
@@ -143,7 +143,7 @@ describe("StudyShell interactions and sound", () => {
     fireEvent.keyDown(window, { key: "Escape" });
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
-    expect(screen.getByRole("progressbar", { name: "Tiến độ thuộc câu hỏi" })).toHaveAttribute("aria-valuenow", "0");
+    expect(screen.getByRole("progressbar", { name: "Tiến độ câu hỏi" })).toHaveAttribute("aria-valuenow", String(Math.round(1 / subject.questionCount * 100)));
   });
 
   it("keeps feedback in an aria-live region", async () => {

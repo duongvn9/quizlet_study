@@ -25,21 +25,33 @@ describe("study engine", () => {
     expect(shuffled.queue).toHaveLength(subject.questionCount);
   });
 
-  it("makes the first correct answer learning and inserts one retry", () => {
+  it("makes the first correct answer learning without inserting a retry", () => {
     const question = subject.questions[0];
     const progress = answer(fresh(), question, question.correctAnswer, deps);
     expect(progress.questionProgress[question.id]).toMatchObject({ status: "learning", correctStreak: 1 });
-    expect(progress.activeSession?.queue[5]).toMatchObject({ questionId: question.id, reason: "retry", answered: false });
-    expect(progress.activeSession?.queue.filter((item) => item.questionId === question.id)).toHaveLength(2);
+    expect(progress.activeSession?.queue.filter((item) => item.questionId === question.id)).toHaveLength(1);
   });
 
-  it("masters on the second consecutive correct answer without another retry", () => {
-    const question = subject.questions[0];
-    let progress = answer(fresh(), question, question.correctAnswer, deps);
-    progress = { ...progress, activeSession: { ...progress.activeSession!, currentIndex: 5, frontierIndex: 5 } };
-    progress = answer(progress, question, question.correctAnswer, deps);
-    expect(progress.questionProgress[question.id]).toMatchObject({ status: "mastered", correctStreak: 2, masteredAt: deps.now() });
-    expect(progress.activeSession?.queue.filter((item) => item.questionId === question.id)).toHaveLength(2);
+  it("continues to question 6 after five correct answers", () => {
+    let progress = fresh();
+    for (let index = 0; index < 5; index += 1) {
+      const question = subject.questions[index];
+      progress = answer(progress, question, question.correctAnswer, deps);
+      progress = move(progress, 1, deps.now());
+    }
+    expect(progress.activeSession?.queue[progress.activeSession.currentIndex]).toMatchObject({ questionId: subject.questions[5].id, reason: "initial" });
+    expect(progress.activeSession?.queue).toHaveLength(subject.questionCount);
+  });
+
+  it("retries only an incorrect question after its five-question block", () => {
+    let progress = fresh();
+    for (let index = 0; index < 5; index += 1) {
+      const question = subject.questions[index];
+      const selected = index === 1 ? question.options.find((option) => option.id !== question.correctAnswer)!.id : question.correctAnswer;
+      progress = answer(progress, question, selected, deps);
+      progress = move(progress, 1, deps.now());
+    }
+    expect(progress.activeSession?.queue[progress.activeSession.currentIndex]).toMatchObject({ questionId: subject.questions[1].id, reason: "retry" });
   });
 
   it("demotes mastery after an incorrect answer and schedules a retry", () => {
