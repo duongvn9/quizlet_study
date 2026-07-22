@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import data from "@/data/subjects/swd392.json";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import { StudyShell } from "@/components/study/StudyShell";
@@ -106,5 +106,48 @@ describe("StudyShell interactions and sound", () => {
     fireEvent.click(within(dialog).getByRole("checkbox", { name: "Xáo trộn câu hỏi" }));
     expect(JSON.parse(localStorage.getItem("study-flow:v1:settings")!)).toMatchObject({ shuffleQuestions: true });
     expect(screen.getByText(/Áp dụng khi tạo phiên học mới/)).toBeVisible();
+  });
+
+  it("continues the same active session", async () => {
+    let saved = createProgress(subject.id, subject.contentVersion, subject.questions);
+    saved = { ...saved, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
+    saved = answer(saved, first, first.correctAnswer);
+    saved = move(saved, 1);
+    storage.save(saved);
+    await renderStudy(2);
+    expect(storage.load(subject.id, subject.contentVersion)).toMatchObject({ status: "loaded", progress: { activeSession: { sessionId: saved.activeSession?.sessionId, currentIndex: 1 } } });
+  });
+
+  it("restarts with a fresh session while preserving long-lived progress", async () => {
+    let saved = createProgress(subject.id, subject.contentVersion, subject.questions);
+    saved = { ...saved, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
+    saved = answer(saved, first, first.correctAnswer);
+    saved = move(saved, 1);
+    storage.save(saved);
+    const previousSessionId = saved.activeSession!.sessionId;
+    window.history.replaceState({}, "", "/subjects/swd392/learn?restart=1");
+    vi.spyOn(window, "confirm").mockReturnValue(true);
+    await renderStudy();
+    const loaded = storage.load(subject.id, subject.contentVersion);
+    expect(loaded.status).toBe("loaded");
+    if (loaded.status !== "loaded") return;
+    expect(loaded.progress.activeSession?.sessionId).not.toBe(previousSessionId);
+    expect(loaded.progress.activeSession?.currentIndex).toBe(0);
+    expect(loaded.progress.activeSession?.queue).toHaveLength(subject.questionCount);
+    expect(loaded.progress.questionProgress[first.id].totalAttempts).toBe(1);
+    expect(window.location.search).toBe("");
+  });
+
+  it("preserves the active session when restart confirmation is canceled", async () => {
+    let saved = createProgress(subject.id, subject.contentVersion, subject.questions);
+    saved = { ...saved, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
+    saved = answer(saved, first, first.correctAnswer);
+    saved = move(saved, 1);
+    storage.save(saved);
+    window.history.replaceState({}, "", "/subjects/swd392/learn?restart=1");
+    vi.spyOn(window, "confirm").mockReturnValue(false);
+    await renderStudy(2);
+    const loaded = storage.load(subject.id, subject.contentVersion);
+    expect(loaded).toMatchObject({ status: "loaded", progress: { activeSession: { sessionId: saved.activeSession?.sessionId, currentIndex: 1 } } });
   });
 });

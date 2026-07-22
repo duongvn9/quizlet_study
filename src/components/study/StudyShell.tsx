@@ -64,7 +64,12 @@ export function StudyShell({ subject }: { subject: Subject }) {
     setSettings(savedSettings);
     const loaded = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id));
     let next = loaded.status === "loaded" ? loaded.progress : createProgress(subject.id, subject.contentVersion, subject.questions);
-    if (!next.activeSession || next.activeSession.completedAt) {
+    const restartRequested = new URLSearchParams(window.location.search).get("restart") === "1";
+    if (restartRequested) {
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+    const shouldRestart = restartRequested && (!next.activeSession || next.activeSession.completedAt || confirm("Phiên học chưa hoàn thành sẽ bị thay thế. Bạn có muốn học lại toàn bộ không?"));
+    if (shouldRestart || !next.activeSession || next.activeSession.completedAt) {
       next = { ...next, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, savedSettings) };
     }
     setProgress(next);
