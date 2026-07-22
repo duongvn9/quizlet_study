@@ -210,7 +210,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
           const correct = attempt && option.id === question.correctAnswer;
           const selectedWrong = attempt && attempt.selectedOptionId === option.id && attempt.result !== "correct";
           return <button key={option.id} type="button" disabled={!!attempt} className={correct ? "correct" : selectedWrong ? "wrong" : ""} onClick={() => choose(option.id)}>
-            <span>{index + 1}</span><em>{option.text}</em>{correct && <strong>✓ Đáp án đúng</strong>}{selectedWrong && <strong>✕ Bạn đã chọn</strong>}
+            <span>{index + 1}</span><em>{option.text}</em>
           </button>;
         })}
       </div>

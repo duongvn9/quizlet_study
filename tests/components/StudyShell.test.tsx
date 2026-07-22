@@ -31,7 +31,7 @@ describe("StudyShell interactions and sound", () => {
     expect(options).toHaveLength(first.options.length);
     fireEvent.click(options[correctIndex]);
     expect(await screen.findByText("Chính xác")).toBeVisible();
-    expect(screen.getByText("✓ Đáp án đúng")).toBeVisible();
+    expect(options[correctIndex]).toHaveClass("correct");
     expect(options.every((option) => option.hasAttribute("disabled"))).toBe(true);
   });
 
@@ -64,9 +64,10 @@ describe("StudyShell interactions and sound", () => {
 
   it("does not play for an incorrect answer", async () => {
     await renderStudy();
-    fireEvent.click(within(document.querySelector(".options")!).getAllByRole("button")[wrongIndex]);
-    expect(await screen.findByText("✕ Bạn đã chọn")).toBeVisible();
-    expect(screen.getByText("✓ Đáp án đúng")).toBeVisible();
+    const options = within(document.querySelector(".options")!).getAllByRole("button");
+    fireEvent.click(options[wrongIndex]);
+    await waitFor(() => expect(options[wrongIndex]).toHaveClass("wrong"));
+    expect(options[correctIndex]).toHaveClass("correct");
     expect(audioMocks.play).not.toHaveBeenCalled();
   });
 
