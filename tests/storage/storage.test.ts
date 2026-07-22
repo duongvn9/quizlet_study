@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
 import { subjectSchema } from "@/domain/subjects/schemas";
-import { createProgress } from "@/domain/study/create-session";
+import { createProgress, createSession } from "@/domain/study/create-session";
 import { storage } from "@/lib/storage/local-study-storage";
 import { noticeKey, subjectKey } from "@/lib/storage/keys";
 
@@ -56,5 +56,24 @@ describe("storage", () => {
   it("keeps acknowledged update notice from showing again", () => {
     localStorage.setItem(noticeKey(subject.id), "acknowledged");
     expect(storage.consumeNotice(subject.id)).toBe(false);
+  });
+
+  it.each([
+    ["out-of-range current index", (progress: ReturnType<typeof createProgress>) => ({ ...progress, activeSession: { ...progress.activeSession!, currentIndex: progress.activeSession!.queue.length } })],
+    ["out-of-range frontier", (progress: ReturnType<typeof createProgress>) => ({ ...progress, activeSession: { ...progress.activeSession!, frontierIndex: progress.activeSession!.queue.length } })],
+    ["current index beyond frontier", (progress: ReturnType<typeof createProgress>) => ({ ...progress, activeSession: { ...progress.activeSession!, currentIndex: 1, frontierIndex: 0 } })],
+    ["session subject mismatch", (progress: ReturnType<typeof createProgress>) => ({ ...progress, activeSession: { ...progress.activeSession!, subjectId: "other" } })],
+    ["session content version mismatch", (progress: ReturnType<typeof createProgress>) => ({ ...progress, activeSession: { ...progress.activeSession!, subjectContentVersion: 99 } })],
+    ["duplicate queue instance", (progress: ReturnType<typeof createProgress>) => ({ ...progress, activeSession: { ...progress.activeSession!, queue: progress.activeSession!.queue.map((item, index) => index === 1 ? { ...item, instanceId: progress.activeSession!.queue[0].instanceId } : item) } })],
+    ["question progress key mismatch", (progress: ReturnType<typeof createProgress>) => ({ ...progress, questionProgress: { ...progress.questionProgress, [subject.questions[0].id]: { ...progress.questionProgress[subject.questions[0].id], questionId: subject.questions[1].id } } })],
+  ])("rejects %s and preserves unrelated storage", (_name, mutate) => {
+    let progress = createProgress(subject.id, subject.contentVersion, subject.questions);
+    progress = { ...progress, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
+    localStorage.setItem(subjectKey(subject.id), JSON.stringify(mutate(progress)));
+    localStorage.setItem(subjectKey("other"), "keep");
+    expect(storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id)).status).toBe("incompatible");
+    expect(localStorage.getItem(subjectKey(subject.id))).toBeNull();
+    expect(localStorage.getItem(subjectKey("other"))).toBe("keep");
+    expect(storage.consumeNotice(subject.id)).toBe(true);
   });
 });

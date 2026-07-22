@@ -15,8 +15,39 @@ function removeInvalid(id: string) {
   }
 }
 
+function hasValidRelations(progress: SubjectProgress, questionIds?: string[], questionOptions?: Record<string, string[]>) {
+  const validQuestions = questionIds ? new Set(questionIds) : null;
+  for (const [key, record] of Object.entries(progress.questionProgress)) {
+    if (key !== record.questionId || (validQuestions && !validQuestions.has(record.questionId))) return false;
+    const options = questionOptions?.[record.questionId];
+    if (record.lastSelectedOptionId !== null && options && !options.includes(record.lastSelectedOptionId)) return false;
+  }
+  const session = progress.activeSession;
+  if (!session) return true;
+  if (session.subjectId !== progress.subjectId || session.subjectContentVersion !== progress.subjectContentVersion) return false;
+  if (session.currentIndex >= session.queue.length || session.frontierIndex >= session.queue.length || session.currentIndex > session.frontierIndex) return false;
+  const queueIds = new Set(session.queue.map((item) => item.instanceId));
+  if (queueIds.size !== session.queue.length) return false;
+  const attemptIds = new Set(session.attempts.map((attempt) => attempt.id));
+  if (attemptIds.size !== session.attempts.length) return false;
+  for (const item of session.queue) {
+    if (validQuestions && !validQuestions.has(item.questionId)) return false;
+  }
+  for (const attempt of session.attempts) {
+    const item = session.queue.find((candidate) => candidate.instanceId === attempt.queueInstanceId);
+    if (!item || item.questionId !== attempt.questionId) return false;
+    const options = questionOptions?.[attempt.questionId];
+    if (attempt.selectedOptionId !== null && options && !options.includes(attempt.selectedOptionId)) return false;
+  }
+  for (const item of session.queue) {
+    const attempts = session.attempts.filter((attempt) => attempt.queueInstanceId === item.instanceId);
+    if (item.answered !== (attempts.length === 1)) return false;
+  }
+  return true;
+}
+
 export const storage = {
-  load(id: string, version: number, questionIds?: string[]): LoadResult {
+  load(id: string, version: number, questionIds?: string[], questionOptions?: Record<string, string[]>): LoadResult {
     let raw: string | null;
     try {
       raw = localStorage.getItem(subjectKey(id));
@@ -39,13 +70,14 @@ export const storage = {
         }
         return { status: "content-version-mismatch", progress: null, previousContentVersion: parsed.data.subjectContentVersion, currentContentVersion: version };
       }
-      if (questionIds) {
-        const validIds = new Set(questionIds);
-        const incompatible = Object.keys(parsed.data.questionProgress).some((questionId) => !validIds.has(questionId)) || parsed.data.activeSession?.queue.some((item) => !validIds.has(item.questionId));
-        if (incompatible) {
-          removeInvalid(id);
+      if (!hasValidRelations(parsed.data, questionIds, questionOptions)) {
+        removeInvalid(id);
+        try {
+          localStorage.setItem(noticeKey(id), "pending");
+        } catch {
           return { status: "incompatible", progress: null };
         }
+        return { status: "incompatible", progress: null };
       }
       return { status: "loaded", progress: parsed.data };
     } catch {

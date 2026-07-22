@@ -62,7 +62,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
   useEffect(() => {
     const savedSettings = loadSettings();
     setSettings(savedSettings);
-    const loaded = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id));
+    const loaded = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id), Object.fromEntries(subject.questions.map((question) => [question.id, question.options.map((option) => option.id)])));
     let next = loaded.status === "loaded" ? loaded.progress : createProgress(subject.id, subject.contentVersion, subject.questions);
     const restartRequested = new URLSearchParams(window.location.search).get("restart") === "1";
     if (restartRequested) {
