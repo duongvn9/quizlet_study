@@ -3,6 +3,7 @@ import data from "@/data/subjects/swd392.json";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import { createProgress, createSession } from "@/domain/study/create-session";
 import { answer, move } from "@/domain/study/reducer";
+import { findResumeQueueIndex, resumeProgress } from "@/domain/study/resume";
 import { selectStats } from "@/domain/study/selectors";
 import type { SubjectProgress } from "@/domain/study/types";
 
@@ -109,5 +110,60 @@ describe("study engine", () => {
     expect(progress.activeSession?.completedAt).toBe(deps.now());
     expect(progress.completedSessionCount).toBe(1);
     expect(move(progress, 1, deps.now()).completedSessionCount).toBe(1);
+  });
+
+  describe("resume selection", () => {
+    const arrangedSession = (answered: boolean[], currentIndex: number) => ({ ...fresh().activeSession!, currentIndex, frontierIndex: Math.max(0, Math.min(currentIndex, answered.length - 1)), queue: fresh().activeSession!.queue.slice(0, answered.length).map((item, index) => ({ ...item, answered: answered[index] })) });
+
+    it("keeps the current unanswered item", () => expect(findResumeQueueIndex(arrangedSession([false, false], 0))).toBe(0));
+    it("selects the next item after an answered current item", () => expect(findResumeQueueIndex(arrangedSession([true, false], 0))).toBe(1));
+    it("selects an unanswered retry instance", () => {
+      const session = arrangedSession([true, false], 0);
+      session.queue[1] = { ...session.queue[1], reason: "retry" };
+      expect(findResumeQueueIndex(session)).toBe(1);
+    });
+    it("wraps to an earlier unanswered item", () => expect(findResumeQueueIndex(arrangedSession([false, true, true], 2))).toBe(0));
+    it("returns null when all items are answered", () => expect(findResumeQueueIndex(arrangedSession([true, true], 1))).toBeNull());
+    it("handles an out-of-range current index safely", () => expect(findResumeQueueIndex(arrangedSession([true, false], 99))).toBe(1));
+    it("does not mutate the session", () => {
+      const session = arrangedSession([true, false], 0);
+      const snapshot = structuredClone(session);
+      findResumeQueueIndex(session);
+      expect(session).toEqual(snapshot);
+    });
+    it("does not reorder a shuffled queue", () => {
+      const session = arrangedSession([true, false, true], 0);
+      session.queue = [session.queue[2], session.queue[0], session.queue[1]];
+      const ids = session.queue.map((item) => item.instanceId);
+      findResumeQueueIndex(session);
+      expect(session.queue.map((item) => item.instanceId)).toEqual(ids);
+    });
+  });
+
+  it("resumes without changing attempts, mastery, streak, or queue order", () => {
+    const progress = fresh();
+    const questionId = subject.questions[0].id;
+    const arranged = { ...progress, questionProgress: { ...progress.questionProgress, [questionId]: { ...progress.questionProgress[questionId], status: "mastered" as const, correctStreak: 3 } }, activeSession: { ...progress.activeSession!, currentIndex: 0, queue: progress.activeSession!.queue.map((item, index) => ({ ...item, answered: index === 0 })) } };
+    const attempts = arranged.activeSession!.attempts;
+    const questionProgress = arranged.questionProgress;
+    const queue = arranged.activeSession!.queue;
+    const resumed = resumeProgress(arranged, deps.now());
+    expect(resumed.activeSession?.currentIndex).toBe(1);
+    expect(resumed.activeSession?.attempts).toBe(attempts);
+    expect(resumed.questionProgress).toBe(questionProgress);
+    expect(resumed.questionProgress[questionId]).toMatchObject({ status: "mastered", correctStreak: 3 });
+    expect(resumed.activeSession?.queue).toBe(queue);
+  });
+
+  it("completes answered and empty hydrated sessions exactly once", () => {
+    for (const empty of [false, true]) {
+      const progress = fresh();
+      const arranged = { ...progress, activeSession: { ...progress.activeSession!, queue: empty ? [] : progress.activeSession!.queue.map((item) => ({ ...item, answered: true })), currentIndex: 0, frontierIndex: 0 } };
+      const completed = resumeProgress(arranged, deps.now());
+      expect(completed.activeSession?.completedAt).toBe(deps.now());
+      expect(completed.completedSessionCount).toBe(1);
+      expect(resumeProgress(completed, "later")).toBe(completed);
+      expect(arranged.activeSession?.completedAt).toBeNull();
+    }
   });
 });

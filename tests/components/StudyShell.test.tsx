@@ -105,14 +105,36 @@ describe("StudyShell interactions and sound", () => {
     expect(audioMocks.play).not.toHaveBeenCalled();
   });
 
-  it("does not play while restoring a correct answered item", async () => {
-    let progress = createProgress(subject.id, subject.contentVersion, subject.questions);
-    progress = { ...progress, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
-    progress = answer(progress, first, first.correctAnswer);
+  it("restores an answered item neutrally without replaying transient details", async () => {
+    let progress = createProgress(subject.id, subject.contentVersion, explainedSubject.questions);
+    progress = { ...progress, activeSession: createSession(subject.id, subject.contentVersion, explainedSubject.questions) };
+    progress = answer(progress, explained, explained.correctAnswer);
     storage.save(progress);
-    await renderStudy();
-    expect(await screen.findByText("Chính xác")).toBeVisible();
+    render(<StudyShell subject={explainedSubject} />);
+    await screen.findByText("Câu 1");
+    fireEvent.click(screen.getByRole("button", { name: "Trước" }));
+    expect(await screen.findByText(/Bạn đã trả lời lượt này/)).toBeVisible();
+    expect(screen.queryByText("Chính xác")).not.toBeInTheDocument();
+    expect(screen.queryByText("Giải thích")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Không biết" })).not.toBeInTheDocument();
     expect(audioMocks.play).not.toHaveBeenCalled();
+  });
+
+  it("clears reveal after navigation and keeps a retry instance answerable", async () => {
+    await renderStudy();
+    fireEvent.click(screen.getByRole("button", { name: "Không biết" }));
+    expect(await screen.findByText("Hãy ghi nhớ đáp án đúng")).toBeVisible();
+    fireEvent.click(screen.getByRole("button", { name: "Tiếp tục" }));
+    fireEvent.click(screen.getByRole("button", { name: "Trước" }));
+    expect(await screen.findByText(/Bạn đã trả lời lượt này/)).toBeVisible();
+    expect(screen.queryByText("Hãy ghi nhớ đáp án đúng")).not.toBeInTheDocument();
+    for (let index = 0; index < 4; index += 1) {
+      fireEvent.click(screen.getByRole("button", { name: "Tiếp tục" }));
+      fireEvent.click(within(document.querySelector(".options")!).getAllByRole("button")[0]);
+    }
+    fireEvent.click(screen.getByRole("button", { name: "Tiếp tục" }));
+    expect(await screen.findByText("Câu 1")).toBeVisible();
+    expect(screen.getByRole("button", { name: "Không biết" })).toBeEnabled();
   });
 
   it("does not play correct answers when sound is disabled", async () => {
@@ -151,6 +173,43 @@ describe("StudyShell interactions and sound", () => {
     await renderStudy();
     fireEvent.click(within(document.querySelector(".options")!).getAllByRole("button")[correctIndex]);
     expect((await screen.findByText("Chính xác")).closest("[aria-live=polite]")).toBeInTheDocument();
+  });
+
+  it("reloads an unanswered current item without changing queue, option shuffle, mastery, or streak", async () => {
+    let saved = createProgress(subject.id, subject.contentVersion, subject.questions);
+    const session = createSession(subject.id, subject.contentVersion, subject.questions, { shuffleQuestions: true, shuffleOptions: true }, { id: (() => { let id = 0; return () => `shuffle-${id++}`; })(), now: () => "2026-01-01T00:00:00.000Z", random: () => 0.25 });
+    const questionId = session.queue[0].questionId;
+    saved = { ...saved, questionProgress: { ...saved.questionProgress, [questionId]: { ...saved.questionProgress[questionId], status: "mastered", correctStreak: 4 } }, activeSession: session };
+    storage.save(saved);
+    render(<StudyShell subject={subject} />);
+    await screen.findByText(`Câu ${subject.questions.find((question) => question.id === questionId)!.number}`);
+    const loaded = storage.load(subject.id, subject.contentVersion);
+    expect(loaded).toMatchObject({ status: "loaded", progress: { activeSession: { currentIndex: 0, queue: session.queue, settings: { shuffleQuestions: true, shuffleOptions: true } }, questionProgress: { [questionId]: { status: "mastered", correctStreak: 4 } } } });
+    expect(within(document.querySelector(".options")!).getAllByRole("button").map((button) => button.textContent)).toEqual([...subject.questions.find((question) => question.id === questionId)!.options].sort((left, right) => {
+      const rank = (optionId: string) => Array.from(`${session.queue[0].instanceId}:${optionId}`).reduce((hash, character) => Math.imul(hash ^ character.charCodeAt(0), 16777619), 2166136261) >>> 0;
+      return rank(left.id) - rank(right.id);
+    }).map((option, index) => `${index + 1}${option.text}`));
+  });
+
+  it("reloads an answered current item at the next unanswered item", async () => {
+    let saved = createProgress(subject.id, subject.contentVersion, subject.questions);
+    saved = { ...saved, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
+    saved = answer(saved, first, first.correctAnswer);
+    const queue = saved.activeSession!.queue;
+    storage.save(saved);
+    await renderStudy(2);
+    expect(storage.load(subject.id, subject.contentVersion)).toMatchObject({ status: "loaded", progress: { activeSession: { currentIndex: 1, queue } } });
+    expect(screen.queryByText("Chính xác")).not.toBeInTheDocument();
+  });
+
+  it("shows completion instead of loading when hydrated items are all answered", async () => {
+    let saved = createProgress(subject.id, subject.contentVersion, subject.questions);
+    saved = { ...saved, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
+    saved = { ...saved, activeSession: { ...saved.activeSession!, queue: saved.activeSession!.queue.map((item) => ({ ...item, answered: true })), attempts: saved.activeSession!.queue.map((item, index) => ({ id: `attempt-${index}`, queueInstanceId: item.instanceId, questionId: item.questionId, selectedOptionId: subject.questions.find((question) => question.id === item.questionId)!.correctAnswer, result: "correct" as const, answeredAt: "2026-01-01T00:00:00.000Z" })) } };
+    storage.save(saved);
+    render(<StudyShell subject={subject} />);
+    expect(await screen.findByRole("heading", { name: "Hoàn thành phiên học" })).toBeVisible();
+    expect(screen.queryByText(/Đang khôi phục/)).not.toBeInTheDocument();
   });
 
   it("continues the same active session", async () => {

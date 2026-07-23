@@ -42,7 +42,7 @@ Dataset chuẩn tại `src/data/subjects/swd392.json` có `contentVersion: 2`, 2
 
 **Tiếp tục học** khôi phục đúng queue và vị trí của phiên đang hoạt động. **Học lại toàn bộ** yêu cầu xác nhận khi thay thế phiên chưa hoàn thành, tạo `sessionId`, queue và vị trí mới nhưng giữ tiến độ dài hạn/mastery của môn. **Đặt lại tiến độ** mới xóa tiến độ dài hạn của môn hiện tại; dữ liệu môn khác không bị ảnh hưởng.
 
-Sau khi trả lời, giao diện hiển thị phản hồi và `Giải thích` khi dữ liệu có nội dung. Dữ liệu được render bằng React text, không dùng HTML thô.
+Khi khôi phục, ứng dụng giữ nguyên queue/xáo trộn và chuyển đến lượt chưa trả lời phù hợp. Phản hồi, đáp án đúng, giải thích và âm thanh chỉ xuất hiện tạm thời ngay sau câu trả lời mới của đúng lượt queue; reload hoặc điều hướng xóa phần hiển thị này. Lượt lịch sử đã trả lời ở trạng thái trung lập, chỉ đọc, còn lượt retry là instance mới và vẫn trả lời được. Dữ liệu được render bằng React text, không dùng HTML thô.
 
 Dữ liệu lưu tại `study-flow:v1:subject:<id>`, thiết lập tại `study-flow:v1:settings`, âm thanh tại `study-flow:v1:sound`, thông báo tại `study-flow:v1:notice:<id>`. Persisted schema là v1. State sai shape hoặc semantic invariant được cô lập và đặt lại riêng theo môn, đồng thời hiển thị thông báo tiếng Việt; content-version mismatch cũng chỉ reset môn liên quan. Không có đồng bộ đa tab, nên hai tab mở đồng thời có thể ghi đè snapshot của nhau.
 

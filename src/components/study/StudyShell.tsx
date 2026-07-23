@@ -6,6 +6,7 @@ import type { Subject } from "@/domain/subjects/types";
 import type { SubjectProgress } from "@/domain/study/types";
 import { createProgress, createSession } from "@/domain/study/create-session";
 import { answer, move } from "@/domain/study/reducer";
+import { resumeProgress } from "@/domain/study/resume";
 import { selectStats } from "@/domain/study/selectors";
 import { storage } from "@/lib/storage/local-study-storage";
 import { SETTINGS_KEY } from "@/lib/storage/keys";
@@ -57,6 +58,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [storageWarning, setStorageWarning] = useState(false);
   const [settings, setSettings] = useState<StudySettings>(defaultSettings);
+  const [revealedInstanceId, setRevealedInstanceId] = useState<string | null>(null);
   const settingsButtonRef = useRef<HTMLButtonElement>(null);
   const { enabled, setEnabled, play } = useCorrectAnswerSound();
 
@@ -65,14 +67,18 @@ export function StudyShell({ subject }: { subject: Subject }) {
     setSettings(savedSettings);
     const loaded = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id), Object.fromEntries(subject.questions.map((question) => [question.id, question.options.map((option) => option.id)])));
     let next = loaded.status === "loaded" ? loaded.progress : createProgress(subject.id, subject.contentVersion, subject.questions);
+    const wasActive = !!next.activeSession && !next.activeSession.completedAt;
+    next = resumeProgress(next, new Date().toISOString());
+    const completedOnResume = wasActive && !!next.activeSession?.completedAt;
     const restartRequested = new URLSearchParams(window.location.search).get("restart") === "1";
     if (restartRequested) {
       window.history.replaceState({}, "", window.location.pathname);
     }
     const shouldRestart = restartRequested && (!next.activeSession || next.activeSession.completedAt || confirm("Phiên học chưa hoàn thành sẽ bị thay thế. Bạn có muốn học lại toàn bộ không?"));
-    if (shouldRestart || !next.activeSession || next.activeSession.completedAt) {
+    if (shouldRestart || !next.activeSession || next.activeSession.completedAt && !completedOnResume) {
       next = { ...next, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, savedSettings) };
     }
+    setRevealedInstanceId(null);
     setProgress(next);
     setNotice(storage.consumeNotice(subject.id));
     try {
@@ -94,6 +100,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const resetSession = useCallback(() => {
     if (!progress || !confirm("Tạo phiên học mới cho môn này?")) return;
     const next = { ...progress, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, settings) };
+    setRevealedInstanceId(null);
     commit(next);
     setSettingsOpen(false);
   }, [commit, progress, settings, subject]);
@@ -102,6 +109,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     if (!confirm("Bạn chắc chắn muốn đặt lại toàn bộ tiến độ môn này?")) return;
     const next = createProgress(subject.id, subject.contentVersion, subject.questions);
     storage.remove(subject.id);
+    setRevealedInstanceId(null);
     commit({ ...next, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, settings) });
     setSettingsOpen(false);
   }, [commit, settings, subject]);
@@ -123,14 +131,20 @@ export function StudyShell({ subject }: { subject: Subject }) {
   }, []);
 
   const choose = useCallback((id: string | null) => {
-    if (!progress || !question || attempt) return;
+    if (!progress || !question || attempt || !item) return;
     const next = answer(progress, question, id);
+    if (next === progress) return;
+    setRevealedInstanceId(item.instanceId);
     if (id === question.correctAnswer) play();
     commit(next);
-  }, [attempt, commit, play, progress, question]);
+  }, [attempt, commit, item, play, progress, question]);
 
   const navigate = useCallback((direction: -1 | 1) => {
-    if (progress) commit(move(progress, direction));
+    if (!progress) return;
+    const next = move(progress, direction);
+    if (next === progress) return;
+    setRevealedInstanceId(null);
+    commit(next);
   }, [commit, progress]);
 
   useEffect(() => {
@@ -182,13 +196,17 @@ export function StudyShell({ subject }: { subject: Subject }) {
     return () => removeEventListener("keydown", handler);
   }, [attempt, choose, displayOptions, navigate, settingsOpen]);
 
-  if (!progress || !session || !question) return <div className="card">Đang khôi phục phiên học…</div>;
+  if (!progress || !session) return <div className="card" role="status">Đang khôi phục phiên học…</div>;
 
   if (session.completedAt) {
     return <div className="card center"><h1>Hoàn thành phiên học</h1><Link className="button" href={`/subjects/${subject.slug}/summary`}>Xem tổng kết</Link></div>;
   }
 
-  const feedback = attempt?.result === "correct" ? "Chính xác" : attempt ? "Hãy ghi nhớ đáp án đúng" : null;
+  if (!question) return <div className="card" role="alert">Không thể hiển thị câu hỏi hiện tại.</div>;
+
+  const reveal = !!attempt && revealedInstanceId === item?.instanceId;
+  const feedback = reveal ? attempt.result === "correct" ? "Chính xác" : "Hãy ghi nhớ đáp án đúng" : null;
+  const historical = !!attempt && !reveal;
   const questionProgress = session.queue.length ? (session.currentIndex + 1) / session.queue.length * 100 : 0;
 
   return <>
@@ -207,14 +225,15 @@ export function StudyShell({ subject }: { subject: Subject }) {
       <h1>{question.question}</h1>
       <div className="options">
         {displayOptions.map((option, index) => {
-          const correct = attempt && option.id === question.correctAnswer;
-          const selectedWrong = attempt && attempt.selectedOptionId === option.id && attempt.result !== "correct";
+          const correct = reveal && option.id === question.correctAnswer;
+          const selectedWrong = reveal && attempt.selectedOptionId === option.id && attempt.result !== "correct";
           return <button key={option.id} type="button" disabled={!!attempt} className={correct ? "correct" : selectedWrong ? "wrong" : ""} onClick={() => choose(option.id)}>
             <span>{index + 1}</span><em>{option.text}</em>
           </button>;
         })}
       </div>
       {!attempt && <button className="secondary" type="button" onClick={() => choose(null)}>Không biết</button>}
+      {historical && <div className="feedback" role="status">Bạn đã trả lời lượt này. Đáp án và giải thích chỉ hiển thị ngay sau lần trả lời mới.</div>}
       {feedback && <div className="feedback" aria-live="polite"><h2>{feedback}</h2>{question.explanation?.trim() && <aside className="explanation"><strong>Giải thích</strong><p>{question.explanation}</p></aside>}{question.needsReview && <details><summary>Dữ liệu nguồn cần rà soát</summary>{question.reviewNotes.map((note) => <p key={note}>{note}</p>)}</details>}</div>}
     </article>
     <p className="shortcut-hint">1–5 chọn đáp án · Space tiếp tục · ← → điều hướng</p>

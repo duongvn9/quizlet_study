@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import subject from "../src/data/subjects/swd392.json";
 
 const progressKey = "study-flow:v1:subject:swd392";
 
@@ -20,7 +21,7 @@ test.beforeEach(async ({ page }) => {
 test("start, answer, feedback, keyboard and resume", async ({ page }) => {
   await openFreshLearn(page);
   await page.keyboard.press("1");
-  await expect(page.getByText(/Đáp án đúng|Chưa chính xác/)).toBeVisible();
+  await expect(page.getByText(/Chính xác|Hãy ghi nhớ đáp án đúng/)).toBeVisible();
   await page.keyboard.press("Space");
   await expect(page.getByText("Câu 2", { exact: true })).toBeVisible();
   const saved = await page.evaluate((key) => localStorage.getItem(key), progressKey);
@@ -37,9 +38,42 @@ test("dont know schedules retry and history remains read-only", async ({ page })
   await page.locator(".options button").first().click();
   await page.getByRole("button", { name: "Trước" }).click();
   await expect(page.getByText("Câu 1", { exact: true })).toBeVisible();
+  await expect(page.getByText(/Bạn đã trả lời lượt này/)).toBeVisible();
+  await expect(page.getByText("Hãy ghi nhớ đáp án đúng")).toHaveCount(0);
+  await expect(page.getByText("Giải thích", { exact: true })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Không biết" })).toHaveCount(0);
   await expect(page.locator(".options button").first()).toBeDisabled();
   const attempts = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).lifetimeAttempts, progressKey);
   expect(attempts).toBe(2);
+});
+
+test("retry remains fresh through two reloads and answered-before-next resumes forward", async ({ page }) => {
+  await openFreshLearn(page);
+  await page.getByRole("button", { name: "Không biết" }).click();
+  for (let index = 1; index < 5; index += 1) {
+    await page.getByRole("button", { name: "Tiếp tục" }).click();
+    const question = subject.questions[index];
+    const correctIndex = question.options.findIndex((option) => option.id === question.correctAnswer);
+    await page.locator(".options button").nth(correctIndex).click();
+  }
+  await page.getByRole("button", { name: "Tiếp tục" }).click();
+  await expect(page.getByText("Câu 1", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Không biết" })).toBeEnabled();
+  await page.reload();
+  await expect(page.getByText("Câu 1", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Không biết" })).toBeEnabled();
+  await page.getByRole("button", { name: "Không biết" }).click();
+  await page.reload();
+  await expect(page.getByText("Câu 6", { exact: true })).toBeVisible();
+  await expect(page.getByText("Hãy ghi nhớ đáp án đúng")).toHaveCount(0);
+});
+
+test("seeded answered current resumes to next item", async ({ page }) => {
+  await openFreshLearn(page);
+  await page.getByRole("button", { name: "Không biết" }).click();
+  await page.reload();
+  await expect(page.getByText("Câu 2", { exact: true })).toBeVisible();
+  expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).activeSession.currentIndex, progressKey)).toBe(1);
 });
 
 test("content version reset is isolated and notice is shown once", async ({ page }) => {
