@@ -82,6 +82,20 @@ test("seeded answered current resumes to next item", async ({ page }) => {
   expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).activeSession.currentIndex, progressKey)).toBe(1);
 });
 
+test("two seeded retries do not inflate the canonical Learn total", async ({ page }) => {
+  await openFreshLearn(page);
+  await page.evaluate((key) => {
+    const progress = JSON.parse(localStorage.getItem(key)!);
+    const queue = progress.activeSession.queue;
+    queue.push({ ...queue[0], instanceId: "seeded-retry-1", reason: "retry", answered: false });
+    queue.push({ ...queue[1], instanceId: "seeded-retry-2", reason: "retry", answered: false });
+    localStorage.setItem(key, JSON.stringify(progress));
+  }, progressKey);
+  await page.reload();
+  await expect(page.getByText(/Đã xem 1 \/ 249 câu/)).toBeVisible();
+  await expect(page.getByText(/\/ 251 câu/)).toHaveCount(0);
+});
+
 test("content version reset is isolated and notice is shown once", async ({ page }) => {
   await openFreshLearn(page);
   await page.evaluate((key) => {

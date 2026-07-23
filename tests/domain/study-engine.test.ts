@@ -4,7 +4,7 @@ import { subjectSchema } from "@/domain/subjects/schemas";
 import { createProgress, createSession } from "@/domain/study/create-session";
 import { answer, move, replaceAnswer } from "@/domain/study/reducer";
 import { findResumeQueueIndex, resumeProgress } from "@/domain/study/resume";
-import { selectStats } from "@/domain/study/selectors";
+import { selectLearnCounters, selectStats } from "@/domain/study/selectors";
 import type { SubjectProgress } from "@/domain/study/types";
 
 const subject = subjectSchema.parse(data);
@@ -217,5 +217,52 @@ describe("study engine", () => {
       expect(resumeProgress(completed, "later")).toBe(completed);
       expect(arranged.activeSession?.completedAt).toBeNull();
     }
+  });
+
+  describe("Learn counters", () => {
+    const ids = subject.questions.map((question) => question.id);
+    const counters = (progress: SubjectProgress | null, canonical = ids) => selectLearnCounters(progress, canonical);
+
+    it("is safe for empty progress", () => expect(counters(null)).toEqual({ presentedCount: 0, masteredCount: 0, total: 249, percentage: 0 }));
+    it("includes the newly presented first item", () => expect(counters(fresh()).presentedCount).toBe(1));
+    it("counts distinct canonical IDs through the highest frontier", () => {
+      const progress = fresh();
+      const arranged = { ...progress, activeSession: { ...progress.activeSession!, currentIndex: 1, frontierIndex: 3 } };
+      expect(counters(arranged).presentedCount).toBe(4);
+    });
+    it("is backward stable", () => {
+      const progress = fresh();
+      const arranged = { ...progress, activeSession: { ...progress.activeSession!, currentIndex: 1, frontierIndex: 4 } };
+      expect(counters(arranged).presentedCount).toBe(5);
+    });
+    it("uses current when it is beyond a stale persisted frontier", () => {
+      const progress = fresh();
+      const arranged = { ...progress, activeSession: { ...progress.activeSession!, currentIndex: 2, frontierIndex: 0 } };
+      expect(counters(arranged).presentedCount).toBe(3);
+    });
+    it("counts retry duplicates once", () => {
+      const progress = fresh();
+      const duplicate = { ...progress.activeSession!.queue[0], instanceId: "retry", reason: "retry" as const };
+      const arranged = { ...progress, activeSession: { ...progress.activeSession!, queue: [progress.activeSession!.queue[0], duplicate, ...progress.activeSession!.queue.slice(1)], currentIndex: 2, frontierIndex: 2 } };
+      expect(counters(arranged).presentedCount).toBe(2);
+    });
+    it("is reload stable", () => {
+      const progress = fresh();
+      const arranged = { ...progress, activeSession: { ...progress.activeSession!, currentIndex: 4, frontierIndex: 4 } };
+      expect(counters(structuredClone(arranged))).toEqual(counters(arranged));
+    });
+    it("ignores malformed and noncanonical queue IDs", () => {
+      const progress = fresh();
+      const arranged = { ...progress, activeSession: { ...progress.activeSession!, queue: [{ ...progress.activeSession!.queue[0], questionId: "missing" }], currentIndex: 99, frontierIndex: 99 } };
+      expect(counters(arranged).presentedCount).toBe(0);
+    });
+    it("handles a small subject", () => expect(counters(fresh(), ids.slice(0, 2))).toMatchObject({ presentedCount: 1, total: 2 }));
+    it("clamps presented and mastered counts to canonical total", () => {
+      const progress = fresh();
+      const canonical = ids.slice(0, 2);
+      const extra = { ...progress.questionProgress, extra: { ...progress.questionProgress[ids[0]], questionId: "extra", status: "mastered" as const }, [ids[0]]: { ...progress.questionProgress[ids[0]], status: "mastered" as const }, [ids[1]]: { ...progress.questionProgress[ids[1]], status: "mastered" as const } };
+      const arranged = { ...progress, questionProgress: extra, activeSession: { ...progress.activeSession!, queue: [...progress.activeSession!.queue, ...progress.activeSession!.queue], currentIndex: 999, frontierIndex: 999 } };
+      expect(counters(arranged, canonical)).toMatchObject({ presentedCount: 2, masteredCount: 2, total: 2 });
+    });
   });
 });

@@ -207,6 +207,7 @@ describe("StudyShell interactions and sound", () => {
     fireEvent.keyDown(window, { key: "Escape" });
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
+    expect(screen.getByText("Đã xem 1 / 249 câu · Đã thuộc 0 / 249 câu")).toBeVisible();
     expect(screen.getByRole("progressbar", { name: "Tiến độ câu hỏi" })).toHaveAttribute("aria-valuenow", String(Math.round(1 / subject.questionCount * 100)));
   });
 

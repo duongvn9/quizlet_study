@@ -7,7 +7,7 @@ import type { SubjectProgress } from "@/domain/study/types";
 import { createProgress, createSession } from "@/domain/study/create-session";
 import { answer, move, replaceAnswer } from "@/domain/study/reducer";
 import { resumeProgress } from "@/domain/study/resume";
-import { selectStats } from "@/domain/study/selectors";
+import { selectLearnCounters } from "@/domain/study/selectors";
 import { storage } from "@/lib/storage/local-study-storage";
 import { SETTINGS_KEY } from "@/lib/storage/keys";
 import { useCorrectAnswerSound } from "@/hooks/useCorrectAnswerSound";
@@ -123,7 +123,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     if (!session?.settings.shuffleOptions || !item) return options;
     return [...options].sort((left, right) => optionRank(item.instanceId, left.id) - optionRank(item.instanceId, right.id));
   }, [item, question, session?.settings.shuffleOptions]);
-  const stats = selectStats(progress, subject.questionCount);
+  const counters = selectLearnCounters(progress, subject.questions.map((candidate) => candidate.id));
 
   const updateSettings = useCallback((next: StudySettings) => {
     setSettings(next);
@@ -207,7 +207,6 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const reveal = !!attempt && revealedInstanceId === item?.instanceId;
   const feedback = reveal ? attempt.result === "correct" ? "Chính xác" : "Hãy ghi nhớ đáp án đúng" : null;
   const historical = !!attempt && !reveal;
-  const questionProgress = session.queue.length ? (session.currentIndex + 1) / session.queue.length * 100 : 0;
 
   return <>
     <div inert={settingsOpen ? true : undefined}>
@@ -219,7 +218,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     </div>
     {notice && <div className="notice">Bộ câu hỏi đã được cập nhật. Tiến độ của môn này đã được đặt lại để bảo đảm kết quả học chính xác.</div>}
     {storageWarning && <div className="notice" role="status">Không thể lưu tiến độ vào trình duyệt lúc này. Bạn vẫn có thể học tiếp trong phiên hiện tại.</div>}
-    <div className="progress-row"><div className="bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(questionProgress)} aria-label="Tiến độ câu hỏi"><i style={{ width: `${questionProgress}%` }} /></div><span>Đã xem {stats.seenCount}/{subject.questionCount} · Đã thuộc {stats.masteredCount}</span></div>
+    <div className="progress-row"><div className="bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(counters.percentage)} aria-label="Tiến độ câu hỏi"><i style={{ width: `${counters.percentage}%` }} /></div><span>Đã xem {counters.presentedCount} / {counters.total} câu · Đã thuộc {counters.masteredCount} / {counters.total} câu</span></div>
     <article className="question">
       <div className="eyebrow">Câu {question.number}</div>
       <h1>{question.question}</h1>
