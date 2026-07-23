@@ -35,6 +35,14 @@ describe("StudyShell interactions and sound", () => {
     expect(options.every((option) => option.hasAttribute("disabled"))).toBe(true);
   });
 
+  it("copies the question and displayed answers in numbered order", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
+    await renderStudy();
+    fireEvent.click(screen.getByRole("button", { name: "Copy câu hỏi và đáp án" }));
+    expect(writeText).toHaveBeenCalledWith([`Câu ${first.number}`, first.question, ...first.options.map((option, index) => `${index + 1}. ${option.text}`)].join("\n"));
+  });
+
   it.each(["correct", "incorrect", "dont-know"])("shows an explanation after a %s answer", async (result) => {
     render(<StudyShell subject={explainedSubject} />);
     await screen.findByText(`Câu ${explained.number}`);
