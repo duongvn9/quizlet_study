@@ -10,7 +10,7 @@ async function openFreshLearn(page: import("@playwright/test").Page) {
   await page.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
   await expect(page).toHaveURL(/\/subjects\/swd392$/);
   await page.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
-  await expect(page).toHaveURL(/\/subjects\/swd392\/learn$/);
+  await expect(page).toHaveURL(/\/subjects\/swd392\/study\?mode=learn$/);
   await expect(page.getByText("Câu 1", { exact: true })).toBeVisible();
 }
 
@@ -123,6 +123,32 @@ test("manual reset requires confirmation", async ({ page }) => {
   page.once("dialog", (dialog) => dialog.accept());
   await page.getByRole("button", { name: "Đặt lại tiến độ" }).click();
   expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).lifetimeAttempts, progressKey)).toBe(0);
+});
+
+test("workspace modes preserve unfinished Learn state without attempts or audio", async ({ page }) => {
+  await openFreshLearn(page);
+  const learn = page.getByRole("link", { name: "Học", exact: true });
+  const testMode = page.getByRole("link", { name: "Kiểm tra", exact: true });
+  await expect(learn).toHaveAttribute("aria-current", "page");
+  const before = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), progressKey);
+  await testMode.click();
+  await expect(page).toHaveURL(/mode=test$/);
+  await expect(page.getByRole("heading", { name: "Tạo bài kiểm tra" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Kiểm tra", exact: true })).toHaveAttribute("aria-current", "page");
+  await page.getByRole("link", { name: "Học", exact: true }).click();
+  await expect(page.getByText("Câu 1", { exact: true })).toBeVisible();
+  const after = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), progressKey);
+  expect(after.activeSession.sessionId).toBe(before.activeSession.sessionId);
+  expect(after.activeSession.currentIndex).toBe(before.activeSession.currentIndex);
+  expect(after.lifetimeAttempts).toBe(before.lifetimeAttempts);
+});
+
+test("invalid mode falls back to Learn and legacy Learn redirects", async ({ page }) => {
+  await page.goto("/subjects/swd392/study?mode=invalid");
+  await expect(page.getByRole("link", { name: "Học", exact: true })).toHaveAttribute("aria-current", "page");
+  await expect(page.getByText("Câu 1", { exact: true })).toBeVisible();
+  await page.goto("/subjects/swd392/learn");
+  await expect(page).toHaveURL(/\/subjects\/swd392\/study\?mode=learn$/);
 });
 
 for (const width of [360, 390, 768, 1024, 1440]) {
