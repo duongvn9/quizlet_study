@@ -6,8 +6,9 @@ const progressKey = "study-flow:v1:subject:swd392";
 async function openFreshLearn(page: import("@playwright/test").Page) {
   await page.goto("/");
   await page.evaluate(() => localStorage.clear());
-  await expect(page.getByText("249 câu", { exact: true })).toBeVisible();
-  await page.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
+  const swd392Card = page.getByRole("article").filter({ hasText: "SWD392" });
+  await expect(swd392Card.getByText("249 câu", { exact: true })).toBeVisible();
+  await swd392Card.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
   await expect(page).toHaveURL(/\/subjects\/swd392$/);
   await page.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
   await expect(page).toHaveURL(/\/subjects\/swd392\/study\?mode=learn$/);
@@ -49,7 +50,7 @@ test("dont know schedules retry and history can replace its result", async ({ pa
   const saved = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), progressKey);
   expect(saved.lifetimeAttempts).toBe(2);
   expect(saved.activeSession.attempts).toHaveLength(2);
-  expect(saved.activeSession.attempts[0]).toMatchObject({ result: "correct", selectedOptionId: subject.questions[0].correctAnswer });
+  expect(saved.activeSession.attempts[0]).toMatchObject({ result: "correct", selectedOptionIds: [subject.questions[0].correctAnswer] });
   expect(saved.activeSession.queue.some((item: { questionId: string; reason: string }) => item.questionId === subject.questions[0].id && item.reason === "retry")).toBe(true);
 });
 
