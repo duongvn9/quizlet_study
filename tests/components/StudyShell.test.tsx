@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import data from "@/data/subjects/swd392.json";
 import { subjectSchema } from "@/domain/subjects/schemas";
@@ -35,12 +35,17 @@ describe("StudyShell interactions and sound", () => {
     expect(options.every((option) => option.hasAttribute("disabled"))).toBe(true);
   });
 
-  it("copies the question and displayed answers in numbered order", async () => {
+  it("copies the question and shows success for three seconds", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
     await renderStudy();
-    fireEvent.click(screen.getByRole("button", { name: "Copy câu hỏi và đáp án" }));
+    vi.useFakeTimers();
+    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Copy câu hỏi và đáp án" })));
     expect(writeText).toHaveBeenCalledWith([`Câu ${first.number}`, first.question, ...first.options.map((option, index) => `${index + 1}. ${option.text}`)].join("\n"));
+    expect(screen.getByRole("button", { name: "Đã copy câu hỏi và đáp án" })).toBeVisible();
+    act(() => vi.advanceTimersByTime(3000));
+    expect(screen.getByRole("button", { name: "Copy câu hỏi và đáp án" })).toBeVisible();
+    vi.useRealTimers();
   });
 
   it.each(["correct", "incorrect", "dont-know"])("shows an explanation after a %s answer", async (result) => {
