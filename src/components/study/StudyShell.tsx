@@ -5,8 +5,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Subject } from "@/domain/subjects/types";
 import type { SubjectProgress } from "@/domain/study/types";
 import { createProgress, createSession } from "@/domain/study/create-session";
-import { answer, move } from "@/domain/study/reducer";
-import { selectStats } from "@/domain/study/selectors";
+import { answer, move, replaceAnswer } from "@/domain/study/reducer";
+import { resumeProgress } from "@/domain/study/resume";
+import { selectLearnCounters } from "@/domain/study/selectors";
 import { storage } from "@/lib/storage/local-study-storage";
 import { SETTINGS_KEY } from "@/lib/storage/keys";
 import { useCorrectAnswerSound } from "@/hooks/useCorrectAnswerSound";
@@ -57,6 +58,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [storageWarning, setStorageWarning] = useState(false);
   const [settings, setSettings] = useState<StudySettings>(defaultSettings);
+  const [revealedInstanceId, setRevealedInstanceId] = useState<string | null>(null);
   const settingsButtonRef = useRef<HTMLButtonElement>(null);
   const { enabled, setEnabled, play } = useCorrectAnswerSound();
 
@@ -65,14 +67,18 @@ export function StudyShell({ subject }: { subject: Subject }) {
     setSettings(savedSettings);
     const loaded = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id), Object.fromEntries(subject.questions.map((question) => [question.id, question.options.map((option) => option.id)])));
     let next = loaded.status === "loaded" ? loaded.progress : createProgress(subject.id, subject.contentVersion, subject.questions);
+    const wasActive = !!next.activeSession && !next.activeSession.completedAt;
+    next = resumeProgress(next, new Date().toISOString());
+    const completedOnResume = wasActive && !!next.activeSession?.completedAt;
     const restartRequested = new URLSearchParams(window.location.search).get("restart") === "1";
     if (restartRequested) {
       window.history.replaceState({}, "", window.location.pathname);
     }
     const shouldRestart = restartRequested && (!next.activeSession || next.activeSession.completedAt || confirm("Phiên học chưa hoàn thành sẽ bị thay thế. Bạn có muốn học lại toàn bộ không?"));
-    if (shouldRestart || !next.activeSession || next.activeSession.completedAt) {
+    if (shouldRestart || !next.activeSession || next.activeSession.completedAt && !completedOnResume) {
       next = { ...next, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, savedSettings) };
     }
+    setRevealedInstanceId(null);
     setProgress(next);
     setNotice(storage.consumeNotice(subject.id));
     try {
@@ -94,6 +100,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const resetSession = useCallback(() => {
     if (!progress || !confirm("Tạo phiên học mới cho môn này?")) return;
     const next = { ...progress, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, settings) };
+    setRevealedInstanceId(null);
     commit(next);
     setSettingsOpen(false);
   }, [commit, progress, settings, subject]);
@@ -102,6 +109,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     if (!confirm("Bạn chắc chắn muốn đặt lại toàn bộ tiến độ môn này?")) return;
     const next = createProgress(subject.id, subject.contentVersion, subject.questions);
     storage.remove(subject.id);
+    setRevealedInstanceId(null);
     commit({ ...next, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, settings) });
     setSettingsOpen(false);
   }, [commit, settings, subject]);
@@ -115,7 +123,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     if (!session?.settings.shuffleOptions || !item) return options;
     return [...options].sort((left, right) => optionRank(item.instanceId, left.id) - optionRank(item.instanceId, right.id));
   }, [item, question, session?.settings.shuffleOptions]);
-  const stats = selectStats(progress, subject.questionCount);
+  const counters = selectLearnCounters(progress, subject.questions.map((candidate) => candidate.id));
 
   const updateSettings = useCallback((next: StudySettings) => {
     setSettings(next);
@@ -123,14 +131,20 @@ export function StudyShell({ subject }: { subject: Subject }) {
   }, []);
 
   const choose = useCallback((id: string | null) => {
-    if (!progress || !question || attempt) return;
-    const next = answer(progress, question, id);
-    if (id === question.correctAnswer) play();
+    if (!progress || !question || !item || revealedInstanceId === item.instanceId) return;
+    const next = attempt ? replaceAnswer(progress, question, id) : answer(progress, question, id);
+    if (next === progress) return;
+    setRevealedInstanceId(item.instanceId);
+    if (id === question.correctAnswer && (!attempt || attempt.result !== "correct" || attempt.selectedOptionId !== id)) play();
     commit(next);
-  }, [attempt, commit, play, progress, question]);
+  }, [attempt, commit, item, play, progress, question, revealedInstanceId]);
 
   const navigate = useCallback((direction: -1 | 1) => {
-    if (progress) commit(move(progress, direction));
+    if (!progress) return;
+    const next = move(progress, direction);
+    if (next === progress) return;
+    setRevealedInstanceId(null);
+    commit(next);
   }, [commit, progress]);
 
   const copyQuestion = useCallback(async () => {
@@ -172,7 +186,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     const handler = (event: KeyboardEvent) => {
       const target = event.target;
       if (settingsOpen || event.repeat || target instanceof Element && (/INPUT|TEXTAREA|SELECT|BUTTON/.test(target.tagName) || target.closest("[role=dialog]"))) return;
-      if (!attempt && /^[1-5]$/.test(event.key)) {
+      if ((!attempt || revealedInstanceId !== item?.instanceId) && /^[1-5]$/.test(event.key)) {
         const option = displayOptions[Number(event.key) - 1];
         if (option) choose(option.id);
       } else if (event.code === "Space" && attempt) {
@@ -186,16 +200,19 @@ export function StudyShell({ subject }: { subject: Subject }) {
     };
     addEventListener("keydown", handler);
     return () => removeEventListener("keydown", handler);
-  }, [attempt, choose, displayOptions, navigate, settingsOpen]);
+  }, [attempt, choose, displayOptions, item?.instanceId, navigate, revealedInstanceId, settingsOpen]);
 
-  if (!progress || !session || !question) return <div className="card">Đang khôi phục phiên học…</div>;
+  if (!progress || !session) return <div className="card" role="status">Đang khôi phục phiên học…</div>;
 
   if (session.completedAt) {
     return <div className="card center"><h1>Hoàn thành phiên học</h1><Link className="button" href={`/subjects/${subject.slug}/summary`}>Xem tổng kết</Link></div>;
   }
 
-  const feedback = attempt?.result === "correct" ? "Chính xác" : attempt ? "Hãy ghi nhớ đáp án đúng" : null;
-  const questionProgress = session.queue.length ? (session.currentIndex + 1) / session.queue.length * 100 : 0;
+  if (!question) return <div className="card" role="alert">Không thể hiển thị câu hỏi hiện tại.</div>;
+
+  const reveal = !!attempt && revealedInstanceId === item?.instanceId;
+  const feedback = reveal ? attempt.result === "correct" ? "Chính xác" : "Hãy ghi nhớ đáp án đúng" : null;
+  const historical = !!attempt && !reveal;
 
   return <>
     <div inert={settingsOpen ? true : undefined}>
@@ -207,25 +224,26 @@ export function StudyShell({ subject }: { subject: Subject }) {
     </div>
     {notice && <div className="notice">Bộ câu hỏi đã được cập nhật. Tiến độ của môn này đã được đặt lại để bảo đảm kết quả học chính xác.</div>}
     {storageWarning && <div className="notice" role="status">Không thể lưu tiến độ vào trình duyệt lúc này. Bạn vẫn có thể học tiếp trong phiên hiện tại.</div>}
-    <div className="progress-row"><div className="bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(questionProgress)} aria-label="Tiến độ câu hỏi"><i style={{ width: `${questionProgress}%` }} /></div><span>Đã xem {stats.seenCount}/{subject.questionCount} · Đã thuộc {stats.masteredCount}</span></div>
+    <div className="progress-row"><div className="bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(counters.percentage)} aria-label="Tiến độ câu hỏi"><i style={{ width: `${counters.percentage}%` }} /></div><span>Đã xem {counters.presentedCount} / {counters.total} câu</span></div>
     <article className="question">
        <div className="question-heading"><div className="eyebrow">Câu {question.number}</div><button className="copy-question" type="button" aria-label="Copy câu hỏi và đáp án" title="Copy câu hỏi và đáp án" onClick={copyQuestion}><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M8 3.5C8 2.67157 8.67157 2 9.5 2H14.5C15.3284 2 16 2.67157 16 3.5V4.5C16 5.32843 15.3284 6 14.5 6H9.5C8.67157 6 8 5.32843 8 4.5V3.5Z" fill="currentColor" /><path fillRule="evenodd" clipRule="evenodd" d="M6.5 4.03662C5.24209 4.10719 4.44798 4.30764 3.87868 4.87694C3 5.75562 3 7.16983 3 9.99826V15.9983C3 18.8267 3 20.2409 3.87868 21.1196C4.75736 21.9983 6.17157 21.9983 9 21.9983H15C17.8284 21.9983 19.2426 21.9983 20.1213 21.1196C21 20.2409 21 18.8267 21 15.9983V9.99826C21 7.16983 21 5.75562 20.1213 4.87694C19.552 4.30764 18.7579 4.10719 17.5 4.03662V4.5C17.5 6.15685 16.1569 7.5 14.5 7.5H9.5C7.84315 7.5 6.5 6.15685 6.5 4.5V4.03662ZM6.25 10.5C6.25 10.0858 6.58579 9.75 7 9.75H17C17.4142 9.75 17.75 10.0858 17.75 10.5C17.75 10.9142 17.4142 11.25 17 11.25H7C6.58579 11.25 6.25 10.9142 6.25 10.5ZM7.25 14C7.25 13.5858 7.58579 13.25 8 13.25H16C16.4142 13.25 16.75 13.5858 16.75 14C16.75 14.4142 16.4142 14.75 16 14.75H8C7.58579 14.75 7.25 14.4142 7.25 14ZM8.25 17.5C8.25 17.0858 8.58579 16.75 9 16.75H15C15.4142 16.75 15.75 17.0858 15.75 17.5C15.75 17.9142 15.4142 18.25 15 18.25H9C8.58579 18.25 8.25 17.9142 8.25 17.5Z" fill="currentColor" /></svg></button></div>
        <h1>{question.question}</h1>
 
       <div className="options">
         {displayOptions.map((option, index) => {
-          const correct = attempt && option.id === question.correctAnswer;
-          const selectedWrong = attempt && attempt.selectedOptionId === option.id && attempt.result !== "correct";
-          return <button key={option.id} type="button" disabled={!!attempt} className={correct ? "correct" : selectedWrong ? "wrong" : ""} onClick={() => choose(option.id)}>
+          const correct = reveal && option.id === question.correctAnswer;
+          const selectedWrong = reveal && attempt.selectedOptionId === option.id && attempt.result !== "correct";
+          return <button key={option.id} type="button" disabled={reveal} className={correct ? "correct" : selectedWrong ? "wrong" : ""} onClick={() => choose(option.id)}>
             <span>{index + 1}</span><em>{option.text}</em>
           </button>;
         })}
       </div>
-      {!attempt && <button className="secondary" type="button" onClick={() => choose(null)}>Không biết</button>}
+      {!reveal && <button className="secondary" type="button" onClick={() => choose(null)}>Không biết</button>}
+      {historical && <div className="feedback" role="status">Bạn đã trả lời lượt này. Chọn lại sẽ thay thế kết quả trước đó.</div>}
       {feedback && <div className="feedback" aria-live="polite"><h2>{feedback}</h2>{question.explanation?.trim() && <aside className="explanation"><strong>Giải thích</strong><p>{question.explanation}</p></aside>}{question.needsReview && <details><summary>Dữ liệu nguồn cần rà soát</summary>{question.reviewNotes.map((note) => <p key={note}>{note}</p>)}</details>}</div>}
     </article>
     <p className="shortcut-hint">1–5 chọn đáp án · Space tiếp tục · ← → điều hướng</p>
-    <nav className="nav"><button type="button" aria-label="Trước" onClick={() => navigate(-1)} disabled={session.currentIndex === 0}><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M19.5025 20.835L2.99281 13.4725C1.66906 12.8822 1.66906 11.1178 2.99281 10.5275L19.5025 3.16496C20.9984 2.49789 22.5499 3.97914 21.809 5.36689L18.657 11.2706C18.4118 11.7298 18.4118 12.2702 18.657 12.7294L21.809 18.6331C22.5499 20.0209 20.9984 21.5021 19.5025 20.835Z" fill="currentColor" /></svg></button><span>{session.currentIndex + 1}/{session.queue.length}</span><button type="button" aria-label="Tiếp tục" onClick={() => navigate(1)} disabled={!item?.answered}><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M4.49746 20.835L21.0072 13.4725C22.3309 12.8822 22.3309 11.1178 21.0072 10.5275L4.49746 3.16496C3.00163 2.49789 1.45006 3.97914 2.19099 5.36689L5.34302 11.2706C5.58817 11.7298 5.58818 12.2702 5.34302 12.7294L2.19099 18.6331C1.45007 20.0209 3.00163 21.5021 4.49746 20.835Z" fill="currentColor" /></svg></button></nav>
+    <nav className="nav"><button type="button" aria-label="Trước" onClick={() => navigate(-1)} disabled={session.currentIndex === 0}><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M19.5025 20.835L2.99281 13.4725C1.66906 12.8822 1.66906 11.1178 2.99281 10.5275L19.5025 3.16496C20.9984 2.49789 22.5499 3.97914 21.809 5.36689L18.657 11.2706C18.4118 11.7298 18.4118 12.2702 18.657 12.7294L21.809 18.6331C22.5499 20.0209 20.9984 21.5021 19.5025 20.835Z" fill="currentColor" /></svg></button><span>Câu {question.number} / {subject.questions.length}</span><button type="button" aria-label="Tiếp tục" onClick={() => navigate(1)} disabled={!item?.answered}><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M4.49746 20.835L21.0072 13.4725C22.3309 12.8822 22.3309 11.1178 21.0072 10.5275L4.49746 3.16496C3.00163 2.49789 1.45006 3.97914 2.19099 5.36689L5.34302 11.2706C5.58817 11.7298 5.58818 12.2702 5.34302 12.7294L2.19099 18.6331C1.45007 20.0209 3.00163 21.5021 4.49746 20.835Z" fill="currentColor" /></svg></button></nav>
     </div>
     {settingsOpen && <div className="dialog-backdrop" role="presentation" onMouseDown={() => setSettingsOpen(false)}><section role="dialog" aria-modal="true" aria-labelledby="settings-title" className="dialog" onMouseDown={(event) => event.stopPropagation()}>
       <h2 id="settings-title">Cài đặt học</h2>

@@ -28,6 +28,6 @@ export function Summary({ subject }: { subject: Subject }) {
       <b>{stats.learningCount}<small>Đang học</small></b>
       <b>{stats.remainingCount}<small>Còn lại</small></b>
     </div>
-    <div className="actions"><Link className="button" href={`/subjects/${subject.slug}/learn`}>Tiếp tục học</Link><Link className="secondary" href={`/subjects/${subject.slug}/learn?restart=1`}>Học lại toàn bộ</Link><Link className="secondary" href={`/subjects/${subject.slug}`}>Về môn học</Link></div>
+    <div className="actions"><Link className="button" href={`/subjects/${subject.slug}/study?mode=learn`}>Tiếp tục học</Link><Link className="secondary" href={`/subjects/${subject.slug}/study?mode=learn&restart=1`}>Học lại toàn bộ</Link><Link className="secondary" href={`/subjects/${subject.slug}`}>Về môn học</Link></div>
   </section>;
 }

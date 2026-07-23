@@ -24,7 +24,7 @@ describe("subject data", () => {
     expect(subject.questions.every((question) => question.options.some((option) => option.id === question.correctAnswer))).toBe(true);
     expect(subject.dataQuality.duplicatePromptGroups).toEqual(duplicatePromptGroups);
     expect(subject.dataQuality.answerCorrectionCount).toBe(21);
-    expect(subject.dataQuality.correctedAnswerNumbers).toHaveLength(21);
+    expect(subject.dataQuality.correctedAnswerNumbers).toEqual([3, 5, 8, 14, 20, 22, 33, 38, 39, 41, 45, 51, 61, 99, 149, 153, 173, 205, 242, 243, 244]);
   });
 
   it("rejects invalid versions, counts, correction metadata, and answer keys", () => {
