@@ -38,13 +38,25 @@ Dataset chuẩn tại `src/data/subjects/swd392.json` có `contentVersion: 2`, 2
 
 Để sửa đáp án/nội dung: giữ nguyên `id` và `number`; cập nhật trường cần thiết; bảo đảm `correctAnswer` tồn tại trong options; tăng `contentVersion` đúng 1; chạy đầy đủ kiểm tra và commit generated output. Lần truy cập sau chỉ tiến độ môn bị cập nhật được đặt lại.
 
-## Phiên học và khôi phục
+## Chế độ học
 
-**Tiếp tục học** khôi phục đúng queue và vị trí của phiên đang hoạt động. **Học lại toàn bộ** yêu cầu xác nhận khi thay thế phiên chưa hoàn thành, tạo `sessionId`, queue và vị trí mới nhưng giữ tiến độ dài hạn/mastery của môn. **Đặt lại tiến độ** mới xóa tiến độ dài hạn của môn hiện tại; dữ liệu môn khác không bị ảnh hưởng.
+URL chuẩn là `/subjects/[slug]/study?mode=learn|test`; **Bắt đầu học** mở Learn. Chuyển Learn/Test giữ nguyên state riêng của từng chế độ và tham số `mode` qua điều hướng phù hợp.
+
+### Learn
+
+**Tiếp tục học** khôi phục đúng queue và vị trí của phiên đang hoạt động. **Học lại toàn bộ** yêu cầu xác nhận khi thay thế phiên chưa hoàn thành, tạo `sessionId`, queue và vị trí mới nhưng giữ tiến độ dài hạn/mastery của môn. **Đặt lại tiến độ** mới xóa tiến độ dài hạn của môn hiện tại; dữ liệu môn khác không bị ảnh hưởng. Tử số tiến độ là frontier câu chuẩn duy nhất đã đi qua; mẫu số luôn là số câu chuẩn của môn (SWD392: 249), nên retry không làm tăng tổng hoặc đếm trùng.
 
 Khi khôi phục, ứng dụng giữ nguyên queue/xáo trộn và chuyển đến lượt chưa trả lời phù hợp. Phản hồi, đáp án đúng và giải thích chỉ xuất hiện tạm thời ngay sau câu trả lời mới hoặc thay thế của đúng lượt queue; reload hoặc điều hướng xóa phần hiển thị này. Lượt lịch sử đã trả lời ở trạng thái trung lập và có thể chọn lại để thay thế kết quả cũ mà không thêm attempt hoặc thay đổi queue/retry đã lên lịch; lượt retry là instance mới và vẫn trả lời được. Dữ liệu được render bằng React text, không dùng HTML thô.
 
-Dữ liệu lưu tại `study-flow:v1:subject:<id>`, thiết lập tại `study-flow:v1:settings`, âm thanh tại `study-flow:v1:sound`, thông báo tại `study-flow:v1:notice:<id>`. Persisted schema là v1. State sai shape hoặc semantic invariant được cô lập và đặt lại riêng theo môn, đồng thời hiển thị thông báo tiếng Việt; content-version mismatch cũng chỉ reset môn liên quan. Không có đồng bộ đa tab, nên hai tab mở đồng thời có thể ghi đè snapshot của nhau.
+### Test
+
+Test có preset và số câu tùy chỉnh, lấy từ pool phù hợp rồi xáo trộn thứ tự câu và lựa chọn; mỗi câu chuẩn chỉ được chọn một lần. Snapshot riêng tại `study-flow:v1:test:<subjectId>` lưu thứ tự, responses và index để khôi phục đúng bài đang làm. Learn và Test không ghi đè state của nhau.
+
+Nộp bài khi còn câu bỏ trống phải xác nhận. Kết quả chấm điểm phân biệt câu chưa trả lời; phần review hiển thị đáp án, giải thích và cờ `needsReview`. Chỉ kết quả Test mới nhất được giữ. Khi làm lại, thứ tự câu có thể được tạo lại nhưng thứ tự lựa chọn của từng câu được giữ ổn định theo quyết định hiện tại.
+
+Cả hai chế độ hỗ trợ điều khiển bàn phím cho chọn đáp án và điều hướng, đồng thời giới hạn chiều rộng đáp ứng theo màn hình.
+
+Dữ liệu Learn lưu tại `study-flow:v1:subject:<id>`, thiết lập tại `study-flow:v1:settings`, âm thanh tại `study-flow:v1:sound`, thông báo tại `study-flow:v1:notice:<id>`. Persisted schema là v1. State sai shape hoặc semantic invariant được cô lập và đặt lại riêng theo môn, đồng thời hiển thị thông báo tiếng Việt; `contentVersion` thay đổi chỉ vô hiệu hóa dữ liệu Learn/Test của đúng môn liên quan. Không có backend, tài khoản, đồng bộ đa thiết bị hay đa tab; hai tab mở đồng thời có thể ghi đè snapshot của nhau.
 
 ## Âm thanh trả lời đúng
 
