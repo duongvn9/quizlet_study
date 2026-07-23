@@ -151,6 +151,51 @@ test("invalid mode falls back to Learn and legacy Learn redirects", async ({ pag
   await expect(page).toHaveURL(/\/subjects\/swd392\/study\?mode=learn$/);
 });
 
+test("complete 10-question Test flow persists responses and leaves Learn unchanged", async ({ page }) => {
+  await openFreshLearn(page);
+  const learnBefore = await page.evaluate((key) => localStorage.getItem(key), progressKey);
+  await page.getByRole("link", { name: "Kiểm tra", exact: true }).click();
+  await page.getByRole("button", { name: "10", exact: true }).click();
+  await page.getByLabel("Xáo trộn câu hỏi").uncheck();
+  await page.getByLabel("Xáo trộn đáp án").uncheck();
+  await page.getByRole("button", { name: "Bắt đầu" }).click();
+  const firstCorrect = subject.questions[0].options.findIndex((option) => option.id === subject.questions[0].correctAnswer);
+  await page.locator(".options button").nth(firstCorrect).click();
+  await page.getByRole("button", { name: "Tiếp" }).click();
+  await page.locator(".options button").first().click();
+  await page.getByRole("button", { name: "Trước" }).click();
+  await expect(page.locator(".options button").nth(firstCorrect)).toHaveAttribute("aria-pressed", "true");
+  await page.reload();
+  await expect(page.locator(".options button").nth(firstCorrect)).toHaveAttribute("aria-pressed", "true");
+  let confirmationMessage = "";
+  page.once("dialog", async (dialog) => {
+    confirmationMessage = dialog.message();
+    await dialog.accept();
+  });
+  await page.getByRole("button", { name: "Nộp bài" }).click();
+  expect(confirmationMessage).toBe("Bạn còn 8 câu chưa trả lời. Nộp bài ngay?");
+  await expect(page.getByRole("heading", { name: "Kết quả kiểm tra" })).toBeVisible();
+  await expect(page.getByText(/Chưa trả lời: 8/)).toBeVisible();
+  await expect(page.locator(".test-review")).toHaveCount(10);
+  expect(await page.evaluate((key) => localStorage.getItem(key), progressKey)).toBe(learnBefore);
+});
+
+for (const width of [360, 1440]) {
+  test(`Test setup, runner, and results have no horizontal overflow at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/subjects/swd392/study?mode=test");
+    await expect(page.getByRole("heading", { name: "Tạo bài kiểm tra" })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.getByRole("button", { name: "10", exact: true }).click();
+    await page.getByRole("button", { name: "Bắt đầu" }).click();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    page.once("dialog", (dialog) => dialog.accept());
+    await page.getByRole("button", { name: "Nộp bài" }).click();
+    await expect(page.getByRole("heading", { name: "Kết quả kiểm tra" })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  });
+}
+
 for (const width of [360, 390, 768, 1024, 1440]) {
   test(`no horizontal overflow at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
