@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import { createProgress, createSession } from "@/domain/study/create-session";
-import { answer, move } from "@/domain/study/reducer";
+import { answer, move, replaceAnswer } from "@/domain/study/reducer";
 import { findResumeQueueIndex, resumeProgress } from "@/domain/study/resume";
 import { selectStats } from "@/domain/study/selectors";
 import type { SubjectProgress } from "@/domain/study/types";
@@ -90,6 +90,58 @@ describe("study engine", () => {
     const question = subject.questions[0];
     const progress = answer(fresh(), question, question.correctAnswer, deps);
     expect(answer(progress, question, question.correctAnswer, deps)).toEqual(progress);
+  });
+
+  describe("replaceAnswer", () => {
+    it.each([
+      ["incorrect", (question: typeof subject.questions[number]) => question.options.find((option) => option.id !== question.correctAnswer)!.id, "incorrect"],
+      ["dont-know", () => null, "dont-know"],
+    ] as const)("replaces correct with %s without changing identity, totals, or queue", (_name, selection, expected) => {
+      const question = subject.questions[0];
+      const answered = answer(fresh(), question, question.correctAnswer, deps);
+      const attempt = answered.activeSession!.attempts[0];
+      const queue = answered.activeSession!.queue;
+      const replaced = replaceAnswer(answered, question, selection(question), "2026-01-02T00:00:00.000Z");
+      expect(replaced.activeSession?.attempts).toHaveLength(1);
+      expect(replaced.activeSession?.attempts[0]).toEqual({ ...attempt, selectedOptionId: selection(question), result: expected });
+      expect(replaced.activeSession?.queue).toBe(queue);
+      expect(replaced.lifetimeAttempts).toBe(answered.lifetimeAttempts);
+      expect(replaced.questionProgress[question.id]).toMatchObject({ totalAttempts: 1, correctCount: 0, incorrectCount: expected === "incorrect" ? 1 : 0, dontKnowCount: expected === "dont-know" ? 1 : 0, lastSelectedOptionId: selection(question), lastResult: expected, correctStreak: 0 });
+    });
+
+    it("replaces wrong with correct while retaining its scheduled retry", () => {
+      const question = subject.questions[0];
+      const wrong = question.options.find((option) => option.id !== question.correctAnswer)!.id;
+      const answered = answer(fresh(), question, wrong, deps);
+      const queue = answered.activeSession!.queue;
+      const replaced = replaceAnswer(answered, question, question.correctAnswer, "later");
+      expect(replaced.activeSession?.queue).toBe(queue);
+      expect(replaced.activeSession?.queue.some((item) => item.reason === "retry" && item.questionId === question.id)).toBe(true);
+      expect(replaced.questionProgress[question.id]).toMatchObject({ correctCount: 1, incorrectCount: 0, lastResult: "correct", correctStreak: 1 });
+    });
+
+    it("recalculates streak and mastery from the inferable pre-session baseline", () => {
+      const question = subject.questions[0];
+      let progress = fresh();
+      progress = { ...progress, questionProgress: { ...progress.questionProgress, [question.id]: { ...progress.questionProgress[question.id], status: "learning", totalAttempts: 3, correctCount: 3, correctStreak: 3, firstSeenAt: "before", lastSeenAt: "before" } } };
+      progress = answer(progress, question, question.correctAnswer, deps);
+      expect(progress.questionProgress[question.id]).toMatchObject({ status: "mastered", correctStreak: 4 });
+      const wrong = question.options.find((option) => option.id !== question.correctAnswer)!.id;
+      const replaced = replaceAnswer(progress, question, wrong, "later");
+      expect(replaced.questionProgress[question.id]).toMatchObject({ status: "learning", correctStreak: 0, masteredAt: null, firstSeenAt: "before", totalAttempts: 4 });
+      const restored = replaceAnswer(replaced, question, question.correctAnswer, "latest");
+      expect(restored.questionProgress[question.id]).toMatchObject({ status: "learning", correctStreak: 1, masteredAt: null, lastSeenAt: deps.now() });
+    });
+
+    it("rejects invalid replacements and duplicate attempt state", () => {
+      const question = subject.questions[0];
+      const answered = answer(fresh(), question, question.correctAnswer, deps);
+      expect(replaceAnswer(answered, subject.questions[1], subject.questions[1].correctAnswer)).toBe(answered);
+      expect(replaceAnswer(answered, question, "missing")).toBe(answered);
+      expect(replaceAnswer(answered, question, question.correctAnswer)).toBe(answered);
+      const duplicate = { ...answered, activeSession: { ...answered.activeSession!, attempts: [...answered.activeSession!.attempts, answered.activeSession!.attempts[0]] } };
+      expect(replaceAnswer(duplicate, question, null)).toBe(duplicate);
+    });
   });
 
   it("preserves history and blocks skipping an unanswered frontier", () => {

@@ -30,7 +30,7 @@ test("start, answer, feedback, keyboard and resume", async ({ page }) => {
   await expect(page.getByText("Câu 2", { exact: true })).toBeVisible();
 });
 
-test("dont know schedules retry and history remains read-only", async ({ page }) => {
+test("dont know schedules retry and history can replace its result", async ({ page }) => {
   await openFreshLearn(page);
   await page.getByRole("button", { name: "Không biết" }).click();
   await expect(page.getByText("Hãy ghi nhớ đáp án đúng")).toBeVisible();
@@ -38,13 +38,19 @@ test("dont know schedules retry and history remains read-only", async ({ page })
   await page.locator(".options button").first().click();
   await page.getByRole("button", { name: "Trước" }).click();
   await expect(page.getByText("Câu 1", { exact: true })).toBeVisible();
-  await expect(page.getByText(/Bạn đã trả lời lượt này/)).toBeVisible();
+  await expect(page.getByText(/Chọn lại sẽ thay thế kết quả trước đó/)).toBeVisible();
   await expect(page.getByText("Hãy ghi nhớ đáp án đúng")).toHaveCount(0);
   await expect(page.getByText("Giải thích", { exact: true })).toHaveCount(0);
-  await expect(page.getByRole("button", { name: "Không biết" })).toHaveCount(0);
-  await expect(page.locator(".options button").first()).toBeDisabled();
-  const attempts = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).lifetimeAttempts, progressKey);
-  expect(attempts).toBe(2);
+  await expect(page.getByRole("button", { name: "Không biết" })).toBeEnabled();
+  await expect(page.locator(".options button").first()).toBeEnabled();
+  const correctIndex = subject.questions[0].options.findIndex((option) => option.id === subject.questions[0].correctAnswer);
+  await page.keyboard.press(String(correctIndex + 1));
+  await expect(page.getByText("Chính xác")).toBeVisible();
+  const saved = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), progressKey);
+  expect(saved.lifetimeAttempts).toBe(2);
+  expect(saved.activeSession.attempts).toHaveLength(2);
+  expect(saved.activeSession.attempts[0]).toMatchObject({ result: "correct", selectedOptionId: subject.questions[0].correctAnswer });
+  expect(saved.activeSession.queue.some((item: { questionId: string; reason: string }) => item.questionId === subject.questions[0].id && item.reason === "retry")).toBe(true);
 });
 
 test("retry remains fresh through two reloads and answered-before-next resumes forward", async ({ page }) => {

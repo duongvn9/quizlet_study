@@ -116,7 +116,48 @@ describe("StudyShell interactions and sound", () => {
     expect(await screen.findByText(/Bạn đã trả lời lượt này/)).toBeVisible();
     expect(screen.queryByText("Chính xác")).not.toBeInTheDocument();
     expect(screen.queryByText("Giải thích")).not.toBeInTheDocument();
-    expect(screen.queryByRole("button", { name: "Không biết" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Không biết" })).toBeEnabled();
+    expect(within(document.querySelector(".options")!).getAllByRole("button").every((option) => !option.hasAttribute("disabled"))).toBe(true);
+    expect(audioMocks.play).not.toHaveBeenCalled();
+  });
+
+  it("replaces a historical answer with keyboard feedback, persistence, and correct audio", async () => {
+    let progress = createProgress(subject.id, subject.contentVersion, subject.questions);
+    progress = { ...progress, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
+    progress = answer(progress, first, first.options[wrongIndex].id);
+    progress = move(progress, 1);
+    const oldAttempt = progress.activeSession!.attempts[0];
+    const queue = progress.activeSession!.queue;
+    storage.save(progress);
+    await renderStudy(2);
+    fireEvent.click(screen.getByRole("button", { name: "Trước" }));
+    expect(await screen.findByText(/Chọn lại sẽ thay thế kết quả trước đó/)).toBeVisible();
+    const options = within(document.querySelector(".options")!).getAllByRole("button");
+    expect(options.every((option) => !option.hasAttribute("disabled"))).toBe(true);
+    fireEvent.keyDown(window, { key: String(correctIndex + 1) });
+    expect(await screen.findByText("Chính xác")).toBeVisible();
+    expect(screen.queryByText(/Chọn lại sẽ thay thế/)).not.toBeInTheDocument();
+    expect(options.every((option) => option.hasAttribute("disabled"))).toBe(true);
+    expect(audioMocks.play).toHaveBeenCalledTimes(1);
+    const loaded = storage.load(subject.id, subject.contentVersion);
+    expect(loaded).toMatchObject({ status: "loaded", progress: { lifetimeAttempts: 1, activeSession: { queue, attempts: [{ ...oldAttempt, selectedOptionId: first.correctAnswer, result: "correct" }] } } });
+    fireEvent.click(screen.getByRole("button", { name: "Tiếp tục" }));
+    fireEvent.click(screen.getByRole("button", { name: "Trước" }));
+    expect(await screen.findByText(/Chọn lại sẽ thay thế kết quả trước đó/)).toBeVisible();
+    expect(screen.queryByText("Chính xác")).not.toBeInTheDocument();
+    expect(audioMocks.play).toHaveBeenCalledTimes(1);
+  });
+
+  it("does not play when a historical correct answer is replaced with another correct selection", async () => {
+    let progress = createProgress(subject.id, subject.contentVersion, subject.questions);
+    progress = { ...progress, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
+    progress = answer(progress, first, first.correctAnswer);
+    progress = move(progress, 1);
+    storage.save(progress);
+    await renderStudy(2);
+    fireEvent.click(screen.getByRole("button", { name: "Trước" }));
+    fireEvent.keyDown(window, { key: String(correctIndex + 1) });
+    expect(screen.queryByText("Chính xác")).not.toBeInTheDocument();
     expect(audioMocks.play).not.toHaveBeenCalled();
   });
 

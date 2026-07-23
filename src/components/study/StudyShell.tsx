@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Subject } from "@/domain/subjects/types";
 import type { SubjectProgress } from "@/domain/study/types";
 import { createProgress, createSession } from "@/domain/study/create-session";
-import { answer, move } from "@/domain/study/reducer";
+import { answer, move, replaceAnswer } from "@/domain/study/reducer";
 import { resumeProgress } from "@/domain/study/resume";
 import { selectStats } from "@/domain/study/selectors";
 import { storage } from "@/lib/storage/local-study-storage";
@@ -131,13 +131,13 @@ export function StudyShell({ subject }: { subject: Subject }) {
   }, []);
 
   const choose = useCallback((id: string | null) => {
-    if (!progress || !question || attempt || !item) return;
-    const next = answer(progress, question, id);
+    if (!progress || !question || !item || revealedInstanceId === item.instanceId) return;
+    const next = attempt ? replaceAnswer(progress, question, id) : answer(progress, question, id);
     if (next === progress) return;
     setRevealedInstanceId(item.instanceId);
-    if (id === question.correctAnswer) play();
+    if (id === question.correctAnswer && (!attempt || attempt.result !== "correct" || attempt.selectedOptionId !== id)) play();
     commit(next);
-  }, [attempt, commit, item, play, progress, question]);
+  }, [attempt, commit, item, play, progress, question, revealedInstanceId]);
 
   const navigate = useCallback((direction: -1 | 1) => {
     if (!progress) return;
@@ -180,7 +180,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     const handler = (event: KeyboardEvent) => {
       const target = event.target;
       if (settingsOpen || event.repeat || target instanceof Element && (/INPUT|TEXTAREA|SELECT|BUTTON/.test(target.tagName) || target.closest("[role=dialog]"))) return;
-      if (!attempt && /^[1-5]$/.test(event.key)) {
+      if ((!attempt || revealedInstanceId !== item?.instanceId) && /^[1-5]$/.test(event.key)) {
         const option = displayOptions[Number(event.key) - 1];
         if (option) choose(option.id);
       } else if (event.code === "Space" && attempt) {
@@ -194,7 +194,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     };
     addEventListener("keydown", handler);
     return () => removeEventListener("keydown", handler);
-  }, [attempt, choose, displayOptions, navigate, settingsOpen]);
+  }, [attempt, choose, displayOptions, item?.instanceId, navigate, revealedInstanceId, settingsOpen]);
 
   if (!progress || !session) return <div className="card" role="status">Đang khôi phục phiên học…</div>;
 
@@ -227,13 +227,13 @@ export function StudyShell({ subject }: { subject: Subject }) {
         {displayOptions.map((option, index) => {
           const correct = reveal && option.id === question.correctAnswer;
           const selectedWrong = reveal && attempt.selectedOptionId === option.id && attempt.result !== "correct";
-          return <button key={option.id} type="button" disabled={!!attempt} className={correct ? "correct" : selectedWrong ? "wrong" : ""} onClick={() => choose(option.id)}>
+          return <button key={option.id} type="button" disabled={reveal} className={correct ? "correct" : selectedWrong ? "wrong" : ""} onClick={() => choose(option.id)}>
             <span>{index + 1}</span><em>{option.text}</em>
           </button>;
         })}
       </div>
-      {!attempt && <button className="secondary" type="button" onClick={() => choose(null)}>Không biết</button>}
-      {historical && <div className="feedback" role="status">Bạn đã trả lời lượt này. Đáp án và giải thích chỉ hiển thị ngay sau lần trả lời mới.</div>}
+      {!reveal && <button className="secondary" type="button" onClick={() => choose(null)}>Không biết</button>}
+      {historical && <div className="feedback" role="status">Bạn đã trả lời lượt này. Chọn lại sẽ thay thế kết quả trước đó.</div>}
       {feedback && <div className="feedback" aria-live="polite"><h2>{feedback}</h2>{question.explanation?.trim() && <aside className="explanation"><strong>Giải thích</strong><p>{question.explanation}</p></aside>}{question.needsReview && <details><summary>Dữ liệu nguồn cần rà soát</summary>{question.reviewNotes.map((note) => <p key={note}>{note}</p>)}</details>}</div>}
     </article>
     <p className="shortcut-hint">1–5 chọn đáp án · Space tiếp tục · ← → điều hướng</p>

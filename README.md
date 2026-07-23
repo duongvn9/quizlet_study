@@ -42,13 +42,13 @@ Dataset chuẩn tại `src/data/subjects/swd392.json` có `contentVersion: 2`, 2
 
 **Tiếp tục học** khôi phục đúng queue và vị trí của phiên đang hoạt động. **Học lại toàn bộ** yêu cầu xác nhận khi thay thế phiên chưa hoàn thành, tạo `sessionId`, queue và vị trí mới nhưng giữ tiến độ dài hạn/mastery của môn. **Đặt lại tiến độ** mới xóa tiến độ dài hạn của môn hiện tại; dữ liệu môn khác không bị ảnh hưởng.
 
-Khi khôi phục, ứng dụng giữ nguyên queue/xáo trộn và chuyển đến lượt chưa trả lời phù hợp. Phản hồi, đáp án đúng, giải thích và âm thanh chỉ xuất hiện tạm thời ngay sau câu trả lời mới của đúng lượt queue; reload hoặc điều hướng xóa phần hiển thị này. Lượt lịch sử đã trả lời ở trạng thái trung lập, chỉ đọc, còn lượt retry là instance mới và vẫn trả lời được. Dữ liệu được render bằng React text, không dùng HTML thô.
+Khi khôi phục, ứng dụng giữ nguyên queue/xáo trộn và chuyển đến lượt chưa trả lời phù hợp. Phản hồi, đáp án đúng và giải thích chỉ xuất hiện tạm thời ngay sau câu trả lời mới hoặc thay thế của đúng lượt queue; reload hoặc điều hướng xóa phần hiển thị này. Lượt lịch sử đã trả lời ở trạng thái trung lập và có thể chọn lại để thay thế kết quả cũ mà không thêm attempt hoặc thay đổi queue/retry đã lên lịch; lượt retry là instance mới và vẫn trả lời được. Dữ liệu được render bằng React text, không dùng HTML thô.
 
 Dữ liệu lưu tại `study-flow:v1:subject:<id>`, thiết lập tại `study-flow:v1:settings`, âm thanh tại `study-flow:v1:sound`, thông báo tại `study-flow:v1:notice:<id>`. Persisted schema là v1. State sai shape hoặc semantic invariant được cô lập và đặt lại riêng theo môn, đồng thời hiển thị thông báo tiếng Việt; content-version mismatch cũng chỉ reset môn liên quan. Không có đồng bộ đa tab, nên hai tab mở đồng thời có thể ghi đè snapshot của nhau.
 
 ## Âm thanh trả lời đúng
 
-Âm thanh nội bộ nằm tại `public/assets/correct-answer.mp3` và chỉ phát một lần cho đáp án đúng mới. Không phát cho đáp án sai, “Không biết”, lịch sử, reload hoặc đáp án đã khóa. Lỗi tải/phát được bỏ qua an toàn.
+Âm thanh nội bộ nằm tại `public/assets/correct-answer.mp3` và chỉ phát một lần cho đáp án đúng mới hoặc lần thay thế thực sự chuyển kết quả lịch sử thành đúng. Không phát khi khôi phục/điều hướng, chọn lại cùng kết quả, đáp án sai, “Không biết” hoặc đáp án đang khóa. Lỗi tải/phát được bỏ qua an toàn.
 
 Để thay âm thanh, thay tệp tại đúng path bằng MP3 có quyền sử dụng, giữ tên `correct-answer.mp3`, kiểm tra kích thước/tương thích trình duyệt, rồi chạy unit/component tests và Playwright. Công tắc **Âm thanh** bật mặc định và được lưu riêng trên thiết bị.
 
