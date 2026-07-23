@@ -285,8 +285,9 @@ describe("StudyShell interactions and sound", () => {
     storage.save(saved);
     const previousSessionId = saved.activeSession!.sessionId;
     window.history.replaceState({}, "", "/subjects/swd392/learn?restart=1");
-    vi.spyOn(window, "confirm").mockReturnValue(true);
-    await renderStudy();
+    render(<StudyShell subject={subject} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Học lại" }));
+    await waitFor(() => expect(storage.load(subject.id, subject.contentVersion)).toMatchObject({ status: "loaded", progress: { activeSession: { currentIndex: 0 } } }));
     const loaded = storage.load(subject.id, subject.contentVersion);
     expect(loaded.status).toBe("loaded");
     if (loaded.status !== "loaded") return;
@@ -304,8 +305,9 @@ describe("StudyShell interactions and sound", () => {
     saved = move(saved, 1);
     storage.save(saved);
     window.history.replaceState({}, "", "/subjects/swd392/learn?restart=1");
-    vi.spyOn(window, "confirm").mockReturnValue(false);
-    await renderStudy(2);
+    render(<StudyShell subject={subject} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Hủy" }));
+    await waitFor(() => expect(storage.load(subject.id, subject.contentVersion)).toMatchObject({ status: "loaded", progress: { activeSession: { sessionId: saved.activeSession?.sessionId, currentIndex: 1 } } }));
     const loaded = storage.load(subject.id, subject.contentVersion);
     expect(loaded).toMatchObject({ status: "loaded", progress: { activeSession: { sessionId: saved.activeSession?.sessionId, currentIndex: 1 } } });
   });

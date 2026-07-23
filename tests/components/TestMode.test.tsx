@@ -111,11 +111,13 @@ describe("Test shell persistence and isolation", () => {
   it("resumes an unfinished test and uses the exact unanswered confirmation", async () => {
     const session = selectResponse(makeSession(), subject.questions[0].options[0].id, "later");
     localStorage.setItem(testKey(subject.id), JSON.stringify(session));
-    const confirm = vi.spyOn(window, "confirm").mockReturnValue(false);
     render(<TestShell subject={subject} />);
     expect(await screen.findByText("Câu 1/2")).toBeVisible();
     fireEvent.click(screen.getByRole("button", { name: "Nộp bài" }));
-    expect(confirm).toHaveBeenCalledWith("Bạn còn 1 câu chưa trả lời. Nộp bài ngay?");
+    const dialog = await screen.findByRole("dialog", { name: "Xác nhận" });
+    expect(dialog).toHaveTextContent("Bạn còn 1 câu chưa trả lời. Nộp bài ngay?");
+    fireEvent.click(screen.getByRole("button", { name: "Hủy" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(JSON.parse(localStorage.getItem(testKey(subject.id))!).status).toBe("active");
   });
 });

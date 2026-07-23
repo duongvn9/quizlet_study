@@ -11,6 +11,7 @@ import { selectLearnCounters } from "@/domain/study/selectors";
 import { storage } from "@/lib/storage/local-study-storage";
 import { SETTINGS_KEY } from "@/lib/storage/keys";
 import { useCorrectAnswerSound } from "@/hooks/useCorrectAnswerSound";
+import { useConfirmDialog } from "@/components/ui/ConfirmDialog";
 
 type StudySettings = {
   shuffleQuestions: boolean;
@@ -64,32 +65,35 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const settingsButtonRef = useRef<HTMLButtonElement>(null);
   const copyResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { enabled, setEnabled, play } = useCorrectAnswerSound();
+  const { confirm, dialog: confirmDialog, open: confirmOpen } = useConfirmDialog();
 
   useEffect(() => {
-    const savedSettings = loadSettings();
-    setSettings(savedSettings);
-    const loaded = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id), Object.fromEntries(subject.questions.map((question) => [question.id, question.options.map((option) => option.id)])));
-    let next = loaded.status === "loaded" ? loaded.progress : createProgress(subject.id, subject.contentVersion, subject.questions);
-    const wasActive = !!next.activeSession && !next.activeSession.completedAt;
-    next = resumeProgress(next, new Date().toISOString());
-    const completedOnResume = wasActive && !!next.activeSession?.completedAt;
-    const restartRequested = new URLSearchParams(window.location.search).get("restart") === "1";
-    if (restartRequested) {
-      window.history.replaceState({}, "", window.location.pathname);
-    }
-    const shouldRestart = restartRequested && (!next.activeSession || next.activeSession.completedAt || confirm("Phiên học chưa hoàn thành sẽ bị thay thế. Bạn có muốn học lại toàn bộ không?"));
-    if (shouldRestart || !next.activeSession || next.activeSession.completedAt && !completedOnResume) {
-      next = { ...next, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, savedSettings) };
-    }
-    setRevealedInstanceId(null);
-    setProgress(next);
-    setNotice(storage.consumeNotice(subject.id));
-    try {
-      storage.save(next);
-    } catch {
-      setStorageWarning(true);
-    }
-  }, [subject]);
+    let cancelled = false;
+    const restore = async () => {
+      const savedSettings = loadSettings();
+      setSettings(savedSettings);
+      const loaded = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id), Object.fromEntries(subject.questions.map((question) => [question.id, question.options.map((option) => option.id)])));
+      let next = loaded.status === "loaded" ? loaded.progress : createProgress(subject.id, subject.contentVersion, subject.questions);
+      const wasActive = !!next.activeSession && !next.activeSession.completedAt;
+      next = resumeProgress(next, new Date().toISOString());
+      const completedOnResume = wasActive && !!next.activeSession?.completedAt;
+      const restartRequested = new URLSearchParams(window.location.search).get("restart") === "1";
+      if (restartRequested) window.history.replaceState({}, "", window.location.pathname);
+      const shouldRestart = restartRequested && (!next.activeSession || !!next.activeSession.completedAt || await confirm({ message: "Phiên học chưa hoàn thành sẽ bị thay thế. Bạn có muốn học lại toàn bộ không?", confirmLabel: "Học lại" }));
+      if (cancelled) return;
+      if (shouldRestart || !next.activeSession || next.activeSession.completedAt && !completedOnResume) next = { ...next, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, savedSettings) };
+      setRevealedInstanceId(null);
+      setProgress(next);
+      setNotice(storage.consumeNotice(subject.id));
+      try {
+        storage.save(next);
+      } catch {
+        setStorageWarning(true);
+      }
+    };
+    void restore();
+    return () => { cancelled = true; };
+  }, [confirm, subject]);
 
   const commit = useCallback((next: SubjectProgress) => {
     setProgress(next);
@@ -100,23 +104,23 @@ export function StudyShell({ subject }: { subject: Subject }) {
     }
   }, []);
 
-  const resetSession = useCallback(() => {
-    if (!progress || !confirm("Tạo phiên học mới cho môn này?")) return;
+  const resetSession = useCallback(async () => {
+    if (!progress || !await confirm({ message: "Tạo phiên học mới cho môn này?", confirmLabel: "Tạo phiên mới" })) return;
     const next = { ...progress, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, settings) };
     setRevealedInstanceId(null);
     setSelectedOptionIds([]);
     commit(next);
     setSettingsOpen(false);
-  }, [commit, progress, settings, subject]);
+  }, [commit, confirm, progress, settings, subject]);
 
-  const resetProgress = useCallback(() => {
-    if (!confirm("Bạn chắc chắn muốn đặt lại toàn bộ tiến độ môn này?")) return;
+  const resetProgress = useCallback(async () => {
+    if (!await confirm({ message: "Bạn chắc chắn muốn đặt lại toàn bộ tiến độ môn này?", confirmLabel: "Đặt lại", destructive: true })) return;
     const next = createProgress(subject.id, subject.contentVersion, subject.questions);
     storage.remove(subject.id);
     setRevealedInstanceId(null);
     commit({ ...next, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, settings) });
     setSettingsOpen(false);
-  }, [commit, settings, subject]);
+  }, [commit, confirm, settings, subject]);
 
   const session = progress?.activeSession;
   const item = session?.queue[session.currentIndex];
@@ -221,7 +225,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     return () => removeEventListener("keydown", handler);
   }, [attempt, choose, displayOptions, item?.instanceId, navigate, revealedInstanceId, settingsOpen]);
 
-  if (!progress || !session) return <div className="card" role="status">Đang khôi phục phiên học…</div>;
+  if (!progress || !session) return <>{confirmDialog}<div className="card" role="status">Đang khôi phục phiên học…</div></>;
 
   if (session.completedAt) {
     return <div className="card center"><h1>Hoàn thành phiên học</h1><Link className="button" href={`/subjects/${subject.slug}/summary`}>Xem tổng kết</Link></div>;
@@ -234,7 +238,8 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const historical = !!attempt && !reveal;
 
   return <>
-    <div inert={settingsOpen ? true : undefined}>
+    {confirmDialog}
+    <div inert={settingsOpen || confirmOpen ? true : undefined}>
     <div className="study-top">
       <Link className="exit-button" href={`/subjects/${subject.slug}`}><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M9.04404 5.18597C10.6002 4.08204 12.7538 5.19471 12.7538 7.10266V9.64834L19.044 5.18597C20.6002 4.08204 22.7538 5.19471 22.7538 7.10266V16.8991C22.7538 18.8071 20.6002 19.9198 19.044 18.8158L12.7538 14.3534V16.8991C12.7538 18.8071 10.6002 19.9198 9.04405 18.8158L2.3118 14.0399C0.907135 13.0434 0.907132 10.9583 2.3118 9.96186L9.04404 5.18597ZM11.2538 7.10266C11.2538 6.41255 10.4748 6.01009 9.91194 6.40939L3.1797 11.1853C2.61783 11.5839 2.61783 12.4179 3.1797 12.8165L9.91195 17.5924C10.4748 17.9917 11.2538 17.5892 11.2538 16.8991V7.10266ZM21.2538 7.10266C21.2538 6.41255 20.4748 6.01009 19.9119 6.40939L13.1797 11.1853C12.6178 11.5839 12.6178 12.4179 13.1797 12.8165L19.9119 17.5924C20.4748 17.9917 21.2538 17.5892 21.2538 16.8991V7.10266Z" fill="currentColor" /></svg> Thoát</Link>
       <span>Học · {subject.code}</span>
