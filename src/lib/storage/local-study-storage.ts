@@ -20,7 +20,7 @@ function hasValidRelations(progress: SubjectProgress, questionIds?: string[], qu
   for (const [key, record] of Object.entries(progress.questionProgress)) {
     if (key !== record.questionId || (validQuestions && !validQuestions.has(record.questionId))) return false;
     const options = questionOptions?.[record.questionId];
-    if (record.lastSelectedOptionId !== null && options && !options.includes(record.lastSelectedOptionId)) return false;
+    if (record.lastSelectedOptionIds && options && record.lastSelectedOptionIds.some((id) => !options.includes(id))) return false;
   }
   const session = progress.activeSession;
   if (!session) return true;
@@ -37,7 +37,7 @@ function hasValidRelations(progress: SubjectProgress, questionIds?: string[], qu
     const item = session.queue.find((candidate) => candidate.instanceId === attempt.queueInstanceId);
     if (!item || item.questionId !== attempt.questionId) return false;
     const options = questionOptions?.[attempt.questionId];
-    if (attempt.selectedOptionId !== null && options && !options.includes(attempt.selectedOptionId)) return false;
+    if (attempt.selectedOptionIds && options && attempt.selectedOptionIds.some((id) => !options.includes(id))) return false;
   }
   for (const item of session.queue) {
     const attempts = session.attempts.filter((attempt) => attempt.queueInstanceId === item.instanceId);

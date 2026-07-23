@@ -1,19 +1,26 @@
 import { z } from "zod";
 
 export const optionSchema = z.object({ id: z.string().min(1), text: z.string().min(1) });
-export const questionSchema = z.object({
-  id: z.string().min(1), number: z.number().int().positive(), type: z.literal("multiple-choice"), question: z.string().min(1),
-  options: z.array(optionSchema).min(2), correctAnswer: z.string().min(1), explanation: z.string().nullable(),
-  source: z.object({ file: z.string().min(1), pages: z.array(z.number().int().positive()).min(1) }),
+export const questionTypeSchema = z.enum(["single-choice", "multiple-choice", "true-false"]);
+const questionBaseSchema = z.object({
+  id: z.string().min(1), number: z.number().int().positive(), type: questionTypeSchema, question: z.string().min(1),
+  options: z.array(optionSchema).min(2), correctAnswers: z.array(z.string().min(1)).min(1), explanation: z.string().nullable(),
+  source: z.object({ file: z.string().min(1), pages: z.array(z.number().int().positive()) }),
   needsReview: z.boolean(), reviewNotes: z.array(z.string())
 }).superRefine((q, ctx) => {
-  if (new Set(q.options.map(o => o.id)).size !== q.options.length) ctx.addIssue({ code: "custom", message: "Option IDs must be unique" });
-  if (!q.options.some(o => o.id === q.correctAnswer)) ctx.addIssue({ code: "custom", message: "correctAnswer must reference an option" });
+  const optionIds = new Set(q.options.map((option) => option.id));
+  if (optionIds.size !== q.options.length) ctx.addIssue({ code: "custom", message: "Option IDs must be unique" });
+  if (new Set(q.correctAnswers).size !== q.correctAnswers.length) ctx.addIssue({ code: "custom", message: "correctAnswers must be unique" });
+  if (q.correctAnswers.some((answer) => !optionIds.has(answer))) ctx.addIssue({ code: "custom", message: "correctAnswers must reference options" });
+  if (q.type !== "multiple-choice" && q.correctAnswers.length !== 1) ctx.addIssue({ code: "custom", message: "Single-choice questions require exactly one correct answer" });
 });
+export const questionSchema = questionBaseSchema.transform((question) => ({ ...question, correctAnswer: question.correctAnswers[0] }));
+const legacyQuestionSchema = z.object({ correctAnswer: z.string().min(1) }).passthrough().transform(({ correctAnswer, ...question }) => ({ ...question, type: "single-choice" as const, correctAnswers: [correctAnswer] })).pipe(questionSchema);
+export const compatibleQuestionSchema = z.union([questionSchema, legacyQuestionSchema]);
 export const subjectSchema = z.object({
   schemaVersion: z.literal(1), contentVersion: z.number().int().positive(), id: z.string().min(1), slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   code: z.string().min(1), name: z.string().min(1), description: z.string(), language: z.string().min(1), questionCount: z.number().int().nonnegative(),
-  source: z.object({ file: z.string(), pageCount: z.number().int().positive(), note: z.string() }),
+  source: z.object({ file: z.string(), pageCount: z.number().int().nonnegative(), note: z.string() }),
   dataQuality: z.object({
     needsReviewCount: z.number().int().nonnegative(),
     duplicatePromptGroups: z.array(z.array(z.number().int().positive()).min(2)),
@@ -21,16 +28,14 @@ export const subjectSchema = z.object({
     correctedAnswerNumbers: z.array(z.number().int().positive()).optional(),
     reviewBasis: z.string().optional(),
   }).superRefine((quality, ctx) => {
-    if (quality.answerCorrectionCount !== undefined && quality.correctedAnswerNumbers?.length !== quality.answerCorrectionCount) {
-      ctx.addIssue({ code: "custom", message: "answerCorrectionCount mismatch" });
-    }
+    if (quality.answerCorrectionCount !== undefined && quality.correctedAnswerNumbers?.length !== quality.answerCorrectionCount) ctx.addIssue({ code: "custom", message: "answerCorrectionCount mismatch" });
   }),
-  questions: z.array(questionSchema)
-}).superRefine((s, ctx) => {
-  if (s.questionCount !== s.questions.length) ctx.addIssue({ code: "custom", message: "questionCount does not match questions.length" });
-  if (new Set(s.questions.map(q => q.id)).size !== s.questions.length) ctx.addIssue({ code: "custom", message: "Question IDs must be unique" });
-  if (new Set(s.questions.map(q => q.number)).size !== s.questions.length) ctx.addIssue({ code: "custom", message: "Question numbers must be unique" });
-  if (s.dataQuality.needsReviewCount !== s.questions.filter(q => q.needsReview).length) ctx.addIssue({ code: "custom", message: "needsReviewCount mismatch" });
-  const numbers = new Set(s.questions.map(q => q.number));
-  if (s.dataQuality.duplicatePromptGroups.flat().some(n => !numbers.has(n))) ctx.addIssue({ code: "custom", message: "Duplicate group references missing question" });
+  questions: z.array(compatibleQuestionSchema)
+}).superRefine((subject, ctx) => {
+  if (subject.questionCount !== subject.questions.length) ctx.addIssue({ code: "custom", message: "questionCount does not match questions.length" });
+  if (new Set(subject.questions.map((question) => question.id)).size !== subject.questions.length) ctx.addIssue({ code: "custom", message: "Question IDs must be unique" });
+  if (new Set(subject.questions.map((question) => question.number)).size !== subject.questions.length) ctx.addIssue({ code: "custom", message: "Question numbers must be unique" });
+  if (subject.dataQuality.needsReviewCount !== subject.questions.filter((question) => question.needsReview).length) ctx.addIssue({ code: "custom", message: "needsReviewCount mismatch" });
+  const numbers = new Set(subject.questions.map((question) => question.number));
+  if (subject.dataQuality.duplicatePromptGroups.flat().some((number) => !numbers.has(number))) ctx.addIssue({ code: "custom", message: "Duplicate group references missing question" });
 });

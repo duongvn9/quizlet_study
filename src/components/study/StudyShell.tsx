@@ -60,6 +60,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const [settings, setSettings] = useState<StudySettings>(defaultSettings);
   const [revealedInstanceId, setRevealedInstanceId] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [selectedOptionIds, setSelectedOptionIds] = useState<string[]>([]);
   const settingsButtonRef = useRef<HTMLButtonElement>(null);
   const copyResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { enabled, setEnabled, play } = useCorrectAnswerSound();
@@ -103,6 +104,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     if (!progress || !confirm("Tạo phiên học mới cho môn này?")) return;
     const next = { ...progress, activeSession: createSession(subject.id, subject.contentVersion, subject.questions, settings) };
     setRevealedInstanceId(null);
+    setSelectedOptionIds([]);
     commit(next);
     setSettingsOpen(false);
   }, [commit, progress, settings, subject]);
@@ -127,25 +129,33 @@ export function StudyShell({ subject }: { subject: Subject }) {
   }, [item, question, session?.settings.shuffleOptions]);
   const counters = selectLearnCounters(progress, subject.questions.map((candidate) => candidate.id));
 
+  useEffect(() => setSelectedOptionIds([]), [item?.instanceId]);
+
   const updateSettings = useCallback((next: StudySettings) => {
     setSettings(next);
     saveSettings(next);
   }, []);
 
-  const choose = useCallback((id: string | null) => {
+  const submitSelection = useCallback((ids: string[] | null) => {
     if (!progress || !question || !item || revealedInstanceId === item.instanceId) return;
-    const next = attempt ? replaceAnswer(progress, question, id) : answer(progress, question, id);
+    const next = attempt ? replaceAnswer(progress, question, ids) : answer(progress, question, ids);
     if (next === progress) return;
     setRevealedInstanceId(item.instanceId);
-    if (id === question.correctAnswer && (!attempt || attempt.result !== "correct" || attempt.selectedOptionId !== id)) play();
+    if (ids && ids.length === question.correctAnswers.length && ids.every((id) => question.correctAnswers.includes(id)) && attempt?.result !== "correct") play();
     commit(next);
   }, [attempt, commit, item, play, progress, question, revealedInstanceId]);
+
+  const choose = useCallback((id: string) => {
+    if (question?.type !== "multiple-choice") submitSelection([id]);
+    else setSelectedOptionIds((current) => current.includes(id) ? current.filter((value) => value !== id) : [...current, id]);
+  }, [question?.type, submitSelection]);
 
   const navigate = useCallback((direction: -1 | 1) => {
     if (!progress) return;
     const next = move(progress, direction);
     if (next === progress) return;
     setRevealedInstanceId(null);
+    setSelectedOptionIds([]);
     commit(next);
   }, [commit, progress]);
 
@@ -195,7 +205,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     const handler = (event: KeyboardEvent) => {
       const target = event.target;
       if (settingsOpen || event.repeat || target instanceof Element && (/INPUT|TEXTAREA|SELECT|BUTTON/.test(target.tagName) || target.closest("[role=dialog]"))) return;
-      if ((!attempt || revealedInstanceId !== item?.instanceId) && /^[1-5]$/.test(event.key)) {
+      if ((!attempt || revealedInstanceId !== item?.instanceId) && /^[1-6]$/.test(event.key)) {
         const option = displayOptions[Number(event.key) - 1];
         if (option) choose(option.id);
       } else if (event.code === "Space" && attempt) {
@@ -240,18 +250,20 @@ export function StudyShell({ subject }: { subject: Subject }) {
 
       <div className="options">
         {displayOptions.map((option, index) => {
-          const correct = reveal && option.id === question.correctAnswer;
-          const selectedWrong = reveal && attempt.selectedOptionId === option.id && attempt.result !== "correct";
-          return <button key={option.id} type="button" disabled={reveal} className={correct ? "correct" : selectedWrong ? "wrong" : ""} onClick={() => choose(option.id)}>
+          const correct = reveal && question.correctAnswers.includes(option.id);
+          const selected = reveal ? attempt.selectedOptionIds?.includes(option.id) : selectedOptionIds.includes(option.id);
+          const selectedWrong = reveal && selected && attempt.result !== "correct";
+          return <button key={option.id} type="button" disabled={reveal} aria-pressed={selected} className={correct ? "correct" : selectedWrong ? "wrong" : selected ? "selected" : ""} onClick={() => choose(option.id)}>
             <span>{index + 1}</span><em>{option.text}</em>
           </button>;
         })}
       </div>
-      {!reveal && <button className="secondary" type="button" onClick={() => choose(null)}>Không biết</button>}
+       {!reveal && question.type === "multiple-choice" && <button className="button" type="button" disabled={!selectedOptionIds.length} onClick={() => submitSelection(selectedOptionIds)}>Nộp đáp án</button>}
+       {!reveal && <button className="secondary" type="button" onClick={() => submitSelection(null)}>Không biết</button>}
       {historical && <div className="feedback" role="status">Bạn đã trả lời lượt này. Chọn lại sẽ thay thế kết quả trước đó.</div>}
       {feedback && <div className="feedback" aria-live="polite"><h2>{feedback}</h2>{question.explanation?.trim() && <aside className="explanation"><strong>Giải thích</strong><p>{question.explanation}</p></aside>}{question.needsReview && <details><summary>Dữ liệu nguồn cần rà soát</summary>{question.reviewNotes.map((note) => <p key={note}>{note}</p>)}</details>}</div>}
     </article>
-    <p className="shortcut-hint">1–5 chọn đáp án · Space tiếp tục · ← → điều hướng</p>
+    <p className="shortcut-hint">1–6 chọn đáp án · Space tiếp tục · ← → điều hướng</p>
     <nav className="nav"><button type="button" aria-label="Trước" onClick={() => navigate(-1)} disabled={session.currentIndex === 0}><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M19.5025 20.835L2.99281 13.4725C1.66906 12.8822 1.66906 11.1178 2.99281 10.5275L19.5025 3.16496C20.9984 2.49789 22.5499 3.97914 21.809 5.36689L18.657 11.2706C18.4118 11.7298 18.4118 12.2702 18.657 12.7294L21.809 18.6331C22.5499 20.0209 20.9984 21.5021 19.5025 20.835Z" fill="currentColor" /></svg></button><span>Câu {question.number} / {subject.questions.length}</span><button type="button" aria-label="Tiếp tục" onClick={() => navigate(1)} disabled={!item?.answered}><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none"><path fillRule="evenodd" clipRule="evenodd" d="M4.49746 20.835L21.0072 13.4725C22.3309 12.8822 22.3309 11.1178 21.0072 10.5275L4.49746 3.16496C3.00163 2.49789 1.45006 3.97914 2.19099 5.36689L5.34302 11.2706C5.58817 11.7298 5.58818 12.2702 5.34302 12.7294L2.19099 18.6331C1.45007 20.0209 3.00163 21.5021 4.49746 20.835Z" fill="currentColor" /></svg></button></nav>
     </div>
     {settingsOpen && <div className="dialog-backdrop" role="presentation" onMouseDown={() => setSettingsOpen(false)}><section role="dialog" aria-modal="true" aria-labelledby="settings-title" className="dialog" onMouseDown={(event) => event.stopPropagation()}>
@@ -259,7 +271,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
       <label><input type="checkbox" checked={settings.shuffleQuestions} onChange={(event) => updateSettings({ ...settings, shuffleQuestions: event.target.checked })} /> Xáo trộn câu hỏi</label>
       <p>Áp dụng khi tạo phiên học mới, không xáo trộn phiên đang học.</p>
       <label><input type="checkbox" checked={settings.shuffleOptions} onChange={(event) => updateSettings({ ...settings, shuffleOptions: event.target.checked })} /> Xáo trộn đáp án</label>
-      <p>Phím 1–5 luôn theo thứ tự đáp án đang hiển thị.</p>
+      <p>Phím 1–6 luôn theo thứ tự đáp án đang hiển thị.</p>
       <div className="actions"><button className="secondary" type="button" onClick={resetSession}>Tạo phiên mới</button><button className="secondary" type="button" onClick={resetProgress}>Đặt lại tiến độ</button><button className="button" type="button" onClick={() => setSettingsOpen(false)}>Đóng</button></div>
     </section></div>}
   </>;

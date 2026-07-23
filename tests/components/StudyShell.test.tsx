@@ -153,7 +153,7 @@ describe("StudyShell interactions and sound", () => {
     expect(options.every((option) => option.hasAttribute("disabled"))).toBe(true);
     expect(audioMocks.play).toHaveBeenCalledTimes(1);
     const loaded = storage.load(subject.id, subject.contentVersion);
-    expect(loaded).toMatchObject({ status: "loaded", progress: { lifetimeAttempts: 1, activeSession: { queue, attempts: [{ ...oldAttempt, selectedOptionId: first.correctAnswer, result: "correct" }] } } });
+    expect(loaded).toMatchObject({ status: "loaded", progress: { lifetimeAttempts: 1, activeSession: { queue, attempts: [{ ...oldAttempt, selectedOptionIds: [first.correctAnswer], result: "correct" }] } } });
     fireEvent.click(screen.getByRole("button", { name: "Tiếp tục" }));
     fireEvent.click(screen.getByRole("button", { name: "Trước" }));
     expect(await screen.findByText(/Chọn lại sẽ thay thế kết quả trước đó/)).toBeVisible();
@@ -260,7 +260,7 @@ describe("StudyShell interactions and sound", () => {
   it("shows completion instead of loading when hydrated items are all answered", async () => {
     let saved = createProgress(subject.id, subject.contentVersion, subject.questions);
     saved = { ...saved, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
-    saved = { ...saved, activeSession: { ...saved.activeSession!, queue: saved.activeSession!.queue.map((item) => ({ ...item, answered: true })), attempts: saved.activeSession!.queue.map((item, index) => ({ id: `attempt-${index}`, queueInstanceId: item.instanceId, questionId: item.questionId, selectedOptionId: subject.questions.find((question) => question.id === item.questionId)!.correctAnswer, result: "correct" as const, answeredAt: "2026-01-01T00:00:00.000Z" })) } };
+    saved = { ...saved, activeSession: { ...saved.activeSession!, queue: saved.activeSession!.queue.map((item) => ({ ...item, answered: true })), attempts: saved.activeSession!.queue.map((item, index) => ({ id: `attempt-${index}`, queueInstanceId: item.instanceId, questionId: item.questionId, selectedOptionIds: [subject.questions.find((question) => question.id === item.questionId)!.correctAnswer], result: "correct" as const, answeredAt: "2026-01-01T00:00:00.000Z" })) } };
     storage.save(saved);
     render(<StudyShell subject={subject} />);
     expect(await screen.findByRole("heading", { name: "Hoàn thành phiên học" })).toBeVisible();

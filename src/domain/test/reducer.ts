@@ -1,10 +1,15 @@
 import type { TestSession } from "./types";
 
-export function selectResponse(session: TestSession, optionId: string, now: string): TestSession {
+export function selectResponse(session: TestSession, optionId: string, now: string, multiple = false): TestSession {
   if (session.status !== "active") return session;
   const questionId = session.questionIds[session.currentIndex];
   if (!questionId || !session.optionOrders[questionId]?.includes(optionId)) return session;
-  return { ...session, responses: { ...session.responses, [questionId]: { selectedOptionId: optionId, answeredAt: now } }, updatedAt: now };
+  const current = session.responses[questionId]?.selectedOptionIds ?? [];
+  const selectedOptionIds = multiple ? current.includes(optionId) ? current.filter((id) => id !== optionId) : [...current, optionId] : [optionId];
+  const responses = { ...session.responses };
+  if (selectedOptionIds.length) responses[questionId] = { selectedOptionIds, answeredAt: now };
+  else delete responses[questionId];
+  return { ...session, responses, updatedAt: now };
 }
 
 export function goToQuestion(session: TestSession, index: number, now: string): TestSession {

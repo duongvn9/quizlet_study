@@ -1,0 +1,5482 @@
+{
+  "schemaVersion": "1.0",
+  "subject": {
+    "code": "MMA301",
+    "title": "MMA301 - full",
+    "topic": "React Native / Mobile Application Development",
+    "language": "en"
+  },
+  "source": {
+    "file": "MMA301.pdf",
+    "pages": 58,
+    "quizletUrlPrintedInPdf": "https://quizlet.com/_e2g9y7",
+    "preserveSourceAnswers": true,
+    "note": "Answer keys and explanations are transcribed from the PDF as published; factual corrections were not applied."
+  },
+  "statistics": {
+    "totalEntries": 184,
+    "activeQuestions": 182,
+    "deletedOrEmptyEntries": 2,
+    "singleChoice": 92,
+    "multipleChoice": 60,
+    "trueFalse": 30,
+    "entriesWithWarnings": 4
+  },
+  "extractionWarnings": [
+    {
+      "number": 64,
+      "warnings": [
+        "The PDF source contains a deleted or empty question entry."
+      ]
+    },
+    {
+      "number": 96,
+      "warnings": [
+        "The PDF source contains a deleted or empty question entry."
+      ]
+    },
+    {
+      "number": 118,
+      "warnings": [
+        "The source answer key is C (View), but its explanation describes the Image component, which is option B. The source key was preserved."
+      ]
+    },
+    {
+      "number": 150,
+      "warnings": [
+        "The question asks about importing NavigationContainer, but all printed options import createNativeStackNavigator. The source content was preserved."
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "MMA301-001",
+      "number": 1,
+      "type": "single_choice",
+      "status": "active",
+      "question": "React Native uses the following tech stack to build\ncross-platform native apps. Select the correct answer.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Swift and Objective-C"
+        },
+        {
+          "key": "B",
+          "text": "JavaScript and React"
+        },
+        {
+          "key": "C",
+          "text": "Kotlin and Java"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "React Native uses\nJavaScript and React to\nbuild cross-platform native mobile applications.",
+      "sourcePages": [
+        1
+      ]
+    },
+    {
+      "id": "MMA301-002",
+      "number": 2,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "React Native can build native mobile apps on the\nfollowing platforms. Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "iOS"
+        },
+        {
+          "key": "B",
+          "text": "Windows"
+        },
+        {
+          "key": "C",
+          "text": "Android"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A, B, C",
+      "explanation": "React Native can build\nnative iOS apps, Windows\napps, Android apps.",
+      "sourcePages": [
+        1
+      ]
+    },
+    {
+      "id": "MMA301-003",
+      "number": 3,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following statements are true about\nReact Native?",
+      "options": [
+        {
+          "key": "A",
+          "text": "React Native has a separate code base for both\niOS and Android. These have to be maintained by two\ndifferent teams of developers."
+        },
+        {
+          "key": "B",
+          "text": "React Native code contains both React and Angular\ncomponents."
+        },
+        {
+          "key": "C",
+          "text": "React Native has one shared code base for iOS and\nAndroid written in JavaScript and React."
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        1
+      ]
+    },
+    {
+      "id": "MMA301-004",
+      "number": 4,
+      "type": "single_choice",
+      "status": "active",
+      "question": "If you are new to mobile development and don't\nwant to write any custom native code, what do you\nthink is the best way to build your React Native app?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Using React Native CLI"
+        },
+        {
+          "key": "B",
+          "text": "Using Expo CLI"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. Using Expo CLI",
+      "explanation": "The\nExpo CLI is much easier to\nset up, and you will not\nneed to touch any native\ncode while building React\nNative apps using Expo.",
+      "sourcePages": [
+        1
+      ]
+    },
+    {
+      "id": "MMA301-005",
+      "number": 5,
+      "type": "true_false",
+      "status": "active",
+      "question": "With Expo, you can push updates to the app Over\nthe Air (OTA). This means you do not have to make\nupdates via the app store!",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "With Expo, you\ncan push updates OTA to\nthe user's device directly without going through\nthe app store update\nprocess.",
+      "sourcePages": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "MMA301-006",
+      "number": 6,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "To be proficient in React Native, which programming languages should you also be proficient in? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "JavaScript"
+        },
+        {
+          "key": "B",
+          "text": "Swift"
+        },
+        {
+          "key": "C",
+          "text": "HTML"
+        },
+        {
+          "key": "D",
+          "text": "Kotlin"
+        },
+        {
+          "key": "E",
+          "text": "CSS"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "C",
+        "E"
+      ],
+      "answerTextFromSource": "A, C, E",
+      "explanation": "You need to know\nJavaScript, React, and the\nbasics of HTML and CSS to\nget started.",
+      "sourcePages": [
+        2
+      ]
+    },
+    {
+      "id": "MMA301-007",
+      "number": 7,
+      "type": "single_choice",
+      "status": "active",
+      "question": "You develop apps in React Basic that use the same\ncodebase for multiple mobile platforms. What kind of\nmobile developer does this make you?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cross-Platform"
+        },
+        {
+          "key": "B",
+          "text": "Hybrid"
+        },
+        {
+          "key": "C",
+          "text": "Native"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. Cross-Platform",
+      "explanation": "Cross-platform developers create a single codebase for native iOS and\nnative Android apps at the\nsame time.",
+      "sourcePages": [
+        2
+      ]
+    },
+    {
+      "id": "MMA301-008",
+      "number": 8,
+      "type": "single_choice",
+      "status": "active",
+      "question": "You are brand-new to mobile development and\nwould like to set up a development environment for\nReact Native. Which environment would be ideal?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Expo Go"
+        },
+        {
+          "key": "B",
+          "text": "React Native CLI"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. Expo Go",
+      "explanation": "Expo Go offers a faster, easier installation process that still\nprovides everything you\nneed to develop simple\napps in React Native.",
+      "sourcePages": [
+        2
+      ]
+    },
+    {
+      "id": "MMA301-009",
+      "number": 9,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Before you install the Expo package, which preliminary steps should you take? Choose all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Use a computer running on MacOS"
+        },
+        {
+          "key": "B",
+          "text": "Install Node"
+        },
+        {
+          "key": "C",
+          "text": "Install an emulator"
+        },
+        {
+          "key": "D",
+          "text": "Install an integrated development environment\n(IDE) such as VSCode"
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "B, C, D",
+      "explanation": "Before installing\nthe Expo package, you\nshould have Node, an IDE,\nand an emulator installed\non your machine. You only\nneed a MacOS computer if\nyou want to utilize an iOS\nemulator.",
+      "sourcePages": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "MMA301-010",
+      "number": 10,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "What are the biggest benefits of using React Native are? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Having a high learning curve to become a React\nNative developer, if you are a React developer"
+        },
+        {
+          "key": "B",
+          "text": "Sharing of ideas and code between web and mobile\nor React and React Native"
+        },
+        {
+          "key": "C",
+          "text": "Sharing of code base across platforms"
+        },
+        {
+          "key": "D",
+          "text": "The speed of development"
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "B, C, D",
+      "explanation": "The speed of\ndevelopment, sharing of\ncode base across platforms, sharing of ideas\nand code between web\nand mobile or React and\nReact Native, and lastly,\nthe ease of deployment.",
+      "sourcePages": [
+        3
+      ]
+    },
+    {
+      "id": "MMA301-011",
+      "number": 11,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following statements are true about\nReact Native Code?",
+      "options": [
+        {
+          "key": "A",
+          "text": "React Native code is made up of components and\nfollows component design."
+        },
+        {
+          "key": "B",
+          "text": "React Native code is written in JavaScript and React."
+        },
+        {
+          "key": "C",
+          "text": "React Native follows an inheritance pattern"
+        },
+        {
+          "key": "D",
+          "text": "React Native code renders into native iOS and native Android code"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "D"
+      ],
+      "answerTextFromSource": "A, B, D",
+      "explanation": "React Native follows component structure\nand is made up of components. React Native code\nis written in JavaScript and\nuses the React library. The\nReact Native code written\nin JavaScript renders into\nnative iOS and native Android code.",
+      "sourcePages": [
+        3
+      ]
+    },
+    {
+      "id": "MMA301-012",
+      "number": 12,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Expo is an open-source platform that adds a layer\nof abstraction on top of React Native apps. Which of\nthe following are benefits of this? Check all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Expo has a feature to do Over The Air (OTA) updates."
+        },
+        {
+          "key": "B",
+          "text": "You will only need a recent version of Node.js and an\nemulator to start building mobile apps in React Native\nusing Expo."
+        },
+        {
+          "key": "C",
+          "text": "With Expo, you will be able to start right away with\nminimal setup and build a complete cross-platform\napp in React Native."
+        },
+        {
+          "key": "D",
+          "text": "You need prior knowledge of native iOS or native\nAndroid code like Swift, Java, or Kotlin."
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A, B, C",
+      "explanation": "With Expo, you will\nbe able to start right away\nwith minimal setup, you'll\nonly need Node.js and an\nemulator, and you will be\nable to do OTA updates.",
+      "sourcePages": [
+        3,
+        4
+      ]
+    },
+    {
+      "id": "MMA301-013",
+      "number": 13,
+      "type": "single_choice",
+      "status": "active",
+      "question": "When you created a footer component for the Little\nLemon app, which one of these statements should\nyou have used to import the footer component into\nthe App component.",
+      "options": [
+        {
+          "key": "A",
+          "text": "import LittleLemonFooter from './components/LittleLemonFooter';"
+        },
+        {
+          "key": "B",
+          "text": "import { LittleLemonFooter } from './components/LittleLemonFooter';"
+        },
+        {
+          "key": "C",
+          "text": "import LittleLemonFooter from './App;"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. import\nLittleLemonFooter from\n'./components/LittleLemonFooter';",
+      "explanation": "This statement imports\nthe footer component\nfrom the components\nfolder.",
+      "sourcePages": [
+        4
+      ]
+    },
+    {
+      "id": "MMA301-014",
+      "number": 14,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following core components should you\nhave used to create the footer component for Little\nLemon? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Text"
+        },
+        {
+          "key": "B",
+          "text": "View"
+        },
+        {
+          "key": "C",
+          "text": "Image"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A, B",
+      "explanation": "The footer component uses the Text and\nView core components.",
+      "sourcePages": [
+        4
+      ]
+    },
+    {
+      "id": "MMA301-015",
+      "number": 15,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following style attributes should you\nhave used to set the text color of the footer component to black?",
+      "options": [
+        {
+          "key": "A",
+          "text": "textColor: 'black'"
+        },
+        {
+          "key": "B",
+          "text": "color: 'black'"
+        },
+        {
+          "key": "C",
+          "text": "style: { color: 'black' }"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. color: 'black'",
+      "explanation": "The style attribute should\nbe used, and the property\nto set the text color is 'color'.",
+      "sourcePages": [
+        4
+      ]
+    },
+    {
+      "id": "MMA301-016",
+      "number": 16,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which component type is built into the react-native\npackage and comes ready-to-use?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Your native components"
+        },
+        {
+          "key": "B",
+          "text": "Community components"
+        },
+        {
+          "key": "C",
+          "text": "Core components"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. Core components",
+      "explanation": "React Native comes with\nseveral core components\nthat do not require any\nadditional packages and\ncomes with the react-native package.",
+      "sourcePages": [
+        4,
+        5
+      ]
+    },
+    {
+      "id": "MMA301-017",
+      "number": 17,
+      "type": "true_false",
+      "status": "active",
+      "question": "Custom Components in React are reusable throughout the app. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. True",
+      "explanation": "Custom components in React are indeed\nreusable throughout the\napp.",
+      "sourcePages": [
+        5
+      ]
+    },
+    {
+      "id": "MMA301-018",
+      "number": 18,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following are core components in React Native? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Text"
+        },
+        {
+          "key": "B",
+          "text": "TextInput"
+        },
+        {
+          "key": "C",
+          "text": "Maps"
+        },
+        {
+          "key": "D",
+          "text": "View"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "D"
+      ],
+      "answerTextFromSource": "A, B, D",
+      "explanation": "",
+      "sourcePages": [
+        5
+      ]
+    },
+    {
+      "id": "MMA301-019",
+      "number": 19,
+      "type": "true_false",
+      "status": "active",
+      "question": "React Native uses component-based architecture,\nand code is reused between components. True or\nfalse?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "React Native uses a\ncomponent-based architecture like React, resulting in code reuse between\nthe components.",
+      "sourcePages": [
+        5
+      ]
+    },
+    {
+      "id": "MMA301-020",
+      "number": 20,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following make up React Native components? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Community Components"
+        },
+        {
+          "key": "B",
+          "text": "Your Custom Native Components"
+        },
+        {
+          "key": "C",
+          "text": "Core Components"
+        },
+        {
+          "key": "D",
+          "text": "Utility Components"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A, B, C",
+      "explanation": "",
+      "sourcePages": [
+        5
+      ]
+    },
+    {
+      "id": "MMA301-021",
+      "number": 21,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Custom Native components are written in the following languages. Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "React"
+        },
+        {
+          "key": "B",
+          "text": "Kotlin"
+        },
+        {
+          "key": "C",
+          "text": "Swift"
+        },
+        {
+          "key": "D",
+          "text": "JavaScript"
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "B, C",
+      "explanation": "Kotlin is used for custom\nnative components on Android, and Swift is used\nfor custom native components on iOS.",
+      "sourcePages": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": "MMA301-022",
+      "number": 22,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Study the code below and choose the correct output\nthat you will expect to see on the emulator.\nimport React from 'react';\nimport { Text, View } from 'react-native';\nconst Cat = () => (\n <View>\n <Text>I am also a cat!</Text>\n </View>\n);\nconst Cafe = () => (\n <View>\n <Text>Welcome! </Text>\n <Cat />\n <Cat />\n <Cat />\n </View>\n);\nexport default Cafe;",
+      "options": [
+        {
+          "key": "A",
+          "text": "Welcome!"
+        },
+        {
+          "key": "B",
+          "text": "I am also a cat!"
+        },
+        {
+          "key": "C",
+          "text": "Welcome!\nI am also a cat!\nI am also a cat!\nI am also a cat!"
+        },
+        {
+          "key": "D",
+          "text": "Error: cannot render the same component three\ntimes."
+        },
+        {
+          "key": "E",
+          "text": "Welcome"
+        },
+        {
+          "key": "F",
+          "text": "I am also a cat!"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "The component will render the welcome text and\nthen render the text from\nthe Cat component three\ntimes.",
+      "sourcePages": [
+        6,
+        7
+      ]
+    },
+    {
+      "id": "MMA301-023",
+      "number": 23,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of the following code snippets represents\nthe correct parent view component for wrapping the\nWelcome screen?",
+      "options": [
+        {
+          "key": "A",
+          "text": "<View>"
+        },
+        {
+          "key": "B",
+          "text": "<View style={{ flex: 1 }}>"
+        },
+        {
+          "key": "C",
+          "text": "<View style={{ height: 500 }}>"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        7
+      ]
+    },
+    {
+      "id": "MMA301-024",
+      "number": 24,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following core components should you\nhave used to create the Welcome screen for Little\nLemon? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "View"
+        },
+        {
+          "key": "B",
+          "text": "Image"
+        },
+        {
+          "key": "C",
+          "text": "Text"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "C"
+      ],
+      "answerTextFromSource": "A, C",
+      "explanation": "",
+      "sourcePages": [
+        7
+      ]
+    },
+    {
+      "id": "MMA301-025",
+      "number": 25,
+      "type": "true_false",
+      "status": "active",
+      "question": "The View component can be nested inside other views\nand can have zero or many children within it.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        7
+      ]
+    },
+    {
+      "id": "MMA301-026",
+      "number": 26,
+      "type": "single_choice",
+      "status": "active",
+      "question": "You have created a View component for your app\nand would like it to take 50% of the space on the\nscreen. Which of the following styling parameter settings would you apply to achieve this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "margin: 50"
+        },
+        {
+          "key": "B",
+          "text": "flex: 0.5"
+        },
+        {
+          "key": "C",
+          "text": "padding: 50"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. flex: 0.5",
+      "explanation": "",
+      "sourcePages": [
+        7,
+        8
+      ]
+    },
+    {
+      "id": "MMA301-027",
+      "number": 27,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which core component in React Native should you\nhave imported to build the scrollable Welcome\nscreen?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Scrollable"
+        },
+        {
+          "key": "B",
+          "text": "ScrollView"
+        },
+        {
+          "key": "C",
+          "text": "FlatList"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        8
+      ]
+    },
+    {
+      "id": "MMA301-028",
+      "number": 28,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following core components should you\nhave used to create the scrollable Welcome screen for\nLittle Lemon? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Text"
+        },
+        {
+          "key": "B",
+          "text": "ScrollView"
+        },
+        {
+          "key": "C",
+          "text": "Scrollable"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A, B",
+      "explanation": "",
+      "sourcePages": [
+        8
+      ]
+    },
+    {
+      "id": "MMA301-029",
+      "number": 29,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which code snippets represent the final code for creating a ScrollView that wraps your Welcome screen?",
+      "options": [
+        {
+          "key": "A",
+          "text": "<ScrollView style={{ flex: 1 }}> rest of the code."
+        },
+        {
+          "key": "B",
+          "text": "<ScrollView indicatorStyle={\"white\"} style={{ flex: 1\n}}> rest of the code."
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A, B",
+      "explanation": "",
+      "sourcePages": [
+        8
+      ]
+    },
+    {
+      "id": "MMA301-030",
+      "number": 30,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following are true statements about the\nScrollView component? Check all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "ScrollView does not inherit props from the View\ncomponent"
+        },
+        {
+          "key": "B",
+          "text": "It must be bounded by a height in order to work."
+        },
+        {
+          "key": "C",
+          "text": "ScrollView is a core React Native component and\ncomes as a part of the React Native Package."
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "B, C",
+      "explanation": "",
+      "sourcePages": [
+        8
+      ]
+    },
+    {
+      "id": "MMA301-031",
+      "number": 31,
+      "type": "single_choice",
+      "status": "active",
+      "question": "You would like to create a list for your app that is\nscrolled horizontally. Which ScrollView prop would you\npass to accomplish this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "indicatorStyle"
+        },
+        {
+          "key": "B",
+          "text": "vertical"
+        },
+        {
+          "key": "C",
+          "text": "horizontal"
+        },
+        {
+          "key": "D",
+          "text": "paddingHorizontal"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. horizontal",
+      "explanation": "",
+      "sourcePages": [
+        9
+      ]
+    },
+    {
+      "id": "MMA301-032",
+      "number": 32,
+      "type": "true_false",
+      "status": "active",
+      "question": "A View component can be nested inside other views.\nSelect the correct option.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "",
+      "sourcePages": [
+        9
+      ]
+    },
+    {
+      "id": "MMA301-033",
+      "number": 33,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following code blocks are correct and will\nnot throw any errors? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "<View>\n <Text>\n Some text </View>\n</Text>"
+        },
+        {
+          "key": "B",
+          "text": "<View>\n <Text>\n Some text\n </Text>\n</View>"
+        },
+        {
+          "key": "C",
+          "text": "Some text </View>"
+        },
+        {
+          "key": "D",
+          "text": "<View>\n <Text>Some text\n <Text> Some more text</Text>\n </Text>\n</View>"
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "D"
+      ],
+      "answerTextFromSource": "B, D",
+      "explanation": "",
+      "sourcePages": [
+        9,
+        10
+      ]
+    },
+    {
+      "id": "MMA301-034",
+      "number": 34,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Study the code below and select the image that best\nrepresents how the code will render on the emulator.\nimport React from \"react\";\nimport { View, Text } from \"react-native\";\nconst ViewBoxesWithC010rAndText = () => (\n <View\n flexDirection=\"row\"\n height={100}\n padding={20}\n >\n <View style={{ backgroundColor: \"blue\", flex: 0.5 }} />\n <View style={{ backgroundColor: \"red\", flex: 0.3 }} />\n </View>\n);\nexport default ViewBoxesWithCoIorAndText;",
+      "options": [
+        {
+          "key": "A",
+          "text": "The image that best represents how the code will\nrender on the emulator is the one where the blue view\noccupies 50% of the area, and the red view occupies\n30% of the area."
+        },
+        {
+          "key": "B",
+          "text": "The image that best represents how the code will\nrender on the emulator is the one where the red view\noccupies 50% of the area, and the blue view occupies\n30% of the area."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        10
+      ]
+    },
+    {
+      "id": "MMA301-035",
+      "number": 35,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following statements are true about the\nScrollView component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "ScrollView component always needs a bounded\nheight and can be set by providing all parent views\nwith a bounded height."
+        },
+        {
+          "key": "B",
+          "text": "ScrollView is a core component that does not need\nto be bounded by height."
+        },
+        {
+          "key": "C",
+          "text": "ScrollView component can have a bounded height\nby directly setting the view's height."
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "C"
+      ],
+      "answerTextFromSource": "A, C",
+      "explanation": "",
+      "sourcePages": [
+        11
+      ]
+    },
+    {
+      "id": "MMA301-036",
+      "number": 36,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Study the code below and choose the correct output\nthat you will expect to see on the emulator.\n<Text fontWeight=\"bold\">\n I am bold\n <Text color=\"red\"> and red</Text>\n</Text>",
+      "options": [
+        {
+          "key": "A",
+          "text": "\"I am bold and red.\" with all text in black color"
+        },
+        {
+          "key": "B",
+          "text": "\"I am bold and red.\" with all text in red color"
+        },
+        {
+          "key": "C",
+          "text": "It will throw an error"
+        },
+        {
+          "key": "D",
+          "text": "\"I am bold and red.\" with 3 first words in black and\nothers in red color"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        11
+      ]
+    },
+    {
+      "id": "MMA301-037",
+      "number": 37,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of these approaches is recommended for\nmore manageable code when styling components in\nthis exercise?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Calling styles from a StyleSheet"
+        },
+        {
+          "key": "B",
+          "text": "Applying a style prop on each element."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        11
+      ]
+    },
+    {
+      "id": "MMA301-038",
+      "number": 38,
+      "type": "single_choice",
+      "status": "active",
+      "question": "From the exercise you completed, which one of these\ncode snippets represents the styling used for the Little\nLemon footer text?",
+      "options": [
+        {
+          "key": "A",
+          "text": "footerText: {\n fontSize: 18,\n color: 'black',\n textAlign: 'center',\n font: 'italic'\n},"
+        },
+        {
+          "key": "B",
+          "text": "footerText: {\n fontSize: 18,\n color: 'black',\n textAlign: 'center',\n fontStyle: 'italic'\n}"
+        },
+        {
+          "key": "C",
+          "text": "footerText: {\n fontSize: 18,\n color: 'black',\n textAlign: 'center',\n fontWeight: 'italic'\n},"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "The fontStyle is italic, and\nall other styling parameters match this exercise's\nLittle Lemon footer component.",
+      "sourcePages": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": "MMA301-039",
+      "number": 39,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of these code snippets represents the final\ncode for your StyleSheet that contains the styles for\nthe Welcome screen?",
+      "options": [
+        {
+          "key": "A",
+          "text": "const styles = StyleSheet.create({\n container: { flex: 1 },\n headerText: { padding: 40, fontSize: 30, color: '#EDEFEE', textAlign: 'center' },\n regularText: { fontSize: 24, padding: 20, marginVertical: 8, color: '#EDEFEE', textAlign: 'center' },\n} );"
+        },
+        {
+          "key": "B",
+          "text": "const styles = StyleSheet.initialize({\n container: { flex: 1 },\n headerText: { padding: 40, fontSize: 30, color: '#EDEFEE', textAlign: 'center' },\n regularText: { fontSize: 24, padding: 20, marginVertical: 8, color: '#EDEFEE', textAlign: 'center' },\n});"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        12,
+        13
+      ]
+    },
+    {
+      "id": "MMA301-040",
+      "number": 40,
+      "type": "true_false",
+      "status": "active",
+      "question": "The StyleSheet API helps abstract the component\nstyles from the component's render and results in\nreadable and meaningful code. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "",
+      "sourcePages": [
+        13
+      ]
+    },
+    {
+      "id": "MMA301-041",
+      "number": 41,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of these is true about the StyleSheet API in\nReact Native?",
+      "options": [
+        {
+          "key": "A",
+          "text": "It is an abstraction similar to CSS StyleSheets."
+        },
+        {
+          "key": "B",
+          "text": "The create method creates a stylesheet style reference from the given object."
+        },
+        {
+          "key": "C",
+          "text": "It is a form of inline styling."
+        },
+        {
+          "key": "D",
+          "text": "Using StyleSheet results in cleaner and more readable code."
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "D"
+      ],
+      "answerTextFromSource": "A, B, D",
+      "explanation": "",
+      "sourcePages": [
+        13
+      ]
+    },
+    {
+      "id": "MMA301-042",
+      "number": 42,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Of the following, what are some benefits of React\nNative? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cost-effective"
+        },
+        {
+          "key": "B",
+          "text": "Superior developer experience"
+        },
+        {
+          "key": "C",
+          "text": "Builds cross-platform native apps"
+        },
+        {
+          "key": "D",
+          "text": "Uses Swift and Kotlin"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A, B, C",
+      "explanation": "",
+      "sourcePages": [
+        14
+      ]
+    },
+    {
+      "id": "MMA301-043",
+      "number": 43,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "React Native components can be categorized into the\nfollowing groups. Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "None of the above."
+        },
+        {
+          "key": "B",
+          "text": "Core Components"
+        },
+        {
+          "key": "C",
+          "text": "Your native custom components"
+        },
+        {
+          "key": "D",
+          "text": "Community Components"
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "B, C, D",
+      "explanation": "",
+      "sourcePages": [
+        14
+      ]
+    },
+    {
+      "id": "MMA301-044",
+      "number": 44,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following statements are true about React Native?",
+      "options": [
+        {
+          "key": "A",
+          "text": "React Native is cost-effective since there is no need\nfor multiple teams. A single code base is shared between iOS and Android, and all code changes reflect\nupon both platforms."
+        },
+        {
+          "key": "B",
+          "text": "React Native has separate code bases for both iOS\nand Android. These have to be maintained by two\ndifferent teams of developers. Because of this, React\nNative could be quite expensive."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        14
+      ]
+    },
+    {
+      "id": "MMA301-045",
+      "number": 45,
+      "type": "single_choice",
+      "status": "active",
+      "question": "If you are new to mobile development, what is the\nrecommended way to set up React Native?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Using Expo CLI"
+        },
+        {
+          "key": "B",
+          "text": "Using React Native CLI"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. Using Expo CLI",
+      "explanation": "",
+      "sourcePages": [
+        14
+      ]
+    },
+    {
+      "id": "MMA301-046",
+      "number": 46,
+      "type": "single_choice",
+      "status": "active",
+      "question": "With Expo, you can push the Over The Air (OTA) updates. This is because:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Expo CLI is a paid service, and you can override app\nstore requirements to push updates."
+        },
+        {
+          "key": "B",
+          "text": "All of the code is written in JavaScript, without native\ncode. This enables Expo to push updates OTA."
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. All of the code is written in JavaScript, without\nnative code. This enables\nExpo to push updates OTA.",
+      "explanation": "",
+      "sourcePages": [
+        14,
+        15
+      ]
+    },
+    {
+      "id": "MMA301-047",
+      "number": 47,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following is true about the View component?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A View component is a parent element that cannot\nhave other views inside it."
+        },
+        {
+          "key": "B",
+          "text": "A View component can be nested inside other views\nand can have as many children of any type."
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. A View component can\nbe nested inside other\nviews and can have as\nmany children of any type.",
+      "explanation": "",
+      "sourcePages": [
+        15
+      ]
+    },
+    {
+      "id": "MMA301-048",
+      "number": 48,
+      "type": "true_false",
+      "status": "active",
+      "question": "Styles should not be abstracted away from the render\nfunction of a component, as this would make the code\nharder to read and understand. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. False",
+      "explanation": "",
+      "sourcePages": [
+        15
+      ]
+    },
+    {
+      "id": "MMA301-049",
+      "number": 49,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which job title would be most applicable if you learned\nReact Native and used it to develop applications?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Android Developer"
+        },
+        {
+          "key": "B",
+          "text": "Cross-Platform Developer"
+        },
+        {
+          "key": "C",
+          "text": "iOS Developer"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        15
+      ]
+    },
+    {
+      "id": "MMA301-050",
+      "number": 50,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following code snippets are correct and\nwill not throw any errors? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "<ScrollView>\n <Text>Some text</Text>\n <Text>Some more text</Text>\n</ScrollView>"
+        },
+        {
+          "key": "B",
+          "text": "<ScrollView>\n Some text </ScroIIView>\n</ScrollView>"
+        },
+        {
+          "key": "C",
+          "text": "<ScrollView>\n <Text>Some text\n <Text>Some more text</Text>\n</Text>\n</ScrollView>"
+        },
+        {
+          "key": "D",
+          "text": "<ScrollView>\n <Text>Some text</Text>\n </ScrollView>\n</Text>"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        15,
+        16
+      ]
+    },
+    {
+      "id": "MMA301-051",
+      "number": 51,
+      "type": "single_choice",
+      "status": "active",
+      "question": "In this exercise, which one of the following should you\nhave provided as a key to the FlatList component?",
+      "options": [
+        {
+          "key": "A",
+          "text": "item.id"
+        },
+        {
+          "key": "B",
+          "text": "index"
+        },
+        {
+          "key": "C",
+          "text": "item.key"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. item.id",
+      "explanation": "",
+      "sourcePages": [
+        16
+      ]
+    },
+    {
+      "id": "MMA301-052",
+      "number": 52,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which styling properties should you have used to style\nthe view containing each menu item and its corresponding price to display on each row? Select all that\napply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "flexDirection: 'row'"
+        },
+        {
+          "key": "B",
+          "text": "justifyContent: 'space-between'"
+        },
+        {
+          "key": "C",
+          "text": "justifyContent: 'center'"
+        },
+        {
+          "key": "D",
+          "text": "flexDirection: 'column'"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A, B",
+      "explanation": "",
+      "sourcePages": [
+        16
+      ]
+    },
+    {
+      "id": "MMA301-053",
+      "number": 53,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of these code snippets represents the final\ncode for the Item component that renders each item\non the menu with its price?",
+      "options": [
+        {
+          "key": "A",
+          "text": "const Item = ({ name, price }) => (\n <Text style={menuStyles.innerContainer}>\n <Text style={menuStyles.itemText}>{name}</Text>\n <Text style={menuStyles.itemText}>{price}</Text>\n </Text>\n)\nor"
+        },
+        {
+          "key": "B",
+          "text": "const Item = ({ name, price }) => (\n <View style={menuStyles.innerContainer}>\n <Text style={menuStyles.itemText}>{name}</Text>\n <Text style={menuStyles.itemText}>{price}</Text>\n </View>\n)"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        17
+      ]
+    },
+    {
+      "id": "MMA301-054",
+      "number": 54,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "The FlatList component uses lazy rendering of component items. Which of the following are characteristics\nof lazy rendering? Choose all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "It provides slower performance when rendering\nlarge lists, compared to the ScrollView component."
+        },
+        {
+          "key": "B",
+          "text": "All items are rendered at the same time."
+        },
+        {
+          "key": "C",
+          "text": "Rendered items are removed when the user scrolls\naway from them."
+        },
+        {
+          "key": "D",
+          "text": "Items are rendered as the user encounters them in\nthe app."
+        }
+      ],
+      "correctAnswers": [
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "C, D",
+      "explanation": "",
+      "sourcePages": [
+        17
+      ]
+    },
+    {
+      "id": "MMA301-055",
+      "number": 55,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which properties are required when using the FlatList\ncomponent? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Data"
+        },
+        {
+          "key": "B",
+          "text": "Renderitem"
+        },
+        {
+          "key": "C",
+          "text": "Item"
+        },
+        {
+          "key": "D",
+          "text": "Name"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A, B",
+      "explanation": "",
+      "sourcePages": [
+        18
+      ]
+    },
+    {
+      "id": "MMA301-056",
+      "number": 56,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Let's say you must display a large list of items in your\napp while maintaining solid performance. Which component would be more suitable for this use case?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ScrollView"
+        },
+        {
+          "key": "B",
+          "text": "FlatList"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. FlatList",
+      "explanation": "",
+      "sourcePages": [
+        18
+      ]
+    },
+    {
+      "id": "MMA301-057",
+      "number": 57,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following are required props of the\nFlatList component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "renderSectionHeader"
+        },
+        {
+          "key": "B",
+          "text": "keyExtractor"
+        },
+        {
+          "key": "C",
+          "text": "data"
+        },
+        {
+          "key": "D",
+          "text": "renderitem"
+        }
+      ],
+      "correctAnswers": [
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "C, D",
+      "explanation": "",
+      "sourcePages": [
+        18
+      ]
+    },
+    {
+      "id": "MMA301-058",
+      "number": 58,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following features does the FlatList component support? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Sectional support"
+        },
+        {
+          "key": "B",
+          "text": "Pull to refresh support"
+        },
+        {
+          "key": "C",
+          "text": "Header, footer, and separator support"
+        },
+        {
+          "key": "D",
+          "text": "Fully cross-platform"
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "B, C, D",
+      "explanation": "",
+      "sourcePages": [
+        18
+      ]
+    },
+    {
+      "id": "MMA301-059",
+      "number": 59,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is the keyExtractor prop used for?",
+      "options": [
+        {
+          "key": "A",
+          "text": "It extracts a unique key for a given item at the\nspecified index."
+        },
+        {
+          "key": "B",
+          "text": "Sets a default key using the item.key or item.id and\nthen falls back to the index."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "The keyExtractor is used\nto extract a unique key for\na given specified index.\nThis is an optional prop to\nthe FlatList.",
+      "sourcePages": [
+        18
+      ]
+    },
+    {
+      "id": "MMA301-060",
+      "number": 60,
+      "type": "true_false",
+      "status": "active",
+      "question": "The internal state is not preserved when content\nscrolls out of the render window while using FlatList.\nTrue or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "The FlatList renders the\nitems lazily and does not\npreserve the internal state\nwhen content scrolls out\nof the render window. The\nstate must be captured in\nthe item data or in external\nstores such as redux.",
+      "sourcePages": [
+        19
+      ]
+    },
+    {
+      "id": "MMA301-061",
+      "number": 61,
+      "type": "true_false",
+      "status": "active",
+      "question": "In your app, you have written a header component,\nand then rendered that component inside of FlatList\nand passed it to the ListHeaderComponent prop.\nWhen the user scrolls through the list in the app, this\nheader will remain fixed in place. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. False",
+      "explanation": "By rendering the header component inside of\nFlatList with the ListHeaderComponent prop,\nit will respond just like\neverything else inside of\nFlatList.",
+      "sourcePages": [
+        19
+      ]
+    },
+    {
+      "id": "MMA301-062",
+      "number": 62,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "In this exercise, which of the following approaches\nwould work to provide the key to the SectionList component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "item.id"
+        },
+        {
+          "key": "B",
+          "text": "item.key"
+        },
+        {
+          "key": "C",
+          "text": "item + index"
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "B. item.key\nC. item + index",
+      "explanation": "These are valid approaches. item.key is a default value that can be\nused as a key if no other\nid is available. item + index can be provided with\nan incremented index value for each item, which is\na correct approach when\nno unique id is provided in\nthe array.",
+      "sourcePages": [
+        19,
+        20
+      ]
+    },
+    {
+      "id": "MMA301-063",
+      "number": 63,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Of the following core React Native components, which\nwere used in the MenuItems component? Select all\nthat apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "View"
+        },
+        {
+          "key": "B",
+          "text": "FlatList"
+        },
+        {
+          "key": "C",
+          "text": "SectionList"
+        },
+        {
+          "key": "D",
+          "text": "Text"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "A. View\nC. SectionList\nD. Text",
+      "explanation": "These components are\nused in the MenuItems\ncomponent. View is the\nparent wrapper, SectionList is used to render\nmenu items, and Text is\nused for displaying text on\nthe screen.",
+      "sourcePages": [
+        20
+      ]
+    },
+    {
+      "id": "MMA301-064",
+      "number": 64,
+      "type": "single_choice",
+      "status": "deleted_or_empty",
+      "question": ".\n.",
+      "options": [],
+      "correctAnswers": [],
+      "answerTextFromSource": "",
+      "explanation": "",
+      "sourcePages": [
+        20
+      ],
+      "sourceWarnings": [
+        "The PDF source contains a deleted or empty question entry."
+      ]
+    },
+    {
+      "id": "MMA301-065",
+      "number": 65,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following are characteristics of the SectionList component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "It uses lazy rendering"
+        },
+        {
+          "key": "B",
+          "text": "It inherits props of the ScrollView component"
+        },
+        {
+          "key": "C",
+          "text": "It must be imported from a separate library"
+        },
+        {
+          "key": "D",
+          "text": "It supports section headers and separators"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "D"
+      ],
+      "answerTextFromSource": "A, B, D",
+      "explanation": "SectionList uses lazy rendering, inherits props\nfrom ScrollView, and supports section headers and\nseparators.",
+      "sourcePages": [
+        20
+      ]
+    },
+    {
+      "id": "MMA301-066",
+      "number": 66,
+      "type": "single_choice",
+      "status": "active",
+      "question": "You are creating a 'Contact' page for your React Native\napp that separates contact details into sections such\nas email, phone, and social media. In your SectionList\ncomponent, which property would you use to extract\nthe data from the array to render these section headers?",
+      "options": [
+        {
+          "key": "A",
+          "text": "renderSectionHeader"
+        },
+        {
+          "key": "B",
+          "text": "renderitem"
+        },
+        {
+          "key": "C",
+          "text": "sections"
+        },
+        {
+          "key": "D",
+          "text": "data"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "The renderSectionHeader method is used to\nrender the text of section headers in a SectionList component, making it\nsuitable for extracting data\nfor section headers.",
+      "sourcePages": [
+        20,
+        21
+      ]
+    },
+    {
+      "id": "MMA301-067",
+      "number": 67,
+      "type": "single_choice",
+      "status": "active",
+      "question": "You want to display a large list of items in your app\nthat must be divided into sections. Which component\nwould be more suitable for this use case?",
+      "options": [
+        {
+          "key": "A",
+          "text": "SectionList"
+        },
+        {
+          "key": "B",
+          "text": "FlatList"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "SectionList is more suitable for rendering large\nlists with sectional support.",
+      "sourcePages": [
+        21
+      ]
+    },
+    {
+      "id": "MMA301-068",
+      "number": 68,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following are required props of the SectionList component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "keyExtractor"
+        },
+        {
+          "key": "B",
+          "text": "data"
+        },
+        {
+          "key": "C",
+          "text": "sections"
+        },
+        {
+          "key": "D",
+          "text": "renderitem"
+        }
+      ],
+      "correctAnswers": [
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "C, D\n(sections is required as it\ncontains the actual data to\nrender, and renderitem is\nrequired to render each\nitem in the list.)",
+      "explanation": "",
+      "sourcePages": [
+        21
+      ]
+    },
+    {
+      "id": "MMA301-069",
+      "number": 69,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following are features supported by the\nSectionList component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Fully cross-platform"
+        },
+        {
+          "key": "B",
+          "text": "Pull to refresh support"
+        },
+        {
+          "key": "C",
+          "text": "Header, footer and separator support"
+        },
+        {
+          "key": "D",
+          "text": "Sectional support"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "A, B, C, D",
+      "explanation": "SectionList is a fully cross-platform component with support for\npull-to-refresh, headers,\nfooters, separators, and\nsections.",
+      "sourcePages": [
+        21
+      ]
+    },
+    {
+      "id": "MMA301-070",
+      "number": 70,
+      "type": "true_false",
+      "status": "active",
+      "question": "The internal state is not preserved when content\nscrolls out of the render window while using SectionList.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "The internal state is not\npreserved when content\nscrolls out of the render\nwindow in SectionList. The\nstate must be captured in\nthe item data or in external\nstores such as Redux.",
+      "sourcePages": [
+        21
+      ]
+    },
+    {
+      "id": "MMA301-071",
+      "number": 71,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which method is used to render section headers using\nthe SectionList component?",
+      "options": [
+        {
+          "key": "A",
+          "text": "renderSectionHeader"
+        },
+        {
+          "key": "B",
+          "text": "ListSectionComponent"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. renderSectionHeader",
+      "explanation": "The renderSectionHeader method is used to render section headers in\nSectionList.",
+      "sourcePages": [
+        22
+      ]
+    },
+    {
+      "id": "MMA301-072",
+      "number": 72,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following styles should you have used to\nstyle the TextInput component in this exercise?",
+      "options": [
+        {
+          "key": "A",
+          "text": "inputBox: {\n height: 40,\n margin: 12,\n borderWidth: 1,\n padding: 10,\n fontSize: 16,\n borderColor: 'EDEFEE',\n backgroundColor: '#EDEFEE',\n}"
+        },
+        {
+          "key": "B",
+          "text": "inputBox: {\n height: 40,\n margin: 12,\n borderWidth: 1,\n padding: 10,\n fontSize: 16,\n borderColor: '#3333333',\n backgroundColor: '#333333',\n}"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "This is the expected\nstyling for the text input\nbox in this exercise.",
+      "sourcePages": [
+        22
+      ]
+    },
+    {
+      "id": "MMA301-073",
+      "number": 73,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which prop should you have used to set the placeholder text within the TextInput component in this\nexercise?",
+      "options": [
+        {
+          "key": "A",
+          "text": "placeholderText"
+        },
+        {
+          "key": "B",
+          "text": "placeholder"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. placeholder",
+      "explanation": "The placeholder prop can\nbe used to set the placeholder text for the TextInput component.",
+      "sourcePages": [
+        22,
+        23
+      ]
+    },
+    {
+      "id": "MMA301-074",
+      "number": 74,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which code snippets represent the final code configuring the TextInput component?",
+      "options": [
+        {
+          "key": "A",
+          "text": "<TextInput\n style={styles.inputBox}\n value={firstName}\n onChangeText={firstName}\n placeholder={'First Name'}\n/>"
+        },
+        {
+          "key": "B",
+          "text": "<TextInput\n style={styles.inputBox}\n value={firstName}\n onChangeText={onChangeFirstName}\n placeholder={'First Name'}\n/>"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "The code above is the final solution for the TextInput component after configuring. It applies a style,\nplaceholder text, and also\ncalls a method to update\nthe text as the user types.",
+      "sourcePages": [
+        23
+      ]
+    },
+    {
+      "id": "MMA301-075",
+      "number": 75,
+      "type": "single_choice",
+      "status": "active",
+      "question": "In the Little Lemon mobile app, you'd like to add a text\ninput box that displays the text \"Email address\" before\nthe user types anything inside of it. Which prop would\nyou pass in to accomplish this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "onChangeText"
+        },
+        {
+          "key": "B",
+          "text": "value"
+        },
+        {
+          "key": "C",
+          "text": "style"
+        },
+        {
+          "key": "D",
+          "text": "placeholder"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D. placeholder",
+      "explanation": "You can use the placeholder prop and set its\nvalue to \"Email address\" to\nappear in the input box.",
+      "sourcePages": [
+        23,
+        24
+      ]
+    },
+    {
+      "id": "MMA301-076",
+      "number": 76,
+      "type": "true_false",
+      "status": "active",
+      "question": "You are adding a text input box to your app for the\nuser to enter their email address. You will need to configure at least two separate TextInput components to\ndo this - one for iOS devices and another for Android\ndevices. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "False",
+      "explanation": "The TextInput component\nis universally compatible\nwith all modern mobile\nplatforms and does not\nneed to be configured\nseparately for each one.",
+      "sourcePages": [
+        24
+      ],
+      "normalizationNotes": [
+        "The PDF omits explicit A/B choices; True/False options were generated from the question wording and source answer text."
+      ]
+    },
+    {
+      "id": "MMA301-077",
+      "number": 77,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of these React Native components would\nyou use to input text into the app through a keyboard?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Text"
+        },
+        {
+          "key": "B",
+          "text": "Keyboard"
+        },
+        {
+          "key": "C",
+          "text": "TextInput"
+        },
+        {
+          "key": "D",
+          "text": "InputText"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. TextInput",
+      "explanation": "The TextInput component\nis foundational for inputting text into the app\nvia a keyboard.",
+      "sourcePages": [
+        24
+      ]
+    },
+    {
+      "id": "MMA301-078",
+      "number": 78,
+      "type": "single_choice",
+      "status": "active",
+      "question": "The TextInput component inherits all the props of the\ncomponent, in addition to its props:",
+      "options": [
+        {
+          "key": "A",
+          "text": "View"
+        },
+        {
+          "key": "B",
+          "text": "FlatList"
+        },
+        {
+          "key": "C",
+          "text": "Text"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. View",
+      "explanation": "The TextInput component\ninherits all the props of the\nView component.",
+      "sourcePages": [
+        24
+      ]
+    },
+    {
+      "id": "MMA301-079",
+      "number": 79,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following are features supported by the\nTextInput component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cross-platform"
+        },
+        {
+          "key": "B",
+          "text": "Supports different keyboard types"
+        },
+        {
+          "key": "C",
+          "text": "Supports automatic dismissal of keyboard"
+        },
+        {
+          "key": "D",
+          "text": "Supports auto-correction and auto-capitalization"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "D"
+      ],
+      "answerTextFromSource": "A, B, D",
+      "explanation": "The TextInput component\nis cross-platform, supports various native keyboard types, and also supports auto-correction and\ncapitalization.",
+      "sourcePages": [
+        24
+      ]
+    },
+    {
+      "id": "MMA301-080",
+      "number": 80,
+      "type": "true_false",
+      "status": "active",
+      "question": "The keyboard displayed while using the TextInput\ncomponent is native to the platform. This means that\nthey will look different on iOS and Android. True or\nfalse?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "True",
+      "explanation": "TextInput renders native\nkeyboards, which will look\ndifferent on iOS and Android.",
+      "sourcePages": [
+        25
+      ],
+      "normalizationNotes": [
+        "The PDF omits explicit A/B choices; True/False options were generated from the question wording and source answer text."
+      ]
+    },
+    {
+      "id": "MMA301-081",
+      "number": 81,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What methodology would you use to track what the\nuser types in the text input within a component?",
+      "options": [
+        {
+          "key": "A",
+          "text": "useContext hook"
+        },
+        {
+          "key": "B",
+          "text": "Props"
+        },
+        {
+          "key": "C",
+          "text": "useState hook"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. useState hook",
+      "explanation": "The useState hook can\ntrack what the user types\nin the text input and store\nit as a local state within the\ncomponent.",
+      "sourcePages": [
+        25
+      ]
+    },
+    {
+      "id": "MMA301-082",
+      "number": 82,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Your app has text input boxes that open the virtual keyboard when tapped. For the keyboardDismissMode property of the ScrollView, you've set the value\nto {true}. What does this do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The virtual keyboard will be dismissed after a period\nof inactivity."
+        },
+        {
+          "key": "B",
+          "text": "The virtual keyboard can be dismissed by the user\nwith a downward swipe"
+        },
+        {
+          "key": "C",
+          "text": "The virtual keyboard will remain fixed in position\nwhen the user scrolls."
+        },
+        {
+          "key": "D",
+          "text": "The virtual keyboard will be dismissed when the\nuser scrolls."
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D. The virtual keyboard will\nbe dismissed when the\nuser scrolls.",
+      "explanation": "The keyboard disappears\nautomatically when the\nuser scrolls.",
+      "sourcePages": [
+        25
+      ]
+    },
+    {
+      "id": "MMA301-083",
+      "number": 83,
+      "type": "single_choice",
+      "status": "active",
+      "question": "In your mobile app, you want to set the virtual keyboard to be dismissed as soon as the user scrolls.\nWhich value of keyboardDismissMode would you assign to set this behavior?",
+      "options": [
+        {
+          "key": "A",
+          "text": "OnDrag"
+        },
+        {
+          "key": "B",
+          "text": "Interactive"
+        },
+        {
+          "key": "C",
+          "text": "OnScroll"
+        },
+        {
+          "key": "D",
+          "text": "None"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. OnDrag",
+      "explanation": "Setting the keyboardDismissMode to OnDrag instructs the keyboard to be\ndismissed when the user\nscrolls.",
+      "sourcePages": [
+        25,
+        26
+      ]
+    },
+    {
+      "id": "MMA301-084",
+      "number": 84,
+      "type": "single_choice",
+      "status": "active",
+      "question": "How should you have saved the user's updates to the\ntwo input boxes (email and password) in the login\nscreen? By storing them as two separate local states\nwithin the component as follows:",
+      "options": [
+        {
+          "key": "A",
+          "text": "By storing them as two separate local states within\nthe component as follows:\nconst [email, onChangeEmail] = useState('');\nconst [password, onChangePassword] = useState('');"
+        },
+        {
+          "key": "B",
+          "text": "By storing them as a single local state within the\ncomponent as follows:\nconst [text Input, onChangeText]\nuseState ('');"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "The updates to the input\nboxes should be saved to\ntwo separate local states,\nas a single state cannot\ntrack values from two different input boxes.",
+      "sourcePages": [
+        26
+      ]
+    },
+    {
+      "id": "MMA301-085",
+      "number": 85,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which prop should you have used to set the password\nfield with hidden characters as the user types?",
+      "options": [
+        {
+          "key": "A",
+          "text": "placeholderText"
+        },
+        {
+          "key": "B",
+          "text": "defaultText"
+        },
+        {
+          "key": "C",
+          "text": "secureTextEntry"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. secureTextEntry",
+      "explanation": "The secureTextEntry prop\nis a boolean; when set\nto true, the characters are\nhidden within the text box\nas the user types.",
+      "sourcePages": [
+        26
+      ]
+    },
+    {
+      "id": "MMA301-086",
+      "number": 86,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which code snippets represent the final code for configuring the login screen's text input boxes?",
+      "options": [
+        {
+          "key": "A",
+          "text": "<TextInput styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder={'email'}\nkeyboardType={'email-address'} />"
+        },
+        {
+          "key": "B",
+          "text": "<TextInput styles.inputBox} value={password} onChangeText={onChangePassword} placeholder={'password'} keyboardType={'default'} />"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A. <TextInput\nstyles.inputBox}\nvalue={email}\nonChangeText={onChangeEmail}\nplaceholder={'email'}\nkeyboardType={'email-address'}\n/>\nB. <TextInput\nstyles.inputBox}\nvalue={password}\nonChangeText={onChangePassword}\nplaceholder={'password'}\nkeyboardType={'default'}\n/>",
+      "explanation": "After configuring, the\ncode above is the final solution for the login\nscreen's TextInput boxes.\nNotice that it uses the secureTextEntry prop to hide\nthe text that is entered in\nthe password box.",
+      "sourcePages": [
+        26,
+        27
+      ]
+    },
+    {
+      "id": "MMA301-087",
+      "number": 87,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "You would like to create a text input box in your app\nfor users to enter their password. To make this more\nsecure, you would like for the characters entered in\nthe box to be hidden and for the box to have a limit of\n14 characters. Which TextInput props would you pass\nin to accomplish this? Choose all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "maxLength"
+        },
+        {
+          "key": "B",
+          "text": "textHide"
+        },
+        {
+          "key": "C",
+          "text": "secureTextEntry"
+        },
+        {
+          "key": "D",
+          "text": "multiline"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "C"
+      ],
+      "answerTextFromSource": "A. maxLength\nC. secureTextEntry",
+      "explanation": "The maxLength prop allows you to limit the number of characters in a box,\nand secureTextEntry keeps\ncharacters hidden.",
+      "sourcePages": [
+        27
+      ]
+    },
+    {
+      "id": "MMA301-088",
+      "number": 88,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of these methods will return a callback when a\nTextInput component is in focus? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "blur()"
+        },
+        {
+          "key": "B",
+          "text": "onFocus()"
+        },
+        {
+          "key": "C",
+          "text": "isFocused()"
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "B. onFocus()\nC. isFocused()",
+      "explanation": "The onFocus() is a callback that is called when\nthe TextInput is focused.\nThe isFocused() method\nreturns true if the input\nis currently focused, and\nfalse otherwise.",
+      "sourcePages": [
+        27,
+        28
+      ]
+    },
+    {
+      "id": "MMA301-089",
+      "number": 89,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following are features supported by the\nTextInput component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Supports placeholder text"
+        },
+        {
+          "key": "B",
+          "text": "Text alignment"
+        },
+        {
+          "key": "C",
+          "text": "Supports auto-focus"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A, B, C",
+      "explanation": "The TextInput component supports displaying\na placeholder text, text\nalignment, and auto-focus.",
+      "sourcePages": [
+        28
+      ]
+    },
+    {
+      "id": "MMA301-090",
+      "number": 90,
+      "type": "true_false",
+      "status": "active",
+      "question": "The TextInput component supports multiple lines for\ntext entry within the text input box.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "TextInput uses the multiline Boolean prop to support multiple lines for text\nentry. When multiline is\nset to true, you can enter\ntext in multiple lines within\nthe text input box.",
+      "sourcePages": [
+        28
+      ]
+    },
+    {
+      "id": "MMA301-091",
+      "number": 91,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following is a prop to the TextInput that\ncan obscure the text entered within the text input?",
+      "options": [
+        {
+          "key": "A",
+          "text": "secureTextEntry"
+        },
+        {
+          "key": "B",
+          "text": "passwordText"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. secureTextEntry\n(secureTextEntry is a\nBoolean prop that obscures the text entered\nwhen set to true.)",
+      "explanation": "",
+      "sourcePages": [
+        28
+      ]
+    },
+    {
+      "id": "MMA301-092",
+      "number": 92,
+      "type": "single_choice",
+      "status": "active",
+      "question": "You are creating a form for your app and would like it\nto display an alert whenever a user exits a certain text\ninput box. Which prop of the TextInput component\nwould you use to achieve this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "clearButtonMode"
+        },
+        {
+          "key": "B",
+          "text": "TextInput does not have this property"
+        },
+        {
+          "key": "C",
+          "text": "onFocus"
+        },
+        {
+          "key": "D",
+          "text": "onBlur"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D. onBlur\n(onBlur produces a response when a text input box is blurred, such as\nwhen a user exits the input\ninterface.)",
+      "explanation": "",
+      "sourcePages": [
+        28,
+        29
+      ]
+    },
+    {
+      "id": "MMA301-093",
+      "number": 93,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "You need to display a large list of items in your app\nwhile maintaining solid performance. Which components could you use to accomplish this? Select all that\napply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "SectionList"
+        },
+        {
+          "key": "B",
+          "text": "FlatList"
+        },
+        {
+          "key": "C",
+          "text": "ScrollView"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. SectionList B. FlatList",
+      "explanation": "The SectionList component renders items lazily as they appear on the\nscreen and is, therefore,\na very performant component while rendering\nlarge lists by sections. The\nFlatList component renders items lazily as they\nappear on the screen and\nis, therefore, a very performant component while\nrendering large lists.",
+      "sourcePages": [
+        29
+      ]
+    },
+    {
+      "id": "MMA301-094",
+      "number": 94,
+      "type": "true_false",
+      "status": "active",
+      "question": "The keyExtractor is a required prop to both the FlatList\nand SectionList components. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. False\n(keyExtractor is used to extract a unique key for a\ngiven specified index. This\nis an optional prop to both\nthe FlatList and SectionList\ncomponents.)",
+      "explanation": "",
+      "sourcePages": [
+        29
+      ]
+    },
+    {
+      "id": "MMA301-095",
+      "number": 95,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which feature is NOT supported by the FlatList component? Select the correct option.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Pull to refresh support"
+        },
+        {
+          "key": "B",
+          "text": "Header, footer, and separator support"
+        },
+        {
+          "key": "C",
+          "text": "Sectional support"
+        },
+        {
+          "key": "D",
+          "text": "Fully cross-platform"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. Sectional support",
+      "explanation": "The FlatList component\ndoes not provide support for sections. You will\nhave to use the SectionList component for sectional support.",
+      "sourcePages": [
+        29,
+        30
+      ]
+    },
+    {
+      "id": "MMA301-096",
+      "number": 96,
+      "type": "single_choice",
+      "status": "deleted_or_empty",
+      "question": "[deleted]\n[deleted]",
+      "options": [],
+      "correctAnswers": [],
+      "answerTextFromSource": "",
+      "explanation": "",
+      "sourcePages": [
+        30
+      ],
+      "sourceWarnings": [
+        "The PDF source contains a deleted or empty question entry."
+      ]
+    },
+    {
+      "id": "MMA301-097",
+      "number": 97,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which method would you use to make a native text\ninput lose focus?",
+      "options": [
+        {
+          "key": "A",
+          "text": "isFocused()"
+        },
+        {
+          "key": "B",
+          "text": "blur()"
+        },
+        {
+          "key": "C",
+          "text": "focus()"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. blur()",
+      "explanation": "The blur() method makes\nthe native input lose focus.",
+      "sourcePages": [
+        30
+      ]
+    },
+    {
+      "id": "MMA301-098",
+      "number": 98,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of these props are used to configure a separator component between each item in the FlatList?",
+      "options": [
+        {
+          "key": "A",
+          "text": "SectionSeparatorComponent"
+        },
+        {
+          "key": "B",
+          "text": "ListSeparatorComponent"
+        },
+        {
+          "key": "C",
+          "text": "ItemSeparatorComponent"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "The ItemSeparatorComponent is used to configure a separator component between each item\nrendered in the FlatList.",
+      "sourcePages": [
+        30
+      ]
+    },
+    {
+      "id": "MMA301-099",
+      "number": 99,
+      "type": "true_false",
+      "status": "active",
+      "question": "The SectionList component can be rendered without\nproviding the sections prop to it.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. False",
+      "explanation": "The sections prop is\na required prop to the\nSectionList component. It\ncontains the array of data\nthat needs to be rendered.",
+      "sourcePages": [
+        30
+      ]
+    },
+    {
+      "id": "MMA301-100",
+      "number": 100,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Observe the output on the emulator screenshot below, and determine what component you would use\nto display this list of items within your app. Note: More\nitems will appear as you scroll down the screen.",
+      "options": [
+        {
+          "key": "A",
+          "text": "FlatList"
+        },
+        {
+          "key": "B",
+          "text": "ScrollView"
+        },
+        {
+          "key": "C",
+          "text": "SectionList"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. FlatList",
+      "explanation": "The FlatList component is\na core component suitable\nfor rendering large lists\nperformantly.",
+      "sourcePages": [
+        30,
+        31
+      ]
+    },
+    {
+      "id": "MMA301-101",
+      "number": 101,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Select all the keyboard types that are supported\ncross-platform by the TextInput component.",
+      "options": [
+        {
+          "key": "A",
+          "text": "number-pad"
+        },
+        {
+          "key": "B",
+          "text": "phone-pad"
+        },
+        {
+          "key": "C",
+          "text": "web-search"
+        },
+        {
+          "key": "D",
+          "text": "email-address"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. number-pad B.\nphone-pad D. email-address\n(number-pad is a keyboard type supported on\nboth iOS and Android.\nphone-pad is a keyboard type supported on\nboth iOS and Android.\nemail-address is a keyboard type supported on\nboth iOS and Android.)",
+      "explanation": "",
+      "sourcePages": [
+        31
+      ]
+    },
+    {
+      "id": "MMA301-102",
+      "number": 102,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Internal state is preserved when the content is\nscrolled out of the screen in which of these components? Select the correct option.",
+      "options": [
+        {
+          "key": "A",
+          "text": "SectionList"
+        },
+        {
+          "key": "B",
+          "text": "FlatList"
+        },
+        {
+          "key": "C",
+          "text": "ScrollView"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. ScrollView",
+      "explanation": "The ScrollView is not\na performant component\nand simultaneously renders all the items in\nthe list. The content is\npreserved in its internal\nstate.",
+      "sourcePages": [
+        31
+      ]
+    },
+    {
+      "id": "MMA301-103",
+      "number": 103,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Study the code below and select the statement that\ndescribes it accurately:\n{!loggedIn && (\n <Text styles.regularText}>Login to continue</Text>\n <TextInput styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder={'email'}\nkeyboardType={'email-address'}\n <TextInput styles.inputBox} value={password} onChangeText={onChangePassword} placeholder={'password'} keyboardType={'default'} secureTextEntry={true}\n <Pressable onPress={() => onLogin(!loggedIn)}>\n <Text>Log in</Text>\n </Pressable>\n)}",
+      "options": [
+        {
+          "key": "A",
+          "text": "The code is valid, and this will ensure that this piece\nof code is only rendered when loggedIn is false. It will\nshow the login UI with email id and password text\ninputs."
+        },
+        {
+          "key": "B",
+          "text": "The code is invalid and will throw an error. This\nis because you cannot use conditional rendering in\nReact Native."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "The code snippet accurately describes the functionality of the provided\ncode.",
+      "sourcePages": [
+        31,
+        32
+      ]
+    },
+    {
+      "id": "MMA301-104",
+      "number": 104,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which method did you use to handle the event when\nthe user clicks on a pressable area within the Pressable component?",
+      "options": [
+        {
+          "key": "A",
+          "text": "onPress()"
+        },
+        {
+          "key": "B",
+          "text": "onPressOut()"
+        },
+        {
+          "key": "C",
+          "text": "onLongPress()"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. onPress()\n(onPress() is the correct\nmethod to handle the\nevent when the user clicks\non a pressable area within the Pressable component.)",
+      "explanation": "",
+      "sourcePages": [
+        32
+      ]
+    },
+    {
+      "id": "MMA301-105",
+      "number": 105,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following can be acceptable children of\nthe Pressable component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Number"
+        },
+        {
+          "key": "B",
+          "text": "A React element"
+        },
+        {
+          "key": "C",
+          "text": "null"
+        },
+        {
+          "key": "D",
+          "text": "string"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "A. Number\nB. A React element\nC. null\nD. string",
+      "explanation": "Number, React element,\nnull, and string are all acceptable children of the\nPressable component.",
+      "sourcePages": [
+        32,
+        33
+      ]
+    },
+    {
+      "id": "MMA301-106",
+      "number": 106,
+      "type": "true_false",
+      "status": "active",
+      "question": "The Pressable component is always styled to appear\nas a button. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. False",
+      "explanation": "The Pressable component can detect various\nstages of press interactions and can have children. The children can\nbe styled to look like a\nbutton, text, or anything\nelse based on the requirements.",
+      "sourcePages": [
+        33
+      ]
+    },
+    {
+      "id": "MMA301-107",
+      "number": 107,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is the default time after the onLongPress is\ncalled after the onPressIn?",
+      "options": [
+        {
+          "key": "A",
+          "text": "200 ms"
+        },
+        {
+          "key": "B",
+          "text": "1000 ms"
+        },
+        {
+          "key": "C",
+          "text": "500 ms"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. 500 ms",
+      "explanation": "The onLongPress is called\nif the time after onPressIn\nlasts longer than 500 ms.",
+      "sourcePages": [
+        33
+      ]
+    },
+    {
+      "id": "MMA301-108",
+      "number": 108,
+      "type": "single_choice",
+      "status": "active",
+      "question": "A user's press gesture is deactivated on the Little\nLemon app. Which method is called when this action\noccurs?",
+      "options": [
+        {
+          "key": "A",
+          "text": "onPressOut"
+        },
+        {
+          "key": "B",
+          "text": "onPressIn"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. onPressOut\n(onPressOut is called\nwhen the press gesture is\ndeactivated or when the\nuser's finger moves away\nfrom the Pressable element.)",
+      "explanation": "",
+      "sourcePages": [
+        33,
+        34
+      ]
+    },
+    {
+      "id": "MMA301-109",
+      "number": 109,
+      "type": "true_false",
+      "status": "active",
+      "question": "The Pressable component only accepts Text components as children. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. False",
+      "explanation": "The Pressable component allows any React\nNode as its children. This\ncan be images, text, and\nso on.",
+      "sourcePages": [
+        34
+      ]
+    },
+    {
+      "id": "MMA301-110",
+      "number": 110,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of the following statements is true about\nthe Image component?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The Image component is a core component of React\nNative and is available to use readily without additional setup."
+        },
+        {
+          "key": "B",
+          "text": "The Image component is not available in the React\nNative package and has to be installed as a separate\npackage for this exercise."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. The Image component\nis a core component of React Native and is available\nto use readily without additional setup.",
+      "explanation": "The Image component is\navailable as a core component in React Native.",
+      "sourcePages": [
+        34
+      ]
+    },
+    {
+      "id": "MMA301-111",
+      "number": 111,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What value should you have passed to the resizeMode\nprop of the Image component while rendering the\nLittle Lemon logo in this exercise?",
+      "options": [
+        {
+          "key": "A",
+          "text": "stretch"
+        },
+        {
+          "key": "B",
+          "text": "center"
+        },
+        {
+          "key": "C",
+          "text": "cover"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "The correct value for the\nresizeMode prop to render the Little Lemon logo\nis 'cover.'",
+      "sourcePages": [
+        34
+      ]
+    },
+    {
+      "id": "MMA301-112",
+      "number": 112,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which code snippet represents the final styles given\nto the Image component in this exercise?",
+      "options": [
+        {
+          "key": "A",
+          "text": "image: { width: 100, height: 100, borderRadius: 20,\n}"
+        },
+        {
+          "key": "B",
+          "text": "image: { width: 50, height: 50, borderRadius: 10, }"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "The provided code accurately represents the final\nstyles for the Image component in the exercise.",
+      "sourcePages": [
+        34,
+        35
+      ]
+    },
+    {
+      "id": "MMA301-113",
+      "number": 113,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "You would like to add some images to your mobile app\nusing the Image component. Which sources can you\nretrieve images from? Choose all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Temporary Images"
+        },
+        {
+          "key": "B",
+          "text": "A web URL"
+        },
+        {
+          "key": "C",
+          "text": "Resources"
+        },
+        {
+          "key": "D",
+          "text": "A local drive on your computer"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "A, B, C, D",
+      "explanation": "You can retrieve images\nfrom Temporary Images, a\nweb URL, Resources, and\na local drive on your computer.",
+      "sourcePages": [
+        35
+      ]
+    },
+    {
+      "id": "MMA301-114",
+      "number": 114,
+      "type": "single_choice",
+      "status": "active",
+      "question": "In your project folder, you have a folder called img\ninside of which you have uploaded an image file titled\nheader.png. How would you render this image using\nan Image component? Choose the appropriate line of\ncode from the following.",
+      "options": [
+        {
+          "key": "A",
+          "text": "<Image source={require(\"header.png\")} />"
+        },
+        {
+          "key": "B",
+          "text": "<Image source={\"img/header.png\"} />"
+        },
+        {
+          "key": "C",
+          "text": "<Image source={require(\"img/header.png\")} />"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "To render an image, you\nneed to use the require\nkeyword and specify the\nfile path of a locally stored\nimage file.",
+      "sourcePages": [
+        35
+      ]
+    },
+    {
+      "id": "MMA301-115",
+      "number": 115,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of the resize modes is described in the\nfollowing statement: It will scale the image uniformly\nso that both the dimensions - the width and the height\nof the image will be equal to or less than the corresponding dimension of the view.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cover"
+        },
+        {
+          "key": "B",
+          "text": "Stretch"
+        },
+        {
+          "key": "C",
+          "text": "Repeat"
+        },
+        {
+          "key": "D",
+          "text": "Contain"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "The described behavior\ncorresponds to the 'Contain' resizeMode.",
+      "sourcePages": [
+        35,
+        36
+      ]
+    },
+    {
+      "id": "MMA301-116",
+      "number": 116,
+      "type": "single_choice",
+      "status": "active",
+      "question": "If you want an image to fill the entire box, which of the\nfollowing resize mode props will you use?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Contain"
+        },
+        {
+          "key": "B",
+          "text": "Cover"
+        },
+        {
+          "key": "C",
+          "text": "Stretch"
+        },
+        {
+          "key": "D",
+          "text": "Repeat"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "When you select 'Cover,' you can scale the image uniformly (maintain\nthe image's aspect ratio) so that both dimensions (width and height)\nof the image will be\nequal to or larger than\nthe corresponding dimension of the view (minus padding).",
+      "sourcePages": [
+        36
+      ]
+    },
+    {
+      "id": "MMA301-117",
+      "number": 117,
+      "type": "true_false",
+      "status": "active",
+      "question": "When an image is rendered as a background image,\nit implies that you can have text and other content on\ntop of it. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "When an image is rendered as a background\nimage, it implies that you\ncan have text and other\ncontent on top of it.",
+      "sourcePages": [
+        36
+      ]
+    },
+    {
+      "id": "MMA301-118",
+      "number": 118,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which component would you use to display different\nimages in React Native? Select the correct option.",
+      "options": [
+        {
+          "key": "A",
+          "text": "ImageBackground"
+        },
+        {
+          "key": "B",
+          "text": "Image"
+        },
+        {
+          "key": "C",
+          "text": "View"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "The Image component is\na core component used to\ndisplay different types of\nimages in React Native.",
+      "sourcePages": [
+        36,
+        37
+      ],
+      "sourceWarnings": [
+        "The source answer key is C (View), but its explanation describes the Image component, which is option B. The source key was preserved."
+      ]
+    },
+    {
+      "id": "MMA301-119",
+      "number": 119,
+      "type": "single_choice",
+      "status": "active",
+      "question": "The Image component inherits all the props of which\ncomponent? Select the correct option.",
+      "options": [
+        {
+          "key": "A",
+          "text": "ImageBackground"
+        },
+        {
+          "key": "B",
+          "text": "ScrollView"
+        },
+        {
+          "key": "C",
+          "text": "View"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "The Image component\ninherits all the props of the\nView component.",
+      "sourcePages": [
+        37
+      ]
+    },
+    {
+      "id": "MMA301-120",
+      "number": 120,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following are some of the supported\nimage formats in React Native? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "png"
+        },
+        {
+          "key": "B",
+          "text": "jpeg"
+        },
+        {
+          "key": "C",
+          "text": "gif"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A, B, C\n(png, jpeg, and gif are\nsupported image formats\nin React Native.)",
+      "explanation": "",
+      "sourcePages": [
+        37
+      ]
+    },
+    {
+      "id": "MMA301-121",
+      "number": 121,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Study the code below and choose the description that\ndescribes it accurately:\n<ScrollView\n styles.container, colorScheme='light'\n ? { backgroundColor: '#fff' }\n : { backgroundColor: '#333333' }\n>",
+      "options": [
+        {
+          "key": "A",
+          "text": "This code is valid. It performs conditional styling\nbased on the colorScheme variable. If the value is\nlight, a white background is set; if it has any other\nvalue, a dark background is set for the ScrollView."
+        },
+        {
+          "key": "B",
+          "text": "This code is invalid. It will throw an error because\nconditionals cannot be used within the style prop."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "The code is valid and\ncan be used for thematic\nstyling.",
+      "sourcePages": [
+        37,
+        38
+      ]
+    },
+    {
+      "id": "MMA301-122",
+      "number": 122,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "What are the values that the useColorScheme hook\ncan return? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "light"
+        },
+        {
+          "key": "B",
+          "text": "dark"
+        },
+        {
+          "key": "C",
+          "text": "transparent"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A, B",
+      "explanation": "The light theme is returned when the user's\ndevice has light theme\nsettings, and the dark\ntheme is returned when\nthe user's device has dark\ntheme settings.",
+      "sourcePages": [
+        38
+      ]
+    },
+    {
+      "id": "MMA301-123",
+      "number": 123,
+      "type": "true_false",
+      "status": "active",
+      "question": "The useColorScheme hook is not part of the React Native package. It must be obtained from the community\nhooks package. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. False",
+      "explanation": "This hook is part of the\ncore React Native package.",
+      "sourcePages": [
+        38
+      ]
+    },
+    {
+      "id": "MMA301-124",
+      "number": 124,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Observe the following line of code which sets up the\nuseState hook:\nconst [showMenu, setShowMenu] = useState(false);",
+      "options": [
+        {
+          "key": "A",
+          "text": "useState"
+        },
+        {
+          "key": "B",
+          "text": "const"
+        },
+        {
+          "key": "C",
+          "text": "showMenu"
+        },
+        {
+          "key": "D",
+          "text": "setShowMenu"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A\n(showMenu represents\nthe state variable in this\ncode.)",
+      "explanation": "",
+      "sourcePages": [
+        38,
+        39
+      ]
+    },
+    {
+      "id": "MMA301-125",
+      "number": 125,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "You want to apply the useColorScheme hook to adjust\nyour app's color scheme based on the device's color\ntheme setting. Which color theme options are available to you? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Null"
+        },
+        {
+          "key": "B",
+          "text": "Grey"
+        },
+        {
+          "key": "C",
+          "text": "Light"
+        },
+        {
+          "key": "D",
+          "text": "Dark"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "A, C, D",
+      "explanation": "Light, Dark, and Null are\nthe color theme options\nthat the useColorScheme\nhook can identify.",
+      "sourcePages": [
+        39
+      ]
+    },
+    {
+      "id": "MMA301-126",
+      "number": 126,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "You're creating an app using React Native, and you\nneed to make some design decisions. For what purpose would you use the useWindowDimensions hook?\nCheck all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "To determine the device operating system"
+        },
+        {
+          "key": "B",
+          "text": "To determine the font scale"
+        },
+        {
+          "key": "C",
+          "text": "To determine the window height"
+        },
+        {
+          "key": "D",
+          "text": "To determine the window width"
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "B, C, D",
+      "explanation": "The useWindowDimensions hook will retrieve\nthe window height, window width, and the font\nsize currently used in the\nwindow.",
+      "sourcePages": [
+        39
+      ]
+    },
+    {
+      "id": "MMA301-127",
+      "number": 127,
+      "type": "single_choice",
+      "status": "active",
+      "question": "You have a React Native app that utilizes location\ntracking, but you would like this feature to be disabled\nwhen a user pushes the app to the background. Which\ncommunity hook could you use to set up this functionality?",
+      "options": [
+        {
+          "key": "A",
+          "text": "useDeviceOrientation"
+        },
+        {
+          "key": "B",
+          "text": "useImageDimensions"
+        },
+        {
+          "key": "C",
+          "text": "useKeyboard"
+        },
+        {
+          "key": "D",
+          "text": "useAppState"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D. useAppState\n(useAppState tells you if\nthe app is in active mode\nor in background/inactive\nmode, and you can set the\napp to respond accordingly.)",
+      "explanation": "",
+      "sourcePages": [
+        39,
+        40
+      ]
+    },
+    {
+      "id": "MMA301-128",
+      "number": 128,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "What are the supported color schemes in the useColorScheme hook? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "light"
+        },
+        {
+          "key": "B",
+          "text": "null"
+        },
+        {
+          "key": "C",
+          "text": "dark"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A. light\nB. null\nC. dark",
+      "explanation": "Light, null, and Dark are\nsupported color schemes\nin the useColorScheme\nhook.",
+      "sourcePages": [
+        40
+      ]
+    },
+    {
+      "id": "MMA301-129",
+      "number": 129,
+      "type": "true_false",
+      "status": "active",
+      "question": "The React Native community hooks have to be installed separately by installing the react-native-community/hooks package. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "The community hooks are\npart of the community\npackage and must be installed separately.",
+      "sourcePages": [
+        40
+      ]
+    },
+    {
+      "id": "MMA301-130",
+      "number": 130,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which hook would you use to determine if the virtual\nkeyboard is displayed and also determines its height?",
+      "options": [
+        {
+          "key": "A",
+          "text": "useKeyboard"
+        },
+        {
+          "key": "B",
+          "text": "useAppState"
+        },
+        {
+          "key": "C",
+          "text": "useDeviceOrientation"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. useKeyboard",
+      "explanation": "The useKeyboard hook is\nused to determine if the\nvirtual keyboard is displayed on the screen and\ncan also return its height.",
+      "sourcePages": [
+        40,
+        41
+      ]
+    },
+    {
+      "id": "MMA301-131",
+      "number": 131,
+      "type": "true_false",
+      "status": "active",
+      "question": "The useWindowDimensions hook is part of the core\nReact Native package. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "The useWindowDimensions hook is part of the\ncore React Native package.",
+      "sourcePages": [
+        41
+      ]
+    },
+    {
+      "id": "MMA301-132",
+      "number": 132,
+      "type": "single_choice",
+      "status": "active",
+      "question": "In which one of the following scenarios would the\nuseState hook be useful?",
+      "options": [
+        {
+          "key": "A",
+          "text": "You want to handle data that changes over time or\ncomes from user interaction within a component."
+        },
+        {
+          "key": "B",
+          "text": "You want to customize React components and pass\nproperties from parent to child."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. You want to handle data\nthat changes over time or\ncomes from user interaction within a component.",
+      "explanation": "State gives your components memory and is used\nto manage data changes\nwithin a component.",
+      "sourcePages": [
+        41
+      ]
+    },
+    {
+      "id": "MMA301-133",
+      "number": 133,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of these hooks belong to the core React Native\npackage? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "useWindowDimensions"
+        },
+        {
+          "key": "B",
+          "text": "useColorScheme"
+        },
+        {
+          "key": "C",
+          "text": "useAppState"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A, B\n(useWindowDimensions\nand useColorScheme\nbelong to the core React\nNative package.)",
+      "explanation": "",
+      "sourcePages": [
+        41
+      ]
+    },
+    {
+      "id": "MMA301-134",
+      "number": 134,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which component would you use to display a background image on your mobile screen?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ImageBackground"
+        },
+        {
+          "key": "B",
+          "text": "Image"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. ImageBackground",
+      "explanation": "The ImageBackground\ncomponent is used to display images in the background.",
+      "sourcePages": [
+        41,
+        42
+      ]
+    },
+    {
+      "id": "MMA301-135",
+      "number": 135,
+      "type": "true_false",
+      "status": "active",
+      "question": "The Pressable component can accept child/children\nelements that can be a clickable area. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "The Pressable component can accept any React\nNode as its child, or it can\nhave multiple children elements.",
+      "sourcePages": [
+        42
+      ]
+    },
+    {
+      "id": "MMA301-136",
+      "number": 136,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "What are the values accepted by the resizeMode prop\nto the Image component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cover"
+        },
+        {
+          "key": "B",
+          "text": "Contain"
+        },
+        {
+          "key": "C",
+          "text": "Left"
+        },
+        {
+          "key": "D",
+          "text": "Stretch"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "D"
+      ],
+      "answerTextFromSource": "A, B, D",
+      "explanation": "The value 'cover' scales\nthe image uniformly, 'contain' scales the image uniformly so that both dimensions of the image\nwill be equal to or less\nthan the corresponding\ndimension of the view,\nand 'stretch' scales the\nwidth and height of the\nimage independently.",
+      "sourcePages": [
+        42
+      ]
+    },
+    {
+      "id": "MMA301-137",
+      "number": 137,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following statements are true about the\nImage component? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "The Image component can fetch and display images from local storage."
+        },
+        {
+          "key": "B",
+          "text": "The Image component can fetch and display images from a network."
+        },
+        {
+          "key": "C",
+          "text": "The Image component cannot fetch and display\nimages from a network location."
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A, B",
+      "explanation": "The Image component\ncan fetch images from local storage and display\nthem. The source is provided as a source, and React Native can fetch the\nimage. It can also fetch\nand display images from a\nnetwork.",
+      "sourcePages": [
+        42,
+        43
+      ]
+    },
+    {
+      "id": "MMA301-138",
+      "number": 138,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which hook would you use to determine whether the\napp's current state is active, inactive, or backgrounded? Select the correct option.",
+      "options": [
+        {
+          "key": "A",
+          "text": "useAppState"
+        },
+        {
+          "key": "B",
+          "text": "useDeviceOrientation"
+        },
+        {
+          "key": "C",
+          "text": "useKeyboard"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. useAppState",
+      "explanation": "The useAppState hook\ndetermines the app's current state (Active, Inactive,\nor Background).",
+      "sourcePages": [
+        43
+      ]
+    },
+    {
+      "id": "MMA301-139",
+      "number": 139,
+      "type": "true_false",
+      "status": "active",
+      "question": "The useState hook is used when you want to handle\ndata that changes over time or comes from user interaction within a component. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "State gives your components memory and is used\nto manage data changes\nwithin a component.",
+      "sourcePages": [
+        43
+      ]
+    },
+    {
+      "id": "MMA301-140",
+      "number": 140,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following is true about the ImageBackground component? Select the correct option.",
+      "options": [
+        {
+          "key": "A",
+          "text": "The ImageBackground component has props different from the Image component."
+        },
+        {
+          "key": "B",
+          "text": "The ImageBackground component has the same\nprops as the Image component."
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        43
+      ]
+    },
+    {
+      "id": "MMA301-141",
+      "number": 141,
+      "type": "single_choice",
+      "status": "active",
+      "question": "In this exercise, from where should you have imported the createNativeStackNavigator from? Choose the\ncorrect answer.",
+      "options": [
+        {
+          "key": "A",
+          "text": "import { createNativeStackNavigator } from '@react-navigation;"
+        },
+        {
+          "key": "B",
+          "text": "import { createNativeStackNavigator } from '@react-navigation/native-stack';"
+        },
+        {
+          "key": "C",
+          "text": "import { createNativeStackNavigator } from '@react-navigation/native;'"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. import { createNativeStackNavigator }\nfrom '@react-navigation/native;'",
+      "explanation": "The createNativeStackNavigator is imported\nfrom the @react-navigation/native package in React Navigation.",
+      "sourcePages": [
+        43,
+        44
+      ]
+    },
+    {
+      "id": "MMA301-142",
+      "number": 142,
+      "type": "single_choice",
+      "status": "active",
+      "question": "This exercise has two routes; the Welcome screen and\nthe Login screen. In which component did you specify\nthese routes?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Navigator"
+        },
+        {
+          "key": "B",
+          "text": "NavigationContainer"
+        },
+        {
+          "key": "C",
+          "text": "Screen"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. Screen",
+      "explanation": "The Screen component\naccepts a prop called\nname. The name prop\ncorresponds to the name\nof the route you will use to\nnavigate. In addition, it accepts a component prop.\nThis prop corresponds to\nthe component it will render.",
+      "sourcePages": [
+        44
+      ]
+    },
+    {
+      "id": "MMA301-143",
+      "number": 143,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "What other dependencies were installed when you\nset up Native Stack Navigation and React Navigation?\nSelect all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "react-native-reanimated"
+        },
+        {
+          "key": "B",
+          "text": "react-native-screens"
+        },
+        {
+          "key": "C",
+          "text": "react-native-safe-area-context"
+        },
+        {
+          "key": "D",
+          "text": "react-hooks"
+        }
+      ],
+      "correctAnswers": [
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "B, C\n(react-native-screens and\nreact-native-safe-area-context are\ndependencies for setting\nup Native Stack\nNavigation and React\nNavigation.)",
+      "explanation": "",
+      "sourcePages": [
+        44
+      ]
+    },
+    {
+      "id": "MMA301-144",
+      "number": 144,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "React Navigation is the most popular navigation library for React Native apps. Which of the following are\ncharacteristics of this library? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Customizable navigators"
+        },
+        {
+          "key": "B",
+          "text": "Android-specific components"
+        },
+        {
+          "key": "C",
+          "text": "Full integration with native platform APIs"
+        },
+        {
+          "key": "D",
+          "text": "iOS-specific components"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "D"
+      ],
+      "answerTextFromSource": "A, B, D",
+      "explanation": "Customizable navigators, iOS-specific components, and Android-specific components are all\ncharacteristics of this library.",
+      "sourcePages": [
+        44,
+        45
+      ]
+    },
+    {
+      "id": "MMA301-145",
+      "number": 145,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "What are the base packages you would need to install\nto set up React Navigation within your project? Select\nall that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "react-native-screens"
+        },
+        {
+          "key": "B",
+          "text": "react-native-safe-area-context"
+        },
+        {
+          "key": "C",
+          "text": "@react-navigation/native"
+        },
+        {
+          "key": "D",
+          "text": "react-hooks"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A, B, C",
+      "explanation": "You need to install @react-navigation/native, react-native-screens, and\nreact-hooks to get started\nwith React Navigation.",
+      "sourcePages": [
+        45
+      ]
+    },
+    {
+      "id": "MMA301-146",
+      "number": 146,
+      "type": "true_false",
+      "status": "active",
+      "question": "The name given to a screen within a Stack.Navigator\nmust match the name of the component that it calls.\nTrue or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. False",
+      "explanation": "You can name the screen\nwhatever you'd like.",
+      "sourcePages": [
+        45
+      ]
+    },
+    {
+      "id": "MMA301-147",
+      "number": 147,
+      "type": "single_choice",
+      "status": "active",
+      "question": "You would like to pass in the prop initialRouteName=\"DailyOffer\" so that your app opens to a Daily Offer screen instead of the Home screen. Where\nwould you apply this prop?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Stack.Screen"
+        },
+        {
+          "key": "B",
+          "text": "Stack.Navigator"
+        },
+        {
+          "key": "C",
+          "text": "DailyOffercomponent"
+        },
+        {
+          "key": "D",
+          "text": "NavigationContainer"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. Stack.Navigator",
+      "explanation": "Placing the initialRouteName here ensures that\nthe app starts on the specified route.",
+      "sourcePages": [
+        45
+      ]
+    },
+    {
+      "id": "MMA301-148",
+      "number": 148,
+      "type": "single_choice",
+      "status": "active",
+      "question": "If you were asked to create navigation in your React\nNative app to move between screens, which library\nwould you choose?",
+      "options": [
+        {
+          "key": "A",
+          "text": "React Native"
+        },
+        {
+          "key": "B",
+          "text": "React Router"
+        },
+        {
+          "key": "C",
+          "text": "React Navigation"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. React Navigation",
+      "explanation": "React Navigation is\na popular, open-sourced\nnavigation library used\nfor navigating between\nscreens in React Native.",
+      "sourcePages": [
+        45,
+        46
+      ]
+    },
+    {
+      "id": "MMA301-149",
+      "number": 149,
+      "type": "true_false",
+      "status": "active",
+      "question": "React Navigation can be used for both Expo and simple React Native apps. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "React Navigation is built\nfor both Expo and React\nNative apps.",
+      "sourcePages": [
+        46
+      ]
+    },
+    {
+      "id": "MMA301-150",
+      "number": 150,
+      "type": "single_choice",
+      "status": "active",
+      "question": "The entire app must be wrapped in the NavigationContainer while setting up React Navigation. Which of\nthe following import statements will import NavigationContainer correctly?",
+      "options": [
+        {
+          "key": "A",
+          "text": "import { createNativeStackNavigator } from '@react-navigation;"
+        },
+        {
+          "key": "B",
+          "text": "import { createNativeStackNavigator } from '@react-navigation/native-stack';"
+        },
+        {
+          "key": "C",
+          "text": "import { createNativeStackNavigator } from '@react-navigation/native;'"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. import { createNativeStackNavigator }\nfrom '@react-navigation/native;'",
+      "explanation": "The NavigationContainer is available\nin the @react-navigation/native package.",
+      "sourcePages": [
+        46
+      ],
+      "sourceWarnings": [
+        "The question asks about importing NavigationContainer, but all printed options import createNativeStackNavigator. The source content was preserved."
+      ]
+    },
+    {
+      "id": "MMA301-151",
+      "number": 151,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Study the code below and select the correct answer:\nconst Stack = createNativeStackNavigator();\nfunction App() {\n return (\n <NavigationContainer>\n <Stack.Navigator initialRouteName=\"Home\">\n <Stack.Screen name=\"Home\" component={HomeScreen} />\n <Stack.Screen name=\"Details\" component={DetailsScreen} />\n </Stack.Navigator>\n </NavigationContainer>\n );\n}",
+      "options": [
+        {
+          "key": "A",
+          "text": "This code is correct and sets up the stack navigator.\nIt contains two screens in the stack, Home and Details,\nwith an initial route to the Home screen."
+        },
+        {
+          "key": "B",
+          "text": "This code is incorrect. The stack navigator should\nnot wrap the stack screens. You can also not specify\nan initial route name within the stack. This code will\nproduce an error."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. This code is correct and\nsets up the stack navigator.\nIt contains two screens in\nthe stack, Home and Details, with an initial route to\nthe Home screen.",
+      "explanation": "The code above sets up\nstack navigation appropriately.",
+      "sourcePages": [
+        46,
+        47
+      ]
+    },
+    {
+      "id": "MMA301-152",
+      "number": 152,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Select all the features supported by React Navigation.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cross-platform"
+        },
+        {
+          "key": "B",
+          "text": "Tab Navigation"
+        },
+        {
+          "key": "C",
+          "text": "Drawer Navigation"
+        },
+        {
+          "key": "D",
+          "text": "Stack Navigation"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "A. Cross-platform\nB. Tab Navigation\nC. Drawer Navigation\nD. Stack Navigation",
+      "explanation": "React Navigation supports tab-based navigation, drawer-based navigation, and stack-based\nnavigation.",
+      "sourcePages": [
+        47
+      ]
+    },
+    {
+      "id": "MMA301-153",
+      "number": 153,
+      "type": "single_choice",
+      "status": "active",
+      "question": "In this exercise, under which option should you have\nset the tabBarIcon for the screens?",
+      "options": [
+        {
+          "key": "A",
+          "text": "navigatorOptions"
+        },
+        {
+          "key": "B",
+          "text": "screenOptions"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. screenOptions",
+      "explanation": "The screenOptions allow\nadding options for all the\nscreens under the Tab\nNavigator.",
+      "sourcePages": [
+        47
+      ]
+    },
+    {
+      "id": "MMA301-154",
+      "number": 154,
+      "type": "single_choice",
+      "status": "active",
+      "question": "In this exercise, from where should you have imported\nthe createBottomTabNavigator? Choose the correct\nanswer.",
+      "options": [
+        {
+          "key": "A",
+          "text": "import{ createBottomTabNavigator} from'@react-navigation;"
+        },
+        {
+          "key": "B",
+          "text": "import{ createBottomTabNavigator} from'@react-navigation/bottomtabs';"
+        },
+        {
+          "key": "C",
+          "text": "import{ createBottomTabNavigator} from'@react-navigation/nativestack;"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. import{\ncreateBottomTabNavigator}\nfrom'@react-navigation/bottomtabs';",
+      "explanation": "The createBottomTabNavigator is imported\nfrom the bottomtabs\npackage in React Navigation.",
+      "sourcePages": [
+        47,
+        48
+      ]
+    },
+    {
+      "id": "MMA301-155",
+      "number": 155,
+      "type": "single_choice",
+      "status": "active",
+      "question": "For which component would you define the initial\nroute name as a prop in this exercise?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tab.Navigator"
+        },
+        {
+          "key": "B",
+          "text": "NavigationContainer"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "The initialRouteName is\npassed as a prop to\nthe Tab.Navigator component.",
+      "sourcePages": [
+        48
+      ]
+    },
+    {
+      "id": "MMA301-156",
+      "number": 156,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "You would like to create a tab navigator in your React\nNative app. Which of the following are possible options? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Material-design top tab navigation"
+        },
+        {
+          "key": "B",
+          "text": "Side tab navigation"
+        },
+        {
+          "key": "C",
+          "text": "Bottom tab navigation"
+        },
+        {
+          "key": "D",
+          "text": "Material-design bottom tab navigation"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "A, C, D",
+      "explanation": "You can create bottom\ntab navigation, material-design bottom tab navigation, as well as material-design top tab navigation in your React Native\napp.",
+      "sourcePages": [
+        48
+      ]
+    },
+    {
+      "id": "MMA301-157",
+      "number": 157,
+      "type": "true_false",
+      "status": "active",
+      "question": "You would like to add a Bottom Tab Navigator to your\nReact Native. This is included with the NavigationContainer so once you've imported that then you are\nready to go. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. False",
+      "explanation": "To add a Bottom Tab\nNavigator, you will need to\nseparately import\ncreateBottomTabNavigator from\n@react-navigation/bottomtabs.",
+      "sourcePages": [
+        48
+      ]
+    },
+    {
+      "id": "MMA301-158",
+      "number": 158,
+      "type": "true_false",
+      "status": "active",
+      "question": "You would like to customize the tab icons in your Tab\nNavigator. However, only one icon can be assigned to\na tab. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. False",
+      "explanation": "By setting icons to be\nrendered conditionally, it\nis possible to have multiple icons for a tab. For example, you could have one\nicon for a focused tab and\na different icon for when\nthe tab is unfocused.",
+      "sourcePages": [
+        48,
+        49
+      ]
+    },
+    {
+      "id": "MMA301-159",
+      "number": 159,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "What are the different types of tab-based navigation\nsupported by React Navigation? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Material Bottom Tabs Navigator"
+        },
+        {
+          "key": "B",
+          "text": "Material Top Tabs Navigator"
+        },
+        {
+          "key": "C",
+          "text": "Bottom Tabs Navigator"
+        },
+        {
+          "key": "D",
+          "text": "Top Tabs Navigator"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A, B, C",
+      "explanation": "This includes material-design-themed bottom\nand top tabs, as well as a\nsimple tab bar at the bottom.",
+      "sourcePages": [
+        49
+      ]
+    },
+    {
+      "id": "MMA301-160",
+      "number": 160,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following code snippets will you use to\nset up bottom tab navigation to navigate between two\nscreens, Home and Settings?\nimport { createBottomTabNavigator } from '@react-navigation/bottom-tabs';\nconst Tab = createBottomTabNavigator();",
+      "options": [
+        {
+          "key": "A",
+          "text": "function MyTabs() {\n return (\n <Tab.Navigator>\n <Tab.Screen name=\"Home\" component={HomeScreen} />\n <Tab.Screen name=\"Settings\" component={SettingsScreen} />\n </Tab.Navigator>\n );\n}"
+        },
+        {
+          "key": "B",
+          "text": "function MyTabs() {\n return (\n <Tab.Screen >\n <Tab.Navigatorname=\"Home\" component={HomeScreen} />\n <Tab.Navigatorname=\"Settings\" component={SettingsScreen} />\n </Tab.Screen>\n );\n}"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "This code appropriately sets up the tab navigator with the respective\nscreens.",
+      "sourcePages": [
+        49,
+        50
+      ]
+    },
+    {
+      "id": "MMA301-161",
+      "number": 161,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of these options would you configure to set\nup icons for each tab?",
+      "options": [
+        {
+          "key": "A",
+          "text": "title"
+        },
+        {
+          "key": "B",
+          "text": "tabBarIcon"
+        },
+        {
+          "key": "C",
+          "text": "tabIcon"
+        },
+        {
+          "key": "D",
+          "text": "tabBar"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. tabBarIcon",
+      "explanation": "The tabBarIcon is used to\nset the icon for each tab.",
+      "sourcePages": [
+        50
+      ]
+    },
+    {
+      "id": "MMA301-162",
+      "number": 162,
+      "type": "true_false",
+      "status": "active",
+      "question": "With the bottom tabs navigator, you can switch between routes by tapping on the tab. Routes are lazily initialized, meaning each screen component is not\nmounted until they are first focused. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "The bottom tabs navigator is a performant API that\nloads screen components\nlazily only when mounted.",
+      "sourcePages": [
+        50
+      ]
+    },
+    {
+      "id": "MMA301-163",
+      "number": 163,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Select all options you can set to configure the tint color\nof a tab bar icon.",
+      "options": [
+        {
+          "key": "A",
+          "text": "tabBarInactiveTintColor"
+        },
+        {
+          "key": "B",
+          "text": "tabBarActiveTintColor"
+        },
+        {
+          "key": "C",
+          "text": "TabBarColor"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A, B",
+      "explanation": "These options set the color of the icon and labels\nfor both active and inactive\ntabs.",
+      "sourcePages": [
+        50
+      ]
+    },
+    {
+      "id": "MMA301-164",
+      "number": 164,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "What are some additional packages that were installed as dependencies when you installed the Drawer Navigator package? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "react-native-gesture-handler"
+        },
+        {
+          "key": "B",
+          "text": "react-navigation/bottom-tabs"
+        },
+        {
+          "key": "C",
+          "text": "react-native-reanimated"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "C"
+      ],
+      "answerTextFromSource": "A, C",
+      "explanation": "These packages are\nneeded for the Drawer\nNavigator to work.",
+      "sourcePages": [
+        51
+      ]
+    },
+    {
+      "id": "MMA301-165",
+      "number": 165,
+      "type": "single_choice",
+      "status": "active",
+      "question": "In this exercise, from where should you have imported\nthe createDrawerNavigator? Choose the correct answer.",
+      "options": [
+        {
+          "key": "A",
+          "text": "import{ createDrawerNavigator} from'@react-navigation;"
+        },
+        {
+          "key": "B",
+          "text": "import{ createDrawerNavigator} from'@react-navigation/drawer';"
+        },
+        {
+          "key": "C",
+          "text": "import{ createDrawerNavigator} from'@react-navigation/bottom-tabs;"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "The createDrawerNavigator is imported from the\ndrawer package in React\nNavigation.",
+      "sourcePages": [
+        51
+      ]
+    },
+    {
+      "id": "MMA301-166",
+      "number": 166,
+      "type": "single_choice",
+      "status": "active",
+      "question": "For which component would you define the initial\nroute name as a prop in this exercise?",
+      "options": [
+        {
+          "key": "A",
+          "text": "NavigationContainer"
+        },
+        {
+          "key": "B",
+          "text": "Drawer.Navigator"
+        },
+        {
+          "key": "C",
+          "text": "Drawer.Screen"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "The initialRouteName is\npassed as a prop to\nthe NavigationContainer\ncomponent.",
+      "sourcePages": [
+        51
+      ]
+    },
+    {
+      "id": "MMA301-167",
+      "number": 167,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following statements are correct with\nregards to drawer navigation? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "You can also customize the drawer position so that\nthe drawer opens on the right with a left swipe."
+        },
+        {
+          "key": "B",
+          "text": "You can customize your app to support multiple\ndrawers; one on the right and one on the left."
+        },
+        {
+          "key": "C",
+          "text": "By default, you swipe to your right, and the drawer\nopens on the left."
+        },
+        {
+          "key": "D",
+          "text": "You can either swipe to open the drawer or simply\nclick on the hamburger menu on both Android and\niOS platforms."
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "answerTextFromSource": "A, B, C, D",
+      "explanation": "",
+      "sourcePages": [
+        51,
+        52
+      ]
+    },
+    {
+      "id": "MMA301-168",
+      "number": 168,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "You'd like to set a Drawer Navigator for your app. From\nwhich directions on the screen can you set a drawer to\nopen? Select all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Right"
+        },
+        {
+          "key": "B",
+          "text": "Left"
+        },
+        {
+          "key": "C",
+          "text": "Bottom"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "A, B",
+      "explanation": "That's right! A drawer\nopens from the left by default, but you can also set\nit to open from the right.",
+      "sourcePages": [
+        52
+      ]
+    },
+    {
+      "id": "MMA301-169",
+      "number": 169,
+      "type": "true_false",
+      "status": "active",
+      "question": "The Drawer navigator is a component that renders\na navigation drawer that can be opened and closed\nusing gestures. True or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "The Drawer navigator is a\ncomponent that renders a\nnavigation drawer that can\nbe opened and closed via\ngestures.",
+      "sourcePages": [
+        52
+      ]
+    },
+    {
+      "id": "MMA301-170",
+      "number": 170,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following code snippets would you use\nto set up drawer navigation to navigate between two\nscreens, home and notifications?",
+      "options": [
+        {
+          "key": "A",
+          "text": "const Drawer = createDrawerNavigator();\nexport default function App() {\n return (\n <NavigationContainer>\n <Drawer.Navigator>\n <Drawer.Screen name=\"Home\" component={HomeScreen} />\n <Drawer.Screen name=\"Notifications\" component={NotificationsScreen} />\n </Drawer.Navigator>\n </NavigationContainer>\n );\n}"
+        },
+        {
+          "key": "B",
+          "text": "const Drawer = createDrawerNavigator();\nexport default function App() {\n return (\n <NavigationContainer>\n <Drawer.Screen >\n <Drawer.Navigatorname=\"Home\" component={HomeScreen} />\n <Drawer.Navigatorname=\"Notifications\" component={NotificationsScreen} />\n </Drawer.Screen>\n </NavigationContainer>\n );\n}"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        52,
+        53
+      ]
+    },
+    {
+      "id": "MMA301-171",
+      "number": 171,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which options would you configure to set where the\ndrawer opens from?",
+      "options": [
+        {
+          "key": "A",
+          "text": "drawerType"
+        },
+        {
+          "key": "B",
+          "text": "drawerPosition"
+        },
+        {
+          "key": "C",
+          "text": "drawerStyle"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "This provides the option\nto open the drawer from\nthe left or right.",
+      "sourcePages": [
+        53
+      ]
+    },
+    {
+      "id": "MMA301-172",
+      "number": 172,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Which of the following are the packages that are needed for the Drawer Navigation to work? Select all that\napply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "react-native-gesture-handler"
+        },
+        {
+          "key": "B",
+          "text": "react-native-reanimated"
+        },
+        {
+          "key": "C",
+          "text": "@react-navigation/drawer"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A, B, C",
+      "explanation": "You must install these\npackages to set up Drawer\nNavigation.",
+      "sourcePages": [
+        53
+      ]
+    },
+    {
+      "id": "MMA301-173",
+      "number": 173,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "Select all options you can set to configure the tint color\nof a drawer icon.",
+      "options": [
+        {
+          "key": "A",
+          "text": "drawerActiveTintColor"
+        },
+        {
+          "key": "B",
+          "text": "drawerColor"
+        },
+        {
+          "key": "C",
+          "text": "drawerInactiveTintColor"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "C"
+      ],
+      "answerTextFromSource": "A. drawerActiveTintColor\nC. drawerInactiveTintColor",
+      "explanation": "These options set the\nicon's color and labels\nfor the active and inactive\nitems in the drawer.",
+      "sourcePages": [
+        53,
+        54
+      ]
+    },
+    {
+      "id": "MMA301-174",
+      "number": 174,
+      "type": "single_choice",
+      "status": "active",
+      "question": "The entire app must be wrapped in the NavigationContainer while setting up React Navigation. Observe\nthe statement below for importing NavigationContainer, and select the statement that describes it accurately.",
+      "options": [
+        {
+          "key": "A",
+          "text": "import { createNativeStackNavigator } from '@react-navigation;"
+        },
+        {
+          "key": "B",
+          "text": "import { createNativeStackNavigator } from '@react-navigation/native-stack';"
+        },
+        {
+          "key": "C",
+          "text": "import { NavigationContainer } from '@react-navigation/native';"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        54
+      ]
+    },
+    {
+      "id": "MMA301-175",
+      "number": 175,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of the following methods from the navigation prop would you use to go back to the previous\nscreen in the stack history? (Assuming there are multiple screens)",
+      "options": [
+        {
+          "key": "A",
+          "text": "push"
+        },
+        {
+          "key": "B",
+          "text": "goBack"
+        },
+        {
+          "key": "C",
+          "text": "popToTop"
+        },
+        {
+          "key": "D",
+          "text": "pop"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. goBack",
+      "explanation": "The goBack method allows you to go back to the\nprevious screen programmatically.",
+      "sourcePages": [
+        54
+      ]
+    },
+    {
+      "id": "MMA301-176",
+      "number": 176,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which methods will you use to move from one screen\nto another using React Navigation?",
+      "options": [
+        {
+          "key": "A",
+          "text": "navigation.push('Details')"
+        },
+        {
+          "key": "B",
+          "text": "navigation.navigate('Details')"
+        },
+        {
+          "key": "C",
+          "text": "navigation.goTo('Details')"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. navigation.navigate('Details')",
+      "explanation": "The navigation.navigate\nprop is used to move between screens.",
+      "sourcePages": [
+        54
+      ]
+    },
+    {
+      "id": "MMA301-177",
+      "number": 177,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which option would you use to set specific options\nfor each screen and customize its header bar in React\nNavigation?",
+      "options": [
+        {
+          "key": "A",
+          "text": "screenOptions"
+        },
+        {
+          "key": "B",
+          "text": "options"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. options",
+      "explanation": "Each screen in the stack\ncan be given a configuration under the prop options.",
+      "sourcePages": [
+        55
+      ]
+    },
+    {
+      "id": "MMA301-178",
+      "number": 178,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following options would you configure to\nstyle the appearance of the drawer in Drawer Navigation? Select one option.",
+      "options": [
+        {
+          "key": "A",
+          "text": "drawerPosition"
+        },
+        {
+          "key": "B",
+          "text": "drawerStyle"
+        },
+        {
+          "key": "C",
+          "text": "drawerType"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B. drawerStyle",
+      "explanation": "This styles the drawer\ncomponent.",
+      "sourcePages": [
+        55
+      ]
+    },
+    {
+      "id": "MMA301-179",
+      "number": 179,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Select the option which cannot be used to configure\nthe tint color of a tab bar icon in the Tab Navigator.",
+      "options": [
+        {
+          "key": "A",
+          "text": "tabBarColor"
+        },
+        {
+          "key": "B",
+          "text": "tabBarActiveTintColor"
+        },
+        {
+          "key": "C",
+          "text": "tabBarInactiveTintColor"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C. tabBarInactiveTintColor\n(tabBarInactiveTintColor is\nnot a valid prop in the Tab\nNavigator.)",
+      "explanation": "",
+      "sourcePages": [
+        55
+      ]
+    },
+    {
+      "id": "MMA301-180",
+      "number": 180,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What prop would you use to set up the initial default\nroute within a Drawer Navigator? Select the correct\noption.",
+      "options": [
+        {
+          "key": "A",
+          "text": "intialRouteName"
+        },
+        {
+          "key": "B",
+          "text": "name"
+        },
+        {
+          "key": "C",
+          "text": "component"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. intialRouteName\n(nitialRouteName is set\nwithin the Drawer Navigator with a default\nscreen/route name.)",
+      "explanation": "",
+      "sourcePages": [
+        55
+      ]
+    },
+    {
+      "id": "MMA301-181",
+      "number": 181,
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "To set up Drawer Navigation using React Navigation,\nwhich of the following dependencies do you need?\nSelect all that apply.",
+      "options": [
+        {
+          "key": "A",
+          "text": "@react-navigation/drawer"
+        },
+        {
+          "key": "B",
+          "text": "react-native-gesture-handler"
+        },
+        {
+          "key": "C",
+          "text": "react-native-reanimated"
+        },
+        {
+          "key": "D",
+          "text": "react-navigation/native-stack"
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B",
+        "C"
+      ],
+      "answerTextFromSource": "A, B, C",
+      "explanation": "You need to install these\npackages to set up Drawer Navigation using React\nNavigation.",
+      "sourcePages": [
+        55,
+        56
+      ]
+    },
+    {
+      "id": "MMA301-182",
+      "number": 182,
+      "type": "true_false",
+      "status": "active",
+      "question": "The Drawer Navigator allows you to customize the position of the drawer. You can programmatically choose\nto open the drawer from right to left or left to right.\nTrue or false?",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A. True",
+      "explanation": "You can programmatically choose to open the\ndrawer from right to left or\nleft to right.",
+      "sourcePages": [
+        56
+      ]
+    },
+    {
+      "id": "MMA301-183",
+      "number": 183,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Study the code below and determine if it has set up\nTab Navigation correctly for two screens, Home and\nSettings.\nimport { createBottomTabNavigator } from '@react-navigation/bottom-tabs';\nconst Tab = createBottomTabNavigator();\nfunction MyTabs() {\n return (\n <Tab.Navigator>\n <Tab.Screen name=\"Home\" component={HomeScreen} />\n <Tab.Screen name=\"Settings\" component={SettingsScreen} />\n </Tab.Navigator>\n );\n}",
+      "options": [
+        {
+          "key": "A",
+          "text": "The code correctly sets up tab navigation."
+        },
+        {
+          "key": "B",
+          "text": "The code is incorrect and will throw an error."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "Tab Navigation is set up\nappropriately in the code\nsnippet above.",
+      "sourcePages": [
+        56
+      ]
+    },
+    {
+      "id": "MMA301-184",
+      "number": 184,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of the following code snippets contains the\ncorrect code for representing the component?",
+      "options": [
+        {
+          "key": "A",
+          "text": "export default function LittleLemonFooter() {\n return (\n<View style = {\n {\n backgroundColor: '#F4CE14',\n marginBottom: 10,\n fontSize: 18,\n color: 'black',\n textAlign: 'center',\n }\n } >\n All rights reserved by Little Lemon, 2022 {' '}\n</View> );}"
+        },
+        {
+          "key": "B",
+          "text": "export default function LittleLemonFooter() {\n return (\n<View style = {\n {\n backgroundColor: '#F4CE14',\n marginBottom: 10,\n }\n } >\n <Text style = {{\n fontSize: 18,\n color: 'black',\n textAlign: 'center',\n }} >\n All rights reserved by Little Lemon, 2022 {' '} </Text>\n</View>\n );\n}"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        56,
+        57,
+        58
+      ]
+    }
+  ]
+}

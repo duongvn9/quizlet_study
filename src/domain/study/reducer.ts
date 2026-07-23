@@ -1,35 +1,42 @@
 import type { Question } from "@/domain/subjects/types";
 import type { AttemptResult, SubjectProgress } from "./types";
 
-export function answer(progress: SubjectProgress, question: Question, selectedOptionId: string | null, deps = { id: () => crypto.randomUUID(), now: () => new Date().toISOString() }): SubjectProgress {
+const isExactAnswer = (selected: string[], correct: string[]) => selected.length === correct.length && selected.every((id) => correct.includes(id));
+const isValidSelection = (question: Question, selected: string[] | null) => selected === null || selected.length > 0 && new Set(selected).size === selected.length && selected.every((id) => question.options.some((option) => option.id === id));
+const resultFor = (question: Question, selected: string[] | null): AttemptResult => selected === null ? "dont-know" : isExactAnswer(selected, question.correctAnswers) ? "correct" : "incorrect";
+const normalizeSelection = (selected: string[] | string | null) => typeof selected === "string" ? [selected] : selected;
+
+export function answer(progress: SubjectProgress, question: Question, selection: string[] | string | null, deps = { id: () => crypto.randomUUID(), now: () => new Date().toISOString() }): SubjectProgress {
+  const selectedOptionIds = normalizeSelection(selection);
   const session = progress.activeSession; if (!session || session.completedAt) return progress;
   const item = Number.isInteger(session.currentIndex) ? session.queue[session.currentIndex] : undefined; if (!item || item.answered || item.questionId !== question.id) return progress;
-  if (selectedOptionId !== null && !question.options.some((option) => option.id === selectedOptionId)) return progress;
+  if (!isValidSelection(question, selectedOptionIds)) return progress;
   const old = progress.questionProgress[question.id]; if (!old) return progress;
-  const result: AttemptResult = selectedOptionId === null ? "dont-know" : selectedOptionId === question.correctAnswer ? "correct" : "incorrect";
+  const result = resultFor(question, selectedOptionIds);
   const now = deps.now(); const streak = result === "correct" ? old.correctStreak + 1 : 0; const mastered = streak >= session.settings.masteryStreak;
-  const qp = { ...old, status: mastered ? "mastered" as const : "learning" as const, totalAttempts: old.totalAttempts + 1, correctCount: old.correctCount + (result === "correct" ? 1 : 0), incorrectCount: old.incorrectCount + (result === "incorrect" ? 1 : 0), dontKnowCount: old.dontKnowCount + (result === "dont-know" ? 1 : 0), correctStreak: streak, lastSelectedOptionId: selectedOptionId, lastResult: result, firstSeenAt: old.firstSeenAt ?? now, lastSeenAt: now, masteredAt: mastered ? now : null };
+  const qp = { ...old, status: mastered ? "mastered" as const : "learning" as const, totalAttempts: old.totalAttempts + 1, correctCount: old.correctCount + (result === "correct" ? 1 : 0), incorrectCount: old.incorrectCount + (result === "incorrect" ? 1 : 0), dontKnowCount: old.dontKnowCount + (result === "dont-know" ? 1 : 0), correctStreak: streak, lastSelectedOptionIds: selectedOptionIds ?? null, lastResult: result, firstSeenAt: old.firstSeenAt ?? now, lastSeenAt: now, masteredAt: mastered ? now : null };
   let queue = session.queue.map((q, i) => i === session.currentIndex ? { ...q, answered: true } : q);
   const initialItems = queue.filter((q) => q.reason === "initial");
   const initialIndex = initialItems.findIndex((q) => q.instanceId === item.instanceId);
   const blockEnd = Math.floor(initialIndex / 5) * 5 + 5;
   const nextBlockIndex = queue.findIndex((q) => q.reason === "initial" && initialItems.findIndex((initial) => initial.instanceId === q.instanceId) >= blockEnd);
   if (result !== "correct" && !mastered && !queue.some((q, i) => i > session.currentIndex && q.questionId === question.id && !q.answered)) { const retryIndex = nextBlockIndex === -1 ? queue.length : nextBlockIndex; queue = [...queue]; queue.splice(retryIndex, 0, { instanceId: deps.id(), questionId: question.id, reason: "retry", answered: false }); }
-  return { ...progress, questionProgress: { ...progress.questionProgress, [question.id]: qp }, activeSession: { ...session, queue, attempts: [...session.attempts, { id: deps.id(), queueInstanceId: item.instanceId, questionId: question.id, selectedOptionId, result, answeredAt: now }], updatedAt: now }, lifetimeAttempts: progress.lifetimeAttempts + 1, lastStudiedAt: now };
+  return { ...progress, questionProgress: { ...progress.questionProgress, [question.id]: qp }, activeSession: { ...session, queue, attempts: [...session.attempts, { id: deps.id(), queueInstanceId: item.instanceId, questionId: question.id, selectedOptionIds, result, answeredAt: now }], updatedAt: now }, lifetimeAttempts: progress.lifetimeAttempts + 1, lastStudiedAt: now };
 }
-export function replaceAnswer(progress: SubjectProgress, question: Question, selectedOptionId: string | null, now = new Date().toISOString()): SubjectProgress {
+export function replaceAnswer(progress: SubjectProgress, question: Question, selection: string[] | string | null, now = new Date().toISOString()): SubjectProgress {
+  const selectedOptionIds = normalizeSelection(selection);
   const session = progress.activeSession;
   if (!session || session.completedAt || !Number.isInteger(session.currentIndex)) return progress;
   const item = session.queue[session.currentIndex];
-  if (!item?.answered || item.questionId !== question.id || selectedOptionId !== null && !question.options.some((option) => option.id === selectedOptionId)) return progress;
+  if (!item?.answered || item.questionId !== question.id || !isValidSelection(question, selectedOptionIds)) return progress;
   const matchingAttemptIndexes = session.attempts.flatMap((attempt, index) => attempt.queueInstanceId === item.instanceId && attempt.questionId === question.id ? [index] : []);
   const old = progress.questionProgress[question.id];
   if (matchingAttemptIndexes.length !== 1 || !old) return progress;
   const attemptIndex = matchingAttemptIndexes[0];
   const previous = session.attempts[attemptIndex];
-  const result: AttemptResult = selectedOptionId === null ? "dont-know" : selectedOptionId === question.correctAnswer ? "correct" : "incorrect";
-  if (previous.selectedOptionId === selectedOptionId && previous.result === result) return progress;
-  const attempts = session.attempts.map((attempt, index) => index === attemptIndex ? { ...attempt, selectedOptionId, result } : attempt);
+  const result = resultFor(question, selectedOptionIds);
+  if (JSON.stringify(previous.selectedOptionIds) === JSON.stringify(selectedOptionIds) && previous.result === result) return progress;
+  const attempts = session.attempts.map((attempt, index) => index === attemptIndex ? { ...attempt, selectedOptionIds, result } : attempt);
   const questionAttempts = attempts.filter((attempt) => attempt.questionId === question.id);
   const originalQuestionAttempts = session.attempts.filter((attempt) => attempt.questionId === question.id);
   const count = (items: typeof questionAttempts, value: AttemptResult) => items.filter((attempt) => attempt.result === value).length;
@@ -46,7 +53,7 @@ export function replaceAnswer(progress: SubjectProgress, question: Question, sel
   }
   const latest = questionAttempts.at(-1)!;
   const mastered = streak >= session.settings.masteryStreak;
-  const qp = { ...old, status: mastered ? "mastered" as const : "learning" as const, correctCount: baselineCorrect + count(questionAttempts, "correct"), incorrectCount: baselineIncorrect + count(questionAttempts, "incorrect"), dontKnowCount: baselineDontKnow + count(questionAttempts, "dont-know"), correctStreak: streak, lastSelectedOptionId: latest.selectedOptionId, lastResult: latest.result, lastSeenAt: latest.answeredAt, masteredAt: mastered ? masteredAt : null };
+  const qp = { ...old, status: mastered ? "mastered" as const : "learning" as const, correctCount: baselineCorrect + count(questionAttempts, "correct"), incorrectCount: baselineIncorrect + count(questionAttempts, "incorrect"), dontKnowCount: baselineDontKnow + count(questionAttempts, "dont-know"), correctStreak: streak, lastSelectedOptionIds: latest.selectedOptionIds ?? (latest.selectedOptionId ? [latest.selectedOptionId] : null), lastResult: latest.result, lastSeenAt: latest.answeredAt, masteredAt: mastered ? masteredAt : null };
   return { ...progress, questionProgress: { ...progress.questionProgress, [question.id]: qp }, activeSession: { ...session, attempts, updatedAt: now } };
 }
 

@@ -70,7 +70,7 @@ describe("study engine", () => {
     let progress = fresh();
     progress = { ...progress, questionProgress: { ...progress.questionProgress, [question.id]: { ...progress.questionProgress[question.id], correctStreak: 1 } } };
     progress = answer(progress, question, null, deps);
-    expect(progress.questionProgress[question.id]).toMatchObject({ lastSelectedOptionId: null, lastResult: "dont-know", correctStreak: 0 });
+    expect(progress.questionProgress[question.id]).toMatchObject({ lastSelectedOptionIds: null, lastResult: "dont-know", correctStreak: 0 });
     expect(progress.activeSession?.queue[5].questionId).toBe(question.id);
     expect(selectStats(progress, 249).accuracy).toBe(0);
   });
@@ -103,10 +103,10 @@ describe("study engine", () => {
       const queue = answered.activeSession!.queue;
       const replaced = replaceAnswer(answered, question, selection(question), "2026-01-02T00:00:00.000Z");
       expect(replaced.activeSession?.attempts).toHaveLength(1);
-      expect(replaced.activeSession?.attempts[0]).toEqual({ ...attempt, selectedOptionId: selection(question), result: expected });
+      expect(replaced.activeSession?.attempts[0]).toEqual({ ...attempt, selectedOptionIds: selection(question) === null ? null : [selection(question)!], result: expected });
       expect(replaced.activeSession?.queue).toBe(queue);
       expect(replaced.lifetimeAttempts).toBe(answered.lifetimeAttempts);
-      expect(replaced.questionProgress[question.id]).toMatchObject({ totalAttempts: 1, correctCount: 0, incorrectCount: expected === "incorrect" ? 1 : 0, dontKnowCount: expected === "dont-know" ? 1 : 0, lastSelectedOptionId: selection(question), lastResult: expected, correctStreak: 0 });
+      expect(replaced.questionProgress[question.id]).toMatchObject({ totalAttempts: 1, correctCount: 0, incorrectCount: expected === "incorrect" ? 1 : 0, dontKnowCount: expected === "dont-know" ? 1 : 0, lastSelectedOptionIds: selection(question) === null ? null : [selection(question)!], lastResult: expected, correctStreak: 0 });
     });
 
     it("replaces wrong with correct while retaining its scheduled retry", () => {

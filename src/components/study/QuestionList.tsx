@@ -55,7 +55,7 @@ export function QuestionList({ slug, initialPage }: { slug: string; initialPage:
         <h2>Câu {question.number}. {question.question}</h2>
         <ul>
           {question.options.map((option) => {
-            const correct = option.id === question.correctAnswer;
+            const correct = question.correctAnswers.includes(option.id);
             return <li key={option.id} className={correct ? "correct-answer" : undefined}>
               <span>{option.id}. {option.text}</span>
               {correct && <strong>Đáp án đúng</strong>}
