@@ -10,6 +10,6 @@ export default async function Page({ params, searchParams }: { params: Promise<{
   const subject = getSubject(slug);
   if (!subject) notFound();
   const requestedMode = (await searchParams).mode;
-  const mode: StudyMode = requestedMode === "test" ? "test" : "learn";
+  const mode: StudyMode = requestedMode === "test" || requestedMode === "questions" ? requestedMode : "learn";
   return <SubjectStudyWorkspace subject={subject} mode={mode} />;
 }
