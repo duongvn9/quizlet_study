@@ -24,7 +24,31 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-CI chạy tuần tự các bước trên, kiểm tra generated registry sạch, cài riêng Chromium và tải Playwright report khi thất bại.
+CI chạy tuần tự các bước trên khi có push vào `master` hoặc Pull Request nhắm tới `master`, kiểm tra generated registry sạch, cài riêng Chromium và tải Playwright report khi thất bại.
+
+## Đóng góp và tạo Pull Request
+
+1. Clone repository, tạo nhánh mới từ `master` và đặt tên theo nội dung thay đổi:
+
+```bash
+git switch master
+git pull origin master
+git switch -c feat/ten-tinh-nang
+```
+
+2. Cài dependencies, thực hiện thay đổi và chạy đầy đủ kiểm tra ở mục **Kiểm tra**.
+3. Commit và push nhánh lên repository:
+
+```bash
+git add .
+git commit -m "feat: mô tả ngắn gọn"
+git push -u origin feat/ten-tinh-nang
+```
+
+4. Trên GitHub, chọn **Compare & pull request**, đặt base là `master`, mô tả thay đổi và cách kiểm tra, rồi tạo Pull Request.
+5. Chờ CI thành công và review được chấp thuận trước khi merge. Không push trực tiếp vào `master` nếu repository áp dụng branch protection.
+
+Người không có quyền push vào repository cần fork repository, push nhánh lên fork và tạo Pull Request từ nhánh fork vào `master` của repository gốc.
 
 ## SWD392 v2
 
