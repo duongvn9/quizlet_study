@@ -62,6 +62,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const [revealedInstanceId, setRevealedInstanceId] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
   const [selectedOptionIds, setSelectedOptionIds] = useState<string[]>([]);
+  const [slideForward, setSlideForward] = useState(false);
   const settingsButtonRef = useRef<HTMLButtonElement>(null);
   const copyResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { enabled, setEnabled, play } = useCorrectAnswerSound();
@@ -160,6 +161,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     if (next === progress) return;
     setRevealedInstanceId(null);
     setSelectedOptionIds([]);
+    setSlideForward(direction === 1);
     commit(next);
   }, [commit, progress]);
 
@@ -255,7 +257,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     {notice && <div className="notice">Bộ câu hỏi đã được cập nhật. Tiến độ của môn này đã được đặt lại để bảo đảm kết quả học chính xác.</div>}
     {storageWarning && <div className="notice" role="status">Không thể lưu tiến độ vào trình duyệt lúc này. Bạn vẫn có thể học tiếp trong phiên hiện tại.</div>}
     <div className="progress-row"><div className="bar" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(counters.percentage)} aria-label="Tiến độ câu hỏi"><i style={{ width: `${counters.percentage}%` }} /></div><span>Đã xem {counters.presentedCount} / {counters.total} câu</span></div>
-    <article className="question">
+    <article key={item?.instanceId ?? question.id} className={`question${slideForward ? " question-slide-forward" : ""}`}>
        <div className="question-heading"><div className="eyebrow">Câu {question.number}</div><button className="copy-question" type="button" aria-label={copied ? "Đã copy câu hỏi và đáp án" : "Copy câu hỏi và đáp án"} title={copied ? "Đã copy" : "Copy câu hỏi và đáp án"} onClick={copyQuestion}>{copied ? <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21.5303 5.46967C21.8232 5.76256 21.8232 6.23744 21.5303 6.53033L9.53033 18.5303C9.23744 18.8232 8.76256 18.8232 8.46967 18.5303L2.46967 12.5303C2.17678 12.2374 2.17678 11.7626 2.46967 11.4697C2.76256 11.1768 3.23744 11.1768 3.53033 11.4697L9 16.9393L20.4697 5.46967C20.7626 5.17678 21.2374 5.17678 21.5303 5.46967Z" fill="currentColor" /></svg> : <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M16 12.9V17.1C16 20.6 14.6 22 11.1 22H6.9C3.4 22 2 20.6 2 17.1V12.9C2 9.4 3.4 8 6.9 8H11.1C14.6 8 16 9.4 16 12.9Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M22 6.9V11.1C22 14.6 20.6 16 17.1 16H16V12.9C16 9.4 14.6 8 11.1 8H8V6.9C8 3.4 9.4 2 12.9 2H17.1C20.6 2 22 3.4 22 6.9Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}</button></div>
        <h1>{question.question}</h1>
 
