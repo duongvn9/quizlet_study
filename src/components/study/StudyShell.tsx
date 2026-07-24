@@ -163,6 +163,12 @@ export function StudyShell({ subject }: { subject: Subject }) {
     commit(next);
   }, [commit, progress]);
 
+  useEffect(() => {
+    if (attempt?.result !== "correct" || revealedInstanceId !== item?.instanceId) return;
+    const timeout = setTimeout(() => navigate(1), 1000);
+    return () => clearTimeout(timeout);
+  }, [attempt?.result, item?.instanceId, navigate, revealedInstanceId]);
+
   const copyQuestion = useCallback(async () => {
     if (!question) return;
     const content = [`Câu ${question.number}`, question.question, ...displayOptions.map((option, index) => `${index + 1}. ${option.text}`)].join("\n");
