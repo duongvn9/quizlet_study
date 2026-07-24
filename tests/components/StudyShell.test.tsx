@@ -153,7 +153,7 @@ describe("StudyShell interactions and sound", () => {
     expect(options.every((option) => option.hasAttribute("disabled"))).toBe(true);
     expect(audioMocks.play).toHaveBeenCalledTimes(1);
     const loaded = storage.load(subject.id, subject.contentVersion);
-    expect(loaded).toMatchObject({ status: "loaded", progress: { lifetimeAttempts: 1, activeSession: { queue, attempts: [{ ...oldAttempt, selectedOptionIds: [first.correctAnswer], result: "correct" }] } } });
+    expect(loaded).toMatchObject({ status: "loaded", progress: { lifetimeAttempts: 1, activeSession: { queue, attempts: [{ id: oldAttempt.id, queueInstanceId: oldAttempt.queueInstanceId, questionId: oldAttempt.questionId, selectedOptionIds: [first.correctAnswer], result: "correct" }] } } });
     fireEvent.click(screen.getByRole("button", { name: "Tiếp tục" }));
     fireEvent.click(screen.getByRole("button", { name: "Trước" }));
     expect(await screen.findByText(/Chọn lại sẽ thay thế kết quả trước đó/)).toBeVisible();
@@ -161,7 +161,7 @@ describe("StudyShell interactions and sound", () => {
     expect(audioMocks.play).toHaveBeenCalledTimes(1);
   });
 
-  it("does not play when a historical correct answer is replaced with another correct selection", async () => {
+  it("accepts the same answer again when revisiting a historical question", async () => {
     let progress = createProgress(subject.id, subject.contentVersion, subject.questions);
     progress = { ...progress, activeSession: createSession(subject.id, subject.contentVersion, subject.questions) };
     progress = answer(progress, first, first.correctAnswer);
@@ -170,7 +170,8 @@ describe("StudyShell interactions and sound", () => {
     await renderStudy(2);
     fireEvent.click(screen.getByRole("button", { name: "Trước" }));
     fireEvent.keyDown(window, { key: String(correctIndex + 1) });
-    expect(screen.queryByText("Chính xác")).not.toBeInTheDocument();
+    expect(await screen.findByText("Chính xác")).toBeVisible();
+    expect(within(document.querySelector(".options")!).getAllByRole("button").every((option) => option.hasAttribute("disabled"))).toBe(true);
     expect(audioMocks.play).not.toHaveBeenCalled();
   });
 
