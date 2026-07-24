@@ -20,7 +20,7 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
       const optionCounts = Object.fromEntries([2, 3, 4].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]));
       if (JSON.stringify(optionCounts) !== JSON.stringify({ 2: 2, 3: 2, 4: 259 })) throw new Error("FE SWD392 option distribution mismatch");
       const answerCounts = Object.fromEntries(["A", "B", "C", "D"].map((answer) => [answer, subject.questions.filter((question) => question.correctAnswer === answer).length]));
-      if (JSON.stringify(answerCounts) !== JSON.stringify({ A: 61, B: 75, C: 82, D: 45 })) throw new Error("FE SWD392 answer distribution mismatch");
+      if (JSON.stringify(answerCounts) !== JSON.stringify({ A: 62, B: 74, C: 82, D: 45 })) throw new Error("FE SWD392 answer distribution mismatch");
       if (subject.dataQuality.needsReviewCount !== 8) throw new Error("FE SWD392 review count mismatch");
       if (subject.questions.some((question) => !question.options.some((option) => option.id === question.correctAnswer))) throw new Error("FE SWD392 answer reference mismatch");
     }
