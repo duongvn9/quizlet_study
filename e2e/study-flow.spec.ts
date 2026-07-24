@@ -6,7 +6,7 @@ const progressKey = "study-flow:v1:subject:swd392";
 async function openFreshLearn(page: import("@playwright/test").Page) {
   await page.goto("/");
   await page.evaluate(() => localStorage.clear());
-  const swd392Card = page.getByRole("article").filter({ hasText: "SWD392" });
+  const swd392Card = page.getByRole("article").filter({ has: page.getByRole("link", { name: "Bắt đầu học", exact: true }).and(page.locator('[href="/subjects/swd392"]')) });
   await expect(swd392Card.getByText("249 câu", { exact: true })).toBeVisible();
   await swd392Card.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
   await expect(page).toHaveURL(/\/subjects\/swd392$/);
@@ -118,11 +118,11 @@ test("manual reset requires confirmation", async ({ page }) => {
   await openFreshLearn(page);
   await page.getByRole("button", { name: "Không biết" }).click();
   await page.goto("/subjects/swd392");
-  page.once("dialog", (dialog) => dialog.dismiss());
   await page.getByRole("button", { name: "Đặt lại tiến độ" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Hủy" }).click();
   expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).lifetimeAttempts, progressKey)).toBe(1);
-  page.once("dialog", (dialog) => dialog.accept());
   await page.getByRole("button", { name: "Đặt lại tiến độ" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Đặt lại" }).click();
   expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).lifetimeAttempts, progressKey)).toBe(0);
 });
 
@@ -168,13 +168,10 @@ test("complete 10-question Test flow persists responses and leaves Learn unchang
   await expect(page.locator(".options button").nth(firstCorrect)).toHaveAttribute("aria-pressed", "true");
   await page.reload();
   await expect(page.locator(".options button").nth(firstCorrect)).toHaveAttribute("aria-pressed", "true");
-  let confirmationMessage = "";
-  page.once("dialog", async (dialog) => {
-    confirmationMessage = dialog.message();
-    await dialog.accept();
-  });
   await page.getByRole("button", { name: "Nộp bài" }).click();
-  expect(confirmationMessage).toBe("Bạn còn 8 câu chưa trả lời. Nộp bài ngay?");
+  const confirmDialog = page.getByRole("dialog");
+  await expect(confirmDialog).toContainText("Bạn còn 8 câu chưa trả lời. Nộp bài ngay?");
+  await confirmDialog.getByRole("button", { name: "Nộp bài" }).click();
   await expect(page.getByRole("heading", { name: "Kết quả kiểm tra" })).toBeVisible();
   await expect(page.getByText(/Chưa trả lời: 8/)).toBeVisible();
   await expect(page.locator(".test-review")).toHaveCount(10);
@@ -190,8 +187,8 @@ for (const width of [360, 1440]) {
     await page.getByRole("button", { name: "10", exact: true }).click();
     await page.getByRole("button", { name: "Bắt đầu" }).click();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    page.once("dialog", (dialog) => dialog.accept());
     await page.getByRole("button", { name: "Nộp bài" }).click();
+    await page.getByRole("dialog").getByRole("button", { name: "Nộp bài" }).click();
     await expect(page.getByRole("heading", { name: "Kết quả kiểm tra" })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });

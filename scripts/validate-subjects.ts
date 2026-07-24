@@ -1,16 +1,29 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { adaptFeSwd392, feSwd392RawSchema } from "../src/domain/subjects/fe-swd392-adapter";
 import { adaptMln122, mln122RawSchema } from "../src/domain/subjects/mln122-adapter";
 import { adaptMma301, mma301RawSchema } from "../src/domain/subjects/mma301-adapter";
 import { subjectSchema } from "../src/domain/subjects/schemas";
 
 const dir = join(process.cwd(), "src/data/subjects");
-const adapters = { "mln122.json": adaptMln122, "mma301.json": adaptMma301, "swd392.json": subjectSchema.parse } as const;
+const adapters = { "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "swd392.json": subjectSchema.parse } as const;
 let failed = false;
 for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
   try {
     const value = JSON.parse(readFileSync(join(dir, file), "utf8"));
     const subject = adapters[file](value);
+    if (subject.slug === "fe-swd392") {
+      const raw = feSwd392RawSchema.parse(value);
+      if (raw.schemaVersion !== "1.0" || raw.subject.code !== "FE_SWD" || raw.subject.language !== "en" || raw.totalQuestions !== 263 || raw.questions.length !== 263) throw new Error("FE SWD392 source metadata or total mismatch");
+      if (!subject.questions.every((question, index) => question.number === index + 1 && question.id === `fe-swd392-${String(index + 1).padStart(3, "0")}`)) throw new Error("FE SWD392 order or ID mismatch");
+      if (subject.questions.filter((question) => question.type === "single-choice").length !== 261 || subject.questions.filter((question) => question.type === "true-false").length !== 2) throw new Error("FE SWD392 type distribution mismatch");
+      const optionCounts = Object.fromEntries([2, 3, 4].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]));
+      if (JSON.stringify(optionCounts) !== JSON.stringify({ 2: 2, 3: 2, 4: 259 })) throw new Error("FE SWD392 option distribution mismatch");
+      const answerCounts = Object.fromEntries(["A", "B", "C", "D"].map((answer) => [answer, subject.questions.filter((question) => question.correctAnswer === answer).length]));
+      if (JSON.stringify(answerCounts) !== JSON.stringify({ A: 61, B: 75, C: 82, D: 45 })) throw new Error("FE SWD392 answer distribution mismatch");
+      if (subject.dataQuality.needsReviewCount !== 8) throw new Error("FE SWD392 review count mismatch");
+      if (subject.questions.some((question) => !question.options.some((option) => option.id === question.correctAnswer))) throw new Error("FE SWD392 answer reference mismatch");
+    }
     if (subject.slug === "swd392") {
       if (subject.questions.length !== 249) throw new Error("SWD392 must have 249 questions");
       if (subject.questions.filter((question) => question.options.length === 4).length !== 246) throw new Error("SWD392 four-option count mismatch");

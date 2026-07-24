@@ -1,11 +1,13 @@
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
+import { adaptFeSwd392 } from "../src/domain/subjects/fe-swd392-adapter";
 import { adaptMln122 } from "../src/domain/subjects/mln122-adapter";
 import { adaptMma301 } from "../src/domain/subjects/mma301-adapter";
 import { subjectSchema } from "../src/domain/subjects/schemas";
 
 const dir = join(process.cwd(), "src/data/subjects");
 const adapters = {
+  "fe-swd392.json": adaptFeSwd392,
   "mln122.json": adaptMln122,
   "mma301.json": adaptMma301,
   "swd392.json": subjectSchema.parse
@@ -33,8 +35,14 @@ const subjects = files.map((file) => {
 });
 
 const imports = files.map((file, index) => `import subject${index} from "../subjects/${file}";`).join("\n");
-const adapterImports = `import { adaptMln122 } from "@/domain/subjects/mln122-adapter";\nimport { adaptMma301 } from "@/domain/subjects/mma301-adapter";\nimport { subjectSchema } from "@/domain/subjects/schemas";`;
-const expressions = files.map((file, index) => file === "mln122.json" ? `adaptMln122(subject${index})` : file === "mma301.json" ? `adaptMma301(subject${index})` : `subjectSchema.parse(subject${index})`);
+const adapterImports = `import { adaptFeSwd392 } from "@/domain/subjects/fe-swd392-adapter";\nimport { adaptMln122 } from "@/domain/subjects/mln122-adapter";\nimport { adaptMma301 } from "@/domain/subjects/mma301-adapter";\nimport { subjectSchema } from "@/domain/subjects/schemas";`;
+const generatedAdapters = {
+  "fe-swd392.json": "adaptFeSwd392",
+  "mln122.json": "adaptMln122",
+  "mma301.json": "adaptMma301",
+  "swd392.json": "subjectSchema.parse"
+} satisfies Record<keyof typeof adapters, string>;
+const expressions = files.map((file, index) => `${generatedAdapters[file]}(subject${index})`);
 const output = `${imports}\n${adapterImports}\nimport type { Subject } from "@/domain/subjects/types";\nexport const subjects: Subject[] = [${expressions.join(",")}];\nexport const subjectsBySlug = Object.fromEntries(subjects.map(subject => [subject.slug, subject])) as Record<string, Subject>;\nexport const subjectSlugs = subjects.map(subject => subject.slug);\nexport const getSubject = (slug: string) => subjectsBySlug[slug];\n`;
 writeFileSync(join(process.cwd(), "src/data/generated/subjects.generated.ts"), output);
 console.log(`Generated registry for ${subjects.length} subject(s)`);

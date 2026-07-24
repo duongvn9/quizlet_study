@@ -1,11 +1,13 @@
-import subject0 from "../subjects/mln122.json";
-import subject1 from "../subjects/mma301.json";
-import subject2 from "../subjects/swd392.json";
+import subject0 from "../subjects/fe-swd392.json";
+import subject1 from "../subjects/mln122.json";
+import subject2 from "../subjects/mma301.json";
+import subject3 from "../subjects/swd392.json";
+import { adaptFeSwd392 } from "@/domain/subjects/fe-swd392-adapter";
 import { adaptMln122 } from "@/domain/subjects/mln122-adapter";
 import { adaptMma301 } from "@/domain/subjects/mma301-adapter";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import type { Subject } from "@/domain/subjects/types";
-export const subjects: Subject[] = [adaptMln122(subject0),adaptMma301(subject1),subjectSchema.parse(subject2)];
+export const subjects: Subject[] = [adaptFeSwd392(subject0),adaptMln122(subject1),adaptMma301(subject2),subjectSchema.parse(subject3)];
 export const subjectsBySlug = Object.fromEntries(subjects.map(subject => [subject.slug, subject])) as Record<string, Subject>;
 export const subjectSlugs = subjects.map(subject => subject.slug);
 export const getSubject = (slug: string) => subjectsBySlug[slug];
