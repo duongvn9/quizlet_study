@@ -65,16 +65,28 @@ describe("subject data", () => {
     expect(() => adaptFeSwd392(missing)).toThrow(/Question 1: correctAnswer must reference an option/);
   });
 
-  it("adapts MMA301 without mutating raw source", () => {
+  it("adapts the corrected canonical MMA301 dataset without mutating raw source", () => {
     const before = structuredClone(mmaData);
     const mma = adaptMma301(mmaData);
-    expect(mma).toMatchObject({ id: "mma301", slug: "mma301", code: "MMA301", questionCount: 182 });
-    expect(mma.questions).toHaveLength(182);
+    const active = mmaData.questions.filter((question) => question.status === "active");
+    expect(mma).toMatchObject({ id: "mma301", slug: "mma301", code: "MMA301", contentVersion: 2, questionCount: 182 });
+    expect(mmaData.questions).toHaveLength(184);
+    expect(active).toHaveLength(182);
+    expect(mmaData.questions.filter((question) => question.status !== "active").map((question) => question.number)).toEqual([64, 96]);
     expect(mma.questions.some((question) => [64, 96].includes(question.number))).toBe(false);
-    expect(mma.questions.find((question) => question.number === 118)).toMatchObject({ needsReview: true, correctAnswers: ["C"] });
-    expect(mma.questions.find((question) => question.number === 150)?.reviewNotes).toHaveLength(1);
-    expect(mma.questions.find((question) => question.number === 50)?.type).toBe("multiple-choice");
+    expect(active.filter((question) => question.type === "single_choice")).toHaveLength(91);
+    expect(active.filter((question) => question.type === "multiple_choice")).toHaveLength(61);
+    expect(active.filter((question) => question.type === "true_false")).toHaveLength(30);
+    expect(mmaData.statistics).toMatchObject({ totalEntries: 184, activeQuestions: 182, deletedOrEmptyEntries: 2, singleChoice: 91, multipleChoice: 61, trueFalse: 30, correctedAnswerEntries: 9, repairedContentEntries: 11 });
+    expect(mmaData.review.correctedAnswerQuestions).toEqual([50, 88, 93, 101, 118, 141, 166, 176, 179]);
+    expect(mmaData.review.repairedOptionOrQuestionQuestions).toEqual([36, 72, 82, 86, 103, 114, 121, 145, 150, 154, 180]);
+    expect(mmaData.source.preserveSourceAnswers).toBe(false);
     expect(new Set(mma.questions.map((question) => question.id)).size).toBe(182);
+    expect(new Set(mma.questions.map((question) => question.number)).size).toBe(182);
+    expect(mma.questions.every((question) => question.correctAnswers.every((answer) => question.options.some((option) => option.id === answer)))).toBe(true);
+    for (const [number, answers] of [[50, ["A", "C"]], [88, ["B"]], [93, ["A", "B"]], [101, ["A", "B", "D"]], [118, ["B"]], [141, ["B"]], [166, ["B"]], [176, ["A", "B"]], [179, ["A"]]] as const) expect(mma.questions.find((question) => question.number === number)?.correctAnswers).toEqual(answers);
+    expect(mma.questions.find((question) => question.number === 88)?.type).toBe("multiple-choice");
+    expect(mma.questions.find((question) => question.number === 176)?.type).toBe("multiple-choice");
     expect(mmaData).toEqual(before);
   });
 

@@ -72,7 +72,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
     const restore = async () => {
       const savedSettings = loadSettings();
       setSettings(savedSettings);
-      const loaded = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id), Object.fromEntries(subject.questions.map((question) => [question.id, question.options.map((option) => option.id)])));
+      const loaded = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id), Object.fromEntries(subject.questions.map((question) => [question.id, question.options.map((option) => option.id)])), Object.fromEntries(subject.questions.map((question) => [question.id, question.correctAnswers])));
       let next = loaded.status === "loaded" ? loaded.progress : createProgress(subject.id, subject.contentVersion, subject.questions);
       const wasActive = !!next.activeSession && !next.activeSession.completedAt;
       next = resumeProgress(next, new Date().toISOString());

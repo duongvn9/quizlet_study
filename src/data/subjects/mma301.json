@@ -10,41 +10,55 @@
     "file": "MMA301.pdf",
     "pages": 58,
     "quizletUrlPrintedInPdf": "https://quizlet.com/_e2g9y7",
-    "preserveSourceAnswers": true,
-    "note": "Answer keys and explanations are transcribed from the PDF as published; factual corrections were not applied."
+    "preserveSourceAnswers": false,
+    "note": "Original source answer text is retained in answerTextFromSource. correctAnswers now contains the reviewed/corrected key where a correction was supported. Changed entries preserve original values in originalCorrectAnswers, originalQuestion, originalText, or originalExplanation where applicable."
   },
   "statistics": {
     "totalEntries": 184,
     "activeQuestions": 182,
     "deletedOrEmptyEntries": 2,
-    "singleChoice": 92,
-    "multipleChoice": 60,
+    "singleChoice": 91,
+    "multipleChoice": 61,
     "trueFalse": 30,
-    "entriesWithWarnings": 4
+    "entriesWithWarnings": 6,
+    "correctedAnswerEntries": 9,
+    "repairedContentEntries": 11
   },
   "extractionWarnings": [
     {
+      "number": 34,
+      "warnings": [
+        "The extracted code places layout properties directly on View rather than inside style; the answer also simplifies flex proportions."
+      ]
+    },
+    {
       "number": 64,
       "warnings": [
-        "The PDF source contains a deleted or empty question entry."
+        "Deleted or empty source entry."
+      ]
+    },
+    {
+      "number": 88,
+      "warnings": [
+        "The original wording says 'methods' although onFocus is normally used as an event prop/callback."
       ]
     },
     {
       "number": 96,
       "warnings": [
-        "The PDF source contains a deleted or empty question entry."
+        "Deleted or empty source entry."
       ]
     },
     {
-      "number": 118,
+      "number": 124,
       "warnings": [
-        "The source answer key is C (View), but its explanation describes the Image component, which is option B. The source key was preserved."
+        "The question stem is incomplete. The source key says A, while its note says showMenu is the state variable, which would point to option C."
       ]
     },
     {
-      "number": 150,
+      "number": 176,
       "warnings": [
-        "The question asks about importing NavigationContainer, but all printed options import createNativeStackNavigator. The source content was preserved."
+        "The source marked only navigate(), but the slide also explicitly presents push() as a screen-management method."
       ]
     }
   ],
@@ -1084,6 +1098,9 @@
       "explanation": "",
       "sourcePages": [
         10
+      ],
+      "reviewWarnings": [
+        "The extracted code places layout properties directly on View rather than inside style; the answer also simplifies flex proportions."
       ]
     },
     {
@@ -1121,7 +1138,7 @@
       "number": 36,
       "type": "single_choice",
       "status": "active",
-      "question": "Study the code below and choose the correct output\nthat you will expect to see on the emulator.\n<Text fontWeight=\"bold\">\n I am bold\n <Text color=\"red\"> and red</Text>\n</Text>",
+      "question": "Study the code below and choose the correct output that you will expect to see on the emulator.\n<Text style={{ fontWeight: 'bold' }}>\n  I am bold\n  <Text style={{ color: 'red' }}> and red</Text>\n</Text>",
       "options": [
         {
           "key": "A",
@@ -1147,7 +1164,9 @@
       "explanation": "",
       "sourcePages": [
         11
-      ]
+      ],
+      "originalQuestion": "Study the code below and choose the correct output\nthat you will expect to see on the emulator.\n<Text fontWeight=\"bold\">\n I am bold\n <Text color=\"red\"> and red</Text>\n</Text>",
+      "answerStatus": "question_corrected"
     },
     {
       "id": "MMA301-037",
@@ -1540,14 +1559,21 @@
         }
       ],
       "correctAnswers": [
-        "A"
+        "A",
+        "C"
       ],
       "answerTextFromSource": "A",
       "explanation": "",
       "sourcePages": [
         15,
         16
-      ]
+      ],
+      "originalCorrectAnswers": [
+        "A"
+      ],
+      "originalAnswerTextFromSource": "A",
+      "correctedAnswerText": "A, C",
+      "answerStatus": "corrected"
     },
     {
       "id": "MMA301-051",
@@ -1955,6 +1981,9 @@
       ],
       "sourceWarnings": [
         "The PDF source contains a deleted or empty question entry."
+      ],
+      "reviewWarnings": [
+        "Deleted or empty source entry."
       ]
     },
     {
@@ -2184,7 +2213,8 @@
         },
         {
           "key": "B",
-          "text": "inputBox: {\n height: 40,\n margin: 12,\n borderWidth: 1,\n padding: 10,\n fontSize: 16,\n borderColor: '#3333333',\n backgroundColor: '#333333',\n}"
+          "text": "inputBox: {\n height: 40,\n margin: 12,\n borderWidth: 1,\n padding: 10,\n fontSize: 16,\n borderColor: '#333333',\n backgroundColor: '#333333',\n}",
+          "originalText": "inputBox: {\n height: 40,\n margin: 12,\n borderWidth: 1,\n padding: 10,\n fontSize: 16,\n borderColor: '#3333333',\n backgroundColor: '#333333',\n}"
         }
       ],
       "correctAnswers": [
@@ -2194,7 +2224,8 @@
       "explanation": "This is the expected\nstyling for the text input\nbox in this exercise.",
       "sourcePages": [
         22
-      ]
+      ],
+      "answerStatus": "corrected_option"
     },
     {
       "id": "MMA301-073",
@@ -2468,7 +2499,7 @@
       "number": 82,
       "type": "single_choice",
       "status": "active",
-      "question": "Your app has text input boxes that open the virtual keyboard when tapped. For the keyboardDismissMode property of the ScrollView, you've set the value\nto {true}. What does this do?",
+      "question": "Your app has text input boxes that open the virtual keyboard when tapped. For the keyboardDismissMode property of the ScrollView, you set the value to \"on-drag\". What does this do?",
       "options": [
         {
           "key": "A",
@@ -2494,7 +2525,9 @@
       "explanation": "The keyboard disappears\nautomatically when the\nuser scrolls.",
       "sourcePages": [
         25
-      ]
+      ],
+      "originalQuestion": "Your app has text input boxes that open the virtual keyboard when tapped. For the keyboardDismissMode property of the ScrollView, you've set the value\nto {true}. What does this do?",
+      "answerStatus": "question_corrected"
     },
     {
       "id": "MMA301-083",
@@ -2593,11 +2626,13 @@
       "options": [
         {
           "key": "A",
-          "text": "<TextInput styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder={'email'}\nkeyboardType={'email-address'} />"
+          "text": "<TextInput style={styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder=\"email\" keyboardType=\"email-address\" />",
+          "originalText": "<TextInput styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder={'email'}\nkeyboardType={'email-address'} />"
         },
         {
           "key": "B",
-          "text": "<TextInput styles.inputBox} value={password} onChangeText={onChangePassword} placeholder={'password'} keyboardType={'default'} />"
+          "text": "<TextInput style={styles.inputBox} value={password} onChangeText={onChangePassword} placeholder=\"password\" keyboardType=\"default\" secureTextEntry={true} />",
+          "originalText": "<TextInput styles.inputBox} value={password} onChangeText={onChangePassword} placeholder={'password'} keyboardType={'default'} />"
         }
       ],
       "correctAnswers": [
@@ -2609,7 +2644,8 @@
       "sourcePages": [
         26,
         27
-      ]
+      ],
+      "answerStatus": "corrected_options"
     },
     {
       "id": "MMA301-087",
@@ -2666,14 +2702,23 @@
         }
       ],
       "correctAnswers": [
-        "B",
-        "C"
+        "B"
       ],
       "answerTextFromSource": "B. onFocus()\nC. isFocused()",
       "explanation": "The onFocus() is a callback that is called when\nthe TextInput is focused.\nThe isFocused() method\nreturns true if the input\nis currently focused, and\nfalse otherwise.",
       "sourcePages": [
         27,
         28
+      ],
+      "originalCorrectAnswers": [
+        "B",
+        "C"
+      ],
+      "originalAnswerTextFromSource": "B. onFocus()\nC. isFocused()",
+      "correctedAnswerText": "B. onFocus()",
+      "answerStatus": "corrected",
+      "reviewWarnings": [
+        "The original wording says 'methods' although onFocus is normally used as an event prop/callback."
       ]
     },
     {
@@ -2812,13 +2857,20 @@
         }
       ],
       "correctAnswers": [
-        "A"
+        "A",
+        "B"
       ],
       "answerTextFromSource": "A. SectionList B. FlatList",
       "explanation": "The SectionList component renders items lazily as they appear on the\nscreen and is, therefore,\na very performant component while rendering\nlarge lists by sections. The\nFlatList component renders items lazily as they\nappear on the screen and\nis, therefore, a very performant component while\nrendering large lists.",
       "sourcePages": [
         29
-      ]
+      ],
+      "originalCorrectAnswers": [
+        "A"
+      ],
+      "originalAnswerTextFromSource": "A. SectionList B. FlatList",
+      "correctedAnswerText": "A, B",
+      "answerStatus": "corrected"
     },
     {
       "id": "MMA301-094",
@@ -2894,6 +2946,9 @@
       ],
       "sourceWarnings": [
         "The PDF source contains a deleted or empty question entry."
+      ],
+      "reviewWarnings": [
+        "Deleted or empty source entry."
       ]
     },
     {
@@ -3034,13 +3089,21 @@
         }
       ],
       "correctAnswers": [
-        "A"
+        "A",
+        "B",
+        "D"
       ],
       "answerTextFromSource": "A. number-pad B.\nphone-pad D. email-address\n(number-pad is a keyboard type supported on\nboth iOS and Android.\nphone-pad is a keyboard type supported on\nboth iOS and Android.\nemail-address is a keyboard type supported on\nboth iOS and Android.)",
       "explanation": "",
       "sourcePages": [
         31
-      ]
+      ],
+      "originalCorrectAnswers": [
+        "A"
+      ],
+      "originalAnswerTextFromSource": "A. number-pad B.\nphone-pad D. email-address\n(number-pad is a keyboard type supported on\nboth iOS and Android.\nphone-pad is a keyboard type supported on\nboth iOS and Android.\nemail-address is a keyboard type supported on\nboth iOS and Android.)",
+      "correctedAnswerText": "A, B, D",
+      "answerStatus": "corrected"
     },
     {
       "id": "MMA301-102",
@@ -3076,7 +3139,7 @@
       "number": 103,
       "type": "single_choice",
       "status": "active",
-      "question": "Study the code below and select the statement that\ndescribes it accurately:\n{!loggedIn && (\n <Text styles.regularText}>Login to continue</Text>\n <TextInput styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder={'email'}\nkeyboardType={'email-address'}\n <TextInput styles.inputBox} value={password} onChangeText={onChangePassword} placeholder={'password'} keyboardType={'default'} secureTextEntry={true}\n <Pressable onPress={() => onLogin(!loggedIn)}>\n <Text>Log in</Text>\n </Pressable>\n)}",
+      "question": "Study the code below and select the statement that describes it accurately:\n{!loggedIn && (\n  <>\n    <Text style={styles.regularText}>Login to continue</Text>\n    <TextInput style={styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder=\"email\" keyboardType=\"email-address\" />\n    <TextInput style={styles.inputBox} value={password} onChangeText={onChangePassword} placeholder=\"password\" keyboardType=\"default\" secureTextEntry={true} />\n    <Pressable onPress={() => onLogin(!loggedIn)}>\n      <Text>Log in</Text>\n    </Pressable>\n  </>\n)}",
       "options": [
         {
           "key": "A",
@@ -3095,7 +3158,9 @@
       "sourcePages": [
         31,
         32
-      ]
+      ],
+      "originalQuestion": "Study the code below and select the statement that\ndescribes it accurately:\n{!loggedIn && (\n <Text styles.regularText}>Login to continue</Text>\n <TextInput styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder={'email'}\nkeyboardType={'email-address'}\n <TextInput styles.inputBox} value={password} onChangeText={onChangePassword} placeholder={'password'} keyboardType={'default'} secureTextEntry={true}\n <Pressable onPress={() => onLogin(!loggedIn)}>\n <Text>Log in</Text>\n </Pressable>\n)}",
+      "answerStatus": "question_corrected"
     },
     {
       "id": "MMA301-104",
@@ -3401,7 +3466,8 @@
         },
         {
           "key": "C",
-          "text": "<Image source={require(\"img/header.png\")} />"
+          "text": "<Image source={require('./img/header.png')} />",
+          "originalText": "<Image source={require(\"img/header.png\")} />"
         }
       ],
       "correctAnswers": [
@@ -3411,7 +3477,9 @@
       "explanation": "To render an image, you\nneed to use the require\nkeyword and specify the\nfile path of a locally stored\nimage file.",
       "sourcePages": [
         35
-      ]
+      ],
+      "correctedAnswerText": "C. <Image source={require('./img/header.png')} />",
+      "answerStatus": "corrected_option"
     },
     {
       "id": "MMA301-115",
@@ -3526,7 +3594,7 @@
         }
       ],
       "correctAnswers": [
-        "C"
+        "B"
       ],
       "answerTextFromSource": "C",
       "explanation": "The Image component is\na core component used to\ndisplay different types of\nimages in React Native.",
@@ -3536,7 +3604,13 @@
       ],
       "sourceWarnings": [
         "The source answer key is C (View), but its explanation describes the Image component, which is option B. The source key was preserved."
-      ]
+      ],
+      "originalCorrectAnswers": [
+        "C"
+      ],
+      "originalAnswerTextFromSource": "C",
+      "correctedAnswerText": "B. Image",
+      "answerStatus": "corrected"
     },
     {
       "id": "MMA301-119",
@@ -3603,7 +3677,7 @@
       "number": 121,
       "type": "single_choice",
       "status": "active",
-      "question": "Study the code below and choose the description that\ndescribes it accurately:\n<ScrollView\n styles.container, colorScheme='light'\n ? { backgroundColor: '#fff' }\n : { backgroundColor: '#333333' }\n>",
+      "question": "Study the code below and choose the description that describes it accurately:\n<ScrollView\n  style={[\n    styles.container,\n    colorScheme === 'light'\n      ? { backgroundColor: '#fff' }\n      : { backgroundColor: '#333333' }\n  ]}\n>",
       "options": [
         {
           "key": "A",
@@ -3622,7 +3696,9 @@
       "sourcePages": [
         37,
         38
-      ]
+      ],
+      "originalQuestion": "Study the code below and choose the description that\ndescribes it accurately:\n<ScrollView\n styles.container, colorScheme='light'\n ? { backgroundColor: '#fff' }\n : { backgroundColor: '#333333' }\n>",
+      "answerStatus": "question_corrected"
     },
     {
       "id": "MMA301-122",
@@ -3711,6 +3787,9 @@
       "sourcePages": [
         38,
         39
+      ],
+      "reviewWarnings": [
+        "The question stem is incomplete. The source key says A, while its note says showMenu is the state variable, which would point to option C."
       ]
     },
     {
@@ -4200,14 +4279,20 @@
         }
       ],
       "correctAnswers": [
-        "C"
+        "B"
       ],
       "answerTextFromSource": "C. import { createNativeStackNavigator }\nfrom '@react-navigation/native;'",
       "explanation": "The createNativeStackNavigator is imported\nfrom the @react-navigation/native package in React Navigation.",
       "sourcePages": [
         43,
         44
-      ]
+      ],
+      "originalCorrectAnswers": [
+        "C"
+      ],
+      "originalAnswerTextFromSource": "C. import { createNativeStackNavigator }\nfrom '@react-navigation/native;'",
+      "correctedAnswerText": "B. import { createNativeStackNavigator } from '@react-navigation/native-stack';",
+      "answerStatus": "corrected"
     },
     {
       "id": "MMA301-142",
@@ -4338,10 +4423,12 @@
         "C"
       ],
       "answerTextFromSource": "A, B, C",
-      "explanation": "You need to install @react-navigation/native, react-native-screens, and\nreact-hooks to get started\nwith React Navigation.",
+      "explanation": "You need to install @react-navigation/native, react-native-screens, and react-native-safe-area-context to get started with React Navigation.",
       "sourcePages": [
         45
-      ]
+      ],
+      "originalExplanation": "You need to install @react-navigation/native, react-native-screens, and\nreact-hooks to get started\nwith React Navigation.",
+      "answerStatus": "explanation_corrected"
     },
     {
       "id": "MMA301-146",
@@ -4473,7 +4560,8 @@
         },
         {
           "key": "C",
-          "text": "import { createNativeStackNavigator } from '@react-navigation/native;'"
+          "text": "import { NavigationContainer } from '@react-navigation/native';",
+          "originalText": "import { createNativeStackNavigator } from '@react-navigation/native;'"
         }
       ],
       "correctAnswers": [
@@ -4486,7 +4574,9 @@
       ],
       "sourceWarnings": [
         "The question asks about importing NavigationContainer, but all printed options import createNativeStackNavigator. The source content was preserved."
-      ]
+      ],
+      "correctedAnswerText": "C. import { NavigationContainer } from '@react-navigation/native';",
+      "answerStatus": "corrected_option"
     },
     {
       "id": "MMA301-151",
@@ -4588,7 +4678,8 @@
         },
         {
           "key": "B",
-          "text": "import{ createBottomTabNavigator} from'@react-navigation/bottomtabs';"
+          "text": "import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';",
+          "originalText": "import{ createBottomTabNavigator} from'@react-navigation/bottomtabs';"
         },
         {
           "key": "C",
@@ -4603,7 +4694,9 @@
       "sourcePages": [
         47,
         48
-      ]
+      ],
+      "correctedAnswerText": "B. import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';",
+      "answerStatus": "corrected_option"
     },
     {
       "id": "MMA301-155",
@@ -4945,13 +5038,19 @@
         }
       ],
       "correctAnswers": [
-        "A"
+        "B"
       ],
       "answerTextFromSource": "A",
       "explanation": "The initialRouteName is\npassed as a prop to\nthe NavigationContainer\ncomponent.",
       "sourcePages": [
         51
-      ]
+      ],
+      "originalCorrectAnswers": [
+        "A"
+      ],
+      "originalAnswerTextFromSource": "A",
+      "correctedAnswerText": "B. Drawer.Navigator",
+      "answerStatus": "corrected"
     },
     {
       "id": "MMA301-167",
@@ -5227,7 +5326,7 @@
     {
       "id": "MMA301-176",
       "number": 176,
-      "type": "single_choice",
+      "type": "multiple_choice",
       "status": "active",
       "question": "Which methods will you use to move from one screen\nto another using React Navigation?",
       "options": [
@@ -5245,12 +5344,22 @@
         }
       ],
       "correctAnswers": [
+        "A",
         "B"
       ],
       "answerTextFromSource": "B. navigation.navigate('Details')",
       "explanation": "The navigation.navigate\nprop is used to move between screens.",
       "sourcePages": [
         54
+      ],
+      "originalCorrectAnswers": [
+        "B"
+      ],
+      "originalAnswerTextFromSource": "B. navigation.navigate('Details')",
+      "correctedAnswerText": "A, B",
+      "answerStatus": "corrected",
+      "reviewWarnings": [
+        "The source marked only navigate(), but the slide also explicitly presents push() as a screen-management method."
       ]
     },
     {
@@ -5328,13 +5437,19 @@
         }
       ],
       "correctAnswers": [
-        "C"
+        "A"
       ],
       "answerTextFromSource": "C. tabBarInactiveTintColor\n(tabBarInactiveTintColor is\nnot a valid prop in the Tab\nNavigator.)",
       "explanation": "",
       "sourcePages": [
         55
-      ]
+      ],
+      "originalCorrectAnswers": [
+        "C"
+      ],
+      "originalAnswerTextFromSource": "C. tabBarInactiveTintColor\n(tabBarInactiveTintColor is\nnot a valid prop in the Tab\nNavigator.)",
+      "correctedAnswerText": "A. tabBarColor",
+      "answerStatus": "corrected"
     },
     {
       "id": "MMA301-180",
@@ -5345,7 +5460,8 @@
       "options": [
         {
           "key": "A",
-          "text": "intialRouteName"
+          "text": "initialRouteName",
+          "originalText": "intialRouteName"
         },
         {
           "key": "B",
@@ -5363,7 +5479,9 @@
       "explanation": "",
       "sourcePages": [
         55
-      ]
+      ],
+      "correctedAnswerText": "A. initialRouteName",
+      "answerStatus": "corrected_option"
     },
     {
       "id": "MMA301-181",
@@ -5478,5 +5596,251 @@
         58
       ]
     }
-  ]
+  ],
+  "review": {
+    "reviewedOn": "2026-07-24",
+    "basis": [
+      "The uploaded mma301.json source",
+      "The uploaded MMA301 React Native slide decks"
+    ],
+    "correctedAnswerQuestions": [
+      50,
+      88,
+      93,
+      101,
+      118,
+      141,
+      166,
+      176,
+      179
+    ],
+    "repairedOptionOrQuestionQuestions": [
+      36,
+      72,
+      82,
+      86,
+      103,
+      114,
+      121,
+      145,
+      150,
+      154,
+      180
+    ],
+    "unresolvedWarningQuestions": [
+      34,
+      64,
+      96,
+      124
+    ],
+    "correctionLog": [
+      {
+        "number": 50,
+        "field": "correctAnswers",
+        "old": [
+          "A"
+        ],
+        "new": [
+          "A",
+          "C"
+        ],
+        "reason": "A ScrollView may contain separate Text children, and Text components may also be nested inside Text."
+      },
+      {
+        "number": 88,
+        "field": "correctAnswers",
+        "old": [
+          "B",
+          "C"
+        ],
+        "new": [
+          "B"
+        ],
+        "reason": "onFocus is the callback invoked when TextInput gains focus; isFocused() returns a boolean rather than a callback."
+      },
+      {
+        "number": 93,
+        "field": "correctAnswers",
+        "old": [
+          "A"
+        ],
+        "new": [
+          "A",
+          "B"
+        ],
+        "reason": "Both SectionList and FlatList use virtualized/lazy rendering and are suitable for large lists."
+      },
+      {
+        "number": 101,
+        "field": "correctAnswers",
+        "old": [
+          "A"
+        ],
+        "new": [
+          "A",
+          "B",
+          "D"
+        ],
+        "reason": "number-pad, phone-pad, and email-address are supported on both iOS and Android; web-search is iOS-only."
+      },
+      {
+        "number": 118,
+        "field": "correctAnswers",
+        "old": [
+          "C"
+        ],
+        "new": [
+          "B"
+        ],
+        "reason": "The Image core component displays images; the original key contradicted its own explanation."
+      },
+      {
+        "number": 141,
+        "field": "correctAnswers",
+        "old": [
+          "C"
+        ],
+        "new": [
+          "B"
+        ],
+        "reason": "createNativeStackNavigator is imported from @react-navigation/native-stack."
+      },
+      {
+        "number": 166,
+        "field": "correctAnswers",
+        "old": [
+          "A"
+        ],
+        "new": [
+          "B"
+        ],
+        "reason": "initialRouteName is configured on Drawer.Navigator, as shown in the navigation slide example."
+      },
+      {
+        "number": 176,
+        "field": "type",
+        "old": "single_choice",
+        "new": "multiple_choice",
+        "reason": "Within a Stack Navigator, both navigation.push() and navigation.navigate() can move to another screen."
+      },
+      {
+        "number": 176,
+        "field": "correctAnswers",
+        "old": [
+          "B"
+        ],
+        "new": [
+          "A",
+          "B"
+        ],
+        "reason": "Within a Stack Navigator, both navigation.push() and navigation.navigate() can move to another screen."
+      },
+      {
+        "number": 179,
+        "field": "correctAnswers",
+        "old": [
+          "C"
+        ],
+        "new": [
+          "A"
+        ],
+        "reason": "tabBarActiveTintColor and tabBarInactiveTintColor are valid tab navigator options; tabBarColor is not the option used for these tint settings."
+      },
+      {
+        "number": 150,
+        "field": "options.C.text",
+        "old": "import { createNativeStackNavigator } from '@react-navigation/native;'",
+        "new": "import { NavigationContainer } from '@react-navigation/native';",
+        "reason": "The question asks for NavigationContainer, but every original option imported createNativeStackNavigator."
+      },
+      {
+        "number": 150,
+        "field": "correctAnswers",
+        "old": [
+          "C"
+        ],
+        "new": [
+          "C"
+        ],
+        "reason": "Option C was repaired to contain the correct NavigationContainer import."
+      },
+      {
+        "number": 154,
+        "field": "options.B.text",
+        "old": "import{ createBottomTabNavigator} from'@react-navigation/bottomtabs';",
+        "new": "import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';",
+        "reason": "The package name was misspelled as bottomtabs; the slide uses @react-navigation/bottom-tabs."
+      },
+      {
+        "number": 180,
+        "field": "options.A.text",
+        "old": "intialRouteName",
+        "new": "initialRouteName",
+        "reason": "The prop name was misspelled as intialRouteName."
+      },
+      {
+        "number": 145,
+        "field": "explanation",
+        "old": "You need to install @react-navigation/native, react-native-screens, and\nreact-hooks to get started\nwith React Navigation.",
+        "new": "You need to install @react-navigation/native, react-native-screens, and react-native-safe-area-context to get started with React Navigation.",
+        "reason": "The original explanation incorrectly said react-hooks although option B and the setup slide specify react-native-safe-area-context."
+      },
+      {
+        "number": 72,
+        "field": "options.B.text",
+        "old": "inputBox: {\n height: 40,\n margin: 12,\n borderWidth: 1,\n padding: 10,\n fontSize: 16,\n borderColor: '#3333333',\n backgroundColor: '#333333',\n}",
+        "new": "inputBox: {\n height: 40,\n margin: 12,\n borderWidth: 1,\n padding: 10,\n fontSize: 16,\n borderColor: '#333333',\n backgroundColor: '#333333',\n}",
+        "reason": "The original hex color #3333333 had seven hex digits and was an extraction/typing error."
+      },
+      {
+        "number": 82,
+        "field": "question",
+        "old": "Your app has text input boxes that open the virtual keyboard when tapped. For the keyboardDismissMode property of the ScrollView, you've set the value\nto {true}. What does this do?",
+        "new": "Your app has text input boxes that open the virtual keyboard when tapped. For the keyboardDismissMode property of the ScrollView, you set the value to \"on-drag\". What does this do?",
+        "reason": "keyboardDismissMode expects a string value such as on-drag; the original question incorrectly showed {true}."
+      },
+      {
+        "number": 86,
+        "field": "options.A.text",
+        "old": "<TextInput styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder={'email'}\nkeyboardType={'email-address'} />",
+        "new": "<TextInput style={styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder=\"email\" keyboardType=\"email-address\" />",
+        "reason": "The original JSX was missing style={...} syntax."
+      },
+      {
+        "number": 86,
+        "field": "options.B.text",
+        "old": "<TextInput styles.inputBox} value={password} onChangeText={onChangePassword} placeholder={'password'} keyboardType={'default'} />",
+        "new": "<TextInput style={styles.inputBox} value={password} onChangeText={onChangePassword} placeholder=\"password\" keyboardType=\"default\" secureTextEntry={true} />",
+        "reason": "The original JSX was missing style={...}; secureTextEntry was also missing despite being required by the explanation."
+      },
+      {
+        "number": 103,
+        "field": "question",
+        "old": "Study the code below and select the statement that\ndescribes it accurately:\n{!loggedIn && (\n <Text styles.regularText}>Login to continue</Text>\n <TextInput styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder={'email'}\nkeyboardType={'email-address'}\n <TextInput styles.inputBox} value={password} onChangeText={onChangePassword} placeholder={'password'} keyboardType={'default'} secureTextEntry={true}\n <Pressable onPress={() => onLogin(!loggedIn)}>\n <Text>Log in</Text>\n </Pressable>\n)}",
+        "new": "Study the code below and select the statement that describes it accurately:\n{!loggedIn && (\n  <>\n    <Text style={styles.regularText}>Login to continue</Text>\n    <TextInput style={styles.inputBox} value={email} onChangeText={onChangeEmail} placeholder=\"email\" keyboardType=\"email-address\" />\n    <TextInput style={styles.inputBox} value={password} onChangeText={onChangePassword} placeholder=\"password\" keyboardType=\"default\" secureTextEntry={true} />\n    <Pressable onPress={() => onLogin(!loggedIn)}>\n      <Text>Log in</Text>\n    </Pressable>\n  </>\n)}",
+        "reason": "The extracted JSX was missing closing tags, style syntax, and a wrapper for adjacent elements."
+      },
+      {
+        "number": 114,
+        "field": "options.C.text",
+        "old": "<Image source={require(\"img/header.png\")} />",
+        "new": "<Image source={require('./img/header.png')} />",
+        "reason": "A bundled local image path should be a relative static require path."
+      },
+      {
+        "number": 121,
+        "field": "question",
+        "old": "Study the code below and choose the description that\ndescribes it accurately:\n<ScrollView\n styles.container, colorScheme='light'\n ? { backgroundColor: '#fff' }\n : { backgroundColor: '#333333' }\n>",
+        "new": "Study the code below and choose the description that describes it accurately:\n<ScrollView\n  style={[\n    styles.container,\n    colorScheme === 'light'\n      ? { backgroundColor: '#fff' }\n      : { backgroundColor: '#333333' }\n  ]}\n>",
+        "reason": "The extracted style array, comparison operator, and style prop syntax were incomplete."
+      },
+      {
+        "number": 36,
+        "field": "question",
+        "old": "Study the code below and choose the correct output\nthat you will expect to see on the emulator.\n<Text fontWeight=\"bold\">\n I am bold\n <Text color=\"red\"> and red</Text>\n</Text>",
+        "new": "Study the code below and choose the correct output that you will expect to see on the emulator.\n<Text style={{ fontWeight: 'bold' }}>\n  I am bold\n  <Text style={{ color: 'red' }}> and red</Text>\n</Text>",
+        "reason": "fontWeight and color must be supplied through the style prop."
+      }
+    ]
+  }
 }

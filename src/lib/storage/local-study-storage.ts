@@ -1,4 +1,4 @@
-import type { SubjectProgress } from "@/domain/study/types";
+import type { AttemptResult, SubjectProgress } from "@/domain/study/types";
 import { noticeKey, subjectKey } from "./keys";
 import { progressSchema } from "./schemas";
 
@@ -13,6 +13,29 @@ function removeInvalid(id: string) {
   } catch {
     return;
   }
+}
+
+function migrateMma301(progress: SubjectProgress, version: number, correctAnswers?: Record<string, string[]>): SubjectProgress | null {
+  if (progress.subjectId !== "mma301" || progress.subjectContentVersion !== 1 || version !== 2 || !correctAnswers) return null;
+  const session = progress.activeSession;
+  const attempts = session?.attempts.map((attempt) => {
+    const correct = correctAnswers[attempt.questionId];
+    if (!attempt.selectedOptionIds || !correct) return attempt;
+    const result: AttemptResult = attempt.selectedOptionIds.length === correct.length && attempt.selectedOptionIds.every((id) => correct.includes(id)) ? "correct" : "incorrect";
+    return { ...attempt, result };
+  });
+  const questionProgress = Object.fromEntries(Object.entries(progress.questionProgress).map(([id, record]) => {
+    const previous = session?.attempts.filter((attempt) => attempt.questionId === id) ?? [];
+    const next = attempts?.filter((attempt) => attempt.questionId === id) ?? [];
+    if (!previous.length) return [id, record];
+    const count = (items: typeof previous, result: "correct" | "incorrect" | "dont-know") => items.filter((attempt) => attempt.result === result).length;
+    let streak = previous.every((attempt) => attempt.result === "correct") ? Math.max(0, record.correctStreak - previous.length) : 0;
+    let masteredAt = streak >= session!.settings.masteryStreak ? record.masteredAt : null;
+    for (const attempt of next) { streak = attempt.result === "correct" ? streak + 1 : 0; if (streak < session!.settings.masteryStreak) masteredAt = null; else if (!masteredAt) masteredAt = attempt.answeredAt; }
+    const latest = next.at(-1)!;
+    return [id, { ...record, status: streak >= session!.settings.masteryStreak ? "mastered" : record.totalAttempts ? "learning" : "new", correctCount: record.correctCount - count(previous, "correct") + count(next, "correct"), incorrectCount: record.incorrectCount - count(previous, "incorrect") + count(next, "incorrect"), dontKnowCount: record.dontKnowCount - count(previous, "dont-know") + count(next, "dont-know"), correctStreak: streak, lastSelectedOptionIds: latest.selectedOptionIds, lastResult: latest.result, lastSeenAt: latest.answeredAt, masteredAt: streak >= session!.settings.masteryStreak ? masteredAt : null }];
+  }));
+  return { ...progress, subjectContentVersion: version, questionProgress, activeSession: session && { ...session, subjectContentVersion: version, attempts: attempts! } };
 }
 
 function hasValidRelations(progress: SubjectProgress, questionIds?: string[], questionOptions?: Record<string, string[]>) {
@@ -47,7 +70,7 @@ function hasValidRelations(progress: SubjectProgress, questionIds?: string[], qu
 }
 
 export const storage = {
-  load(id: string, version: number, questionIds?: string[], questionOptions?: Record<string, string[]>): LoadResult {
+  load(id: string, version: number, questionIds?: string[], questionOptions?: Record<string, string[]>, correctAnswers?: Record<string, string[]>): LoadResult {
     let raw: string | null;
     try {
       raw = localStorage.getItem(subjectKey(id));
@@ -61,7 +84,8 @@ export const storage = {
         removeInvalid(id);
         return { status: "invalid", progress: null };
       }
-      if (parsed.data.subjectContentVersion !== version) {
+      const progress = parsed.data.subjectContentVersion === version ? parsed.data : migrateMma301(parsed.data, version, correctAnswers);
+      if (!progress) {
         removeInvalid(id);
         try {
           localStorage.setItem(noticeKey(id), "pending");
@@ -70,7 +94,7 @@ export const storage = {
         }
         return { status: "content-version-mismatch", progress: null, previousContentVersion: parsed.data.subjectContentVersion, currentContentVersion: version };
       }
-      if (!hasValidRelations(parsed.data, questionIds, questionOptions)) {
+      if (!hasValidRelations(progress, questionIds, questionOptions)) {
         removeInvalid(id);
         try {
           localStorage.setItem(noticeKey(id), "pending");
@@ -79,7 +103,8 @@ export const storage = {
         }
         return { status: "incompatible", progress: null };
       }
-      return { status: "loaded", progress: parsed.data };
+      if (progress !== parsed.data) this.save(progress);
+      return { status: "loaded", progress };
     } catch {
       removeInvalid(id);
       return { status: "invalid", progress: null };

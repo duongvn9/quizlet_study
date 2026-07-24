@@ -37,11 +37,16 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
       if (raw.questions.length !== 184 || subject.questions.length !== 182) throw new Error("MMA301 must have exactly 184 source entries and 182 active questions");
       const excluded = raw.questions.filter((question) => question.status !== "active").map((question) => question.number);
       if (excluded.length !== 2 || ![64, 96].every((number) => excluded.includes(number)) || subject.questions.some((question) => excluded.includes(question.number))) throw new Error("MMA301 inactive entries mismatch");
-      if (![118, 150].every((number) => subject.questions.find((question) => question.number === number)?.needsReview)) throw new Error("MMA301 source warnings were not retained");
-      for (const number of [50, 93, 101]) {
+      if (JSON.stringify(raw.review.correctedAnswerQuestions) !== JSON.stringify([50, 88, 93, 101, 118, 141, 166, 176, 179])) throw new Error("MMA301 corrected answer list mismatch");
+      if (JSON.stringify(raw.review.repairedOptionOrQuestionQuestions) !== JSON.stringify([36, 72, 82, 86, 103, 114, 121, 145, 150, 154, 180])) throw new Error("MMA301 repaired content list mismatch");
+      if (JSON.stringify(raw.review.unresolvedWarningQuestions) !== JSON.stringify([34, 64, 96, 124])) throw new Error("MMA301 unresolved warning list mismatch");
+      if (subject.contentVersion !== 2) throw new Error("MMA301 content version mismatch");
+      if (raw.questions.some((question) => question.status === "active" && question.type === "multiple_choice" && question.correctAnswers.length < 1)) throw new Error("MMA301 multiple-choice questions need at least one answer");
+      for (const [number, answers] of [[50, ["A", "C"]], [88, ["B"]], [93, ["A", "B"]], [101, ["A", "B", "D"]], [118, ["B"]], [141, ["B"]], [166, ["B"]], [176, ["A", "B"]], [179, ["A"]]] as const) {
         const question = subject.questions.find((item) => item.number === number);
-        if (question?.type === "multiple-choice" && question.correctAnswers.length === 1) console.warn(`WARN mma301.json: question ${number} is multiple-choice with one preserved source answer`);
+        if (JSON.stringify(question?.correctAnswers) !== JSON.stringify(answers)) throw new Error(`MMA301 question ${number} corrected answers mismatch`);
       }
+      if (subject.questions.find((item) => item.number === 88)?.type !== "multiple-choice" || subject.questions.find((item) => item.number === 176)?.type !== "multiple-choice") throw new Error("MMA301 corrected multiple-choice type mismatch");
     }
     if (subject.slug === "mln122") {
       const raw = mln122RawSchema.parse(value);

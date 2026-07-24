@@ -5,14 +5,15 @@ import type { Subject } from "./types";
 const rawQuestionSchema = z.object({
   id: z.string().min(1), number: z.number().int().positive(), type: z.enum(["single_choice", "multiple_choice", "true_false"]), status: z.enum(["active", "deleted_or_empty"]), question: z.string(),
   options: z.array(z.object({ key: z.string().min(1), text: z.string().min(1) })), correctAnswers: z.array(z.string().min(1)), explanation: z.string(), sourcePages: z.array(z.number().int().positive()), sourceWarnings: z.array(z.string()).optional()
-});
+}).passthrough();
 export const mma301RawSchema = z.object({
   schemaVersion: z.literal("1.0"),
   subject: z.object({ code: z.literal("MMA301"), title: z.string(), topic: z.string(), language: z.string() }),
-  source: z.object({ file: z.string(), pages: z.number().int().positive(), preserveSourceAnswers: z.literal(true), note: z.string() }).passthrough(),
-  statistics: z.object({ totalEntries: z.literal(184), activeQuestions: z.literal(182), deletedOrEmptyEntries: z.literal(2), singleChoice: z.number(), multipleChoice: z.number(), trueFalse: z.number(), entriesWithWarnings: z.number() }),
+  source: z.object({ file: z.string(), pages: z.number().int().positive(), preserveSourceAnswers: z.literal(false), note: z.string() }).passthrough(),
+  statistics: z.object({ totalEntries: z.literal(184), activeQuestions: z.literal(182), deletedOrEmptyEntries: z.literal(2), singleChoice: z.literal(91), multipleChoice: z.literal(61), trueFalse: z.literal(30), entriesWithWarnings: z.number(), correctedAnswerEntries: z.literal(9), repairedContentEntries: z.literal(11) }),
   extractionWarnings: z.array(z.object({ number: z.number().int().positive(), warnings: z.array(z.string().min(1)).min(1) })),
-  questions: z.array(rawQuestionSchema)
+  questions: z.array(rawQuestionSchema),
+  review: z.object({ reviewedOn: z.string().min(1), correctedAnswerQuestions: z.array(z.number().int().positive()), repairedOptionOrQuestionQuestions: z.array(z.number().int().positive()), unresolvedWarningQuestions: z.array(z.number().int().positive()), correctionLog: z.array(z.unknown()) }).passthrough()
 });
 
 export function adaptMma301(value: unknown): Subject {
@@ -31,7 +32,7 @@ export function adaptMma301(value: unknown): Subject {
   }));
   return subjectSchema.parse({
     schemaVersion: 1,
-    contentVersion: 1,
+    contentVersion: 2,
     id: "mma301",
     slug: "mma301",
     code: raw.subject.code,

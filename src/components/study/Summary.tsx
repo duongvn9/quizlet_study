@@ -9,7 +9,7 @@ import { storage } from "@/lib/storage/local-study-storage";
 export function Summary({ subject }: { subject: Subject }) {
   const [stats, setStats] = useState(() => selectStats(null, subject.questionCount));
   useEffect(() => {
-    const result = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id));
+    const result = storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id), Object.fromEntries(subject.questions.map((question) => [question.id, question.options.map((option) => option.id)])), Object.fromEntries(subject.questions.map((question) => [question.id, question.correctAnswers])));
     if (result.status === "loaded") setStats(selectStats(result.progress, subject.questionCount));
   }, [subject]);
   return <section className="card">

@@ -1,7 +1,10 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
+import mmaData from "@/data/subjects/mma301.json";
+import { adaptMma301 } from "@/domain/subjects/mma301-adapter";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import { createProgress, createSession } from "@/domain/study/create-session";
+import { answer } from "@/domain/study/reducer";
 import { storage } from "@/lib/storage/local-study-storage";
 import { noticeKey, subjectKey } from "@/lib/storage/keys";
 
@@ -40,6 +43,32 @@ describe("storage", () => {
     expect(storage.load("other", 7).status).toBe("loaded");
     expect(storage.consumeNotice(subject.id)).toBe(true);
     expect(storage.consumeNotice(subject.id)).toBe(false);
+  });
+
+  it("leaves SWD progress unchanged when correct-answer metadata is supplied", () => {
+    const progress = createProgress(subject.id, subject.contentVersion, subject.questions);
+    storage.save(progress);
+    expect(storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id), {}, {}).status).toBe("loaded");
+    expect(JSON.parse(localStorage.getItem(subjectKey(subject.id))!)).toEqual(progress);
+  });
+
+  it("migrates MMA301 v1 once, normalizes Q176 legacy selection, and recomputes exact-set counters", () => {
+    const mma = adaptMma301(mmaData);
+    const question = mma.questions.find((item) => item.number === 176)!;
+    let progress = createProgress(mma.id, 1, [question]);
+    progress = { ...progress, activeSession: createSession(mma.id, 1, [question]) };
+    progress = answer(progress, question, "B", { id: () => "attempt", now: () => "2026-01-01T00:00:00.000Z" });
+    const legacy = structuredClone(progress) as unknown as Record<string, unknown>;
+    const session = legacy.activeSession as { attempts: Array<Record<string, unknown>> };
+    session.attempts[0].selectedOptionId = "B";
+    delete session.attempts[0].selectedOptionIds;
+    localStorage.setItem(subjectKey(mma.id), JSON.stringify(legacy));
+    const ids = mma.questions.map((item) => item.id);
+    const options = Object.fromEntries(mma.questions.map((item) => [item.id, item.options.map((option) => option.id)]));
+    const answers = Object.fromEntries(mma.questions.map((item) => [item.id, item.correctAnswers]));
+    const loaded = storage.load(mma.id, 2, ids, options, answers);
+    expect(loaded).toMatchObject({ status: "loaded", progress: { subjectContentVersion: 2, lifetimeAttempts: 1, questionProgress: { [question.id]: { correctCount: 0, incorrectCount: 1, lastSelectedOptionIds: ["B"], lastResult: "incorrect" } }, activeSession: { subjectContentVersion: 2, currentIndex: 0, attempts: [{ selectedOptionIds: ["B"], result: "incorrect" }] } } });
+    expect(storage.load(mma.id, 2, ids, options, answers)).toEqual(loaded);
   });
 
   it("detects subject identity mismatch", () => {
