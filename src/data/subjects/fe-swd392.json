@@ -2310,7 +2310,7 @@
           "text": "Information hiding and encapsulation are unrelated concepts in software design."
         }
       ],
-      "correctAnswer": "B",
+      "correctAnswer": "A",
       "source": {
         "file": "FE_SWD.pdf",
         "pages": [
