@@ -35,6 +35,16 @@ describe("StudyShell interactions and sound", () => {
     expect(options.every((option) => option.hasAttribute("disabled"))).toBe(true);
   });
 
+  it("adjusts the question font size", async () => {
+    await renderStudy();
+    const heading = screen.getByRole("heading", { level: 1 });
+    fireEvent.click(screen.getByRole("button", { name: "Chỉnh cỡ chữ câu hỏi" }));
+    const fontSize = screen.getByRole("slider", { name: "Cỡ chữ câu hỏi" });
+    expect(heading).toHaveStyle({ fontSize: "32px" });
+    fireEvent.change(fontSize, { target: { value: "40" } });
+    expect(heading).toHaveStyle({ fontSize: "40px" });
+  });
+
   it("copies the question and shows success for three seconds", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.defineProperty(navigator, "clipboard", { configurable: true, value: { writeText } });
