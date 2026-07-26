@@ -146,7 +146,7 @@ export function StudyShell({ subject }: { subject: Subject }) {
   const submitSelection = useCallback((ids: string[] | null) => {
     if (!progress || !question || !item || revealedInstanceId === item.instanceId) return;
     const next = attempt ? replaceAnswer(progress, question, ids) : answer(progress, question, ids);
-    if (next === progress) return;
+    if (next === progress && !attempt) return;
     setRevealedInstanceId(item.instanceId);
     if (ids && ids.length === question.correctAnswers.length && ids.every((id) => question.correctAnswers.includes(id)) && attempt?.result !== "correct") play();
     commit(next);

@@ -33,8 +33,11 @@ export function replaceAnswer(progress: SubjectProgress, question: Question, sel
   const old = progress.questionProgress[question.id];
   if (matchingAttemptIndexes.length !== 1 || !old) return progress;
   const attemptIndex = matchingAttemptIndexes[0];
+  const originalAttempt = session.attempts[attemptIndex];
+  const originalSelectedOptionIds = originalAttempt.selectedOptionIds ?? (originalAttempt.selectedOptionId ? [originalAttempt.selectedOptionId] : null);
   const result = resultFor(question, selectedOptionIds);
-  const attempts = session.attempts.map((attempt, index) => index === attemptIndex ? { ...attempt, selectedOptionIds, result, answeredAt: now } : attempt);
+  if (result === originalAttempt.result && (selectedOptionIds === originalSelectedOptionIds || selectedOptionIds !== null && originalSelectedOptionIds !== null && selectedOptionIds.length === originalSelectedOptionIds.length && selectedOptionIds.every((id, index) => id === originalSelectedOptionIds[index]))) return progress;
+  const attempts = session.attempts.map((attempt, index) => index === attemptIndex ? { ...attempt, selectedOptionIds, result } : attempt);
   const questionAttempts = attempts.filter((attempt) => attempt.questionId === question.id);
   const originalQuestionAttempts = session.attempts.filter((attempt) => attempt.questionId === question.id);
   const count = (items: typeof questionAttempts, value: AttemptResult) => items.filter((attempt) => attempt.result === value).length;
