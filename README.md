@@ -1,6 +1,6 @@
 # Study Flow
 
-Ứng dụng học trắc nghiệm local-first bằng Next.js App Router, React, TypeScript và Tailwind. Không tài khoản, cơ sở dữ liệu hay biến môi trường; tiến độ nằm trong `localStorage`.
+Ứng dụng học trắc nghiệm local-first bằng Next.js App Router, React, TypeScript và Tailwind. Chế độ local hiện tại không cần tài khoản, cơ sở dữ liệu hay biến môi trường; tiến độ nằm trong `localStorage`. Backend tùy chọn mới là scaffold và chưa được nối vào UI.
 
 ## Yêu cầu và cài đặt
 
@@ -31,6 +31,8 @@ CI chạy tuần tự các bước trên, kiểm tra generated registry sạch, 
 Dataset chuẩn tại `src/data/subjects/swd392.json` có `contentVersion: 2`, 249 câu: 246 câu bốn lựa chọn và các câu 19, 39, 42 có năm lựa chọn. Có 14 câu `needsReview`, 22 giải thích không rỗng và metadata ghi 21 đáp án đã hiệu chỉnh. `reviewBasis` và danh sách số câu hiệu chỉnh được lưu trong `dataQuality`; đây là provenance của dataset, không phải tuyên bố xác minh học thuật độc lập.
 
 ## Kiến trúc và dữ liệu
+
+Backend tùy chọn được mô tả tại [kiến trúc](docs/BASE-ARCHITECTURE.md), [thiết lập](docs/BACKEND-SETUP.md), [import JSON](docs/JSON-IMPORT.md) và [TODO](docs/BACKEND-TODOS.md). Mặc định vẫn local-first, không cần credentials; remote/auth/import production chưa được triển khai.
 
 `src/domain/subjects` định nghĩa Zod schema; `src/domain/study` là engine thuần; `src/lib/storage` xác thực persistence; `src/components` và `src/app` là presentation. Mỗi subject có `schemaVersion`, `contentVersion`, metadata và questions. Mỗi question có stable `id`, `number`, `correctAnswer`, options, `needsReview`, `reviewNotes` và `explanation` tùy chọn.
 
