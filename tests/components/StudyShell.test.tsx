@@ -35,14 +35,22 @@ describe("StudyShell interactions and sound", () => {
     expect(options.every((option) => option.hasAttribute("disabled"))).toBe(true);
   });
 
-  it("adjusts the question font size", async () => {
+  it("adjusts the question font size and closes the control on outside interaction", async () => {
     await renderStudy();
     const heading = screen.getByRole("heading", { level: 1 });
-    fireEvent.click(screen.getByRole("button", { name: "Chỉnh cỡ chữ câu hỏi" }));
+    const trigger = screen.getByRole("button", { name: "Chỉnh cỡ chữ câu hỏi" });
+    fireEvent.click(trigger);
     const fontSize = screen.getByRole("slider", { name: "Cỡ chữ câu hỏi" });
     expect(heading).toHaveStyle({ fontSize: "32px" });
     fireEvent.change(fontSize, { target: { value: "40" } });
+    fireEvent.pointerDown(fontSize);
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
     expect(heading).toHaveStyle({ fontSize: "40px" });
+    fireEvent.pointerDown(heading);
+    expect(screen.queryByRole("slider", { name: "Cỡ chữ câu hỏi" })).not.toBeInTheDocument();
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(trigger);
+    expect(screen.getByRole("slider", { name: "Cỡ chữ câu hỏi" })).toHaveValue("40");
   });
 
   it("copies the question and shows success for three seconds", async () => {
