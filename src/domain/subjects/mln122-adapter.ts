@@ -8,7 +8,8 @@ const rawQuestionSchema = z.object({
   type: z.literal("single_choice"),
   question: nonblank,
   options: z.array(z.object({ key: nonblank, text: nonblank }).strict()).min(2).max(6),
-  correctAnswer: nonblank
+  correctAnswer: nonblank,
+  explanation: nonblank.optional()
 }).strict().superRefine((question, ctx) => {
   const keys = question.options.map((option) => option.key);
   if (new Set(keys).size !== keys.length) ctx.addIssue({ code: "custom", message: "Option keys must be unique" });
@@ -35,7 +36,7 @@ export function adaptMln122(value: unknown): Subject {
     question: question.question,
     options: question.options.map((option) => ({ id: option.key, text: option.text })),
     correctAnswers: [question.correctAnswer],
-    explanation: null,
+    explanation: question.explanation ?? null,
     source: { file: "MLN122.json", pages: [] },
     needsReview: false,
     reviewNotes: []

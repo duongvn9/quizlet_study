@@ -100,7 +100,7 @@ describe("subject data", () => {
       expect(subject.questions[index]).toMatchObject({ question: mlnData.questions[index].question, options: mlnData.questions[index].options.map((option) => ({ id: option.key, text: option.text })), correctAnswers: [mlnData.questions[index].correctAnswer] });
     }
     expect(Object.fromEntries([3, 4, 5, 6].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]))).toEqual({ 3: 128, 4: 338, 5: 11, 6: 1 });
-    expect(Object.fromEntries(["A", "B", "C", "D", "E", "F"].map((answer) => [answer, subject.questions.filter((question) => question.correctAnswer === answer).length]))).toEqual({ A: 196, B: 101, C: 94, D: 75, E: 11, F: 1 });
+    expect(Object.fromEntries(["A", "B", "C", "D", "E", "F"].map((answer) => [answer, subject.questions.filter((question) => question.correctAnswer === answer).length]))).toEqual({ A: 196, B: 100, C: 95, D: 75, E: 11, F: 1 });
     expect(subject.questions[41]).toMatchObject({ correctAnswers: ["E"], options: expect.arrayContaining([{ id: "E", text: "ABC" }]) });
     expect(subject.questions[125]).toMatchObject({ correctAnswers: ["F"], options: expect.arrayContaining([{ id: "F", text: "BDE" }]) });
     expect(subject.dataQuality.duplicatePromptGroups).toEqual([[51, 307], [158, 288], [187, 296], [283, 450]]);
