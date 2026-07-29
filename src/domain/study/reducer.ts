@@ -59,3 +59,11 @@ export function replaceAnswer(progress: SubjectProgress, question: Question, sel
 }
 
 export function move(progress: SubjectProgress, direction: -1 | 1, now = new Date().toISOString()): SubjectProgress { const s = progress.activeSession; if (!s || s.completedAt) return progress; const current = s.queue[s.currentIndex]; if (direction === 1 && !current?.answered) return progress; const target = s.currentIndex + direction; if (target < 0 || target >= s.queue.length) { if (direction === 1 && s.queue.every(q => q.answered)) return { ...progress, activeSession: { ...s, completedAt: now, updatedAt: now }, completedSessionCount: progress.completedSessionCount + 1 }; return progress; } return { ...progress, activeSession: { ...s, currentIndex: target, frontierIndex: Math.max(s.frontierIndex, target), updatedAt: now } } }
+
+export function goToQuestion(progress: SubjectProgress, questionId: string, now = new Date().toISOString()): SubjectProgress {
+  const session = progress.activeSession;
+  if (!session || session.completedAt) return progress;
+  const target = session.queue.findIndex((item) => item.reason === "initial" && item.questionId === questionId);
+  if (target < 0 || target === session.currentIndex) return progress;
+  return { ...progress, activeSession: { ...session, currentIndex: target, frontierIndex: Math.max(session.frontierIndex, target), updatedAt: now } };
+}

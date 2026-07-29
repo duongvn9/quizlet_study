@@ -218,6 +218,19 @@ describe("StudyShell interactions and sound", () => {
     expect(audioMocks.play).not.toHaveBeenCalled();
   });
 
+  it("jumps with a bounded slider and preserves saved answer history", async () => {
+    await renderStudy();
+    fireEvent.click(within(document.querySelector(".options")!).getAllByRole("button")[correctIndex]);
+    fireEvent.click(screen.getByRole("button", { name: "Chuyển câu hỏi" }));
+    const slider = screen.getByRole("slider", { name: "Vị trí câu hỏi" });
+    expect(slider).toHaveAttribute("min", "1");
+    expect(slider).toHaveAttribute("max", String(subject.questionCount));
+    fireEvent.change(slider, { target: { value: "100" } });
+    fireEvent.click(screen.getByRole("button", { name: "Chuyển đến câu 100" }));
+    expect(await screen.findByText("Câu 100")).toBeVisible();
+    expect(storage.load(subject.id, subject.contentVersion)).toMatchObject({ status: "loaded", progress: { lifetimeAttempts: 1, activeSession: { currentIndex: 99, attempts: [{ questionId: first.id, result: "correct" }] } } });
+  });
+
   it("opens settings and persists next-session shuffle semantics", async () => {
     await renderStudy();
     fireEvent.click(screen.getByRole("button", { name: "Cài đặt" }));

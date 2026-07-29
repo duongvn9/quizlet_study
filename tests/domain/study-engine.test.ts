@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import { createProgress, createSession } from "@/domain/study/create-session";
-import { answer, move, replaceAnswer } from "@/domain/study/reducer";
+import { answer, goToQuestion, move, replaceAnswer } from "@/domain/study/reducer";
 import { findResumeQueueIndex, resumeProgress } from "@/domain/study/resume";
 import { selectLearnCounters, selectStats } from "@/domain/study/selectors";
 import type { SubjectProgress } from "@/domain/study/types";
@@ -160,6 +160,16 @@ describe("study engine", () => {
     progress = move(progress, -1);
     expect(progress.activeSession?.attempts).toEqual(attempts);
     expect(progress.activeSession?.queue[0].answered).toBe(true);
+  });
+
+  it("jumps to an initial question without changing answer history", () => {
+    let progress = answer(fresh(), subject.questions[0], subject.questions[0].correctAnswer, deps);
+    const attempts = progress.activeSession!.attempts;
+    const queue = progress.activeSession!.queue;
+    progress = goToQuestion(progress, subject.questions[99].id, deps.now());
+    expect(progress.activeSession).toMatchObject({ currentIndex: 99, frontierIndex: 99, attempts });
+    expect(progress.activeSession?.queue).toBe(queue);
+    expect(goToQuestion(progress, "missing", deps.now())).toBe(progress);
   });
 
   it("completes once only after every queue item is answered", () => {
