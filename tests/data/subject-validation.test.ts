@@ -5,7 +5,7 @@ import mmaData from "@/data/subjects/mma301.json";
 import mlnData from "@/data/subjects/mln122.json";
 import { subjects, subjectsBySlug } from "@/data/generated/subjects.generated";
 import { adaptFeSwd392 } from "@/domain/subjects/fe-swd392-adapter";
-import { adaptMln122 } from "@/domain/subjects/mln122-adapter";
+import { adaptMln122, mln122RawSchema } from "@/domain/subjects/mln122-adapter";
 import { adaptMma301 } from "@/domain/subjects/mma301-adapter";
 import { subjectSchema } from "@/domain/subjects/schemas";
 
@@ -93,19 +93,25 @@ describe("subject data", () => {
   it("strictly adapts MLN122 without mutation or loss", () => {
     const before = structuredClone(mlnData);
     const subject = adaptMln122(mlnData);
-    expect(subject).toMatchObject({ id: "mln122", slug: "mln122", code: "MLN122", name: "Kinh tế chính trị Mác - Lênin", language: "vi", questionCount: 478, description: "Bộ 478 câu hỏi Kinh tế chính trị Mác - Lênin.", source: { file: "MLN122.json", pageCount: 0 } });
-    expect(subject.questions.map((question) => question.id)).toEqual(Array.from({ length: 478 }, (_, index) => `mln122-${String(index + 1).padStart(3, "0")}`));
-    expect(subject.questions.map((question) => question.number)).toEqual(Array.from({ length: 478 }, (_, index) => index + 1));
-    for (const index of [0, 477]) {
-      expect(subject.questions[index]).toMatchObject({ question: mlnData.questions[index].question, options: mlnData.questions[index].options.map((option) => ({ id: option.key, text: option.text })), correctAnswers: [mlnData.questions[index].correctAnswer] });
-    }
-    expect(Object.fromEntries([3, 4, 5, 6].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]))).toEqual({ 3: 128, 4: 338, 5: 11, 6: 1 });
-    expect(Object.fromEntries(["A", "B", "C", "D", "E", "F"].map((answer) => [answer, subject.questions.filter((question) => question.correctAnswer === answer).length]))).toEqual({ A: 195, B: 101, C: 95, D: 75, E: 11, F: 1 });
+    expect(subject).toMatchObject({ id: "mln122", slug: "mln122", code: "MLN122", name: "Kinh tế chính trị Mác - Lênin", language: "vi", contentVersion: 2, questionCount: 475, description: "Bộ 475 câu hỏi Kinh tế chính trị Mác - Lênin.", source: { file: "mln122.json", pageCount: 0 } });
+    expect(mlnData.questions).toHaveLength(478);
+    expect(mlnData.questions.filter((question) => question.disabled)).toHaveLength(3);
+    expect(mlnData.questions.filter((question) => question.disabled).every((question) => question.correctAnswer === null)).toBe(true);
+    expect(subject.questions).toHaveLength(475);
+    expect(subject.questions.map((question) => question.id)).toEqual(mlnData.questions.filter((question) => !question.disabled).map((question) => `mln122-${String(question.id).padStart(3, "0")}`));
+    expect(subject.questions.map((question) => question.number)).toEqual(mlnData.questions.filter((question) => !question.disabled).map((question) => question.id));
+    expect(Object.fromEntries([3, 4, 5, 6].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]))).toEqual({ 3: 125, 4: 335, 5: 14, 6: 1 });
+    expect(Object.fromEntries(["A", "B", "C", "D", "E", "F"].map((answer) => [answer, subject.questions.filter((question) => question.correctAnswer === answer).length]))).toEqual({ A: 198, B: 100, C: 90, D: 72, E: 14, F: 1 });
     expect(subject.questions[0]).toMatchObject({ correctAnswers: ["C"], explanation: expect.stringContaining("xu hướng khu vực hóa") });
-    expect(subject.questions[29]).toMatchObject({ correctAnswers: ["A"], explanation: expect.stringContaining("chủ nghĩa trọng thương") });
-    expect(subject.questions[41]).toMatchObject({ correctAnswers: ["E"], options: expect.arrayContaining([{ id: "E", text: "ABC" }]) });
-    expect(subject.questions[124]).toMatchObject({ correctAnswers: ["B"], explanation: expect.stringContaining("bốn cuộc cách mạng công nghiệp") });
-    expect(subject.questions[125]).toMatchObject({ correctAnswers: ["F"], options: expect.arrayContaining([{ id: "F", text: "BDE" }]) });
+    expect(subject.questions.find((question) => question.number === 30)).toMatchObject({ correctAnswers: ["A"], explanation: expect.stringContaining("Chủ nghĩa trọng thương") });
+    expect(subject.questions.find((question) => question.number === 42)).toMatchObject({ correctAnswers: ["E"], options: expect.arrayContaining([{ id: "E", text: "ABC" }]) });
+    expect(subject.questions.find((question) => question.number === 45)).toMatchObject({ correctAnswers: ["B"], explanation: expect.stringContaining("quan hệ xã hội, mang tính lịch sử") });
+    expect(subject.questions.find((question) => question.number === 125)).toMatchObject({ correctAnswers: ["B"], explanation: expect.stringContaining("Bốn cuộc cách mạng công nghiệp") });
+    expect(subject.questions.find((question) => question.number === 126)).toMatchObject({ correctAnswers: ["F"], options: expect.arrayContaining([{ id: "F", text: "BDE" }]) });
+    expect(subject.questions.find((question) => question.number === 160)).toMatchObject({ id: "mln122-160", verificationStatus: "verified", source: { file: "GIÁO TRÌNH FULL.pdf", pages: [62, 61], pdfPages: [60, 59], basis: "Supplied textbook only" } });
+    expect(subject.questions.find((question) => question.number === 466)).toMatchObject({ id: "mln122-466", verificationStatus: "corrected_against_review", reviewNotes: expect.any(Array) });
+    expect(mlnData.questions.filter((question) => question.disabled).map((question) => question.id)).toEqual([23, 254, 269]);
+    expect(subject.questions.some((question) => [23, 254, 269].includes(question.number))).toBe(false);
     expect(subject.dataQuality.duplicatePromptGroups).toEqual([[51, 307], [158, 288], [187, 296], [283, 450]]);
     expect(subject.questions.every((question) => question.type === "single-choice" && question.options.some((option) => option.id === question.correctAnswer))).toBe(true);
     expect(mlnData).toEqual(before);
@@ -115,14 +121,28 @@ describe("subject data", () => {
     expect(subjectsBySlug["fe-swd392"].id).not.toBe(subjectsBySlug.swd392.id);
   });
 
-  it("rejects invalid MLN122 count, blank values, duplicate keys, and missing answers", () => {
+  it("supports legacy MLN122 metadata and rejects invalid corrected records", () => {
+    const legacy = structuredClone(mlnData) as Record<string, unknown>;
+    legacy.schemaVersion = "1.0";
+    delete legacy.source;
+    delete legacy.dataQuality;
+    legacy.questions = (legacy.questions as typeof mlnData.questions).map((input) => { const question = { ...input } as Record<string, unknown>; const legacyCorrectAnswer = question.legacyCorrectAnswer ?? question.correctAnswer ?? "A"; for (const key of ["source", "verificationStatus", "needsReview", "reviewNotes", "auditNotes", "disabled", "legacyCorrectAnswer"]) delete question[key]; question.correctAnswer = legacyCorrectAnswer; return question; });
+    expect(mln122RawSchema.safeParse(legacy).success).toBe(true);
     expect(() => adaptMln122({ ...mlnData, totalQuestions: 477 })).toThrow();
     const blank = structuredClone(mlnData); blank.questions[0].question = "   ";
     const duplicate = structuredClone(mlnData); duplicate.questions[0].options[1].key = duplicate.questions[0].options[0].key;
     const missing = structuredClone(mlnData); missing.questions[0].correctAnswer = "X";
+    const finalMetadata = structuredClone(mlnData) as Record<string, unknown>; delete ((finalMetadata.questions as Record<string, unknown>[])[0]).verificationStatus;
+    const disabledDuplicate = structuredClone(mlnData); const disabled = disabledDuplicate.questions.find((question) => question.disabled)!; disabled.options[1].key = disabled.options[0].key;
+    const manifestMismatch = structuredClone(mlnData); manifestMismatch.dataQuality.optionsChangedFromOriginalCount--;
+    const duplicateManifest = structuredClone(mlnData); duplicateManifest.dataQuality.answerChangedFromOriginalIds[1] = duplicateManifest.dataQuality.answerChangedFromOriginalIds[0];
     expect(() => adaptMln122(blank)).toThrow();
     expect(() => adaptMln122(duplicate)).toThrow();
     expect(() => adaptMln122(missing)).toThrow();
+    expect(() => adaptMln122(finalMetadata)).toThrow();
+    expect(() => adaptMln122(disabledDuplicate)).toThrow();
+    expect(() => adaptMln122(manifestMismatch)).toThrow();
+    expect(() => adaptMln122(duplicateManifest)).toThrow();
   });
 
   it("rejects invalid versions, counts, correction metadata, and answer keys", () => {

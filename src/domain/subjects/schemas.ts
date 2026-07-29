@@ -5,8 +5,8 @@ export const questionTypeSchema = z.enum(["single-choice", "multiple-choice", "t
 const questionBaseSchema = z.object({
   id: z.string().min(1), number: z.number().int().positive(), type: questionTypeSchema, question: z.string().min(1),
   options: z.array(optionSchema).min(2), correctAnswers: z.array(z.string().min(1)).min(1), explanation: z.string().nullable(),
-  source: z.object({ file: z.string().min(1), pages: z.array(z.number().int().positive()) }),
-  needsReview: z.boolean(), reviewNotes: z.array(z.string())
+  source: z.object({ file: z.string().min(1), pages: z.array(z.number().int().positive()), pdfPages: z.array(z.number().int().positive()).optional(), basis: z.string().min(1).optional(), questionBank: z.string().min(1).optional(), textbook: z.string().min(1).optional() }),
+  needsReview: z.boolean(), reviewNotes: z.array(z.string()), disabled: z.boolean().optional(), verificationStatus: z.string().min(1).optional(), auditNotes: z.array(z.string()).optional(), legacyCorrectAnswer: z.string().min(1).optional()
 }).superRefine((q, ctx) => {
   const optionIds = new Set(q.options.map((option) => option.id));
   if (optionIds.size !== q.options.length) ctx.addIssue({ code: "custom", message: "Option IDs must be unique" });

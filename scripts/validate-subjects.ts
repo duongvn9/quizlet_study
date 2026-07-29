@@ -50,13 +50,15 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
     }
     if (subject.slug === "mln122") {
       const raw = mln122RawSchema.parse(value);
-      if (raw.totalQuestions !== 478 || subject.questions.length !== raw.totalQuestions) throw new Error("MLN122 total mismatch");
-      if (!subject.questions.every((question, index) => question.number === index + 1 && question.id === `mln122-${String(index + 1).padStart(3, "0")}`)) throw new Error("MLN122 order mismatch");
+      if (raw.totalQuestions !== 478 || raw.questions.length !== 478 || subject.questions.length !== 475 || raw.schemaVersion !== "1.1-final") throw new Error("MLN122 stored or active total mismatch");
+      const activeRaw = raw.questions.filter((question) => question.disabled !== true);
+      if (!subject.questions.every((question, index) => question.number === activeRaw[index].id && question.id === `mln122-${String(activeRaw[index].id).padStart(3, "0")}`)) throw new Error("MLN122 order or ID mismatch");
+      if (raw.questions.filter((question) => question.disabled === true).length !== 3 || raw.questions.filter((question) => question.disabled === true).some((question) => question.correctAnswer !== null)) throw new Error("MLN122 disabled semantics mismatch");
       const optionCounts = Object.fromEntries([3, 4, 5, 6].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]));
-      if (JSON.stringify(optionCounts) !== JSON.stringify({ 3: 128, 4: 338, 5: 11, 6: 1 })) throw new Error("MLN122 option distribution mismatch");
+      if (JSON.stringify(optionCounts) !== JSON.stringify({ 3: 125, 4: 335, 5: 14, 6: 1 })) throw new Error("MLN122 option distribution mismatch");
       const answerCounts = Object.fromEntries(["A", "B", "C", "D", "E", "F"].map((answer) => [answer, subject.questions.filter((question) => question.correctAnswer === answer).length]));
-      if (JSON.stringify(answerCounts) !== JSON.stringify({ A: 195, B: 101, C: 95, D: 75, E: 11, F: 1 })) throw new Error("MLN122 answer distribution mismatch");
-      if (!subject.questions.every((question) => question.options.some((option) => option.id === question.correctAnswer))) throw new Error("MLN122 answer reference mismatch");
+      if (JSON.stringify(answerCounts) !== JSON.stringify({ A: 198, B: 100, C: 90, D: 72, E: 14, F: 1 })) throw new Error("MLN122 answer distribution mismatch");
+      if (!subject.questions.every((question) => question.correctAnswers.length > 0 && question.options.some((option) => option.id === question.correctAnswer))) throw new Error("MLN122 answer reference mismatch");
     }
     console.log(`PASS ${file}: ${subject.questions.length} questions, ${subject.dataQuality.needsReviewCount} review, v${subject.contentVersion}`);
   } catch (error) {

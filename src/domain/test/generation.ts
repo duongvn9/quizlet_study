@@ -15,7 +15,8 @@ function shuffled<T>(values: readonly T[], random: () => number) {
 }
 
 export function eligibleQuestions(questions: readonly Question[], pool: TestSettings["pool"], progress?: Record<string, QuestionProgress>) {
-  return pool === "all" ? [...questions] : questions.filter((question) => progress?.[question.id]?.status !== "mastered");
+  const active = questions.filter((question) => !question.disabled);
+  return pool === "all" ? active : active.filter((question) => progress?.[question.id]?.status !== "mastered");
 }
 
 export function createTestSession(subjectId: string, contentVersion: number, questions: readonly Question[], settings: TestSettings, dependencies: TestDependencies, progress?: Record<string, QuestionProgress>): TestSession {

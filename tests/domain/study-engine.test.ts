@@ -26,6 +26,13 @@ describe("study engine", () => {
     expect(shuffled.queue).toHaveLength(subject.questionCount);
   });
 
+  it("keeps progress ID-keyed and excludes disabled questions", () => {
+    const disabled = { ...subject.questions[0], disabled: true };
+    const questions = [disabled, subject.questions[1]];
+    expect(Object.keys(createProgress(subject.id, subject.contentVersion, questions).questionProgress)).toEqual([subject.questions[1].id]);
+    expect(createSession(subject.id, subject.contentVersion, questions, {}, deps).queue.map((item) => item.questionId)).toEqual([subject.questions[1].id]);
+  });
+
   it("makes the first correct answer learning without inserting a retry", () => {
     const question = subject.questions[0];
     const progress = answer(fresh(), question, question.correctAnswer, deps);
