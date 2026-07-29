@@ -101,6 +101,8 @@ describe("subject data", () => {
     }
     expect(Object.fromEntries([3, 4, 5, 6].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]))).toEqual({ 3: 128, 4: 338, 5: 11, 6: 1 });
     expect(Object.fromEntries(["A", "B", "C", "D", "E", "F"].map((answer) => [answer, subject.questions.filter((question) => question.correctAnswer === answer).length]))).toEqual({ A: 195, B: 101, C: 95, D: 75, E: 11, F: 1 });
+    expect(subject.questions[0]).toMatchObject({ correctAnswers: ["C"], explanation: expect.stringContaining("xu hướng khu vực hóa") });
+    expect(subject.questions[29]).toMatchObject({ correctAnswers: ["A"], explanation: expect.stringContaining("chủ nghĩa trọng thương") });
     expect(subject.questions[41]).toMatchObject({ correctAnswers: ["E"], options: expect.arrayContaining([{ id: "E", text: "ABC" }]) });
     expect(subject.questions[124]).toMatchObject({ correctAnswers: ["B"], explanation: expect.stringContaining("bốn cuộc cách mạng công nghiệp") });
     expect(subject.questions[125]).toMatchObject({ correctAnswers: ["F"], options: expect.arrayContaining([{ id: "F", text: "BDE" }]) });
