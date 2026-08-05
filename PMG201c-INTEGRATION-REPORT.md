@@ -37,6 +37,6 @@ The supplied source answers and extraction warnings are preserved. The source no
 
 ## Git
 
-Commit hash: pending until final quality gates.
+Implementation commit: `bb0b812` (`feat: add PMG201c project management subject`).
 
-Push status: pending until final quality gates and remote check.
+Push status: attempted after the final report update; see the completion response for the remote outcome.
