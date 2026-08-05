@@ -3,10 +3,11 @@ import { join } from "node:path";
 import { adaptFeSwd392, feSwd392RawSchema } from "../src/domain/subjects/fe-swd392-adapter";
 import { adaptMln122, mln122RawSchema } from "../src/domain/subjects/mln122-adapter";
 import { adaptMma301, mma301RawSchema } from "../src/domain/subjects/mma301-adapter";
+import { adaptPmg201c, pmg201cRawSchema } from "../src/domain/subjects/pmg201c-adapter";
 import { subjectSchema } from "../src/domain/subjects/schemas";
 
 const dir = join(process.cwd(), "src/data/subjects");
-const adapters = { "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "swd392.json": subjectSchema.parse } as const;
+const adapters = { "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
 let failed = false;
 for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
   try {
@@ -47,6 +48,17 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
         if (JSON.stringify(question?.correctAnswers) !== JSON.stringify(answers)) throw new Error(`MMA301 question ${number} corrected answers mismatch`);
       }
       if (subject.questions.find((item) => item.number === 88)?.type !== "multiple-choice" || subject.questions.find((item) => item.number === 176)?.type !== "multiple-choice") throw new Error("MMA301 corrected multiple-choice type mismatch");
+    }
+    if (subject.slug === "pmg201c") {
+      const raw = pmg201cRawSchema.parse(value);
+      if (subject.questions.length !== 221 || subject.questionCount !== 221) throw new Error("PMG201c must have exactly 221 active questions");
+      if (!subject.questions.every((question, index) => question.number === index + 1 && question.id === `pmg201c-${String(index + 1).padStart(3, "0")}`)) throw new Error("PMG201c order or ID mismatch");
+      const typeCounts = Object.fromEntries(["single-choice", "multiple-choice", "true-false"].map((type) => [type, subject.questions.filter((question) => question.type === type).length]));
+      if (JSON.stringify(typeCounts) !== JSON.stringify({ "single-choice": 150, "multiple-choice": 3, "true-false": 68 })) throw new Error("PMG201c type distribution mismatch");
+      const optionCounts = Object.fromEntries([2, 3, 4, 5, 6].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]));
+      if (JSON.stringify(optionCounts) !== JSON.stringify({ 2: 69, 3: 5, 4: 132, 5: 9, 6: 6 })) throw new Error("PMG201c option distribution mismatch");
+      if (subject.dataQuality.needsReviewCount !== 77 || subject.dataQuality.duplicatePromptGroups.length !== 35 || raw.dataQuality.conflictingDuplicatePromptGroups.length !== 2) throw new Error("PMG201c review or duplicate metadata mismatch");
+      for (const [number, answers] of [[90, ["C", "D"]], [93, ["A", "B"]], [220, ["A", "B"]]] as const) if (JSON.stringify(subject.questions[number - 1].correctAnswers) !== JSON.stringify(answers)) throw new Error(`PMG201c question ${number} answers mismatch`);
     }
     if (subject.slug === "mln122") {
       const raw = mln122RawSchema.parse(value);

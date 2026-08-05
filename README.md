@@ -30,15 +30,19 @@ CI chạy tuần tự các bước trên, kiểm tra generated registry sạch, 
 
 Dataset chuẩn tại `src/data/subjects/swd392.json` có `contentVersion: 2`, 249 câu: 246 câu bốn lựa chọn và các câu 19, 39, 42 có năm lựa chọn. Có 14 câu `needsReview`, 22 giải thích không rỗng và metadata ghi 21 đáp án đã hiệu chỉnh. `reviewBasis` và danh sách số câu hiệu chỉnh được lưu trong `dataQuality`; đây là provenance của dataset, không phải tuyên bố xác minh học thuật độc lập.
 
+## PMG201c
+
+PMG201c - Project Management dùng nguồn thô tại `src/data/subjects/pmg201c.json` và adapter `src/domain/subjects/pmg201c-adapter.ts`. Dataset giữ nguyên 221 câu nguồn: 150 single-choice, 3 multiple-choice và 68 true/false; có 77 câu cần rà soát, 35 nhóm prompt trùng và 2 nhóm trùng có đáp án xung đột. Đáp án và cảnh báo được bảo toàn từ hai PDF nguồn (59 trang) và chưa được xác minh học thuật độc lập.
+
 ## Kiến trúc và dữ liệu
 
 Backend tùy chọn được mô tả tại [kiến trúc](docs/BASE-ARCHITECTURE.md), [thiết lập](docs/BACKEND-SETUP.md), [import JSON](docs/JSON-IMPORT.md) và [TODO](docs/BACKEND-TODOS.md). Mặc định vẫn local-first, không cần credentials; remote/auth/import production chưa được triển khai.
 
-`src/domain/subjects` định nghĩa Zod schema; `src/domain/study` là engine thuần; `src/lib/storage` xác thực persistence; `src/components` và `src/app` là presentation. Mỗi subject có `schemaVersion`, `contentVersion`, metadata và questions. Mỗi question có stable `id`, `number`, `correctAnswer`, options, `needsReview`, `reviewNotes` và `explanation` tùy chọn.
+`src/domain/subjects` định nghĩa Zod schema; `src/domain/study` là engine thuần; `src/lib/storage` xác thực persistence; `src/components` và `src/app` là presentation. Mỗi subject có `schemaVersion`, `contentVersion`, metadata và questions. Mỗi question có stable `id`, `number`, `correctAnswers` (mảng; `correctAnswer` chỉ là compatibility field), options, `needsReview`, `reviewNotes` và `explanation` tùy chọn.
 
-Để thêm môn: đặt JSON hợp lệ tại `src/data/subjects/<slug>.json`, bảo đảm filename trùng slug và ID/slug không trùng môn khác, chạy generate/validate rồi build. Generator từ chối identity trùng và không âm thầm ghi đè registry.
+Để thêm môn canonical: đặt JSON hợp lệ tại `src/data/subjects/<slug>.json`, bảo đảm filename trùng slug và ID/slug không trùng môn khác, đăng ký rõ trong generator/validator, chạy `npm run data:generate`, `npm run data:validate` rồi build. Với schema nguồn khác canonical, thêm adapter Zod trong `src/domain/subjects`, giữ nguyên dữ liệu nguồn, đăng ký adapter ở cả hai script và thêm regression tests. Generator từ chối raw schema chưa đăng ký, identity trùng và không âm thầm ghi đè registry.
 
-Để sửa đáp án/nội dung: giữ nguyên `id` và `number`; cập nhật trường cần thiết; bảo đảm `correctAnswer` tồn tại trong options; tăng `contentVersion` đúng 1; chạy đầy đủ kiểm tra và commit generated output. Lần truy cập sau chỉ tiến độ môn bị cập nhật được đặt lại.
+Để sửa đáp án/nội dung: giữ nguyên `id` và `number`; cập nhật trường cần thiết; bảo đảm mọi `correctAnswers` tồn tại trong options; tăng `contentVersion` đúng 1; chạy đầy đủ kiểm tra và commit generated output. Lần truy cập sau chỉ tiến độ môn bị cập nhật được đặt lại.
 
 ## Chế độ học
 

@@ -1,5 +1,9 @@
 import { expect, test } from "@playwright/test";
 import subject from "../src/data/subjects/swd392.json";
+import pmgData from "../src/data/subjects/pmg201c.json";
+import { adaptPmg201c } from "../src/domain/subjects/pmg201c-adapter";
+
+const pmg = adaptPmg201c(pmgData);
 
 const progressKey = "study-flow:v1:subject:swd392";
 
@@ -176,6 +180,41 @@ test("complete 10-question Test flow persists responses and leaves Learn unchang
   await expect(page.getByText(/Chưa trả lời: 8/)).toBeVisible();
   await expect(page.locator(".test-review")).toHaveCount(10);
   expect(await page.evaluate((key) => localStorage.getItem(key), progressKey)).toBe(learnBefore);
+});
+
+test("PMG201c learn, multiple-choice resume, test scoring, and existing routes", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => localStorage.clear());
+  const card = page.getByRole("article").filter({ hasText: "PMG201c" });
+  await expect(card.getByText("221 câu", { exact: true })).toBeVisible();
+  await card.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
+  await expect(page.getByText("77 câu cần rà soát")).toBeVisible();
+  await page.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
+  await page.locator(".options button").first().click();
+  await page.getByRole("button", { name: "Tiếp tục" }).click();
+  await page.getByRole("button", { name: "Chuyển câu hỏi" }).click();
+  await page.getByRole("slider", { name: "Vị trí câu hỏi" }).fill("90");
+  await page.getByRole("button", { name: "Chuyển đến câu 90" }).click();
+  const multiple = pmg.questions[89];
+  for (const answer of multiple.correctAnswers) await page.locator(".options button").nth(multiple.options.findIndex((option) => option.id === answer)).click();
+  await page.getByRole("button", { name: "Nộp đáp án" }).click();
+  await expect(page.getByText("Chính xác")).toBeVisible();
+  await page.reload();
+  await expect(page.getByText("Câu 91", { exact: true })).toBeVisible();
+  await page.getByRole("link", { name: "Kiểm tra", exact: true }).click();
+  await page.getByRole("button", { name: "10", exact: true }).click();
+  await page.getByLabel("Xáo trộn câu hỏi").uncheck();
+  await page.getByLabel("Xáo trộn đáp án").uncheck();
+  await page.getByRole("button", { name: "Bắt đầu" }).click();
+  const first = pmg.questions[0];
+  await page.locator(".options button").nth(first.options.findIndex((option) => option.id === first.correctAnswer)).click();
+  await page.getByRole("button", { name: "Nộp bài" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Nộp bài" }).click();
+  await expect(page.getByText(/1\/10 đúng/)).toBeVisible();
+  for (const slug of ["swd392", "mma301", "mln122", "fe-swd392"]) {
+    await page.goto(`/subjects/${slug}`);
+    await expect(page.getByRole("link", { name: "Bắt đầu học", exact: true })).toBeVisible();
+  }
 });
 
 for (const width of [360, 1440]) {

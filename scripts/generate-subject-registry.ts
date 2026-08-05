@@ -3,6 +3,7 @@ import { basename, join } from "node:path";
 import { adaptFeSwd392 } from "../src/domain/subjects/fe-swd392-adapter";
 import { adaptMln122 } from "../src/domain/subjects/mln122-adapter";
 import { adaptMma301 } from "../src/domain/subjects/mma301-adapter";
+import { adaptPmg201c } from "../src/domain/subjects/pmg201c-adapter";
 import { subjectSchema } from "../src/domain/subjects/schemas";
 
 const dir = join(process.cwd(), "src/data/subjects");
@@ -10,6 +11,7 @@ const adapters = {
   "fe-swd392.json": adaptFeSwd392,
   "mln122.json": adaptMln122,
   "mma301.json": adaptMma301,
+  "pmg201c.json": adaptPmg201c,
   "swd392.json": subjectSchema.parse
 } as const;
 const jsonFiles = readdirSync(dir).filter((file) => file.endsWith(".json")).sort();
@@ -35,11 +37,12 @@ const subjects = files.map((file) => {
 });
 
 const imports = files.map((file, index) => `import subject${index} from "../subjects/${file}";`).join("\n");
-const adapterImports = `import { adaptFeSwd392 } from "@/domain/subjects/fe-swd392-adapter";\nimport { adaptMln122 } from "@/domain/subjects/mln122-adapter";\nimport { adaptMma301 } from "@/domain/subjects/mma301-adapter";\nimport { subjectSchema } from "@/domain/subjects/schemas";`;
+const adapterImports = `import { adaptFeSwd392 } from "@/domain/subjects/fe-swd392-adapter";\nimport { adaptMln122 } from "@/domain/subjects/mln122-adapter";\nimport { adaptMma301 } from "@/domain/subjects/mma301-adapter";\nimport { adaptPmg201c } from "@/domain/subjects/pmg201c-adapter";\nimport { subjectSchema } from "@/domain/subjects/schemas";`;
 const generatedAdapters = {
   "fe-swd392.json": "adaptFeSwd392",
   "mln122.json": "adaptMln122",
   "mma301.json": "adaptMma301",
+  "pmg201c.json": "adaptPmg201c",
   "swd392.json": "subjectSchema.parse"
 } satisfies Record<keyof typeof adapters, string>;
 const expressions = files.map((file, index) => `${generatedAdapters[file]}(subject${index})`);

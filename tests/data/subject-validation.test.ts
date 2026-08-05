@@ -3,10 +3,12 @@ import feSwdData from "@/data/subjects/fe-swd392.json";
 import data from "@/data/subjects/swd392.json";
 import mmaData from "@/data/subjects/mma301.json";
 import mlnData from "@/data/subjects/mln122.json";
+import pmgData from "@/data/subjects/pmg201c.json";
 import { subjects, subjectsBySlug } from "@/data/generated/subjects.generated";
 import { adaptFeSwd392 } from "@/domain/subjects/fe-swd392-adapter";
 import { adaptMln122, mln122RawSchema } from "@/domain/subjects/mln122-adapter";
 import { adaptMma301 } from "@/domain/subjects/mma301-adapter";
+import { adaptPmg201c } from "@/domain/subjects/pmg201c-adapter";
 import { subjectSchema } from "@/domain/subjects/schemas";
 
 const duplicatePromptGroups = [[1, 2], [30, 31], [34, 35], [55, 56], [98, 99], [105, 107], [147, 148]];
@@ -115,10 +117,42 @@ describe("subject data", () => {
     expect(subject.dataQuality.duplicatePromptGroups).toEqual([[51, 307], [158, 288], [187, 296], [283, 450]]);
     expect(subject.questions.every((question) => question.type === "single-choice" && question.options.some((option) => option.id === question.correctAnswer))).toBe(true);
     expect(mlnData).toEqual(before);
-    expect(subjects.map((item) => item.slug)).toEqual(["fe-swd392", "mln122", "mma301", "swd392"]);
+    expect(subjects.map((item) => item.slug)).toEqual(["fe-swd392", "mln122", "mma301", "pmg201c", "swd392"]);
     expect(subjectsBySlug.mln122).toEqual(subject);
     expect(subjectsBySlug["fe-swd392"]).toEqual(adaptFeSwd392(feSwdData));
     expect(subjectsBySlug["fe-swd392"].id).not.toBe(subjectsBySlug.swd392.id);
+  });
+
+  it("strictly adapts PMG201c detail metadata and answer shapes", () => {
+    const before = structuredClone(pmgData);
+    const subject = adaptPmg201c(pmgData);
+    const question221 = subject.questions.find((question) => question.number === 221)!;
+    expect(subject).toMatchObject({ id: "pmg201c", slug: "pmg201c", code: "PMG201c", contentVersion: 1, questionCount: 221, dataQuality: { needsReviewCount: 77, duplicatePromptGroups: expect.any(Array), reviewBasis: expect.stringContaining("Conflicting duplicate groups: 2") } });
+    expect(subject.questions).toHaveLength(221);
+    expect(subject.dataQuality.duplicatePromptGroups).toHaveLength(35);
+    expect(subject.questions.filter((question) => question.needsReview)).toHaveLength(77);
+    expect(subject.questions.filter((question) => question.options.length === 6)).toHaveLength(6);
+    expect(subject.questions.filter((question) => question.type === "multiple-choice").map((question) => question.number)).toEqual([90, 93, 220]);
+    expect(subject.questions.find((question) => question.number === 90)?.correctAnswers).toEqual(["C", "D"]);
+    expect(subject.questions.find((question) => question.number === 93)?.correctAnswers).toEqual(["A", "B"]);
+    expect(subject.questions.find((question) => question.number === 220)?.correctAnswers).toEqual(["A", "B"]);
+    expect(question221).toMatchObject({ id: "pmg201c-221", number: 221, needsReview: false, source: { file: "src_fe_pmg_part2(1).pdf", basis: expect.stringContaining("Part 2, source question 111") }, reviewNotes: [] });
+    expect(subject.questions.filter((question) => question.needsReview).every((question) => question.reviewNotes.length > 0)).toBe(true);
+    expect(pmgData).toEqual(before);
+  });
+
+  it("rejects invalid PMG201c counts, identity, options, answers, source ranges, and review metadata", () => {
+    const invalid = (change: (copy: typeof pmgData) => void) => { const copy = structuredClone(pmgData); change(copy); return () => adaptPmg201c(copy); };
+    expect(invalid((copy) => { copy.statistics.totalEntries = 220; })).toThrow();
+    expect(invalid((copy) => { copy.questions.splice(1, 1); })).toThrow();
+    expect(invalid((copy) => { copy.questions[1].id = copy.questions[0].id; })).toThrow(/duplicate question ID|expected ID/);
+    expect(invalid((copy) => { copy.questions[0].options[1].key = copy.questions[0].options[0].key; })).toThrow(/option keys must be unique/);
+    expect(invalid((copy) => { copy.questions[0].correctAnswers = ["X"]; })).toThrow(/correctAnswers must reference options/);
+    expect(invalid((copy) => { copy.questions[89].correctAnswers = ["C"]; })).toThrow(/at least two answers|correct answers must be C, D/);
+    expect(invalid((copy) => { copy.questions[110].source.sourceQuestionNumber = 112; })).toThrow(/Part 2 source question numbers/);
+    expect(invalid((copy) => { copy.dataQuality.needsReviewCount = 76; })).toThrow();
+    expect(invalid((copy) => { copy.dataQuality.duplicatePromptGroups.pop(); })).toThrow();
+    expect(invalid((copy) => { copy.dataQuality.conflictingDuplicatePromptGroups.pop(); })).toThrow();
   });
 
   it("supports legacy MLN122 metadata and rejects invalid corrected records", () => {
