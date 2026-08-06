@@ -3,7 +3,7 @@ import { subjectSchema } from "./schemas";
 import type { Subject } from "./types";
 
 const typeMap = { single_choice: "single-choice", multiple_choice: "multiple-choice", true_false: "true-false" } as const;
-const expectedOptionDistribution = { 2: 69, 3: 5, 4: 132, 5: 9, 6: 6 } as const;
+const expectedOptionDistribution = { 2: 109, 3: 6, 4: 194, 5: 16, 6: 8 } as const;
 
 const rawQuestionSchema = z.object({
   id: z.string().min(1),
@@ -20,7 +20,7 @@ const rawQuestionSchema = z.object({
   reviewNotes: z.array(z.string()),
   source: z.object({
     file: z.string().min(1),
-    part: z.union([z.literal(1), z.literal(2)]),
+    part: z.union([z.literal(1), z.literal(2), z.literal(3)]),
     sourceQuestionNumber: z.number().int().positive(),
     pages: z.array(z.number().int().positive()).min(1),
     basis: z.string().min(1)
@@ -31,38 +31,38 @@ export const pmg201cRawSchema = z.object({
   schemaVersion: z.literal("1.0"),
   subject: z.object({ code: z.literal("PMG201c"), title: z.string().min(1), topic: z.string().min(1), language: z.literal("en") }),
   source: z.object({
-    files: z.array(z.string().min(1)).length(2),
-    parts: z.literal(2),
-    pages: z.literal(59),
-    partPageCounts: z.object({ part1: z.literal(29), part2: z.literal(30) }),
+    files: z.array(z.string().min(1)).length(3),
+    parts: z.literal(3),
+    pages: z.literal(83),
+    partPageCounts: z.object({ part1: z.literal(29), part2: z.literal(30), part3: z.literal(24) }),
     preserveSourceAnswers: z.literal(true),
     note: z.string().min(1)
   }),
   statistics: z.object({
-    totalEntries: z.literal(221),
-    activeQuestions: z.literal(221),
-    singleChoice: z.literal(150),
-    multipleChoice: z.literal(3),
-    trueFalse: z.literal(68),
-    entriesWithWarnings: z.literal(77),
-    duplicatePromptGroups: z.literal(35),
-    conflictingDuplicateGroups: z.literal(2),
+    totalEntries: z.literal(333),
+    activeQuestions: z.literal(333),
+    singleChoice: z.literal(222),
+    multipleChoice: z.literal(4),
+    trueFalse: z.literal(107),
+    entriesWithWarnings: z.literal(146),
+    duplicatePromptGroups: z.literal(66),
+    conflictingDuplicateGroups: z.literal(9),
     optionCountDistribution: z.record(z.string(), z.number().int().nonnegative())
   }),
   dataQuality: z.object({
-    needsReviewCount: z.literal(77),
-    duplicatePromptGroups: z.array(z.array(z.number().int().positive()).min(2)).length(35),
-    conflictingDuplicatePromptGroups: z.array(z.array(z.number().int().positive()).min(2)).length(2),
+    needsReviewCount: z.literal(146),
+    duplicatePromptGroups: z.array(z.array(z.number().int().positive()).min(2)).length(66),
+    conflictingDuplicatePromptGroups: z.array(z.array(z.number().int().positive()).min(2)).length(9),
     reviewBasis: z.string().min(1)
   }),
   extractionWarnings: z.array(z.record(z.string(), z.unknown())),
-  questions: z.array(rawQuestionSchema).length(221)
+  questions: z.array(rawQuestionSchema).length(333)
 }).superRefine((raw, ctx) => {
   const numbers = new Set<number>();
   const ids = new Set<string>();
   const optionDistribution = Object.fromEntries(Object.keys(expectedOptionDistribution).map((count) => [count, 0])) as Record<string, number>;
   const typeCounts = { single_choice: 0, multiple_choice: 0, true_false: 0 };
-  const partNumbers = { 1: new Set<number>(), 2: new Set<number>() };
+  const partNumbers = { 1: new Set<number>(), 2: new Set<number>(), 3: new Set<number>() };
 
   raw.questions.forEach((question, index) => {
     const expectedNumber = index + 1;
@@ -85,7 +85,7 @@ export const pmg201cRawSchema = z.object({
     partNumbers[question.source.part].add(question.source.sourceQuestionNumber);
   });
 
-  if (JSON.stringify(typeCounts) !== JSON.stringify({ single_choice: 150, multiple_choice: 3, true_false: 68 })) ctx.addIssue({ code: "custom", path: ["questions"], message: "PMG201c type distribution mismatch" });
+  if (JSON.stringify(typeCounts) !== JSON.stringify({ single_choice: 222, multiple_choice: 4, true_false: 107 })) ctx.addIssue({ code: "custom", path: ["questions"], message: "PMG201c type distribution mismatch" });
   if (JSON.stringify(optionDistribution) !== JSON.stringify(expectedOptionDistribution)) ctx.addIssue({ code: "custom", path: ["statistics", "optionCountDistribution"], message: "PMG201c option distribution mismatch" });
   if (JSON.stringify(raw.statistics.optionCountDistribution) !== JSON.stringify(expectedOptionDistribution)) ctx.addIssue({ code: "custom", path: ["statistics", "optionCountDistribution"], message: "PMG201c declared option distribution mismatch" });
 
@@ -94,10 +94,22 @@ export const pmg201cRawSchema = z.object({
     if (JSON.stringify(question?.correctAnswers) !== JSON.stringify(answers)) ctx.addIssue({ code: "custom", path: ["questions", number - 1, "correctAnswers"], message: `Question ${number}: correct answers must be ${answers.join(", ")}` });
   }
 
-  for (const [part, total] of [[1, 110], [2, 111]] as const) {
+  for (const [part, total] of [[1, 110], [2, 111], [3, 112]] as const) {
     const expected = Array.from({ length: total }, (_, index) => index + 1);
     if (JSON.stringify([...partNumbers[part]].sort((a, b) => a - b)) !== JSON.stringify(expected)) ctx.addIssue({ code: "custom", path: ["questions"], message: `Part ${part} source question numbers must cover 1-${total}` });
   }
+
+  const normalize = (text: string) => text.normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").replace(/\s+/g, " ").trim();
+  const promptGroups = new Map<string, typeof raw.questions>();
+  for (const question of raw.questions) {
+    const key = normalize(question.question);
+    promptGroups.set(key, [...(promptGroups.get(key) ?? []), question]);
+  }
+  const duplicateGroups = [...promptGroups.values()].filter((group) => group.length > 1).map((group) => group.map((question) => question.number));
+  const conflictingGroups = [...promptGroups.values()].filter((group) => group.length > 1 && new Set(group.map((question) => question.correctAnswers.map((answer) => normalize(question.options.find((option) => option.key === answer)?.text ?? question.answerTextFromSource)).sort().join("|"))).size > 1).map((group) => group.map((question) => question.number));
+  if (JSON.stringify(raw.dataQuality.duplicatePromptGroups) !== JSON.stringify(duplicateGroups)) ctx.addIssue({ code: "custom", path: ["dataQuality", "duplicatePromptGroups"], message: "PMG201c duplicate groups mismatch" });
+  if (JSON.stringify(raw.dataQuality.conflictingDuplicatePromptGroups) !== JSON.stringify(conflictingGroups)) ctx.addIssue({ code: "custom", path: ["dataQuality", "conflictingDuplicatePromptGroups"], message: "PMG201c conflicting duplicate groups mismatch" });
+  if (raw.questions.filter((question) => question.needsReview).length !== raw.dataQuality.needsReviewCount || raw.questions.some((question) => question.needsReview !== (question.reviewNotes.length > 0))) ctx.addIssue({ code: "custom", path: ["dataQuality", "needsReviewCount"], message: "PMG201c review metadata mismatch" });
 });
 
 export function adaptPmg201c(value: unknown): Subject {

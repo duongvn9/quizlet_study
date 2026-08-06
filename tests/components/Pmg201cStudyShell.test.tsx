@@ -58,13 +58,13 @@ describe("PMG201c StudyShell", () => {
     expect(screen.getByText(reviewQuestion.reviewNotes[0])).toBeInTheDocument();
   });
 
-  it("resets PMG progress to a fresh 221-question session", async () => {
+  it("resets PMG progress to a fresh 333-question session", async () => {
     await renderAt(multipleChoice.id);
     fireEvent.click(document.querySelector<HTMLButtonElement>(".study-top .secondary")!);
     fireEvent.click(screen.getByRole("button", { name: "Đặt lại tiến độ" }));
     fireEvent.click(within(screen.getByRole("heading", { name: "Xác nhận" }).closest("[role=dialog]")!).getByRole("button", { name: "Đặt lại" }));
     await waitFor(() => expect(storage.load(subject.id, subject.contentVersion)).toMatchObject({ status: "loaded", progress: { lifetimeAttempts: 0, activeSession: { currentIndex: 0, queue: expect.any(Array) } } }));
     const loaded = storage.load(subject.id, subject.contentVersion);
-    expect(loaded.status === "loaded" && loaded.progress.activeSession?.queue).toHaveLength(221);
+    expect(loaded.status === "loaded" && loaded.progress.activeSession?.queue).toHaveLength(333);
   });
 });

@@ -9,8 +9,8 @@ const subject = adaptPmg201c(pmgData);
 describe("SubjectDetail metadata", () => {
   it("renders canonical question, review, and duplicate totals", async () => {
     render(<SubjectDetail subject={subject} />);
-    expect(screen.getByText("221 câu")).toBeVisible();
-    expect(screen.getByText("77 cần rà soát")).toBeVisible();
-    expect(screen.getByText("35 nhóm câu trùng")).toBeVisible();
+    expect(screen.getByText("333 câu")).toBeVisible();
+    expect(screen.getByText("146 cần rà soát")).toBeVisible();
+    expect(screen.getByText("66 nhóm câu trùng")).toBeVisible();
   });
 });

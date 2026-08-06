@@ -51,14 +51,14 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
     }
     if (subject.slug === "pmg201c") {
       const raw = pmg201cRawSchema.parse(value);
-      if (subject.questions.length !== 221 || subject.questionCount !== 221) throw new Error("PMG201c must have exactly 221 active questions");
+      if (subject.questions.length !== 333 || subject.questionCount !== 333) throw new Error("PMG201c must have exactly 333 active questions");
       if (!subject.questions.every((question, index) => question.number === index + 1 && question.id === `pmg201c-${String(index + 1).padStart(3, "0")}`)) throw new Error("PMG201c order or ID mismatch");
       const typeCounts = Object.fromEntries(["single-choice", "multiple-choice", "true-false"].map((type) => [type, subject.questions.filter((question) => question.type === type).length]));
-      if (JSON.stringify(typeCounts) !== JSON.stringify({ "single-choice": 150, "multiple-choice": 3, "true-false": 68 })) throw new Error("PMG201c type distribution mismatch");
+      if (JSON.stringify(typeCounts) !== JSON.stringify({ "single-choice": 222, "multiple-choice": 4, "true-false": 107 })) throw new Error("PMG201c type distribution mismatch");
       const optionCounts = Object.fromEntries([2, 3, 4, 5, 6].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]));
-      if (JSON.stringify(optionCounts) !== JSON.stringify({ 2: 69, 3: 5, 4: 132, 5: 9, 6: 6 })) throw new Error("PMG201c option distribution mismatch");
-      if (subject.dataQuality.needsReviewCount !== 77 || subject.dataQuality.duplicatePromptGroups.length !== 35 || raw.dataQuality.conflictingDuplicatePromptGroups.length !== 2) throw new Error("PMG201c review or duplicate metadata mismatch");
-      for (const [number, answers] of [[90, ["C", "D"]], [93, ["A", "B"]], [220, ["A", "B"]]] as const) if (JSON.stringify(subject.questions[number - 1].correctAnswers) !== JSON.stringify(answers)) throw new Error(`PMG201c question ${number} answers mismatch`);
+      if (JSON.stringify(optionCounts) !== JSON.stringify({ 2: 109, 3: 6, 4: 194, 5: 16, 6: 8 })) throw new Error("PMG201c option distribution mismatch");
+      if (subject.dataQuality.needsReviewCount !== 146 || subject.dataQuality.duplicatePromptGroups.length !== 66 || raw.dataQuality.conflictingDuplicatePromptGroups.length !== 9) throw new Error("PMG201c review or duplicate metadata mismatch");
+      for (const [number, answers] of [[90, ["C", "D"]], [93, ["A", "B"]], [220, ["A", "B"]], [333, ["A", "B"]]] as const) if (JSON.stringify(subject.questions[number - 1].correctAnswers) !== JSON.stringify(answers)) throw new Error(`PMG201c question ${number} answers mismatch`);
     }
     if (subject.slug === "mln122") {
       const raw = mln122RawSchema.parse(value);

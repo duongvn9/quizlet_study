@@ -1,7 +1,9 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
 import mmaData from "@/data/subjects/mma301.json";
+import pmgData from "@/data/subjects/pmg201c.json";
 import { adaptMma301 } from "@/domain/subjects/mma301-adapter";
+import { adaptPmg201c } from "@/domain/subjects/pmg201c-adapter";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import { createProgress, createSession } from "@/domain/study/create-session";
 import { answer } from "@/domain/study/reducer";
@@ -50,6 +52,14 @@ describe("storage", () => {
     storage.save(progress);
     expect(storage.load(subject.id, subject.contentVersion, subject.questions.map((question) => question.id), {}, {}).status).toBe("loaded");
     expect(JSON.parse(localStorage.getItem(subjectKey(subject.id))!)).toEqual(progress);
+  });
+
+  it("loads existing 221-question PMG201c progress after the additive expansion", () => {
+    const pmg = adaptPmg201c(pmgData);
+    const legacyQuestions = pmg.questions.slice(0, 221);
+    const progress = createProgress(pmg.id, pmg.contentVersion, legacyQuestions);
+    storage.save(progress);
+    expect(storage.load(pmg.id, pmg.contentVersion, pmg.questions.map((question) => question.id), Object.fromEntries(pmg.questions.map((question) => [question.id, question.options.map((option) => option.id)])))).toEqual({ status: "loaded", progress });
   });
 
   it("migrates MMA301 v1 once, normalizes Q176 legacy selection, and recomputes exact-set counters", () => {

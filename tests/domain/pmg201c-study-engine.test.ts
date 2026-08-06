@@ -30,16 +30,16 @@ describe("PMG201c study domain", () => {
   it("schedules one retry and counts duplicate queue instances once", () => {
     const progress = answer(fresh(), question, question.correctAnswers.slice(0, 1), deps);
     expect(progress.activeSession?.queue.filter((item) => item.questionId === question.id)).toHaveLength(2);
-    expect(selectLearnCounters(progress, subject.questions.map((item) => item.id))).toMatchObject({ presentedCount: 90, total: 221 });
+    expect(selectLearnCounters(progress, subject.questions.map((item) => item.id))).toMatchObject({ presentedCount: 90, total: 333 });
   });
 
-  it("creates and resets canonical progress for all 221 questions", () => {
+  it("creates and resets canonical progress for all 333 questions", () => {
     const attempted = answer(fresh(), question, question.correctAnswers, deps);
     const reset = createProgress(subject.id, subject.contentVersion, subject.questions);
-    expect(Object.keys(attempted.questionProgress)).toHaveLength(221);
+    expect(Object.keys(attempted.questionProgress)).toHaveLength(333);
     expect(attempted.lifetimeAttempts).toBe(1);
     expect(reset).toMatchObject({ lifetimeAttempts: 0, activeSession: null, completedSessionCount: 0 });
-    expect(Object.keys(reset.questionProgress)).toHaveLength(221);
+    expect(Object.keys(reset.questionProgress)).toHaveLength(333);
     expect(Object.values(reset.questionProgress).every((item) => item.status === "new" && item.totalAttempts === 0)).toBe(true);
   });
 });

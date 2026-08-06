@@ -9,36 +9,38 @@
   "source": {
     "files": [
       "src_fe_pmg_part1(1).pdf",
-      "src_fe_pmg_part2(1).pdf"
+      "src_fe_pmg_part2(1).pdf",
+      "src_fe_pmg_part3.pdf"
     ],
-    "parts": 2,
-    "pages": 59,
+    "parts": 3,
+    "pages": 83,
     "partPageCounts": {
       "part1": 29,
-      "part2": 30
+      "part2": 30,
+      "part3": 24
     },
     "preserveSourceAnswers": true,
-    "note": "Questions and answer keys were extracted from the two supplied Project Management question-bank PDFs. No external textbook or web source was used to verify or change the answer key. Duplicate prompts were preserved and flagged."
+    "note": "Questions and answer keys were extracted from the three supplied Project Management question-bank PDFs. No external textbook or web source was used to verify or change the answer key. Duplicate prompts were preserved and flagged."
   },
   "statistics": {
-    "totalEntries": 221,
-    "activeQuestions": 221,
-    "singleChoice": 150,
-    "multipleChoice": 3,
-    "trueFalse": 68,
-    "entriesWithWarnings": 77,
-    "duplicatePromptGroups": 35,
-    "conflictingDuplicateGroups": 2,
+    "totalEntries": 333,
+    "activeQuestions": 333,
+    "singleChoice": 222,
+    "multipleChoice": 4,
+    "trueFalse": 107,
+    "entriesWithWarnings": 146,
+    "duplicatePromptGroups": 66,
+    "conflictingDuplicateGroups": 9,
     "optionCountDistribution": {
-      "2": 69,
-      "3": 5,
-      "4": 132,
-      "5": 9,
-      "6": 6
+      "2": 109,
+      "3": 6,
+      "4": 194,
+      "5": 16,
+      "6": 8
     }
   },
   "dataQuality": {
-    "needsReviewCount": 77,
+    "needsReviewCount": 146,
     "duplicatePromptGroups": [
       [
         1,
@@ -49,13 +51,29 @@
         188
       ],
       [
+        3,
+        251
+      ],
+      [
         5,
         116
+      ],
+      [
+        6,
+        236
       ],
       [
         7,
         97,
         144
+      ],
+      [
+        14,
+        283
+      ],
+      [
+        16,
+        243
       ],
       [
         18,
@@ -67,15 +85,29 @@
       ],
       [
         22,
-        171
+        171,
+        271
       ],
       [
         24,
         204
       ],
       [
+        25,
+        240
+      ],
+      [
         26,
         166
+      ],
+      [
+        27,
+        222,
+        312
+      ],
+      [
+        28,
+        298
       ],
       [
         30,
@@ -95,6 +127,15 @@
         34,
         67,
         186
+      ],
+      [
+        37,
+        230,
+        278
+      ],
+      [
+        40,
+        223
       ],
       [
         42,
@@ -130,6 +171,18 @@
         175
       ],
       [
+        63,
+        261
+      ],
+      [
+        71,
+        233
+      ],
+      [
+        72,
+        317
+      ],
+      [
         73,
         146
       ],
@@ -143,17 +196,31 @@
         205
       ],
       [
+        77,
+        260
+      ],
+      [
         80,
         117,
-        158
+        158,
+        258
+      ],
+      [
+        81,
+        247
       ],
       [
         82,
-        151
+        151,
+        246
       ],
       [
         88,
         195
+      ],
+      [
+        94,
+        256
       ],
       [
         95,
@@ -162,6 +229,11 @@
       [
         98,
         219
+      ],
+      [
+        109,
+        250,
+        286
       ],
       [
         112,
@@ -180,23 +252,116 @@
         191
       ],
       [
+        131,
+        279
+      ],
+      [
+        134,
+        303
+      ],
+      [
         140,
         184
       ],
       [
         141,
         185
+      ],
+      [
+        160,
+        262
+      ],
+      [
+        163,
+        265
+      ],
+      [
+        164,
+        266
+      ],
+      [
+        190,
+        272
+      ],
+      [
+        196,
+        270
+      ],
+      [
+        206,
+        263,
+        332
+      ],
+      [
+        208,
+        264
+      ],
+      [
+        213,
+        249
+      ],
+      [
+        214,
+        238
+      ],
+      [
+        221,
+        281
+      ],
+      [
+        224,
+        315
+      ],
+      [
+        225,
+        322
+      ],
+      [
+        228,
+        257
       ]
     ],
     "conflictingDuplicatePromptGroups": [
+      [
+        14,
+        283
+      ],
       [
         24,
         204
       ],
       [
+        27,
+        222,
+        312
+      ],
+      [
         80,
         117,
-        158
+        158,
+        258
+      ],
+      [
+        109,
+        250,
+        286
+      ],
+      [
+        131,
+        279
+      ],
+      [
+        206,
+        263,
+        332
+      ],
+      [
+        224,
+        315
+      ],
+      [
+        225,
+        322
       ]
     ],
     "reviewBasis": "Supplied source PDFs only; answers were not independently verified against a PMG201c textbook."
@@ -209,11 +374,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 1,
           "part": 1,
           "sourceQuestionNumber": 1,
           "page": 2
         },
         {
+          "number": 147,
           "part": 2,
           "sourceQuestionNumber": 37,
           "page": 11
@@ -228,14 +395,37 @@
       ],
       "sourceLocations": [
         {
+          "number": 2,
           "part": 1,
           "sourceQuestionNumber": 2,
           "page": 2
         },
         {
+          "number": 188,
           "part": 2,
           "sourceQuestionNumber": 78,
           "page": 21
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        3,
+        251
+      ],
+      "sourceLocations": [
+        {
+          "number": 3,
+          "part": 1,
+          "sourceQuestionNumber": 3,
+          "page": 2
+        },
+        {
+          "number": 251,
+          "part": 3,
+          "sourceQuestionNumber": 30,
+          "page": 7
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -247,14 +437,37 @@
       ],
       "sourceLocations": [
         {
+          "number": 5,
           "part": 1,
           "sourceQuestionNumber": 5,
           "page": 3
         },
         {
+          "number": 116,
           "part": 2,
           "sourceQuestionNumber": 6,
           "page": 3
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        6,
+        236
+      ],
+      "sourceLocations": [
+        {
+          "number": 6,
+          "part": 1,
+          "sourceQuestionNumber": 6,
+          "page": 3
+        },
+        {
+          "number": 236,
+          "part": 3,
+          "sourceQuestionNumber": 15,
+          "page": 4
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -267,19 +480,85 @@
       ],
       "sourceLocations": [
         {
+          "number": 7,
           "part": 1,
           "sourceQuestionNumber": 7,
           "page": 3
         },
         {
+          "number": 97,
           "part": 1,
           "sourceQuestionNumber": 97,
           "page": 26
         },
         {
+          "number": 144,
           "part": 2,
           "sourceQuestionNumber": 34,
           "page": 10
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        14,
+        283
+      ],
+      "sourceLocations": [
+        {
+          "number": 14,
+          "part": 1,
+          "sourceQuestionNumber": 14,
+          "page": 5
+        },
+        {
+          "number": 283,
+          "part": 3,
+          "sourceQuestionNumber": 62,
+          "page": 14
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        14,
+        283
+      ],
+      "sourceLocations": [
+        {
+          "number": 14,
+          "part": 1,
+          "sourceQuestionNumber": 14,
+          "page": 5
+        },
+        {
+          "number": 283,
+          "part": 3,
+          "sourceQuestionNumber": 62,
+          "page": 14
+        }
+      ],
+      "warning": "Conflicting answer or option mapping preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        16,
+        243
+      ],
+      "sourceLocations": [
+        {
+          "number": 16,
+          "part": 1,
+          "sourceQuestionNumber": 16,
+          "page": 5
+        },
+        {
+          "number": 243,
+          "part": 3,
+          "sourceQuestionNumber": 22,
+          "page": 5
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -291,11 +570,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 18,
           "part": 1,
           "sourceQuestionNumber": 18,
           "page": 6
         },
         {
+          "number": 120,
           "part": 2,
           "sourceQuestionNumber": 10,
           "page": 4
@@ -310,11 +591,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 21,
           "part": 1,
           "sourceQuestionNumber": 21,
           "page": 7
         },
         {
+          "number": 79,
           "part": 1,
           "sourceQuestionNumber": 79,
           "page": 21
@@ -325,18 +608,27 @@
     {
       "numbers": [
         22,
-        171
+        171,
+        271
       ],
       "sourceLocations": [
         {
+          "number": 22,
           "part": 1,
           "sourceQuestionNumber": 22,
           "page": 7
         },
         {
+          "number": 171,
           "part": 2,
           "sourceQuestionNumber": 61,
           "page": 17
+        },
+        {
+          "number": 271,
+          "part": 3,
+          "sourceQuestionNumber": 50,
+          "page": 11
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -348,17 +640,61 @@
       ],
       "sourceLocations": [
         {
+          "number": 24,
           "part": 1,
           "sourceQuestionNumber": 24,
           "page": 7
         },
         {
+          "number": 204,
           "part": 2,
           "sourceQuestionNumber": 94,
           "page": 25
         }
       ],
-      "warning": "Duplicate prompt preserved, but source answer/option mapping differs and requires review."
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        24,
+        204
+      ],
+      "sourceLocations": [
+        {
+          "number": 24,
+          "part": 1,
+          "sourceQuestionNumber": 24,
+          "page": 7
+        },
+        {
+          "number": 204,
+          "part": 2,
+          "sourceQuestionNumber": 94,
+          "page": 25
+        }
+      ],
+      "warning": "Conflicting answer or option mapping preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        25,
+        240
+      ],
+      "sourceLocations": [
+        {
+          "number": 25,
+          "part": 1,
+          "sourceQuestionNumber": 25,
+          "page": 8
+        },
+        {
+          "number": 240,
+          "part": 3,
+          "sourceQuestionNumber": 19,
+          "page": 5
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
     },
     {
       "numbers": [
@@ -367,14 +703,93 @@
       ],
       "sourceLocations": [
         {
+          "number": 26,
           "part": 1,
           "sourceQuestionNumber": 26,
           "page": 8
         },
         {
+          "number": 166,
           "part": 2,
           "sourceQuestionNumber": 56,
           "page": 16
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        27,
+        222,
+        312
+      ],
+      "sourceLocations": [
+        {
+          "number": 27,
+          "part": 1,
+          "sourceQuestionNumber": 27,
+          "page": 8
+        },
+        {
+          "number": 222,
+          "part": 3,
+          "sourceQuestionNumber": 1,
+          "page": 1
+        },
+        {
+          "number": 312,
+          "part": 3,
+          "sourceQuestionNumber": 91,
+          "page": 20
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        27,
+        222,
+        312
+      ],
+      "sourceLocations": [
+        {
+          "number": 27,
+          "part": 1,
+          "sourceQuestionNumber": 27,
+          "page": 8
+        },
+        {
+          "number": 222,
+          "part": 3,
+          "sourceQuestionNumber": 1,
+          "page": 1
+        },
+        {
+          "number": 312,
+          "part": 3,
+          "sourceQuestionNumber": 91,
+          "page": 20
+        }
+      ],
+      "warning": "Conflicting answer or option mapping preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        28,
+        298
+      ],
+      "sourceLocations": [
+        {
+          "number": 28,
+          "part": 1,
+          "sourceQuestionNumber": 28,
+          "page": 8
+        },
+        {
+          "number": 298,
+          "part": 3,
+          "sourceQuestionNumber": 77,
+          "page": 17
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -386,11 +801,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 30,
           "part": 1,
           "sourceQuestionNumber": 30,
           "page": 9
         },
         {
+          "number": 126,
           "part": 2,
           "sourceQuestionNumber": 16,
           "page": 6
@@ -407,21 +824,25 @@
       ],
       "sourceLocations": [
         {
+          "number": 32,
           "part": 1,
           "sourceQuestionNumber": 32,
           "page": 9
         },
         {
+          "number": 59,
           "part": 1,
           "sourceQuestionNumber": 59,
           "page": 16
         },
         {
+          "number": 167,
           "part": 2,
           "sourceQuestionNumber": 57,
           "page": 16
         },
         {
+          "number": 202,
           "part": 2,
           "sourceQuestionNumber": 92,
           "page": 25
@@ -436,11 +857,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 33,
           "part": 1,
           "sourceQuestionNumber": 33,
           "page": 10
         },
         {
+          "number": 103,
           "part": 1,
           "sourceQuestionNumber": 103,
           "page": 27
@@ -456,19 +879,71 @@
       ],
       "sourceLocations": [
         {
+          "number": 34,
           "part": 1,
           "sourceQuestionNumber": 34,
           "page": 10
         },
         {
+          "number": 67,
           "part": 1,
           "sourceQuestionNumber": 67,
           "page": 18
         },
         {
+          "number": 186,
           "part": 2,
           "sourceQuestionNumber": 76,
           "page": 21
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        37,
+        230,
+        278
+      ],
+      "sourceLocations": [
+        {
+          "number": 37,
+          "part": 1,
+          "sourceQuestionNumber": 37,
+          "page": 11
+        },
+        {
+          "number": 230,
+          "part": 3,
+          "sourceQuestionNumber": 9,
+          "page": 2
+        },
+        {
+          "number": 278,
+          "part": 3,
+          "sourceQuestionNumber": 57,
+          "page": 12
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        40,
+        223
+      ],
+      "sourceLocations": [
+        {
+          "number": 40,
+          "part": 1,
+          "sourceQuestionNumber": 40,
+          "page": 11
+        },
+        {
+          "number": 223,
+          "part": 3,
+          "sourceQuestionNumber": 2,
+          "page": 1
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -481,16 +956,19 @@
       ],
       "sourceLocations": [
         {
+          "number": 42,
           "part": 1,
           "sourceQuestionNumber": 42,
           "page": 12
         },
         {
+          "number": 123,
           "part": 2,
           "sourceQuestionNumber": 13,
           "page": 5
         },
         {
+          "number": 189,
           "part": 2,
           "sourceQuestionNumber": 79,
           "page": 21
@@ -505,11 +983,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 43,
           "part": 1,
           "sourceQuestionNumber": 43,
           "page": 12
         },
         {
+          "number": 200,
           "part": 2,
           "sourceQuestionNumber": 90,
           "page": 24
@@ -524,11 +1004,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 46,
           "part": 1,
           "sourceQuestionNumber": 46,
           "page": 13
         },
         {
+          "number": 182,
           "part": 2,
           "sourceQuestionNumber": 72,
           "page": 20
@@ -543,11 +1025,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 47,
           "part": 1,
           "sourceQuestionNumber": 47,
           "page": 13
         },
         {
+          "number": 165,
           "part": 2,
           "sourceQuestionNumber": 55,
           "page": 15
@@ -562,11 +1046,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 49,
           "part": 1,
           "sourceQuestionNumber": 49,
           "page": 14
         },
         {
+          "number": 198,
           "part": 2,
           "sourceQuestionNumber": 88,
           "page": 24
@@ -581,11 +1067,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 51,
           "part": 1,
           "sourceQuestionNumber": 51,
           "page": 14
         },
         {
+          "number": 107,
           "part": 1,
           "sourceQuestionNumber": 107,
           "page": 28
@@ -600,11 +1088,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 52,
           "part": 1,
           "sourceQuestionNumber": 52,
           "page": 14
         },
         {
+          "number": 154,
           "part": 2,
           "sourceQuestionNumber": 44,
           "page": 13
@@ -619,14 +1109,79 @@
       ],
       "sourceLocations": [
         {
+          "number": 57,
           "part": 1,
           "sourceQuestionNumber": 57,
           "page": 16
         },
         {
+          "number": 175,
           "part": 2,
           "sourceQuestionNumber": 65,
           "page": 18
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        63,
+        261
+      ],
+      "sourceLocations": [
+        {
+          "number": 63,
+          "part": 1,
+          "sourceQuestionNumber": 63,
+          "page": 17
+        },
+        {
+          "number": 261,
+          "part": 3,
+          "sourceQuestionNumber": 40,
+          "page": 9
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        71,
+        233
+      ],
+      "sourceLocations": [
+        {
+          "number": 71,
+          "part": 1,
+          "sourceQuestionNumber": 71,
+          "page": 19
+        },
+        {
+          "number": 233,
+          "part": 3,
+          "sourceQuestionNumber": 12,
+          "page": 3
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        72,
+        317
+      ],
+      "sourceLocations": [
+        {
+          "number": 72,
+          "part": 1,
+          "sourceQuestionNumber": 72,
+          "page": 19
+        },
+        {
+          "number": 317,
+          "part": 3,
+          "sourceQuestionNumber": 96,
+          "page": 21
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -638,11 +1193,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 73,
           "part": 1,
           "sourceQuestionNumber": 73,
           "page": 20
         },
         {
+          "number": 146,
           "part": 2,
           "sourceQuestionNumber": 36,
           "page": 11
@@ -658,16 +1215,19 @@
       ],
       "sourceLocations": [
         {
+          "number": 75,
           "part": 1,
           "sourceQuestionNumber": 75,
           "page": 20
         },
         {
+          "number": 128,
           "part": 2,
           "sourceQuestionNumber": 18,
           "page": 6
         },
         {
+          "number": 201,
           "part": 2,
           "sourceQuestionNumber": 91,
           "page": 25
@@ -682,11 +1242,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 76,
           "part": 1,
           "sourceQuestionNumber": 76,
           "page": 20
         },
         {
+          "number": 205,
           "part": 2,
           "sourceQuestionNumber": 95,
           "page": 26
@@ -696,44 +1258,140 @@
     },
     {
       "numbers": [
-        80,
-        117,
-        158
+        77,
+        260
       ],
       "sourceLocations": [
         {
+          "number": 77,
+          "part": 1,
+          "sourceQuestionNumber": 77,
+          "page": 21
+        },
+        {
+          "number": 260,
+          "part": 3,
+          "sourceQuestionNumber": 39,
+          "page": 9
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        80,
+        117,
+        158,
+        258
+      ],
+      "sourceLocations": [
+        {
+          "number": 80,
           "part": 1,
           "sourceQuestionNumber": 80,
           "page": 21
         },
         {
+          "number": 117,
           "part": 2,
           "sourceQuestionNumber": 7,
           "page": 3
         },
         {
+          "number": 158,
           "part": 2,
           "sourceQuestionNumber": 48,
           "page": 14
+        },
+        {
+          "number": 258,
+          "part": 3,
+          "sourceQuestionNumber": 37,
+          "page": 8
         }
       ],
-      "warning": "Duplicate prompt preserved, but source answer/option mapping differs and requires review."
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        80,
+        117,
+        158,
+        258
+      ],
+      "sourceLocations": [
+        {
+          "number": 80,
+          "part": 1,
+          "sourceQuestionNumber": 80,
+          "page": 21
+        },
+        {
+          "number": 117,
+          "part": 2,
+          "sourceQuestionNumber": 7,
+          "page": 3
+        },
+        {
+          "number": 158,
+          "part": 2,
+          "sourceQuestionNumber": 48,
+          "page": 14
+        },
+        {
+          "number": 258,
+          "part": 3,
+          "sourceQuestionNumber": 37,
+          "page": 8
+        }
+      ],
+      "warning": "Conflicting answer or option mapping preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        81,
+        247
+      ],
+      "sourceLocations": [
+        {
+          "number": 81,
+          "part": 1,
+          "sourceQuestionNumber": 81,
+          "page": 22
+        },
+        {
+          "number": 247,
+          "part": 3,
+          "sourceQuestionNumber": 26,
+          "page": 6
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
     },
     {
       "numbers": [
         82,
-        151
+        151,
+        246
       ],
       "sourceLocations": [
         {
+          "number": 82,
           "part": 1,
           "sourceQuestionNumber": 82,
           "page": 22
         },
         {
+          "number": 151,
           "part": 2,
           "sourceQuestionNumber": 41,
           "page": 12
+        },
+        {
+          "number": 246,
+          "part": 3,
+          "sourceQuestionNumber": 25,
+          "page": 6
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -745,14 +1403,37 @@
       ],
       "sourceLocations": [
         {
+          "number": 88,
           "part": 1,
           "sourceQuestionNumber": 88,
           "page": 23
         },
         {
+          "number": 195,
           "part": 2,
           "sourceQuestionNumber": 85,
           "page": 23
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        94,
+        256
+      ],
+      "sourceLocations": [
+        {
+          "number": 94,
+          "part": 1,
+          "sourceQuestionNumber": 94,
+          "page": 25
+        },
+        {
+          "number": 256,
+          "part": 3,
+          "sourceQuestionNumber": 35,
+          "page": 8
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -764,11 +1445,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 95,
           "part": 1,
           "sourceQuestionNumber": 95,
           "page": 25
         },
         {
+          "number": 142,
           "part": 2,
           "sourceQuestionNumber": 32,
           "page": 10
@@ -783,11 +1466,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 98,
           "part": 1,
           "sourceQuestionNumber": 98,
           "page": 26
         },
         {
+          "number": 219,
           "part": 2,
           "sourceQuestionNumber": 109,
           "page": 29
@@ -797,16 +1482,74 @@
     },
     {
       "numbers": [
+        109,
+        250,
+        286
+      ],
+      "sourceLocations": [
+        {
+          "number": 109,
+          "part": 1,
+          "sourceQuestionNumber": 109,
+          "page": 29
+        },
+        {
+          "number": 250,
+          "part": 3,
+          "sourceQuestionNumber": 29,
+          "page": 7
+        },
+        {
+          "number": 286,
+          "part": 3,
+          "sourceQuestionNumber": 65,
+          "page": 14
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        109,
+        250,
+        286
+      ],
+      "sourceLocations": [
+        {
+          "number": 109,
+          "part": 1,
+          "sourceQuestionNumber": 109,
+          "page": 29
+        },
+        {
+          "number": 250,
+          "part": 3,
+          "sourceQuestionNumber": 29,
+          "page": 7
+        },
+        {
+          "number": 286,
+          "part": 3,
+          "sourceQuestionNumber": 65,
+          "page": 14
+        }
+      ],
+      "warning": "Conflicting answer or option mapping preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
         112,
         155
       ],
       "sourceLocations": [
         {
+          "number": 112,
           "part": 2,
           "sourceQuestionNumber": 2,
           "page": 2
         },
         {
+          "number": 155,
           "part": 2,
           "sourceQuestionNumber": 45,
           "page": 13
@@ -821,11 +1564,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 115,
           "part": 2,
           "sourceQuestionNumber": 5,
           "page": 3
         },
         {
+          "number": 203,
           "part": 2,
           "sourceQuestionNumber": 93,
           "page": 25
@@ -840,11 +1585,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 124,
           "part": 2,
           "sourceQuestionNumber": 14,
           "page": 5
         },
         {
+          "number": 207,
           "part": 2,
           "sourceQuestionNumber": 97,
           "page": 26
@@ -859,14 +1606,79 @@
       ],
       "sourceLocations": [
         {
+          "number": 130,
           "part": 2,
           "sourceQuestionNumber": 20,
           "page": 7
         },
         {
+          "number": 191,
           "part": 2,
           "sourceQuestionNumber": 81,
           "page": 22
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        131,
+        279
+      ],
+      "sourceLocations": [
+        {
+          "number": 131,
+          "part": 2,
+          "sourceQuestionNumber": 21,
+          "page": 7
+        },
+        {
+          "number": 279,
+          "part": 3,
+          "sourceQuestionNumber": 58,
+          "page": 13
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        131,
+        279
+      ],
+      "sourceLocations": [
+        {
+          "number": 131,
+          "part": 2,
+          "sourceQuestionNumber": 21,
+          "page": 7
+        },
+        {
+          "number": 279,
+          "part": 3,
+          "sourceQuestionNumber": 58,
+          "page": 13
+        }
+      ],
+      "warning": "Conflicting answer or option mapping preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        134,
+        303
+      ],
+      "sourceLocations": [
+        {
+          "number": 134,
+          "part": 2,
+          "sourceQuestionNumber": 24,
+          "page": 8
+        },
+        {
+          "number": 303,
+          "part": 3,
+          "sourceQuestionNumber": 82,
+          "page": 18
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -878,11 +1690,13 @@
       ],
       "sourceLocations": [
         {
+          "number": 140,
           "part": 2,
           "sourceQuestionNumber": 30,
           "page": 9
         },
         {
+          "number": 184,
           "part": 2,
           "sourceQuestionNumber": 74,
           "page": 20
@@ -897,14 +1711,366 @@
       ],
       "sourceLocations": [
         {
+          "number": 141,
           "part": 2,
           "sourceQuestionNumber": 31,
           "page": 10
         },
         {
+          "number": 185,
           "part": 2,
           "sourceQuestionNumber": 75,
           "page": 20
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        160,
+        262
+      ],
+      "sourceLocations": [
+        {
+          "number": 160,
+          "part": 2,
+          "sourceQuestionNumber": 50,
+          "page": 14
+        },
+        {
+          "number": 262,
+          "part": 3,
+          "sourceQuestionNumber": 41,
+          "page": 9
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        163,
+        265
+      ],
+      "sourceLocations": [
+        {
+          "number": 163,
+          "part": 2,
+          "sourceQuestionNumber": 53,
+          "page": 15
+        },
+        {
+          "number": 265,
+          "part": 3,
+          "sourceQuestionNumber": 44,
+          "page": 10
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        164,
+        266
+      ],
+      "sourceLocations": [
+        {
+          "number": 164,
+          "part": 2,
+          "sourceQuestionNumber": 54,
+          "page": 15
+        },
+        {
+          "number": 266,
+          "part": 3,
+          "sourceQuestionNumber": 45,
+          "page": 10
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        190,
+        272
+      ],
+      "sourceLocations": [
+        {
+          "number": 190,
+          "part": 2,
+          "sourceQuestionNumber": 80,
+          "page": 22
+        },
+        {
+          "number": 272,
+          "part": 3,
+          "sourceQuestionNumber": 51,
+          "page": 11
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        196,
+        270
+      ],
+      "sourceLocations": [
+        {
+          "number": 196,
+          "part": 2,
+          "sourceQuestionNumber": 86,
+          "page": 23
+        },
+        {
+          "number": 270,
+          "part": 3,
+          "sourceQuestionNumber": 49,
+          "page": 11
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        206,
+        263,
+        332
+      ],
+      "sourceLocations": [
+        {
+          "number": 206,
+          "part": 2,
+          "sourceQuestionNumber": 96,
+          "page": 26
+        },
+        {
+          "number": 263,
+          "part": 3,
+          "sourceQuestionNumber": 42,
+          "page": 9
+        },
+        {
+          "number": 332,
+          "part": 3,
+          "sourceQuestionNumber": 111,
+          "page": 24
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        206,
+        263,
+        332
+      ],
+      "sourceLocations": [
+        {
+          "number": 206,
+          "part": 2,
+          "sourceQuestionNumber": 96,
+          "page": 26
+        },
+        {
+          "number": 263,
+          "part": 3,
+          "sourceQuestionNumber": 42,
+          "page": 9
+        },
+        {
+          "number": 332,
+          "part": 3,
+          "sourceQuestionNumber": 111,
+          "page": 24
+        }
+      ],
+      "warning": "Conflicting answer or option mapping preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        208,
+        264
+      ],
+      "sourceLocations": [
+        {
+          "number": 208,
+          "part": 2,
+          "sourceQuestionNumber": 98,
+          "page": 26
+        },
+        {
+          "number": 264,
+          "part": 3,
+          "sourceQuestionNumber": 43,
+          "page": 10
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        213,
+        249
+      ],
+      "sourceLocations": [
+        {
+          "number": 213,
+          "part": 2,
+          "sourceQuestionNumber": 103,
+          "page": 28
+        },
+        {
+          "number": 249,
+          "part": 3,
+          "sourceQuestionNumber": 28,
+          "page": 7
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        214,
+        238
+      ],
+      "sourceLocations": [
+        {
+          "number": 214,
+          "part": 2,
+          "sourceQuestionNumber": 104,
+          "page": 28
+        },
+        {
+          "number": 238,
+          "part": 3,
+          "sourceQuestionNumber": 17,
+          "page": 4
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        221,
+        281
+      ],
+      "sourceLocations": [
+        {
+          "number": 221,
+          "part": 2,
+          "sourceQuestionNumber": 111,
+          "page": 30
+        },
+        {
+          "number": 281,
+          "part": 3,
+          "sourceQuestionNumber": 60,
+          "page": 13
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        224,
+        315
+      ],
+      "sourceLocations": [
+        {
+          "number": 224,
+          "part": 3,
+          "sourceQuestionNumber": 3,
+          "page": 1
+        },
+        {
+          "number": 315,
+          "part": 3,
+          "sourceQuestionNumber": 94,
+          "page": 20
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        224,
+        315
+      ],
+      "sourceLocations": [
+        {
+          "number": 224,
+          "part": 3,
+          "sourceQuestionNumber": 3,
+          "page": 1
+        },
+        {
+          "number": 315,
+          "part": 3,
+          "sourceQuestionNumber": 94,
+          "page": 20
+        }
+      ],
+      "warning": "Conflicting answer or option mapping preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        225,
+        322
+      ],
+      "sourceLocations": [
+        {
+          "number": 225,
+          "part": 3,
+          "sourceQuestionNumber": 4,
+          "page": 1
+        },
+        {
+          "number": 322,
+          "part": 3,
+          "sourceQuestionNumber": 101,
+          "page": 22
+        }
+      ],
+      "warning": "Duplicate question prompt preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        225,
+        322
+      ],
+      "sourceLocations": [
+        {
+          "number": 225,
+          "part": 3,
+          "sourceQuestionNumber": 4,
+          "page": 1
+        },
+        {
+          "number": 322,
+          "part": 3,
+          "sourceQuestionNumber": 101,
+          "page": 22
+        }
+      ],
+      "warning": "Conflicting answer or option mapping preserved from the supplied source PDFs."
+    },
+    {
+      "numbers": [
+        228,
+        257
+      ],
+      "sourceLocations": [
+        {
+          "number": 228,
+          "part": 3,
+          "sourceQuestionNumber": 7,
+          "page": 2
+        },
+        {
+          "number": 257,
+          "part": 3,
+          "sourceQuestionNumber": 36,
+          "page": 8
         }
       ],
       "warning": "Duplicate question prompt preserved from the supplied source PDFs."
@@ -1027,8 +2193,10 @@
       ],
       "id": "PMG201c-003",
       "number": 3,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 251."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -1149,8 +2317,10 @@
       ],
       "id": "PMG201c-006",
       "number": 6,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 236."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -1511,8 +2681,11 @@
       ],
       "id": "PMG201c-014",
       "number": 14,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 283.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -1591,8 +2764,10 @@
       ],
       "id": "PMG201c-016",
       "number": 16,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 243."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -1841,7 +3016,7 @@
       "number": 22,
       "needsReview": true,
       "reviewNotes": [
-        "Duplicate question prompt also appears at global question(s): 171."
+        "Duplicate question prompt also appears at global question(s): 171, 271."
       ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
@@ -1931,8 +3106,9 @@
       "number": 24,
       "needsReview": true,
       "reviewNotes": [
+        "Duplicate prompt has a different source answer/option mapping; review before treating the entries as equivalent.",
         "Duplicate question prompt also appears at global question(s): 204.",
-        "Duplicate prompt has a different source answer/option mapping; review before treating the entries as equivalent."
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
       ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
@@ -1976,8 +3152,10 @@
       ],
       "id": "PMG201c-025",
       "number": 25,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 240."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -2058,8 +3236,11 @@
       ],
       "id": "PMG201c-027",
       "number": 27,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 222, 312.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -2102,8 +3283,10 @@
       ],
       "id": "PMG201c-028",
       "number": 28,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 298."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -2482,8 +3665,10 @@
       ],
       "id": "PMG201c-037",
       "number": 37,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 230, 278."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -2614,8 +3799,10 @@
       ],
       "id": "PMG201c-040",
       "number": 40,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 223."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -3608,8 +4795,10 @@
       ],
       "id": "PMG201c-063",
       "number": 63,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 261."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -3938,8 +5127,10 @@
       ],
       "id": "PMG201c-071",
       "number": 71,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 233."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -3974,8 +5165,10 @@
       ],
       "id": "PMG201c-072",
       "number": 72,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 317."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -4184,8 +5377,10 @@
       ],
       "id": "PMG201c-077",
       "number": 77,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 260."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -4320,8 +5515,9 @@
       "number": 80,
       "needsReview": true,
       "reviewNotes": [
-        "Duplicate question prompt also appears at global question(s): 117, 158.",
-        "Duplicate prompt has a different source answer/option mapping; review before treating the entries as equivalent."
+        "Duplicate prompt has a different source answer/option mapping; review before treating the entries as equivalent.",
+        "Duplicate question prompt also appears at global question(s): 117, 158, 258.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
       ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
@@ -4365,8 +5561,10 @@
       ],
       "id": "PMG201c-081",
       "number": 81,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 247."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -4411,7 +5609,7 @@
       "number": 82,
       "needsReview": true,
       "reviewNotes": [
-        "Duplicate question prompt also appears at global question(s): 151."
+        "Duplicate question prompt also appears at global question(s): 151, 246."
       ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
@@ -4911,8 +6109,10 @@
       ],
       "id": "PMG201c-094",
       "number": 94,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 256."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -5573,8 +6773,11 @@
       ],
       "id": "PMG201c-109",
       "number": 109,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 250, 286.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
       "source": {
         "file": "src_fe_pmg_part1(1).pdf",
         "part": 1,
@@ -5921,8 +7124,9 @@
       "number": 117,
       "needsReview": true,
       "reviewNotes": [
-        "Duplicate question prompt also appears at global question(s): 80, 158.",
-        "Duplicate prompt has a different source answer/option mapping; review before treating the entries as equivalent."
+        "Duplicate prompt has a different source answer/option mapping; review before treating the entries as equivalent.",
+        "Duplicate question prompt also appears at global question(s): 80, 158, 258.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
       ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
@@ -6518,8 +7722,11 @@
       ],
       "id": "PMG201c-131",
       "number": 131,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 279.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -6650,8 +7857,10 @@
       ],
       "id": "PMG201c-134",
       "number": 134,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 303."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -7392,7 +8601,7 @@
       "number": 151,
       "needsReview": true,
       "reviewNotes": [
-        "Duplicate question prompt also appears at global question(s): 82."
+        "Duplicate question prompt also appears at global question(s): 82, 246."
       ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
@@ -7674,8 +8883,9 @@
       "number": 158,
       "needsReview": true,
       "reviewNotes": [
-        "Duplicate question prompt also appears at global question(s): 80, 117.",
-        "Duplicate prompt has a different source answer/option mapping; review before treating the entries as equivalent."
+        "Duplicate prompt has a different source answer/option mapping; review before treating the entries as equivalent.",
+        "Duplicate question prompt also appears at global question(s): 80, 117, 258.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
       ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
@@ -7755,8 +8965,10 @@
       ],
       "id": "PMG201c-160",
       "number": 160,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 262."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -7863,8 +9075,10 @@
       ],
       "id": "PMG201c-163",
       "number": 163,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 265."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -7899,8 +9113,10 @@
       ],
       "id": "PMG201c-164",
       "number": 164,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 266."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -8191,7 +9407,7 @@
       "number": 171,
       "needsReview": true,
       "reviewNotes": [
-        "Duplicate question prompt also appears at global question(s): 22."
+        "Duplicate question prompt also appears at global question(s): 22, 271."
       ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
@@ -8985,8 +10201,10 @@
       ],
       "id": "PMG201c-190",
       "number": 190,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 272."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -9237,8 +10455,10 @@
       ],
       "id": "PMG201c-196",
       "number": 196,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 270."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -9605,8 +10825,9 @@
       "number": 204,
       "needsReview": true,
       "reviewNotes": [
+        "Duplicate prompt has a different source answer/option mapping; review before treating the entries as equivalent.",
         "Duplicate question prompt also appears at global question(s): 24.",
-        "Duplicate prompt has a different source answer/option mapping; review before treating the entries as equivalent."
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
       ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
@@ -9688,8 +10909,11 @@
       ],
       "id": "PMG201c-206",
       "number": 206,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 263, 332.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -9762,8 +10986,10 @@
       ],
       "id": "PMG201c-208",
       "number": 208,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 264."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -9958,8 +11184,10 @@
       ],
       "id": "PMG201c-213",
       "number": 213,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 249."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -10002,8 +11230,10 @@
       ],
       "id": "PMG201c-214",
       "number": 214,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 238."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
@@ -10297,14 +11527,4773 @@
       ],
       "id": "PMG201c-221",
       "number": 221,
-      "needsReview": false,
-      "reviewNotes": [],
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 281."
+      ],
       "source": {
         "file": "src_fe_pmg_part2(1).pdf",
         "part": 2,
         "sourceQuestionNumber": 111,
         "pages": [
           30
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which item would most likely NOT be part of a basic communication plan:",
+      "options": [
+        {
+          "key": "A",
+          "text": "What they need to know."
+        },
+        {
+          "key": "B",
+          "text": "The amount of their annual bonus."
+        },
+        {
+          "key": "C",
+          "text": "With whom to communicate."
+        },
+        {
+          "key": "D",
+          "text": "The best medium for the communication."
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        1
+      ],
+      "id": "PMG201c-222",
+      "number": 222,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 27, 312.",
+        "Duplicate question prompt also appears at global question(s): 27, 312.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 1,
+        "pages": [
+          1
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following action should not include in the Scope Management Plan?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Prepare a project scope statement based upon the project charter."
+        },
+        {
+          "key": "B",
+          "text": "Enable the creation and maintenance of the project work breakdown structure (WBS)."
+        },
+        {
+          "key": "C",
+          "text": "Define how format verification and acceptance of completed deliverables will be accomplished."
+        },
+        {
+          "key": "D",
+          "text": "Control how requests for changes to the project scope will be processed."
+        },
+        {
+          "key": "E",
+          "text": "Define how to identify and manage triple constraints."
+        }
+      ],
+      "correctAnswers": [
+        "E"
+      ],
+      "answerTextFromSource": "E",
+      "explanation": "",
+      "sourcePages": [
+        1
+      ],
+      "id": "PMG201c-223",
+      "number": 223,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 40."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 2,
+        "pages": [
+          1
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "The network diagram can be used to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Control the cost performance of the project"
+        },
+        {
+          "key": "B",
+          "text": "Show project schedule performance over time"
+        },
+        {
+          "key": "C",
+          "text": "Identify project resource requirements"
+        },
+        {
+          "key": "D",
+          "text": "Identify opportunities to compress the project schedule"
+        },
+        {
+          "key": "E",
+          "text": "Help to justify project quality metrics"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        1
+      ],
+      "id": "PMG201c-224",
+      "number": 224,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 315.",
+        "Duplicate question prompt also appears at global question(s): 315.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 3,
+        "pages": [
+          1
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of these is not the major source of conflict that a project manager may influence?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Project management"
+        },
+        {
+          "key": "B",
+          "text": "Project priorities"
+        },
+        {
+          "key": "C",
+          "text": "Project team"
+        },
+        {
+          "key": "D",
+          "text": "Project resources"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        1
+      ],
+      "id": "PMG201c-225",
+      "number": 225,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 322.",
+        "Duplicate question prompt also appears at global question(s): 322.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 4,
+        "pages": [
+          1
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "You just came from a meeting with one of your project stakeholders, he knew about your project and was not against it, but did not seem to be particularly interested in it either. How would you classify him?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Supportive"
+        },
+        {
+          "key": "B",
+          "text": "Neutral"
+        },
+        {
+          "key": "C",
+          "text": "Unaware"
+        },
+        {
+          "key": "D",
+          "text": "Resistant"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        2
+      ],
+      "id": "PMG201c-226",
+      "number": 226,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 5,
+        "pages": [
+          2
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The primary output from the identification of risks is the stakeholder register.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        2
+      ],
+      "id": "PMG201c-227",
+      "number": 227,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 6,
+        "pages": [
+          2
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Fast Tracking is the approach to add more resources (labor, overtime, etc.) into the activities to reduce their durations.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        2
+      ],
+      "id": "PMG201c-228",
+      "number": 228,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 257."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 7,
+        "pages": [
+          2
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Consider a scenario in which you learn that your project is running two weeks behind schedule. How would you know if it is acceptable to be two weeks late?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask your executive management team"
+        },
+        {
+          "key": "B",
+          "text": "If the schedule baseline shows you are two weeks late, then it is not acceptable."
+        },
+        {
+          "key": "C",
+          "text": "If the team tells you the work cannot be completed any earlier then it is acceptable."
+        },
+        {
+          "key": "D",
+          "text": "Your variance thresholds should be documented in your project management plan, look there for guidance."
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        2
+      ],
+      "id": "PMG201c-229",
+      "number": 229,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 8,
+        "pages": [
+          2
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The Project Sponsor is responsible for stakeholder expectations management.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        2
+      ],
+      "id": "PMG201c-230",
+      "number": 230,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 37, 278."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 9,
+        "pages": [
+          2
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: An important part of the project scope statement is exclusions or out of scope items.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        3
+      ],
+      "id": "PMG201c-231",
+      "number": 231,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 10,
+        "pages": [
+          3
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of these should be the view of conflict?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Caused by troublemakers"
+        },
+        {
+          "key": "B",
+          "text": "Often beneficial"
+        },
+        {
+          "key": "C",
+          "text": "Should be avoided"
+        },
+        {
+          "key": "D",
+          "text": "Must be suppressed"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        3
+      ],
+      "id": "PMG201c-232",
+      "number": 232,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 11,
+        "pages": [
+          3
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Authority means you have the right to apply resources, make decisions and give approvals.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        3
+      ],
+      "id": "PMG201c-233",
+      "number": 233,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 71."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 12,
+        "pages": [
+          3
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "If the response you choose is to avoid a risk this means that:",
+      "options": [
+        {
+          "key": "A",
+          "text": "You simply do not consider the risk."
+        },
+        {
+          "key": "B",
+          "text": "You change your plans so that you eliminate the risk."
+        },
+        {
+          "key": "C",
+          "text": "You note the risk but do not talk about it."
+        },
+        {
+          "key": "D",
+          "text": "You cancel the entire project"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        3
+      ],
+      "id": "PMG201c-234",
+      "number": 234,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 13,
+        "pages": [
+          3
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "The team is helping the project manager to estimate activities on their project. There are several activities they need to estimate that have not been previously done by the company. What is the best method of estimating these activities?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Top-down estimating"
+        },
+        {
+          "key": "B",
+          "text": "Three-point estimating"
+        },
+        {
+          "key": "C",
+          "text": "Parametric estimating"
+        },
+        {
+          "key": "D",
+          "text": "Bottom-up estimating"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        3
+      ],
+      "id": "PMG201c-235",
+      "number": 235,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 14,
+        "pages": [
+          3
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A market demand, a business need, and a legal requirement are examples of:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reasons to hire a project manager"
+        },
+        {
+          "key": "B",
+          "text": "Reasons projects are initiated"
+        },
+        {
+          "key": "C",
+          "text": "Reasons people or businesses become stakeholders"
+        },
+        {
+          "key": "D",
+          "text": "Reasons to sponsor a project"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        4
+      ],
+      "id": "PMG201c-236",
+      "number": 236,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 6."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 15,
+        "pages": [
+          4
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A project manager is trying to complete a software development project, but cannot get enough attention for the project. Resources are focused on completing process-related work, and the project manager has little authority to assign resources. What form of organization must the project manager be working in?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Functional"
+        },
+        {
+          "key": "B",
+          "text": "Matrix"
+        },
+        {
+          "key": "C",
+          "text": "Projectized"
+        },
+        {
+          "key": "D",
+          "text": "Coordinator"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        4
+      ],
+      "id": "PMG201c-237",
+      "number": 237,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 16,
+        "pages": [
+          4
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A project manager's primary responsibility is to deliver the product of the project within project constraints. Actions taken and changes made to the benefit of one constraint could negatively affect another. Which of the following best describes the major constraints on a project?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Scope, number of resources, and cost"
+        },
+        {
+          "key": "B",
+          "text": "Scope, cost, and schedule"
+        },
+        {
+          "key": "C",
+          "text": "Scope, schedule, cost, quality, risk, resources, and customer satisfaction"
+        },
+        {
+          "key": "D",
+          "text": "Schedule, cost, and number of changes"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        4
+      ],
+      "id": "PMG201c-238",
+      "number": 238,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 214."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 17,
+        "pages": [
+          4
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following best describes a project management plan?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A printout from project management software"
+        },
+        {
+          "key": "B",
+          "text": "A bar chart"
+        },
+        {
+          "key": "C",
+          "text": "Scope, risk, resource, and other management plan"
+        },
+        {
+          "key": "D",
+          "text": "A project schedule"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        4
+      ],
+      "id": "PMG201c-239",
+      "number": 239,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 18,
+        "pages": [
+          4
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "All the following occur during the planning process group EXCEPT:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Develop Project Charter"
+        },
+        {
+          "key": "B",
+          "text": "Create WBS"
+        },
+        {
+          "key": "C",
+          "text": "Estimate Costs"
+        },
+        {
+          "key": "D",
+          "text": "Sequence Activities"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        5
+      ],
+      "id": "PMG201c-240",
+      "number": 240,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 25."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 19,
+        "pages": [
+          5
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The Project Charter is a document issued by the project initiator or sponsor that formally authorizes the existence of a project. It provides the project manager with the authority to apply organizational resources to project activities.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        5
+      ],
+      "id": "PMG201c-241",
+      "number": 241,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 20,
+        "pages": [
+          5
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Scope creep results in all of the followings, except:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Completion delays"
+        },
+        {
+          "key": "B",
+          "text": "Escalation of costs"
+        },
+        {
+          "key": "C",
+          "text": "Increases in project complexity"
+        },
+        {
+          "key": "D",
+          "text": "Decreases in project complexity"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        5
+      ],
+      "id": "PMG201c-242",
+      "number": 242,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 21,
+        "pages": [
+          5
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False. In the context of a project, change is always a bad thing.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        5
+      ],
+      "id": "PMG201c-243",
+      "number": 243,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 16."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 22,
+        "pages": [
+          5
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "During executing, the project manager determines that a change is needed to material purchased for the project. The project manager calls a meeting of the team to plan how to make the changes. This is an example of:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Management by objectives"
+        },
+        {
+          "key": "B",
+          "text": "Lack of a change management plan"
+        },
+        {
+          "key": "C",
+          "text": "Good team relations"
+        },
+        {
+          "key": "D",
+          "text": "Lack of a clear work breakdown structure"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        5
+      ],
+      "id": "PMG201c-244",
+      "number": 244,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 23,
+        "pages": [
+          5
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Company procedures require the creation of a lessons learned register. Which of the following is the best use of lessons learned?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Historical records for future projects"
+        },
+        {
+          "key": "B",
+          "text": "Planning record for the current project"
+        },
+        {
+          "key": "C",
+          "text": "Informing the team about what the project manager has done"
+        },
+        {
+          "key": "D",
+          "text": "Informing the team about the project management plan"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        6
+      ],
+      "id": "PMG201c-245",
+      "number": 245,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 24,
+        "pages": [
+          6
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Should the Project Scope Statement document include?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Acceptance criteria"
+        },
+        {
+          "key": "B",
+          "text": "Milestones"
+        },
+        {
+          "key": "C",
+          "text": "WBS (Work Breakdown Structure)"
+        },
+        {
+          "key": "D",
+          "text": "WBS Dictionary"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        6
+      ],
+      "id": "PMG201c-246",
+      "number": 246,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 82, 151."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 25,
+        "pages": [
+          6
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "AS you plan your project, the sponsor informed you that all team members will be assigned to your project for at most 50% of their available time. This is an example of:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Poor planning."
+        },
+        {
+          "key": "B",
+          "text": "Wishful thinking."
+        },
+        {
+          "key": "C",
+          "text": "A project demand."
+        },
+        {
+          "key": "D",
+          "text": "A constraint."
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        6
+      ],
+      "id": "PMG201c-247",
+      "number": 247,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 81."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 26,
+        "pages": [
+          6
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A new project manager has asked you for advice on creating a work breakdown structure. After you explain the process to her, she asks you what software she should use to create the WBS and what she should do with it when it is completed. You might respond that the picture is not the most valuable result of creating a WBS. The most valuable result of a WBS is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "A Gantt chart"
+        },
+        {
+          "key": "B",
+          "text": "Team buy-in"
+        },
+        {
+          "key": "C",
+          "text": "Activities"
+        },
+        {
+          "key": "D",
+          "text": "A list of risks"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        6
+      ],
+      "id": "PMG201c-248",
+      "number": 248,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 27,
+        "pages": [
+          6
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A project manager may use the WBS dictionary to make sure the team members clearly know what is included in each of their work packages.",
+      "options": [
+        {
+          "key": "A",
+          "text": "The project scope statement"
+        },
+        {
+          "key": "B",
+          "text": "The product scope"
+        },
+        {
+          "key": "C",
+          "text": "The WBS dictionary"
+        },
+        {
+          "key": "D",
+          "text": "The WBS"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        7
+      ],
+      "id": "PMG201c-249",
+      "number": 249,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 213."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 28,
+        "pages": [
+          7
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "All of the following are inputs to estimating activity durations except:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Organizational process assets"
+        },
+        {
+          "key": "B",
+          "text": "Activity list and activity attributes"
+        },
+        {
+          "key": "C",
+          "text": "Requirements specifications"
+        },
+        {
+          "key": "D",
+          "text": "Resource calendars and scope statement"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        7
+      ],
+      "id": "PMG201c-250",
+      "number": 250,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 109, 286.",
+        "Duplicate question prompt also appears at global question(s): 109, 286.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 29,
+        "pages": [
+          7
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Project Manager should consider using milestones for high level reporting.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        7
+      ],
+      "id": "PMG201c-251",
+      "number": 251,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 3."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 30,
+        "pages": [
+          7
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Your team member informs you that the test system must be refreshed with your test data before testing can begin. This dependency is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Discretionary"
+        },
+        {
+          "key": "B",
+          "text": "Internal"
+        },
+        {
+          "key": "C",
+          "text": "Mandatory"
+        },
+        {
+          "key": "D",
+          "text": "External"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        7
+      ],
+      "id": "PMG201c-252",
+      "number": 252,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 31,
+        "pages": [
+          7
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False. If \"review online modules\" needs to begin before \"develop online modules\" can finish, that is called a start to finish relationship.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        7
+      ],
+      "id": "PMG201c-253",
+      "number": 253,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 32,
+        "pages": [
+          7
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "To calculate late finish (LF) of an activity which has more than one successor, you will",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take the earliest late start of its immediate successors."
+        },
+        {
+          "key": "B",
+          "text": "Take the earliest early start of its immediate successors."
+        },
+        {
+          "key": "C",
+          "text": "Take the earliest late finish of its immediate successors."
+        },
+        {
+          "key": "D",
+          "text": "Take the earliest early finish of its immediate successors."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        8
+      ],
+      "id": "PMG201c-254",
+      "number": 254,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 33,
+        "pages": [
+          8
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The critical path is made up by all zero float activities (activities have floats equal to zero) in the project network diagram.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        8
+      ],
+      "id": "PMG201c-255",
+      "number": 255,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 34,
+        "pages": [
+          8
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The Backward Pass is used through the activities to determine the critical path & available float of the project.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        8
+      ],
+      "id": "PMG201c-256",
+      "number": 256,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 94."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 35,
+        "pages": [
+          8
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Fast Tracking is the approach to add more resources (labor, overtime, etc.) into the activities to reduce their durations.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        8
+      ],
+      "id": "PMG201c-257",
+      "number": 257,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 228."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 36,
+        "pages": [
+          8
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which of the following is NOT the disadvantages of top-down estimating?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Slow"
+        },
+        {
+          "key": "B",
+          "text": "Less accurate"
+        },
+        {
+          "key": "C",
+          "text": "Requires considerable experience to do well"
+        },
+        {
+          "key": "D",
+          "text": "Does not take into account the differences between projects"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        8
+      ],
+      "id": "PMG201c-258",
+      "number": 258,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 80, 117, 158.",
+        "Duplicate question prompt also appears at global question(s): 80, 117, 158.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 37,
+        "pages": [
+          8
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A team member tells you that her work is too creative to provide you with a fixed single estimate for the activity. You both decide to use the average labor hours (from past, similar projects) to develop a prototype. This is an example of which of the following?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Parametric estimating"
+        },
+        {
+          "key": "B",
+          "text": "Three-point estimating"
+        },
+        {
+          "key": "C",
+          "text": "Analogous estimating"
+        },
+        {
+          "key": "D",
+          "text": "One-point estimating"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        9
+      ],
+      "id": "PMG201c-259",
+      "number": 259,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 38,
+        "pages": [
+          9
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Using top-down estimating techniques when the detail is available and the accuracy is needed.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        9
+      ],
+      "id": "PMG201c-260",
+      "number": 260,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 77."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 39,
+        "pages": [
+          9
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The S-Curve depicts the relationship between the cost baseline budget and the schedule because it shows the planned cost baseline budget across the planned project timeline.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        9
+      ],
+      "id": "PMG201c-261",
+      "number": 261,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 63."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 40,
+        "pages": [
+          9
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Earned value integrates schedule, budget and quality and uses monetary values to assess project status.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        9
+      ],
+      "id": "PMG201c-262",
+      "number": 262,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 160."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 41,
+        "pages": [
+          9
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "The discipline of quality management complements the discipline of project management. Both recognize all but one of the following:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Customer satisfaction"
+        },
+        {
+          "key": "B",
+          "text": "Prevention over inspection"
+        },
+        {
+          "key": "C",
+          "text": "One-time improvement."
+        },
+        {
+          "key": "D",
+          "text": "Management responsibility"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        9
+      ],
+      "id": "PMG201c-263",
+      "number": 263,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 206, 332.",
+        "Duplicate question prompt also appears at global question(s): 206, 332.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 42,
+        "pages": [
+          9
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Product quality focuses on the project management processes used to meet project objectives.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        10
+      ],
+      "id": "PMG201c-264",
+      "number": 264,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 208."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 43,
+        "pages": [
+          10
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "The Process Improvement Plan is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "The number one component of the project management plan."
+        },
+        {
+          "key": "B",
+          "text": "A subsidiary, or component of the project management plan."
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        10
+      ],
+      "id": "PMG201c-265",
+      "number": 265,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 163."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 44,
+        "pages": [
+          10
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Performing quality assurance within the context of a project involves applying the planned, systematic quality activities to ensure that the project correctly employs all processes needed to meet project objectives and product requirements.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        10
+      ],
+      "id": "PMG201c-266",
+      "number": 266,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 164."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 45,
+        "pages": [
+          10
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Your role as the project manager during quality control is to work with a representative of quality control department who will create a test plan and test cases which will be used to test the product you are creating in order to prevent defects from reaching your customer.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        10
+      ],
+      "id": "PMG201c-267",
+      "number": 267,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 46,
+        "pages": [
+          10
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The term resources only refers to people, it does not include money or materials or equipment.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        10
+      ],
+      "id": "PMG201c-268",
+      "number": 268,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 47,
+        "pages": [
+          10
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of these is the correct view of conflict?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Inevitable"
+        },
+        {
+          "key": "B",
+          "text": "Always bad"
+        },
+        {
+          "key": "C",
+          "text": "Should be avoided"
+        },
+        {
+          "key": "D",
+          "text": "Must be suppressed"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        11
+      ],
+      "id": "PMG201c-269",
+      "number": 269,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 48,
+        "pages": [
+          11
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of these is an example of role conflict:",
+      "options": [
+        {
+          "key": "A",
+          "text": "When a team member does not know why he or she should do something."
+        },
+        {
+          "key": "B",
+          "text": "When a team member does not know how to do his or her job."
+        },
+        {
+          "key": "C",
+          "text": "When two team members are trying to complete the same task."
+        },
+        {
+          "key": "D",
+          "text": "When a team member is late completing a task."
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        11
+      ],
+      "id": "PMG201c-270",
+      "number": 270,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 196."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 49,
+        "pages": [
+          11
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "What are the 5 approaches to conflict discussed in the Project Human Resources Management Lesson?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Confronting, Compromising, Smoothing, Uninterested, Challenging."
+        },
+        {
+          "key": "B",
+          "text": "Communicating, Compromising, Smoothing, Forcing, Avoiding."
+        },
+        {
+          "key": "C",
+          "text": "Confronting, Compromising, Smoothing, Forcing, Avoiding."
+        },
+        {
+          "key": "D",
+          "text": "Confronting, Challenging, Smoothing, Forcing, Avoiding"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        11
+      ],
+      "id": "PMG201c-271",
+      "number": 271,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 22, 171."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 50,
+        "pages": [
+          11
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "When you use the RACI or Responsible, Accountable, Consult, Inform version of the RAM, those informed persons are:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Providing subject matter expertise"
+        },
+        {
+          "key": "B",
+          "text": "Making the final decision"
+        },
+        {
+          "key": "C",
+          "text": "Being kept updated about project progress."
+        },
+        {
+          "key": "D",
+          "text": "Completing the work"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        11
+      ],
+      "id": "PMG201c-272",
+      "number": 272,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 190."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 51,
+        "pages": [
+          11
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Effective project communication management creates a bridge between stakeholders based on a shared understanding of the project and the ongoing sharing of information needed for its success.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        11
+      ],
+      "id": "PMG201c-273",
+      "number": 273,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 52,
+        "pages": [
+          11
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "If the response you choose is to mitigate a risk this means that:",
+      "options": [
+        {
+          "key": "A",
+          "text": "You actively do not consider the risk but establish contingency plan."
+        },
+        {
+          "key": "B",
+          "text": "You change your plans so that you eliminate the risk."
+        },
+        {
+          "key": "C",
+          "text": "You change your plan so that another party will be responsible for the risk."
+        },
+        {
+          "key": "D",
+          "text": "You create your plan to reduce the probability and/or the impact of the risk."
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        12
+      ],
+      "id": "PMG201c-274",
+      "number": 274,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 53,
+        "pages": [
+          12
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "During a risk brainstorming session, a team member identifies a risk. This particular risk does not seem to belong to any of the categories in you Risk Breakdown Structure (RBS). How should you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Chastise him for making up risks which cannot exist because there is not a category for such risks."
+        },
+        {
+          "key": "B",
+          "text": "Ignore him and move on to another risk identified by a different team member."
+        },
+        {
+          "key": "C",
+          "text": "Thank him for his work, but inform him that the risk cannot be included because it does not fit any of the categories defined in the RBS."
+        },
+        {
+          "key": "D",
+          "text": "Record the list in the risk register, discuss potential responses and make a note to update the RBS."
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        12
+      ],
+      "id": "PMG201c-275",
+      "number": 275,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 54,
+        "pages": [
+          12
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Who might not be your project's stakeholders?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Project team members"
+        },
+        {
+          "key": "B",
+          "text": "Project management team"
+        },
+        {
+          "key": "C",
+          "text": "Customer/User"
+        },
+        {
+          "key": "D",
+          "text": "Performing organizations"
+        },
+        {
+          "key": "E",
+          "text": "Sponsor"
+        },
+        {
+          "key": "F",
+          "text": "People that are not impacted by your project"
+        }
+      ],
+      "correctAnswers": [
+        "F"
+      ],
+      "answerTextFromSource": "F",
+      "explanation": "",
+      "sourcePages": [
+        12
+      ],
+      "id": "PMG201c-276",
+      "number": 276,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 55,
+        "pages": [
+          12
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "One way to classify your stakeholders is to use the Power/Interest Grid. If a stakeholder is low interest/low power, what should the Project Manager do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Monitor"
+        },
+        {
+          "key": "B",
+          "text": "Keep satisfied"
+        },
+        {
+          "key": "C",
+          "text": "Manage closely"
+        },
+        {
+          "key": "D",
+          "text": "Keep informed"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        12
+      ],
+      "id": "PMG201c-277",
+      "number": 277,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 56,
+        "pages": [
+          12
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The Project Sponsor is responsible for stakeholder expectations management.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        12
+      ],
+      "id": "PMG201c-278",
+      "number": 278,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 37, 230."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 57,
+        "pages": [
+          12
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "You are beginning to staff your project. Which of the following will NOT be used in developing and/or communicating roles and responsibilities?",
+      "options": [
+        {
+          "key": "A",
+          "text": "WBS"
+        },
+        {
+          "key": "B",
+          "text": "Pareto chart"
+        },
+        {
+          "key": "C",
+          "text": "Responsibility Assignment Matrix"
+        },
+        {
+          "key": "D",
+          "text": "Organization chart"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        13
+      ],
+      "id": "PMG201c-279",
+      "number": 279,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 131.",
+        "Duplicate question prompt also appears at global question(s): 131.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 58,
+        "pages": [
+          13
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is a program?",
+      "options": [
+        {
+          "key": "A",
+          "text": "An initiative set up by management"
+        },
+        {
+          "key": "B",
+          "text": "A means to gain benefits and control of related projects"
+        },
+        {
+          "key": "C",
+          "text": "A group of unrelated projects managed in a coordinated way"
+        },
+        {
+          "key": "D",
+          "text": "A government regulation"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        13
+      ],
+      "id": "PMG201c-280",
+      "number": 280,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 59,
+        "pages": [
+          13
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "We discussed three types of matrix organizations, the not mentioned one is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Medium Matrix"
+        },
+        {
+          "key": "B",
+          "text": "Weak Matrix"
+        },
+        {
+          "key": "C",
+          "text": "Balanced Matrix"
+        },
+        {
+          "key": "D",
+          "text": "Strong Matrix"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        13
+      ],
+      "id": "PMG201c-281",
+      "number": 281,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 221."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 60,
+        "pages": [
+          13
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A project management plan should be realistic in order to be used to manage the project. Which of the following is the best method to achieve a realistic project management plan?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The sponsor creates the project management plan based on input from the project manager"
+        },
+        {
+          "key": "B",
+          "text": "The functional manager creates the project management plan based on input from the project manager"
+        },
+        {
+          "key": "C",
+          "text": "The project manager creates the project management plan based on input from senior management"
+        },
+        {
+          "key": "D",
+          "text": "The project manager creates the project management plan based on input from the team"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        13
+      ],
+      "id": "PMG201c-282",
+      "number": 282,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 61,
+        "pages": [
+          13
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one is not the causes of scope creep?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Poorly defined objectives"
+        },
+        {
+          "key": "B",
+          "text": "Lack of defined change control process"
+        },
+        {
+          "key": "C",
+          "text": "Changing stakeholder perspectives"
+        },
+        {
+          "key": "D",
+          "text": "Increased understanding of what is takes to get it done"
+        },
+        {
+          "key": "E",
+          "text": "Ability to say \"NO\""
+        }
+      ],
+      "correctAnswers": [
+        "E"
+      ],
+      "answerTextFromSource": "E",
+      "explanation": "",
+      "sourcePages": [
+        14
+      ],
+      "id": "PMG201c-283",
+      "number": 283,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 14.",
+        "Duplicate question prompt also appears at global question(s): 14.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 62,
+        "pages": [
+          14
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A good change process will:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Require the same level of approval for all changes."
+        },
+        {
+          "key": "B",
+          "text": "Have change thresholds that are appropriate for the type of change."
+        },
+        {
+          "key": "C",
+          "text": "Be very complex in order to discourage changes."
+        },
+        {
+          "key": "D",
+          "text": "Allow the project manager to approve all changes."
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        14
+      ],
+      "id": "PMG201c-284",
+      "number": 284,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 63,
+        "pages": [
+          14
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: When creating the WBS of the project, Project Manager decided to not include his management tasks into WBS as those tasks will be done by him and he knows well what he has to do in the project.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        14
+      ],
+      "id": "PMG201c-285",
+      "number": 285,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 64,
+        "pages": [
+          14
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "All of the following are inputs to estimating activity durations except:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Organizational process assets"
+        },
+        {
+          "key": "B",
+          "text": "Activity list and activity attributes"
+        },
+        {
+          "key": "C",
+          "text": "Requirements specifications"
+        },
+        {
+          "key": "D",
+          "text": "Resource calendars and scope statement"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        14
+      ],
+      "id": "PMG201c-286",
+      "number": 286,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 109, 250.",
+        "Duplicate question prompt also appears at global question(s): 109, 250.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 65,
+        "pages": [
+          14
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The start time of the project (the early start of the first activity) can be \"zero\" or \"one\" depending on your chosen convention.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        14
+      ],
+      "id": "PMG201c-287",
+      "number": 287,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 66,
+        "pages": [
+          14
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The Crashing is the approach to add more resources (labor, overtime, etc.) into the activities to reduce their durations.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        15
+      ],
+      "id": "PMG201c-288",
+      "number": 288,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 67,
+        "pages": [
+          15
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Using top-down estimating techniques when activity durations or resource quantities are uncertain.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        15
+      ],
+      "id": "PMG201c-289",
+      "number": 289,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 68,
+        "pages": [
+          15
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The Cost Baseline is equal to the total of Activity Cost Estimates.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        15
+      ],
+      "id": "PMG201c-290",
+      "number": 290,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 69,
+        "pages": [
+          15
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Project quality focuses on the project management processes used to meet project objectives.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        15
+      ],
+      "id": "PMG201c-291",
+      "number": 291,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 70,
+        "pages": [
+          15
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The Process Improvement Plan is a component of the project management plan that details how project management and development processes are to be analyzed in order to identify how to reduce their value.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        15
+      ],
+      "id": "PMG201c-292",
+      "number": 292,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 71,
+        "pages": [
+          15
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "You and another project manager disagree over whether a team member should work on your team or on her team. You decide that the team member can work for the other project manager and suppose that the other project manager will support you in the future. The truth is you wanted this person working on your project. The conflict resolution approach you have used is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Compromising"
+        },
+        {
+          "key": "B",
+          "text": "Smoothing"
+        },
+        {
+          "key": "C",
+          "text": "Confronting"
+        },
+        {
+          "key": "D",
+          "text": "Forcing"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        16
+      ],
+      "id": "PMG201c-293",
+      "number": 293,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 72,
+        "pages": [
+          16
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The sender is responsible to provide feedback to acknowledge that the sent message has been received and understood. The receiver is responsible to make sure the sent message is clear, complete, and appropriate.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        16
+      ],
+      "id": "PMG201c-294",
+      "number": 294,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 73,
+        "pages": [
+          16
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one is the correct matching of report types and the descriptions? Report types: (1) Status report (2) Progress report (3) Forecasting report. Descriptions: (a) Predicting future project progress and completion. (b) Describing what the project team has accomplished. (c) Describing where the project now stands.",
+      "options": [
+        {
+          "key": "A",
+          "text": "(1)&(a), (2)&(b), (3)&(c)"
+        },
+        {
+          "key": "B",
+          "text": "(1)&(a), (2)&(c), (3)&(b)"
+        },
+        {
+          "key": "C",
+          "text": "(1)&(b), (2)&(c), (3)&(a)"
+        },
+        {
+          "key": "D",
+          "text": "(1)&(b), (2)&(a), (3)&(c)"
+        },
+        {
+          "key": "E",
+          "text": "(1)&(c), (2)&(a), (3)&(b)"
+        },
+        {
+          "key": "F",
+          "text": "(1)&(c), (2)&(b), (3)&(a)"
+        }
+      ],
+      "correctAnswers": [
+        "F"
+      ],
+      "answerTextFromSource": "F",
+      "explanation": "",
+      "sourcePages": [
+        16
+      ],
+      "id": "PMG201c-295",
+      "number": 295,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 74,
+        "pages": [
+          16
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Who is the stakeholder that has the most influence on your current running project?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Project Team"
+        },
+        {
+          "key": "B",
+          "text": "Investors"
+        },
+        {
+          "key": "C",
+          "text": "Competitors"
+        },
+        {
+          "key": "D",
+          "text": "Sponsor"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        16
+      ],
+      "id": "PMG201c-296",
+      "number": 296,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 75,
+        "pages": [
+          16
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: If \"develop online modules\" must be 100% completed before \"review online modules\" can begin, that is called a finish to start relationship.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        17
+      ],
+      "id": "PMG201c-297",
+      "number": 297,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 76,
+        "pages": [
+          17
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "To calculate late start (LS) of an activity, you will",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take its late finish minus its estimated duration."
+        },
+        {
+          "key": "B",
+          "text": "Take its early finish minus its estimated duration."
+        },
+        {
+          "key": "C",
+          "text": "Take its early start plus its estimated duration"
+        },
+        {
+          "key": "D",
+          "text": "Take its early start."
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        17
+      ],
+      "id": "PMG201c-298",
+      "number": 298,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 28."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 77,
+        "pages": [
+          17
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "In a project context, risk is defined as:",
+      "options": [
+        {
+          "key": "A",
+          "text": "The probability of an event having a positive or negative effect on at least one project objective."
+        },
+        {
+          "key": "B",
+          "text": "The impact of not completing the project on time and within budget."
+        },
+        {
+          "key": "C",
+          "text": "An uncertain event that, if it occurs, will have a positive or negative effect on at least one project objective."
+        },
+        {
+          "key": "D",
+          "text": "An uncertain event that, if it occurs, will have a negative effect on at least one project objective."
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        17
+      ],
+      "id": "PMG201c-299",
+      "number": 299,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 78,
+        "pages": [
+          17
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The Project Budget is equal to only the Cost Baseline budget.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        17
+      ],
+      "id": "PMG201c-300",
+      "number": 300,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 79,
+        "pages": [
+          17
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "You and your team have identified a risk that is a threat to your ability to successfully meet project objectives. The risk involves team members from your company performing work which requires training, certification, and many hours of experience. You have one newly certified team member and others who are still in training. Which do you think is your best response to this risk?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Acknowledge your lack of expertise and set aside some contingency reserve to cover the risk."
+        },
+        {
+          "key": "B",
+          "text": "Change the scope of the project so that this type of work is excluded and introduce a new risk."
+        },
+        {
+          "key": "C",
+          "text": "Let the team do the work and see what happen."
+        },
+        {
+          "key": "D",
+          "text": "You have budget to hire external resources and there is a vendor specialized in this work, hire them."
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        17
+      ],
+      "id": "PMG201c-301",
+      "number": 301,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 80,
+        "pages": [
+          17
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Your project has a team of which consists of yourself, a tester, five developers and a communicator. How many communication channels on your team?",
+      "options": [
+        {
+          "key": "A",
+          "text": "8"
+        },
+        {
+          "key": "B",
+          "text": "9"
+        },
+        {
+          "key": "C",
+          "text": "28"
+        },
+        {
+          "key": "D",
+          "text": "36"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        18
+      ],
+      "id": "PMG201c-302",
+      "number": 302,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 81,
+        "pages": [
+          18
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "During status review meetings to evaluate project performance and progress, which tool or technique is NOT preferred to use?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Variance analysis"
+        },
+        {
+          "key": "B",
+          "text": "Trend analysis"
+        },
+        {
+          "key": "C",
+          "text": "Earned Value Management (EVM)"
+        },
+        {
+          "key": "D",
+          "text": "Requirement analysis"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        18
+      ],
+      "id": "PMG201c-303",
+      "number": 303,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 134."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 82,
+        "pages": [
+          18
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "When you use the RACI or Responsible, Accountable, Consult, Inform version of the RAM, those responsible persons are:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Providing subject matter expertise"
+        },
+        {
+          "key": "B",
+          "text": "Supervising the work"
+        },
+        {
+          "key": "C",
+          "text": "Not completing the work"
+        },
+        {
+          "key": "D",
+          "text": "Completing the work"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        18
+      ],
+      "id": "PMG201c-304",
+      "number": 304,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 83,
+        "pages": [
+          18
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: In a projectized organization, team members are never assigned to the project full time.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        18
+      ],
+      "id": "PMG201c-305",
+      "number": 305,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 84,
+        "pages": [
+          18
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Your Cost Performance Index (CPI) is lesser than 1 means you are:",
+      "options": [
+        {
+          "key": "A",
+          "text": "on budget"
+        },
+        {
+          "key": "B",
+          "text": "under budget."
+        },
+        {
+          "key": "C",
+          "text": "over budget"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        18
+      ],
+      "id": "PMG201c-306",
+      "number": 306,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 85,
+        "pages": [
+          18
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "In a matrix-based organization:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Team members are always assigned to the project full time."
+        },
+        {
+          "key": "B",
+          "text": "A project manager is not assigned to the team"
+        },
+        {
+          "key": "C",
+          "text": "The project manager acts as manager of the team."
+        },
+        {
+          "key": "D",
+          "text": "The functional manager has stronger power than the project manager's power"
+        },
+        {
+          "key": "E",
+          "text": "The power of project manager and the power of managers of teams are depending on the organization's specific matrix type"
+        }
+      ],
+      "correctAnswers": [
+        "E"
+      ],
+      "answerTextFromSource": "E",
+      "explanation": "",
+      "sourcePages": [
+        19
+      ],
+      "id": "PMG201c-307",
+      "number": 307,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 86,
+        "pages": [
+          19
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A project manager has little project experience, but she has been assigned as the project manager of a new project. Because she will be working in a matrix organization, she can expect communications to be:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Simple"
+        },
+        {
+          "key": "B",
+          "text": "Open and accurate"
+        },
+        {
+          "key": "C",
+          "text": "Complex"
+        },
+        {
+          "key": "D",
+          "text": "Hard to automate"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        19
+      ],
+      "id": "PMG201c-308",
+      "number": 308,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 87,
+        "pages": [
+          19
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The Project Charter is a document that formally authorizes the existence of a project. It also document initial requirements that satisfy the stakeholder's needs and expectations.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        19
+      ],
+      "id": "PMG201c-309",
+      "number": 309,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 88,
+        "pages": [
+          19
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "You are the project manager of the large project and you are requesting your team members to create the work breakdown structure. Some of team members are angry. Which is the best thing you could tell the members to convince them to use work breakdown structure?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Work breakdown structure will prevent work from slipping through the cracks"
+        },
+        {
+          "key": "B",
+          "text": "Work breakdown structure is of greater value on large project"
+        },
+        {
+          "key": "C",
+          "text": "Work breakdown structure is best when the project involves contracts"
+        },
+        {
+          "key": "D",
+          "text": "Work breakdown structure is the only way to identify risks"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        19
+      ],
+      "id": "PMG201c-310",
+      "number": 310,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 89,
+        "pages": [
+          19
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Given 14,000 USD is the most likely, 8,000 USD is the optimistic and 26,000 USD is the pessimistic value. By using the PERT analysis to calculate the expected activity cost, which of the following is the result?",
+      "options": [
+        {
+          "key": "A",
+          "text": "16,000 USD"
+        },
+        {
+          "key": "B",
+          "text": "12,000 USD"
+        },
+        {
+          "key": "C",
+          "text": "15,000 USD"
+        },
+        {
+          "key": "D",
+          "text": "21,000 USD"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        20
+      ],
+      "id": "PMG201c-311",
+      "number": 311,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 90,
+        "pages": [
+          20
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which item would most likely NOT be part of a basic communication plan:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Who are project stakeholders."
+        },
+        {
+          "key": "B",
+          "text": "What are information needs of each stakeholder."
+        },
+        {
+          "key": "C",
+          "text": "When will stakeholders gain promotion."
+        },
+        {
+          "key": "D",
+          "text": "Where is the space for the communication."
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        20
+      ],
+      "id": "PMG201c-312",
+      "number": 312,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 27, 222.",
+        "Duplicate question prompt also appears at global question(s): 27, 222.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 91,
+        "pages": [
+          20
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "The person who should be in control of the project during project planning is the:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Project manager"
+        },
+        {
+          "key": "B",
+          "text": "Team member"
+        },
+        {
+          "key": "C",
+          "text": "Functional manager"
+        },
+        {
+          "key": "D",
+          "text": "Sponsor"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        20
+      ],
+      "id": "PMG201c-313",
+      "number": 313,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 92,
+        "pages": [
+          20
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Effective project integration usually requires an emphasis on:",
+      "options": [
+        {
+          "key": "A",
+          "text": "The careers of the team members"
+        },
+        {
+          "key": "B",
+          "text": "Timely updates to the project management plan"
+        },
+        {
+          "key": "C",
+          "text": "Effective communication at key interface points"
+        },
+        {
+          "key": "D",
+          "text": "Product control"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        20
+      ],
+      "id": "PMG201c-314",
+      "number": 314,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 93,
+        "pages": [
+          20
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "The network diagram can be used to:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Control the cost performance of the project"
+        },
+        {
+          "key": "B",
+          "text": "Show project schedule performance over time"
+        },
+        {
+          "key": "C",
+          "text": "Identify project resource requirements"
+        },
+        {
+          "key": "D",
+          "text": "Help to identify riskier activities"
+        },
+        {
+          "key": "E",
+          "text": "Help to justify project quality metrics"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        20
+      ],
+      "id": "PMG201c-315",
+      "number": 315,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 224.",
+        "Duplicate question prompt also appears at global question(s): 224.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 94,
+        "pages": [
+          20
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: It should not to add extra cost to the estimates when you are concerned that your estimates might not be correct, especially if you think they are too low.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        21
+      ],
+      "id": "PMG201c-316",
+      "number": 316,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 95,
+        "pages": [
+          21
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The critical path is the shortest path through the network and represents the work that can be delayed without delaying the end of the project.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        21
+      ],
+      "id": "PMG201c-317",
+      "number": 317,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate question prompt also appears at global question(s): 72."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 96,
+        "pages": [
+          21
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A significant event in a project that may indicate completion of a major phase is a/an:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Activity"
+        },
+        {
+          "key": "B",
+          "text": "Milestone"
+        },
+        {
+          "key": "C",
+          "text": "Work package"
+        },
+        {
+          "key": "D",
+          "text": "Deliverable"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        21
+      ],
+      "id": "PMG201c-318",
+      "number": 318,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 97,
+        "pages": [
+          21
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A past project took 20,000 hours to complete. Your new project is adding some additional scope estimated to take 10,000 additional hours. There is some work estimated at 5,000 hours that will not be completed in this project. Labor rates increased 10% (old rate was $25 per hour). Your estimate is $687,500. Which estimating method is used?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Parametric estimating"
+        },
+        {
+          "key": "B",
+          "text": "Analogous estimating"
+        },
+        {
+          "key": "C",
+          "text": "Bottom-up estimating"
+        },
+        {
+          "key": "D",
+          "text": "Three-point estimating"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        21
+      ],
+      "id": "PMG201c-319",
+      "number": 319,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 98,
+        "pages": [
+          21
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: Each person involved in the project should be assigned, but doesn't always need to know his or her role and responsibility.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        21
+      ],
+      "id": "PMG201c-320",
+      "number": 320,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 99,
+        "pages": [
+          21
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "The project manager has just received a change request from the customer that does not affect the project schedule and is easy to complete. What should the project manager do first?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Make the change happen as soon as possible"
+        },
+        {
+          "key": "B",
+          "text": "Contact the project sponsor for permission"
+        },
+        {
+          "key": "C",
+          "text": "Go to the change control board"
+        },
+        {
+          "key": "D",
+          "text": "Evaluate the impacts on other project constraints"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        22
+      ],
+      "id": "PMG201c-321",
+      "number": 321,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 100,
+        "pages": [
+          22
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one of these is not the major source of conflict that a project manager may influence?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Project cost"
+        },
+        {
+          "key": "B",
+          "text": "Personality conflict"
+        },
+        {
+          "key": "C",
+          "text": "Project charter"
+        },
+        {
+          "key": "D",
+          "text": "Project schedule"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [
+        22
+      ],
+      "id": "PMG201c-322",
+      "number": 322,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 225.",
+        "Duplicate question prompt also appears at global question(s): 225.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 101,
+        "pages": [
+          22
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "One of the ways a Project Charter can help you as a project manager is:",
+      "options": [
+        {
+          "key": "A",
+          "text": "It keeps your authority level vague, so you can do what you want."
+        },
+        {
+          "key": "B",
+          "text": "It does not help you as a project manager because it is for the sponsor."
+        },
+        {
+          "key": "C",
+          "text": "It helps you hire team members."
+        },
+        {
+          "key": "D",
+          "text": "It describes your authority level as the project manager."
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        22
+      ],
+      "id": "PMG201c-323",
+      "number": 323,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 102,
+        "pages": [
+          22
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The Fast Tracking is the approach to re-plan the work and try to perform more overlapping sequential activities to be in parallel.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        22
+      ],
+      "id": "PMG201c-324",
+      "number": 324,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 103,
+        "pages": [
+          22
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "During which part of the project management process is the Project Scope Statement created?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Initiating"
+        },
+        {
+          "key": "B",
+          "text": "Planning"
+        },
+        {
+          "key": "C",
+          "text": "Executing"
+        },
+        {
+          "key": "D",
+          "text": "Monitoring and Controlling"
+        },
+        {
+          "key": "E",
+          "text": "Closing"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        22
+      ],
+      "id": "PMG201c-325",
+      "number": 325,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 104,
+        "pages": [
+          22
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "A useful tool in identifying risks is the SWOT analysis. What does SWOT stand for?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Strengths, obstacles, weaknesses, and threats"
+        },
+        {
+          "key": "B",
+          "text": "Strengths, opportunities, winners, and threats"
+        },
+        {
+          "key": "C",
+          "text": "Scope, opportunities, weaknesses, and time"
+        },
+        {
+          "key": "D",
+          "text": "Strengths, opportunities, weaknesses, and threats"
+        }
+      ],
+      "correctAnswers": [
+        "D"
+      ],
+      "answerTextFromSource": "D",
+      "explanation": "",
+      "sourcePages": [
+        23
+      ],
+      "id": "PMG201c-326",
+      "number": 326,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 105,
+        "pages": [
+          23
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which one is not mentioned explicitly in the three components of the triple constraints:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Scope"
+        },
+        {
+          "key": "B",
+          "text": "Quality"
+        },
+        {
+          "key": "C",
+          "text": "Cost"
+        },
+        {
+          "key": "D",
+          "text": "Time"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        23
+      ],
+      "id": "PMG201c-327",
+      "number": 327,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 106,
+        "pages": [
+          23
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: The WBS should completely depict the scope of your project that if something is not in the WBS it is because it is NOT part of the project.",
+      "options": [
+        {
+          "key": "A",
+          "text": "False"
+        },
+        {
+          "key": "B",
+          "text": "True"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [
+        23
+      ],
+      "id": "PMG201c-328",
+      "number": 328,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 107,
+        "pages": [
+          23
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "In Earned Value Management Technique, you can compute the Estimate To Completion (ETC) by applying which of following formula? (Notes: EAC: Estimate At Completion)",
+      "options": [
+        {
+          "key": "A",
+          "text": "ETC = EAC - AC"
+        },
+        {
+          "key": "B",
+          "text": "ETC = EAC - EV"
+        },
+        {
+          "key": "C",
+          "text": "ETC = EAC - PV"
+        },
+        {
+          "key": "D",
+          "text": "ETC = EAC - SV"
+        },
+        {
+          "key": "E",
+          "text": "ETC = EAC - CV"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        23
+      ],
+      "id": "PMG201c-329",
+      "number": 329,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 108,
+        "pages": [
+          23
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "true_false",
+      "status": "active",
+      "question": "True or False: You should compare your project performance against the performance measurement baseline to look for potential changes in the project.",
+      "options": [
+        {
+          "key": "A",
+          "text": "True"
+        },
+        {
+          "key": "B",
+          "text": "False"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        23
+      ],
+      "id": "PMG201c-330",
+      "number": 330,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 109,
+        "pages": [
+          23
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "Project integration is done by the:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Project manager"
+        },
+        {
+          "key": "B",
+          "text": "Team"
+        },
+        {
+          "key": "C",
+          "text": "Sponsor"
+        },
+        {
+          "key": "D",
+          "text": "Stakeholders"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        24
+      ],
+      "id": "PMG201c-331",
+      "number": 331,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 110,
+        "pages": [
+          24
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "single_choice",
+      "status": "active",
+      "question": "The discipline of quality management complements the discipline of project management. Both recognize all but one of the following:",
+      "options": [
+        {
+          "key": "A",
+          "text": "Management satisfaction"
+        },
+        {
+          "key": "B",
+          "text": "Prevention over inspection"
+        },
+        {
+          "key": "C",
+          "text": "Continuous improvement"
+        },
+        {
+          "key": "D",
+          "text": "Management responsibility"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [
+        24
+      ],
+      "id": "PMG201c-332",
+      "number": 332,
+      "needsReview": true,
+      "reviewNotes": [
+        "Duplicate prompt has differing correct-answer text/option mapping at global question(s): 206, 263.",
+        "Duplicate question prompt also appears at global question(s): 206, 263.",
+        "Conflicting answer or option mapping preserved from the supplied source PDFs."
+      ],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 111,
+        "pages": [
+          24
+        ],
+        "basis": "Supplied source PDF answer key only"
+      }
+    },
+    {
+      "type": "multiple_choice",
+      "status": "active",
+      "question": "A cost can be either direct or indirect. Which of the following statements are correct (choose 2 answers)?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Direct costs: These costs are directly attributable to the work on the project. Examples are team wages, team travel and recognition expenses, and costs of material used on the project."
+        },
+        {
+          "key": "B",
+          "text": "Indirect costs: These costs are overhead items or costs incurred for the benefit of more than one project. Examples include taxes, fringe benefits, and janitorial services."
+        },
+        {
+          "key": "C",
+          "text": "Indirect costs: These costs are directly attributable to the work on the project. Examples are team wages, team travel and recognition expenses, and costs of material used on the project."
+        },
+        {
+          "key": "D",
+          "text": "Direct costs: These costs are overhead items or costs incurred for the benefit of more than one project. Examples include taxes, fringe benefits, and janitorial services."
+        }
+      ],
+      "correctAnswers": [
+        "A",
+        "B"
+      ],
+      "answerTextFromSource": "AB",
+      "explanation": "",
+      "sourcePages": [
+        24
+      ],
+      "id": "PMG201c-333",
+      "number": 333,
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "src_fe_pmg_part3.pdf",
+        "part": 3,
+        "sourceQuestionNumber": 112,
+        "pages": [
+          24
         ],
         "basis": "Supplied source PDF answer key only"
       }

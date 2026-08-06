@@ -32,7 +32,7 @@ Dataset chuẩn tại `src/data/subjects/swd392.json` có `contentVersion: 2`, 2
 
 ## PMG201c
 
-PMG201c - Project Management dùng nguồn thô tại `src/data/subjects/pmg201c.json` và adapter `src/domain/subjects/pmg201c-adapter.ts`. Dataset giữ nguyên 221 câu nguồn: 150 single-choice, 3 multiple-choice và 68 true/false; có 77 câu cần rà soát, 35 nhóm prompt trùng và 2 nhóm trùng có đáp án xung đột. Đáp án và cảnh báo được bảo toàn từ hai PDF nguồn (59 trang) và chưa được xác minh học thuật độc lập.
+PMG201c - Project Management dùng nguồn thô tại `src/data/subjects/pmg201c.json` và adapter `src/domain/subjects/pmg201c-adapter.ts`. Dataset hợp nhất giữ nguyên 333 câu từ ba phần nguồn: 222 single-choice, 4 multiple-choice và 107 true/false; phân bố lựa chọn là 109/6/194/16/8 câu có 2/3/4/5/6 lựa chọn, với 146 câu cần rà soát, 66 nhóm prompt trùng và 9 nhóm trùng có đáp án xung đột. Đáp án và cảnh báo được bảo toàn từ ba PDF nguồn (83 trang) và chưa được xác minh học thuật độc lập. `contentVersion` vẫn là 1 vì 112 câu mới chỉ được nối thêm, nên tiến độ 221 câu cũ vẫn tương thích.
 
 ## Kiến trúc và dữ liệu
 
