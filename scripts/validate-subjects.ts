@@ -5,11 +5,12 @@ import { adaptMln122, mln122RawSchema } from "../src/domain/subjects/mln122-adap
 import { adaptMma301, mma301RawSchema } from "../src/domain/subjects/mma301-adapter";
 import { adaptPmg201c, pmg201cRawSchema } from "../src/domain/subjects/pmg201c-adapter";
 import { adaptHcm202FeChubedan } from "../src/domain/subjects/hcm202-fe-chubedan-adapter";
+import { adaptHcm202FeNhunghoang } from "../src/domain/subjects/hcm202-fe-nhunghoang-adapter";
 import { adaptHcm202Pt } from "../src/domain/subjects/hcm202-pt-adapter";
 import { subjectSchema } from "../src/domain/subjects/schemas";
 
 const dir = join(process.cwd(), "src/data/subjects");
-const adapters = { "hcm202_fe_chubedan.json": adaptHcm202FeChubedan, "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
+const adapters = { "hcm202_fe_chubedan.json": adaptHcm202FeChubedan, "hcm202_fe_nhunghoang.json": adaptHcm202FeNhunghoang, "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
 let failed = false;
 for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
   try {
@@ -26,6 +27,13 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
       if (JSON.stringify(answerCounts) !== JSON.stringify({ A: 62, B: 74, C: 82, D: 45 })) throw new Error("FE SWD392 answer distribution mismatch");
       if (subject.dataQuality.needsReviewCount !== 8) throw new Error("FE SWD392 review count mismatch");
       if (subject.questions.some((question) => !question.options.some((option) => option.id === question.correctAnswer))) throw new Error("FE SWD392 answer reference mismatch");
+    }
+    if (subject.slug === "hcm202-fe-nhunghoang") {
+      if (subject.questions.length !== 639 || subject.questionCount !== 639) throw new Error("HCM202 Nhung Hoang must have exactly 639 active questions");
+      if (subject.questions.filter((question) => question.type === "single-choice").length !== 638 || subject.questions.filter((question) => question.type === "multiple-choice").length !== 1) throw new Error("HCM202 Nhung Hoang type distribution mismatch");
+      const optionCounts = Object.fromEntries([2, 3, 4, 5].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]));
+      if (JSON.stringify(optionCounts) !== JSON.stringify({ 2: 1, 3: 194, 4: 442, 5: 2 })) throw new Error("HCM202 Nhung Hoang option distribution mismatch");
+      if (subject.dataQuality.needsReviewCount !== 0 || subject.dataQuality.duplicatePromptGroups.length !== 0) throw new Error("HCM202 Nhung Hoang review metadata mismatch");
     }
     if (subject.slug === "hcm202-fe-chubedan") {
       if (subject.questions.length !== 311 || subject.questionCount !== 311) throw new Error("HCM202 Chu Be Dan must have exactly 311 active questions");
