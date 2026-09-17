@@ -187,7 +187,7 @@ test("complete 10-question Test flow persists responses and leaves Learn unchang
 
 test("HCM202 PT registration exposes the source-backed subject route", async ({ page }) => {
   await page.goto("/");
-  const card = page.getByRole("article").filter({ hasText: "HCM202" });
+  const card = page.getByRole("article").filter({ has: page.locator('[href="/subjects/hcm202-pt"]') });
   await expect(card.getByText(`${hcmPt.questionCount} câu`, { exact: true })).toBeVisible();
   await card.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
   await expect(page).toHaveURL(/\/subjects\/hcm202-pt$/);

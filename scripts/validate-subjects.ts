@@ -4,11 +4,12 @@ import { adaptFeSwd392, feSwd392RawSchema } from "../src/domain/subjects/fe-swd3
 import { adaptMln122, mln122RawSchema } from "../src/domain/subjects/mln122-adapter";
 import { adaptMma301, mma301RawSchema } from "../src/domain/subjects/mma301-adapter";
 import { adaptPmg201c, pmg201cRawSchema } from "../src/domain/subjects/pmg201c-adapter";
+import { adaptHcm202FeChubedan } from "../src/domain/subjects/hcm202-fe-chubedan-adapter";
 import { adaptHcm202Pt } from "../src/domain/subjects/hcm202-pt-adapter";
 import { subjectSchema } from "../src/domain/subjects/schemas";
 
 const dir = join(process.cwd(), "src/data/subjects");
-const adapters = { "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
+const adapters = { "hcm202_fe_chubedan.json": adaptHcm202FeChubedan, "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
 let failed = false;
 for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
   try {
@@ -25,6 +26,14 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
       if (JSON.stringify(answerCounts) !== JSON.stringify({ A: 62, B: 74, C: 82, D: 45 })) throw new Error("FE SWD392 answer distribution mismatch");
       if (subject.dataQuality.needsReviewCount !== 8) throw new Error("FE SWD392 review count mismatch");
       if (subject.questions.some((question) => !question.options.some((option) => option.id === question.correctAnswer))) throw new Error("FE SWD392 answer reference mismatch");
+    }
+    if (subject.slug === "hcm202-fe-chubedan") {
+      if (subject.questions.length !== 311 || subject.questionCount !== 311) throw new Error("HCM202 Chu Be Dan must have exactly 311 active questions");
+      const typeCounts = Object.fromEntries(["single-choice", "multiple-choice"].map((type) => [type, subject.questions.filter((question) => question.type === type).length]));
+      if (JSON.stringify(typeCounts) !== JSON.stringify({ "single-choice": 307, "multiple-choice": 4 })) throw new Error("HCM202 Chu Be Dan type distribution mismatch");
+      const optionCounts = Object.fromEntries([3, 4].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]));
+      if (JSON.stringify(optionCounts) !== JSON.stringify({ 3: 49, 4: 262 })) throw new Error("HCM202 Chu Be Dan option distribution mismatch");
+      if (subject.dataQuality.needsReviewCount !== 2 || JSON.stringify(subject.dataQuality.duplicatePromptGroups) !== JSON.stringify([[135, 261]])) throw new Error("HCM202 Chu Be Dan review metadata mismatch");
     }
     if (subject.slug === "swd392") {
       if (subject.questions.length !== 249) throw new Error("SWD392 must have 249 questions");

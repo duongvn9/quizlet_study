@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
+import hcmFeChubedanData from "@/data/subjects/hcm202_fe_chubedan.json";
 import hcmPtData from "@/data/subjects/hcm202_pt.json";
+import { adaptHcm202FeChubedan } from "@/domain/subjects/hcm202-fe-chubedan-adapter";
 import { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";
 import feSwdData from "@/data/subjects/fe-swd392.json";
 import data from "@/data/subjects/swd392.json";
@@ -56,6 +58,28 @@ describe("subject data", () => {
     expect(subject.questions.map((question) => question.reviewNotes)).toEqual([first.reviewNotes, []]);
     expect(subject.dataQuality).toMatchObject({ needsReviewCount: 1, duplicatePromptGroups: [[41, 73]] });
     expect(input).toEqual(before);
+  });
+
+  it("registers HCM202 Final Exam Chu Be Dan as an independent bank without mutation or content loss", () => {
+    const before = structuredClone(hcmFeChubedanData);
+    const subject = adaptHcm202FeChubedan(hcmFeChubedanData);
+    const active = hcmFeChubedanData.questions.filter((question) => question.status === "active");
+    expect(subject).toMatchObject({ id: "hcm202-fe-chubedan", slug: "hcm202-fe-chubedan", code: "HCM202", name: "HCM202 - Tư tưởng Hồ Chí Minh - Final Exam - Chu Be Dan", assessment: "Final Exam", language: "vi", questionCount: active.length });
+    expect(subjectsBySlug["hcm202-fe-chubedan"]).toEqual(subject);
+    expect(subject.id).not.toBe(subjectsBySlug["hcm202-pt"].id);
+    expect(subject.questions).toHaveLength(311);
+    expect(subject.questions.filter((question) => question.type === "single-choice")).toHaveLength(307);
+    expect(subject.questions.filter((question) => question.type === "multiple-choice")).toHaveLength(4);
+    expect(subject.questions.filter((question) => question.options.length === 3)).toHaveLength(49);
+    expect(subject.questions.filter((question) => question.options.length === 4)).toHaveLength(262);
+    expect(subject.dataQuality).toMatchObject({ needsReviewCount: 2, duplicatePromptGroups: [[135, 261]], reviewBasis: hcmFeChubedanData.dataQuality.reviewBasis });
+    expect(subject.questions.find((question) => question.number === 135)?.question).toBe(subject.questions.find((question) => question.number === 261)?.question);
+    for (const [index, raw] of active.entries()) {
+      expect(subject.questions[index]).toMatchObject({ id: raw.id, number: raw.number, question: raw.question, correctAnswers: raw.correctAnswers, sourcePages: raw.sourcePages, answerTextFromSource: raw.answerTextFromSource, needsReview: raw.needsReview, reviewNotes: raw.reviewNotes });
+      expect(subject.questions[index].options).toEqual(raw.options.map(({ key, ...option }) => ({ id: key, ...option })));
+      expect(subject.questions[index].source).toMatchObject(raw.source);
+    }
+    expect(hcmFeChubedanData).toEqual(before);
   });
 
   it("validates the corrected canonical SWD392 dataset", () => {
@@ -161,7 +185,7 @@ describe("subject data", () => {
     expect(subject.dataQuality.duplicatePromptGroups).toEqual([[51, 307], [158, 288], [187, 296], [283, 450]]);
     expect(subject.questions.every((question) => question.type === "single-choice" && question.options.some((option) => option.id === question.correctAnswer))).toBe(true);
     expect(mlnData).toEqual(before);
-    expect(subjects.map((item) => item.slug)).toEqual(["hcm202-pt", "fe-swd392", "mln122", "mma301", "pmg201c", "swd392"]);
+    expect(subjects.map((item) => item.slug)).toEqual(["hcm202-fe-chubedan", "hcm202-pt", "pmg201c", "fe-swd392", "mln122", "mma301", "swd392"]);
     expect(subjectsBySlug.mln122).toEqual(subject);
     expect(subjectsBySlug["fe-swd392"]).toEqual(adaptFeSwd392(feSwdData));
     expect(subjectsBySlug["fe-swd392"].id).not.toBe(subjectsBySlug.swd392.id);
