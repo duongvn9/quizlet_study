@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
+import hcmPtData from "@/data/subjects/hcm202_pt.json";
+import { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";
+import { createProgress, createSession } from "@/domain/study/create-session";
+import { answer } from "@/domain/study/reducer";
 import mmaData from "@/data/subjects/mma301.json";
 import { adaptMma301 } from "@/domain/subjects/mma301-adapter";
 import { subjectSchema } from "@/domain/subjects/schemas";
@@ -14,6 +18,27 @@ describe("test domain", () => {
   it("generates canonical unique IDs and stable option orders without mutation", () => { const before = structuredClone(subject.questions); const session = createTestSession(subject.id, subject.contentVersion, subject.questions, { count: 10, pool: "all", shuffleQuestions: true, shuffleOptions: true }, deps); expect(new Set(session.questionIds).size).toBe(10); expect(session.optionOrders[session.questionIds[0]]).toHaveLength(subject.questions[0].options.length); expect(subject.questions).toEqual(before); });
   it("validates counts and filters mastered questions", () => { expect(validateTestCount(1, 2)).toBe(true); expect(validateTestCount(1.5, 2)).toBe(false); expect(eligibleQuestions(subject.questions.slice(0, 2), "unmastered", { [subject.questions[0].id]: { questionId: subject.questions[0].id, status: "mastered", totalAttempts: 0, correctCount: 0, incorrectCount: 0, dontKnowCount: 0, correctStreak: 0, lastSelectedOptionId: null, lastResult: null, firstSeenAt: null, lastSeenAt: null, masteredAt: null } })).toHaveLength(1); });
   it("scores multiple-choice answers as exact sets", () => { const mma = adaptMma301(mmaData); const question = mma.questions.find((item) => item.type === "multiple-choice" && item.correctAnswers.length > 1)!; let session = createTestSession(mma.id, mma.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps); for (const id of question.correctAnswers.slice(0, -1)) session = selectResponse(session, id, "partial", true); expect(submitTest(session, [question], "done").score?.correct).toBe(0); session = createTestSession(mma.id, mma.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps); for (const id of [...question.correctAnswers].reverse()) session = selectResponse(session, id, "exact", true); expect(submitTest(session, [question], "done").score?.correct).toBe(1); });
+  it("grades synthetic HCM202 PT multiple-choice answers as exact canonical-key sets", () => {
+    const raw = structuredClone(hcmPtData);
+    const base = raw.questions[0];
+    raw.questions = [{ ...base, id: "HCM202-PT-MULTI", type: "multiple_choice", options: [{ key: "A", text: "Alpha", sourceLabel: "1" }, { key: "B", text: "Beta", sourceLabel: "A" }, { key: "C", text: "Gamma", sourceLabel: "2" }], correctAnswers: ["A", "C"], answerTextFromSource: "1, 2" }];
+    const multipleSubject = adaptHcm202Pt(raw);
+    const question = multipleSubject.questions[0];
+    const progress = createProgress(multipleSubject.id, multipleSubject.contentVersion, [question]);
+    const session = createSession(multipleSubject.id, multipleSubject.contentVersion, [question], {}, deps);
+    const fresh = { ...progress, activeSession: session };
+    expect(answer(fresh, question, ["A"], deps).activeSession?.attempts[0].result).toBe("incorrect");
+    expect(answer(fresh, question, ["A", "B", "C"], deps).activeSession?.attempts[0].result).toBe("incorrect");
+    expect(answer(fresh, question, ["C", "A"], deps).activeSession?.attempts[0]).toMatchObject({ selectedOptionIds: ["C", "A"], result: "correct" });
+    let testSession = createTestSession(multipleSubject.id, multipleSubject.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps);
+    for (const key of ["C", "A"]) testSession = selectResponse(testSession, key, "done", true);
+    expect(submitTest(testSession, [question], "done").score?.correct).toBe(1);
+    raw.questions = [{ ...base, id: "HCM202-PT-ONE", type: "multiple_choice", options: [{ key: "A", text: "Alpha", sourceLabel: "B" }, { key: "B", text: "Beta", sourceLabel: "A" }], correctAnswers: ["B"], answerTextFromSource: "A" }];
+    const one = adaptHcm202Pt(raw).questions[0];
+    expect(one).toMatchObject({ type: "multiple-choice", correctAnswers: ["B"], correctAnswer: "B", options: [{ id: "A", sourceLabel: "B" }, { id: "B", sourceLabel: "A" }] });
+    const oneProgress = createProgress(multipleSubject.id, multipleSubject.contentVersion, [one]);
+    expect(answer({ ...oneProgress, activeSession: createSession(multipleSubject.id, multipleSubject.contentVersion, [one], {}, deps) }, one, ["B"], deps).activeSession?.attempts[0].result).toBe("correct");
+  });
   it("changes answers, navigates with skips, and scores idempotently", () => { let session = createTestSession(subject.id, subject.contentVersion, subject.questions, { count: 2, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps); session = selectResponse(session, subject.questions[0].options[1].id, "later"); session = selectResponse(session, subject.questions[0].correctAnswer, "later2"); session = goToQuestion(session, 1, "later3"); const scored = submitTest(session, subject.questions, "done"); expect(scored.score).toMatchObject({ correct: 1, unanswered: 1, total: 2 }); expect(submitTest(scored, subject.questions, "different")).toBe(scored); });
   it("defensively excludes disabled questions from generation and scoring", () => { const disabled = { ...subject.questions[0], disabled: true }; expect(eligibleQuestions([disabled, subject.questions[1]], "all")).toEqual([subject.questions[1]]); const session = createTestSession(subject.id, subject.contentVersion, [disabled, subject.questions[1]], { count: 2, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps); expect(session.questionIds).toEqual([subject.questions[1].id]); const scored = submitTest({ ...session, questionIds: [disabled.id, subject.questions[1].id], optionOrders: { ...session.optionOrders, [disabled.id]: disabled.options.map((option) => option.id) }, responses: { [disabled.id]: { selectedOptionIds: disabled.correctAnswers, answeredAt: "done" } } }, [disabled, subject.questions[1]], "done"); expect(scored.score).toMatchObject({ correct: 0, unanswered: 1, total: 1 }); expect(scored.questionIds).toEqual([subject.questions[1].id]); expect(scored.optionOrders).toEqual({ [subject.questions[1].id]: session.optionOrders[subject.questions[1].id] }); expect(scored.responses).toEqual({}); });
 });

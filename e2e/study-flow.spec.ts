@@ -1,9 +1,12 @@
 import { expect, test } from "@playwright/test";
 import subject from "../src/data/subjects/swd392.json";
+import hcmPtData from "../src/data/subjects/hcm202_pt.json";
+import { adaptHcm202Pt } from "../src/domain/subjects/hcm202-pt-adapter";
 import pmgData from "../src/data/subjects/pmg201c.json";
 import { adaptPmg201c } from "../src/domain/subjects/pmg201c-adapter";
 
 const pmg = adaptPmg201c(pmgData);
+const hcmPt = adaptHcm202Pt(hcmPtData);
 
 const progressKey = "study-flow:v1:subject:swd392";
 
@@ -182,13 +185,24 @@ test("complete 10-question Test flow persists responses and leaves Learn unchang
   expect(await page.evaluate((key) => localStorage.getItem(key), progressKey)).toBe(learnBefore);
 });
 
+test("HCM202 PT registration exposes the source-backed subject route", async ({ page }) => {
+  await page.goto("/");
+  const card = page.getByRole("article").filter({ hasText: "HCM202" });
+  await expect(card.getByText(`${hcmPt.questionCount} câu`, { exact: true })).toBeVisible();
+  await card.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
+  await expect(page).toHaveURL(/\/subjects\/hcm202-pt$/);
+  await page.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
+  await expect(page).toHaveURL(/\/subjects\/hcm202-pt\/study\?mode=learn$/);
+  await expect(page.getByText("Câu 1", { exact: true })).toBeVisible();
+});
+
 test("PMG201c learn, multiple-choice resume, test scoring, and existing routes", async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => localStorage.clear());
   const card = page.getByRole("article").filter({ hasText: "PMG201c" });
-  await expect(card.getByText("221 câu", { exact: true })).toBeVisible();
+  await expect(card.getByText(`${pmg.questionCount} câu`, { exact: true })).toBeVisible();
   await card.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
-  await expect(page.getByText("77 câu cần rà soát")).toBeVisible();
+  await expect(page.getByText(`${pmg.dataQuality.needsReviewCount} câu cần rà soát`)).toBeVisible();
   await page.getByRole("link", { name: "Bắt đầu học", exact: true }).click();
   await page.locator(".options button").first().click();
   await page.getByRole("button", { name: "Tiếp tục" }).click();

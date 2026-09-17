@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import hcmPtData from "@/data/subjects/hcm202_pt.json";
+import { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";
 import feSwdData from "@/data/subjects/fe-swd392.json";
 import data from "@/data/subjects/swd392.json";
 import mmaData from "@/data/subjects/mma301.json";
@@ -14,6 +16,48 @@ import { subjectSchema } from "@/domain/subjects/schemas";
 const duplicatePromptGroups = [[1, 2], [30, 31], [34, 35], [55, 56], [98, 99], [105, 107], [147, 148]];
 
 describe("subject data", () => {
+  it("registers HCM202 PT and preserves every active source record without mutation", () => {
+    const before = structuredClone(hcmPtData);
+    const subject = adaptHcm202Pt(hcmPtData);
+    const active = hcmPtData.questions.filter((question) => question.status === "active");
+    expect(hcmPtData.questions).toHaveLength(270);
+    expect(subject).toMatchObject({ id: "hcm202-pt", slug: "hcm202-pt", code: "HCM202", assessment: "Progress Test", language: "vi", questionCount: active.length });
+    expect(subjectsBySlug["hcm202-pt"]).toEqual(subject);
+    expect(subject.source).toMatchObject(hcmPtData.source);
+    expect(subject.questions).toHaveLength(active.length);
+    expect(subject.questions.map((question) => question.id)).toEqual(active.map((question) => question.id));
+    for (const [index, raw] of active.entries()) {
+      expect(subject.questions[index]).toMatchObject({
+        id: raw.id, number: raw.number, type: raw.type === "multiple_choice" ? "multiple-choice" : "single-choice",
+        question: raw.question, correctAnswers: raw.correctAnswers, correctAnswer: raw.correctAnswers[0],
+        explanation: raw.explanation.trim() ? raw.explanation : null, source: raw.source,
+        sourcePages: raw.sourcePages, answerTextFromSource: raw.answerTextFromSource,
+        needsReview: raw.needsReview, reviewNotes: raw.reviewNotes
+      });
+      expect(subject.questions[index].options).toEqual(raw.options.map(({ key, ...option }) => ({ id: key, ...option })));
+    }
+    expect(subject.dataQuality).toMatchObject({ needsReviewCount: active.filter((question) => question.needsReview).length, duplicatePromptGroups: hcmPtData.dataQuality.duplicatePromptGroups, reviewBasis: hcmPtData.dataQuality.reviewBasis });
+    expect(hcmPtData).toEqual(before);
+  });
+
+  it.each([{ sourceNotes: "Source annotation only" }, { sourceNotes: ["Source annotation only"] }])("keeps HCM202 PT sourceNotes as metadata and derives active counts: $sourceNotes", ({ sourceNotes }) => {
+    const first = { ...structuredClone(hcmPtData.questions[0]), id: "original-41", number: 41, needsReview: true, reviewNotes: ["Keep this review"], sourceNotes };
+    const second = { ...structuredClone(first), id: "original-73", number: 73, needsReview: false, reviewNotes: [], explanation: "  Original explanation  " };
+    const input = { ...structuredClone(hcmPtData), questions: [first, { id: "inactive", status: "deleted" }, second, { status: "empty", options: null }], dataQuality: { ...hcmPtData.dataQuality, duplicatePromptGroups: [[41, 73], [41, 99]] } };
+    const before = structuredClone(input);
+    const subject = adaptHcm202Pt(input);
+    expect(subject.questionCount).toBe(2);
+    expect(subject.description).toContain("2 câu hỏi");
+    expect(subject.questions.map((question) => question.id)).toEqual(["original-41", "original-73"]);
+    expect(subject.questions.map((question) => question.number)).toEqual([41, 73]);
+    expect(subject.questions.map((question) => question.question)).toEqual([first.question, first.question]);
+    expect(subject.questions.map((question) => question.explanation)).toEqual([null, second.explanation]);
+    expect(subject.questions.map((question) => question.sourceNotes)).toEqual([sourceNotes, sourceNotes]);
+    expect(subject.questions.map((question) => question.reviewNotes)).toEqual([first.reviewNotes, []]);
+    expect(subject.dataQuality).toMatchObject({ needsReviewCount: 1, duplicatePromptGroups: [[41, 73]] });
+    expect(input).toEqual(before);
+  });
+
   it("validates the corrected canonical SWD392 dataset", () => {
     const subject = subjectSchema.parse(data);
     const ids = subject.questions.map((question) => question.id);
@@ -117,7 +161,7 @@ describe("subject data", () => {
     expect(subject.dataQuality.duplicatePromptGroups).toEqual([[51, 307], [158, 288], [187, 296], [283, 450]]);
     expect(subject.questions.every((question) => question.type === "single-choice" && question.options.some((option) => option.id === question.correctAnswer))).toBe(true);
     expect(mlnData).toEqual(before);
-    expect(subjects.map((item) => item.slug)).toEqual(["fe-swd392", "mln122", "mma301", "pmg201c", "swd392"]);
+    expect(subjects.map((item) => item.slug)).toEqual(["hcm202-pt", "fe-swd392", "mln122", "mma301", "pmg201c", "swd392"]);
     expect(subjectsBySlug.mln122).toEqual(subject);
     expect(subjectsBySlug["fe-swd392"]).toEqual(adaptFeSwd392(feSwdData));
     expect(subjectsBySlug["fe-swd392"].id).not.toBe(subjectsBySlug.swd392.id);

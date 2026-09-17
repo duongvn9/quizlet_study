@@ -4,10 +4,11 @@ import { adaptFeSwd392, feSwd392RawSchema } from "../src/domain/subjects/fe-swd3
 import { adaptMln122, mln122RawSchema } from "../src/domain/subjects/mln122-adapter";
 import { adaptMma301, mma301RawSchema } from "../src/domain/subjects/mma301-adapter";
 import { adaptPmg201c, pmg201cRawSchema } from "../src/domain/subjects/pmg201c-adapter";
+import { adaptHcm202Pt } from "../src/domain/subjects/hcm202-pt-adapter";
 import { subjectSchema } from "../src/domain/subjects/schemas";
 
 const dir = join(process.cwd(), "src/data/subjects");
-const adapters = { "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
+const adapters = { "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
 let failed = false;
 for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
   try {

@@ -1,11 +1,12 @@
 import { z } from "zod";
 
-export const optionSchema = z.object({ id: z.string().min(1), text: z.string().min(1) });
+export const optionSchema = z.object({ id: z.string().min(1), text: z.string().min(1), sourceLabel: z.string().optional() });
 export const questionTypeSchema = z.enum(["single-choice", "multiple-choice", "true-false"]);
 const questionBaseSchema = z.object({
   id: z.string().min(1), number: z.number().int().positive(), type: questionTypeSchema, question: z.string().min(1),
   options: z.array(optionSchema).min(2), correctAnswers: z.array(z.string().min(1)).min(1), explanation: z.string().nullable(),
-  source: z.object({ file: z.string().min(1), pages: z.array(z.number().int().positive()), pdfPages: z.array(z.number().int().positive()).optional(), basis: z.string().min(1).optional(), questionBank: z.string().min(1).optional(), textbook: z.string().min(1).optional() }),
+  source: z.object({ file: z.string().min(1), pages: z.array(z.number().int().positive()), pdfPages: z.array(z.number().int().positive()).optional(), basis: z.string().min(1).optional(), questionBank: z.string().min(1).optional(), textbook: z.string().min(1).optional(), sourceQuestionNumber: z.number().int().positive().optional() }).passthrough(),
+  sourcePages: z.array(z.number().int().positive()).optional(), answerTextFromSource: z.string().optional(), sourceNotes: z.union([z.string(), z.array(z.string())]).optional(),
   needsReview: z.boolean(), reviewNotes: z.array(z.string()), disabled: z.boolean().optional(), verificationStatus: z.string().min(1).optional(), auditNotes: z.array(z.string()).optional(), legacyCorrectAnswer: z.string().min(1).optional()
 }).superRefine((q, ctx) => {
   const optionIds = new Set(q.options.map((option) => option.id));
@@ -20,7 +21,8 @@ export const compatibleQuestionSchema = z.union([questionSchema, legacyQuestionS
 export const subjectSchema = z.object({
   schemaVersion: z.literal(1), contentVersion: z.number().int().positive(), id: z.string().min(1), slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   code: z.string().min(1), name: z.string().min(1), description: z.string(), language: z.string().min(1), questionCount: z.number().int().nonnegative(),
-  source: z.object({ file: z.string(), pageCount: z.number().int().nonnegative(), note: z.string() }),
+  assessment: z.string().optional(),
+  source: z.object({ file: z.string(), pageCount: z.number().int().nonnegative(), note: z.string() }).passthrough(),
   dataQuality: z.object({
     needsReviewCount: z.number().int().nonnegative(),
     duplicatePromptGroups: z.array(z.array(z.number().int().positive()).min(2)),
