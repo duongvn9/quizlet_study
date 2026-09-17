@@ -6,11 +6,12 @@ import { adaptMma301, mma301RawSchema } from "../src/domain/subjects/mma301-adap
 import { adaptPmg201c, pmg201cRawSchema } from "../src/domain/subjects/pmg201c-adapter";
 import { adaptHcm202FeChubedan } from "../src/domain/subjects/hcm202-fe-chubedan-adapter";
 import { adaptHcm202FeNhunghoang } from "../src/domain/subjects/hcm202-fe-nhunghoang-adapter";
+import { adaptMln131FeNhunghoang } from "../src/domain/subjects/mln131-fe-nhunghoang-adapter";
 import { adaptHcm202Pt } from "../src/domain/subjects/hcm202-pt-adapter";
 import { subjectSchema } from "../src/domain/subjects/schemas";
 
 const dir = join(process.cwd(), "src/data/subjects");
-const adapters = { "hcm202_fe_chubedan.json": adaptHcm202FeChubedan, "hcm202_fe_nhunghoang.json": adaptHcm202FeNhunghoang, "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
+const adapters = { "hcm202_fe_chubedan.json": adaptHcm202FeChubedan, "hcm202_fe_nhunghoang.json": adaptHcm202FeNhunghoang, "MLN131_FE_NhungHoang.json": adaptMln131FeNhunghoang, "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
 let failed = false;
 for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
   try {
@@ -34,6 +35,15 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
       const optionCounts = Object.fromEntries([2, 3, 4, 5].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]));
       if (JSON.stringify(optionCounts) !== JSON.stringify({ 2: 1, 3: 194, 4: 442, 5: 2 })) throw new Error("HCM202 Nhung Hoang option distribution mismatch");
       if (subject.dataQuality.needsReviewCount !== 0 || subject.dataQuality.duplicatePromptGroups.length !== 0) throw new Error("HCM202 Nhung Hoang review metadata mismatch");
+    }
+    if (subject.slug === "mln131-fe-nhunghoang") {
+      if (subject.questions.length !== 432 || subject.questionCount !== 432) throw new Error("MLN131 Nhung Hoang must have exactly 432 active questions");
+      if (!subject.questions.every((question, index) => question.number === index + 1)) throw new Error("MLN131 Nhung Hoang question numbers must be continuous from 1 through 432");
+      const typeCounts = Object.fromEntries(["single-choice", "multiple-choice"].map((type) => [type, subject.questions.filter((question) => question.type === type).length]));
+      if (JSON.stringify(typeCounts) !== JSON.stringify({ "single-choice": 409, "multiple-choice": 23 })) throw new Error("MLN131 Nhung Hoang type distribution mismatch");
+      if (!subject.questions.every((question) => question.correctAnswers.every((answer) => question.options.some((option) => option.id === answer)))) throw new Error("MLN131 Nhung Hoang answer reference mismatch");
+      if (JSON.stringify(subject.questions[17].correctAnswers) !== JSON.stringify(["A", "B"]) || JSON.stringify(subject.questions[45].correctAnswers) !== JSON.stringify(["A", "B", "C"])) throw new Error("MLN131 Nhung Hoang multiple-choice answer mismatch");
+      if (subject.dataQuality.needsReviewCount !== 6 || subject.dataQuality.duplicatePromptGroups.length !== 0) throw new Error("MLN131 Nhung Hoang review metadata mismatch");
     }
     if (subject.slug === "hcm202-fe-chubedan") {
       if (subject.questions.length !== 311 || subject.questionCount !== 311) throw new Error("HCM202 Chu Be Dan must have exactly 311 active questions");

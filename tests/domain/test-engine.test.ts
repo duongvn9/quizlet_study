@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
 import hcmPtData from "@/data/subjects/hcm202_pt.json";
+import mln131Data from "@/data/subjects/MLN131_FE_NhungHoang.json";
 import { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";
 import { createProgress, createSession } from "@/domain/study/create-session";
 import { answer } from "@/domain/study/reducer";
 import mmaData from "@/data/subjects/mma301.json";
 import { adaptMma301 } from "@/domain/subjects/mma301-adapter";
+import { adaptMln131FeNhunghoang } from "@/domain/subjects/mln131-fe-nhunghoang-adapter";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import { createTestSession, eligibleQuestions, validateTestCount } from "@/domain/test/generation";
 import { goToQuestion, selectResponse } from "@/domain/test/reducer";
@@ -18,6 +20,20 @@ describe("test domain", () => {
   it("generates canonical unique IDs and stable option orders without mutation", () => { const before = structuredClone(subject.questions); const session = createTestSession(subject.id, subject.contentVersion, subject.questions, { count: 10, pool: "all", shuffleQuestions: true, shuffleOptions: true }, deps); expect(new Set(session.questionIds).size).toBe(10); expect(session.optionOrders[session.questionIds[0]]).toHaveLength(subject.questions[0].options.length); expect(subject.questions).toEqual(before); });
   it("validates counts and filters mastered questions", () => { expect(validateTestCount(1, 2)).toBe(true); expect(validateTestCount(1.5, 2)).toBe(false); expect(eligibleQuestions(subject.questions.slice(0, 2), "unmastered", { [subject.questions[0].id]: { questionId: subject.questions[0].id, status: "mastered", totalAttempts: 0, correctCount: 0, incorrectCount: 0, dontKnowCount: 0, correctStreak: 0, lastSelectedOptionId: null, lastResult: null, firstSeenAt: null, lastSeenAt: null, masteredAt: null } })).toHaveLength(1); });
   it("scores multiple-choice answers as exact sets", () => { const mma = adaptMma301(mmaData); const question = mma.questions.find((item) => item.type === "multiple-choice" && item.correctAnswers.length > 1)!; let session = createTestSession(mma.id, mma.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps); for (const id of question.correctAnswers.slice(0, -1)) session = selectResponse(session, id, "partial", true); expect(submitTest(session, [question], "done").score?.correct).toBe(0); session = createTestSession(mma.id, mma.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps); for (const id of [...question.correctAnswers].reverse()) session = selectResponse(session, id, "exact", true); expect(submitTest(session, [question], "done").score?.correct).toBe(1); });
+  it.each([18, 46])("grades MLN131 question %i as an exact canonical-key set in learn and test modes", (number) => {
+    const mln131 = adaptMln131FeNhunghoang(mln131Data);
+    const question = mln131.questions.find((item) => item.number === number)!;
+    const missing = question.correctAnswers.slice(0, -1);
+    const extra = question.options.find((option) => !question.correctAnswers.includes(option.id))!.id;
+    const progress = createProgress(mln131.id, mln131.contentVersion, [question]);
+    const studySession = createSession(mln131.id, mln131.contentVersion, [question], {}, deps);
+    expect(answer({ ...progress, activeSession: studySession }, question, missing, deps).activeSession?.attempts[0].result).toBe("incorrect");
+    expect(answer({ ...progress, activeSession: studySession }, question, [...question.correctAnswers, extra], deps).activeSession?.attempts[0].result).toBe("incorrect");
+    expect(answer({ ...progress, activeSession: studySession }, question, [...question.correctAnswers].reverse(), deps).activeSession?.attempts[0].result).toBe("correct");
+    let testSession = createTestSession(mln131.id, mln131.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps);
+    for (const key of question.correctAnswers) testSession = selectResponse(testSession, key, "done", true);
+    expect(submitTest(testSession, [question], "done").score?.correct).toBe(1);
+  });
   it("grades synthetic HCM202 PT multiple-choice answers as exact canonical-key sets", () => {
     const raw = structuredClone(hcmPtData);
     const base = raw.questions[0];
