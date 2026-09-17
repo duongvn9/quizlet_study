@@ -8,10 +8,11 @@ import { adaptHcm202FeChubedan } from "../src/domain/subjects/hcm202-fe-chubedan
 import { adaptHcm202FeNhunghoang } from "../src/domain/subjects/hcm202-fe-nhunghoang-adapter";
 import { adaptMln131FeNhunghoang } from "../src/domain/subjects/mln131-fe-nhunghoang-adapter";
 import { adaptHcm202Pt } from "../src/domain/subjects/hcm202-pt-adapter";
+import { adaptVnrFeChubedan, vnrFeChubedanRawSchema } from "../src/domain/subjects/vnr-fe-chubedan-adapter";
 import { subjectSchema } from "../src/domain/subjects/schemas";
 
 const dir = join(process.cwd(), "src/data/subjects");
-const adapters = { "hcm202_fe_chubedan.json": adaptHcm202FeChubedan, "hcm202_fe_nhunghoang.json": adaptHcm202FeNhunghoang, "MLN131_FE_NhungHoang.json": adaptMln131FeNhunghoang, "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
+const adapters = { "hcm202_fe_chubedan.json": adaptHcm202FeChubedan, "hcm202_fe_nhunghoang.json": adaptHcm202FeNhunghoang, "MLN131_FE_NhungHoang.json": adaptMln131FeNhunghoang, "FE_VNR_ChuBeDan.json": adaptVnrFeChubedan, "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
 let failed = false;
 for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
   try {
@@ -44,6 +45,16 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
       if (!subject.questions.every((question) => question.correctAnswers.every((answer) => question.options.some((option) => option.id === answer)))) throw new Error("MLN131 Nhung Hoang answer reference mismatch");
       if (JSON.stringify(subject.questions[17].correctAnswers) !== JSON.stringify(["A", "B"]) || JSON.stringify(subject.questions[45].correctAnswers) !== JSON.stringify(["A", "B", "C"])) throw new Error("MLN131 Nhung Hoang multiple-choice answer mismatch");
       if (subject.dataQuality.needsReviewCount !== 6 || subject.dataQuality.duplicatePromptGroups.length !== 0) throw new Error("MLN131 Nhung Hoang review metadata mismatch");
+    }
+    if (subject.slug === "vnr-fe-chubedan") {
+      const raw = vnrFeChubedanRawSchema.parse(value);
+      if (raw.questions.length !== 404 || subject.questionCount !== 403) throw new Error("VNR source/gradable counts mismatch");
+      if (!raw.questions.every((question, index) => question.number === index + 1 && question.id === `VNR-FE-CHUBEDAN-${String(index + 1).padStart(3, "0")}`)) throw new Error("VNR question numbers or IDs mismatch");
+      if (raw.questions.filter((question) => question.correctAnswers.length === 0).map((question) => question.number).join(",") !== "15") throw new Error("VNR ungradable question mismatch");
+      if (subject.questions.filter((question) => question.type === "single-choice").length !== 401 || subject.questions.filter((question) => question.type === "multiple-choice").length !== 2) throw new Error("VNR type distribution mismatch");
+      if (JSON.stringify(subject.questions.find((question) => question.number === 153)?.correctAnswers) !== JSON.stringify(["B", "C"]) || JSON.stringify(subject.questions.find((question) => question.number === 212)?.correctAnswers) !== JSON.stringify(["A", "D"])) throw new Error("VNR multiple-choice answers mismatch");
+      if (!subject.questions.every((question) => question.correctAnswers.every((answer) => question.options.some((option) => option.id === answer)))) throw new Error("VNR answer reference mismatch");
+      if (subject.dataQuality.needsReviewCount !== 6 || JSON.stringify(subject.dataQuality.duplicatePromptGroups) !== JSON.stringify([[1, 371], [13, 228], [53, 191]])) throw new Error("VNR review or duplicate metadata mismatch");
     }
     if (subject.slug === "hcm202-fe-chubedan") {
       if (subject.questions.length !== 311 || subject.questionCount !== 311) throw new Error("HCM202 Chu Be Dan must have exactly 311 active questions");

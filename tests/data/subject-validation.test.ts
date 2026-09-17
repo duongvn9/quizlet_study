@@ -2,10 +2,12 @@ import { describe, expect, it } from "vitest";
 import hcmFeChubedanData from "@/data/subjects/hcm202_fe_chubedan.json";
 import hcmFeNhunghoangData from "@/data/subjects/hcm202_fe_nhunghoang.json";
 import mln131Data from "@/data/subjects/MLN131_FE_NhungHoang.json";
+import vnrData from "@/data/subjects/FE_VNR_ChuBeDan.json";
 import hcmPtData from "@/data/subjects/hcm202_pt.json";
 import { adaptHcm202FeChubedan } from "@/domain/subjects/hcm202-fe-chubedan-adapter";
 import { adaptHcm202FeNhunghoang } from "@/domain/subjects/hcm202-fe-nhunghoang-adapter";
 import { adaptMln131FeNhunghoang } from "@/domain/subjects/mln131-fe-nhunghoang-adapter";
+import { adaptVnrFeChubedan, vnrFeChubedanRawSchema } from "@/domain/subjects/vnr-fe-chubedan-adapter";
 import { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";
 import feSwdData from "@/data/subjects/fe-swd392.json";
 import data from "@/data/subjects/swd392.json";
@@ -132,6 +134,33 @@ describe("subject data", () => {
     expect(mln131Data).toEqual(before);
   });
 
+  it("registers VNR Final Exam Chu Be Dan independently while preserving all source entries", () => {
+    const before = structuredClone(vnrData);
+    const raw = vnrFeChubedanRawSchema.parse(vnrData);
+    const subject = adaptVnrFeChubedan(vnrData);
+    expect(raw.questions).toHaveLength(404);
+    expect(raw.questions.map((question) => question.number)).toEqual(Array.from({ length: 404 }, (_, index) => index + 1));
+    expect(raw.questions.map((question) => question.id)).toEqual(Array.from({ length: 404 }, (_, index) => `VNR-FE-CHUBEDAN-${String(index + 1).padStart(3, "0")}`));
+    expect(raw.questions.filter((question) => question.correctAnswers.length > 0)).toHaveLength(403);
+    expect(raw.questions[14]).toMatchObject({ id: "VNR-FE-CHUBEDAN-015", number: 15, correctAnswers: [], needsReview: true });
+    expect(subject).toMatchObject({ id: "vnr-fe-chubedan", slug: "vnr-fe-chubedan", code: "VNR", name: "VNR - Final Exam - Chu Be Dan", questionCount: 403, source: { totalEntries: 404, reviewOnlyQuestionNumbers: [15] } });
+    expect(subjectsBySlug["vnr-fe-chubedan"]).toEqual(subject);
+    expect(subject.questions.some((question) => question.number === 15)).toBe(false);
+    expect(subject.questions.filter((question) => question.type === "single-choice")).toHaveLength(401);
+    expect(subject.questions.filter((question) => question.type === "multiple-choice")).toHaveLength(2);
+    expect(subject.questions.find((question) => question.number === 153)?.correctAnswers).toEqual(["B", "C"]);
+    expect(subject.questions.find((question) => question.number === 212)?.correctAnswers).toEqual(["A", "D"]);
+    expect(subject.questions.every((question) => question.correctAnswers.every((answer) => question.options.some((option) => option.id === answer)))).toBe(true);
+    expect(subject.dataQuality.duplicatePromptGroups).toEqual([[1, 371], [13, 228], [53, 191]]);
+    for (const group of subject.dataQuality.duplicatePromptGroups) expect(group.every((number) => subject.questions.some((question) => question.number === number))).toBe(true);
+    for (const question of subject.questions) {
+      const source = raw.questions.find((item) => item.id === question.id)!;
+      expect(question).toMatchObject({ number: source.number, question: source.question, correctAnswers: source.correctAnswers, sourcePages: source.sourcePages, answerTextFromSource: source.answerTextFromSource, needsReview: source.needsReview, reviewNotes: source.reviewNotes });
+      expect(question.options).toEqual(source.options.map(({ key, ...option }) => ({ id: key, ...option })));
+    }
+    expect(vnrData).toEqual(before);
+  });
+
   it("validates the corrected canonical SWD392 dataset", () => {
     const subject = subjectSchema.parse(data);
     const ids = subject.questions.map((question) => question.id);
@@ -235,7 +264,7 @@ describe("subject data", () => {
     expect(subject.dataQuality.duplicatePromptGroups).toEqual([[51, 307], [158, 288], [187, 296], [283, 450]]);
     expect(subject.questions.every((question) => question.type === "single-choice" && question.options.some((option) => option.id === question.correctAnswer))).toBe(true);
     expect(mlnData).toEqual(before);
-    expect(subjects.map((item) => item.slug)).toEqual(["hcm202-fe-nhunghoang", "mln131-fe-nhunghoang", "hcm202-fe-chubedan", "hcm202-pt", "pmg201c", "fe-swd392", "mln122", "mma301", "swd392"]);
+    expect(subjects.map((item) => item.slug)).toEqual(["vnr-fe-chubedan", "hcm202-fe-nhunghoang", "mln131-fe-nhunghoang", "hcm202-fe-chubedan", "hcm202-pt", "pmg201c", "fe-swd392", "mln122", "mma301", "swd392"]);
     expect(subjectsBySlug.mln122).toEqual(subject);
     expect(subjectsBySlug["fe-swd392"]).toEqual(adaptFeSwd392(feSwdData));
     expect(subjectsBySlug["fe-swd392"].id).not.toBe(subjectsBySlug.swd392.id);
