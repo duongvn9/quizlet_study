@@ -78,8 +78,8 @@ describe("subject data", () => {
     expect(subject.questions).toHaveLength(311);
     expect(subject.questions.filter((question) => question.type === "single-choice")).toHaveLength(307);
     expect(subject.questions.filter((question) => question.type === "multiple-choice")).toHaveLength(4);
-    expect(subject.questions.filter((question) => question.options.length === 3)).toHaveLength(49);
-    expect(subject.questions.filter((question) => question.options.length === 4)).toHaveLength(262);
+    expect(subject.questions.filter((question) => question.options.length === 3)).toHaveLength(48);
+    expect(subject.questions.filter((question) => question.options.length === 4)).toHaveLength(263);
     expect(subject.dataQuality).toMatchObject({ needsReviewCount: 2, duplicatePromptGroups: [[135, 261]], reviewBasis: hcmFeChubedanData.dataQuality.reviewBasis });
     expect(subject.questions.find((question) => question.number === 135)?.question).toBe(subject.questions.find((question) => question.number === 261)?.question);
     for (const [index, raw] of active.entries()) {

@@ -25,8 +25,8 @@
     "duplicatePromptGroups": 1,
     "conflictingDuplicateGroups": 0,
     "optionCountDistribution": {
-      "3": 49,
-      "4": 262
+      "3": 48,
+      "4": 263
     }
   },
   "dataQuality": {
@@ -11809,9 +11809,9 @@
         }
       ],
       "correctAnswers": [
-        "D"
+        "A"
       ],
-      "answerTextFromSource": "D. Tất cả phương án trên",
+      "answerTextFromSource": "A. Con đường cứu nước",
       "explanation": "",
       "sourcePages": [],
       "id": "HCM202-FE-CHUBEDAN-284",
@@ -11844,12 +11844,16 @@
         {
           "key": "C",
           "text": "Giải phóng giai cấp là nhiệm vụ trung tâm, là điều kiện để giải phóng dân tộc"
+        },
+        {
+          "key": "D",
+          "text": "Trong điều kiện các nước thuộc địa thì giải phóng dân tộc là cơ sở để giải phóng giai cấp, giải phóng con người"
         }
       ],
       "correctAnswers": [
-        "C"
+        "D"
       ],
-      "answerTextFromSource": "C. Giải phóng giai cấp là nhiệm vụ trung tâm, là điều kiện để giải phóng dân tộc",
+      "answerTextFromSource": "D. Trong điều kiện các nước thuộc địa thì giải phóng dân tộc là cơ sở để giải phóng giai cấp, giải phóng con người",
       "explanation": "",
       "sourcePages": [],
       "id": "HCM202-FE-CHUBEDAN-285",
@@ -12513,7 +12517,7 @@
     {
       "type": "single_choice",
       "status": "active",
-      "question": "Luân điếm \"Không có sự đồng tình ủng hộ của đại đa số nhân dân lao động đối với đội tiền phong của mình tức là đối với giai cấp vô sản, thì cách mạng vô sản không thể thực hiện được\" là của ai?",
+      "question": "Luận điểm \"Không có sự đồng tình ủng hộ của đại đa số nhân dân lao động đối với đội tiền phong của mình tức là đối với giai cấp vô sản, thì cách mạng vô sản không thể thực hiện được\" là của ai?",
       "options": [
         {
           "key": "A",
@@ -12697,9 +12701,9 @@
         }
       ],
       "correctAnswers": [
-        "A"
+        "D"
       ],
-      "answerTextFromSource": "A. Chủ nghĩa yêu nước và văn hóa truyền thống Việt Nam; tinh thần đoàn kết, ý thức đấu tranh cho độc lập, tự do; và tinh thần quốc tế vô sản.",
+      "answerTextFromSource": "D. Chủ nghĩa yêu nước và truyền thống văn hóa Việt Nam; tinh thần đoàn kết, ý thức đấu tranh cho độc lập, tự do; và ý chí tự lực, tự cường.",
       "explanation": "",
       "sourcePages": [],
       "id": "HCM202-FE-CHUBEDAN-306",

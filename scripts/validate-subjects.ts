@@ -74,7 +74,7 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
       const typeCounts = Object.fromEntries(["single-choice", "multiple-choice"].map((type) => [type, subject.questions.filter((question) => question.type === type).length]));
       if (JSON.stringify(typeCounts) !== JSON.stringify({ "single-choice": 307, "multiple-choice": 4 })) throw new Error("HCM202 Chu Be Dan type distribution mismatch");
       const optionCounts = Object.fromEntries([3, 4].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]));
-      if (JSON.stringify(optionCounts) !== JSON.stringify({ 3: 49, 4: 262 })) throw new Error("HCM202 Chu Be Dan option distribution mismatch");
+      if (JSON.stringify(optionCounts) !== JSON.stringify({ 3: 48, 4: 263 })) throw new Error("HCM202 Chu Be Dan option distribution mismatch");
       if (subject.dataQuality.needsReviewCount !== 2 || JSON.stringify(subject.dataQuality.duplicatePromptGroups) !== JSON.stringify([[135, 261]])) throw new Error("HCM202 Chu Be Dan review metadata mismatch");
     }
     if (subject.slug === "swd392") {
