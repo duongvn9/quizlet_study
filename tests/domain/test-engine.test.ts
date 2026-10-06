@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
 import hcmPtData from "@/data/subjects/hcm202_pt.json";
 import mln131Data from "@/data/subjects/MLN131_FE_NhungHoang.json";
+import mln111Data from "@/data/subjects/FE_MLN111.json";
 import vnrData from "@/data/subjects/FE_VNR_ChuBeDan.json";
 import vnrNhunghoangData from "@/data/subjects/FE_VNR_NhungHoang.json";
 import { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";
@@ -9,6 +10,7 @@ import { createProgress, createSession } from "@/domain/study/create-session";
 import { answer } from "@/domain/study/reducer";
 import mmaData from "@/data/subjects/mma301.json";
 import { adaptMma301 } from "@/domain/subjects/mma301-adapter";
+import { adaptMln111Fe } from "@/domain/subjects/mln111-fe-adapter";
 import { adaptMln131FeNhunghoang } from "@/domain/subjects/mln131-fe-nhunghoang-adapter";
 import { adaptVnrFeChubedan } from "@/domain/subjects/vnr-fe-chubedan-adapter";
 import { adaptVnrFeNhunghoang } from "@/domain/subjects/vnr-fe-nhunghoang-adapter";
@@ -24,6 +26,31 @@ describe("test domain", () => {
   it("generates canonical unique IDs and stable option orders without mutation", () => { const before = structuredClone(subject.questions); const session = createTestSession(subject.id, subject.contentVersion, subject.questions, { count: 10, pool: "all", shuffleQuestions: true, shuffleOptions: true }, deps); expect(new Set(session.questionIds).size).toBe(10); expect(session.optionOrders[session.questionIds[0]]).toHaveLength(subject.questions[0].options.length); expect(subject.questions).toEqual(before); });
   it("validates counts and filters mastered questions", () => { expect(validateTestCount(1, 2)).toBe(true); expect(validateTestCount(1.5, 2)).toBe(false); expect(eligibleQuestions(subject.questions.slice(0, 2), "unmastered", { [subject.questions[0].id]: { questionId: subject.questions[0].id, status: "mastered", totalAttempts: 0, correctCount: 0, incorrectCount: 0, dontKnowCount: 0, correctStreak: 0, lastSelectedOptionId: null, lastResult: null, firstSeenAt: null, lastSeenAt: null, masteredAt: null } })).toHaveLength(1); });
   it("scores multiple-choice answers as exact sets", () => { const mma = adaptMma301(mmaData); const question = mma.questions.find((item) => item.type === "multiple-choice" && item.correctAnswers.length > 1)!; let session = createTestSession(mma.id, mma.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps); for (const id of question.correctAnswers.slice(0, -1)) session = selectResponse(session, id, "partial", true); expect(submitTest(session, [question], "done").score?.correct).toBe(0); session = createTestSession(mma.id, mma.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps); for (const id of [...question.correctAnswers].reverse()) session = selectResponse(session, id, "exact", true); expect(submitTest(session, [question], "done").score?.correct).toBe(1); });
+  it("grades MLN111 question 1 through the single-choice selection path", () => {
+    const mln111 = adaptMln111Fe(mln111Data);
+    const question = mln111.questions.find((item) => item.number === 1)!;
+    const create = () => createTestSession(mln111.id, mln111.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps);
+    let session = selectResponse(create(), "A", "correct");
+    expect(session.responses[question.id]?.selectedOptionIds).toEqual(["A"]);
+    expect(submitTest(session, [question], "done").score?.correct).toBe(1);
+    session = selectResponse(create(), "A", "first");
+    session = selectResponse(session, "B", "second");
+    expect(session.responses[question.id]?.selectedOptionIds).toEqual(["B"]);
+    expect(submitTest(session, [question], "done").score?.correct).toBe(0);
+  });
+  it.each([[53, "E", ["B", "C", "D"]], [101, "F", ["B", "C", "D", "E"]]] as const)("grades MLN111 aggregate question %i only by key %s", (number, key, constituents) => {
+    const mln111 = adaptMln111Fe(mln111Data);
+    const question = mln111.questions.find((item) => item.number === number)!;
+    expect(question).toMatchObject({ type: "single-choice", correctAnswers: [key], correctAnswer: key });
+    const test = (selection: string[]) => {
+      let session = createTestSession(mln111.id, mln111.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps);
+      for (const optionId of selection) session = selectResponse(session, optionId, "done");
+      return submitTest(session, [question], "done").score?.correct;
+    };
+    expect(test([key])).toBe(1);
+    expect(test([...constituents])).toBe(0);
+    for (const constituent of constituents) expect(test([constituent])).toBe(0);
+  });
   it.each([18, 46])("grades MLN131 question %i as an exact canonical-key set in learn and test modes", (number) => {
     const mln131 = adaptMln131FeNhunghoang(mln131Data);
     const question = mln131.questions.find((item) => item.number === number)!;

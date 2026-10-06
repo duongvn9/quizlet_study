@@ -2,12 +2,14 @@ import { describe, expect, it } from "vitest";
 import hcmFeChubedanData from "@/data/subjects/hcm202_fe_chubedan.json";
 import hcmFeNhunghoangData from "@/data/subjects/hcm202_fe_nhunghoang.json";
 import mln131Data from "@/data/subjects/MLN131_FE_NhungHoang.json";
+import mln111Data from "@/data/subjects/FE_MLN111.json";
 import vnrData from "@/data/subjects/FE_VNR_ChuBeDan.json";
 import vnrNhunghoangData from "@/data/subjects/FE_VNR_NhungHoang.json";
 import hcmPtData from "@/data/subjects/hcm202_pt.json";
 import { adaptHcm202FeChubedan } from "@/domain/subjects/hcm202-fe-chubedan-adapter";
 import { adaptHcm202FeNhunghoang } from "@/domain/subjects/hcm202-fe-nhunghoang-adapter";
 import { adaptMln131FeNhunghoang } from "@/domain/subjects/mln131-fe-nhunghoang-adapter";
+import { adaptMln111Fe } from "@/domain/subjects/mln111-fe-adapter";
 import { adaptVnrFeChubedan, vnrFeChubedanRawSchema } from "@/domain/subjects/vnr-fe-chubedan-adapter";
 import { adaptVnrFeNhunghoang, vnrFeNhunghoangRawSchema } from "@/domain/subjects/vnr-fe-nhunghoang-adapter";
 import { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";
@@ -111,6 +113,36 @@ describe("subject data", () => {
       expect(subject.questions[index].source).toMatchObject(raw.source);
     }
     expect(hcmFeNhunghoangData).toEqual(before);
+  });
+
+  it("registers MLN111 Final Exam as an independent bank without mutation or content loss", () => {
+    const before = structuredClone(mln111Data);
+    const subject = adaptMln111Fe(mln111Data);
+    const active = mln111Data.questions.filter((question) => question.status === "active");
+    expect(subject).toMatchObject({ id: "mln111-fe", slug: "mln111-fe", code: "MLN111", name: "MLN111 - Triết học Mác - Lênin - Final Exam", assessment: "Final Exam", language: "vi", questionCount: active.length });
+    expect(subjectsBySlug["mln111-fe"]).toEqual(subject);
+    expect(["mln131-fe-nhunghoang", "vnr-fe-chubedan", "vnr-fe-nhunghoang", "hcm202-fe-nhunghoang", "hcm202-fe-chubedan", "pmg201c", "swd392"].map((slug) => subjectsBySlug[slug].id)).not.toContain(subject.id);
+    expect(subject.questions).toHaveLength(533);
+    expect(subject.questions.map((question) => question.number)).toEqual(Array.from({ length: 533 }, (_, index) => index + 1));
+    expect(subject.questions.filter((question) => question.type === "single-choice")).toHaveLength(533);
+    expect(subject.questions.every((question) => question.correctAnswers.length === 1 && question.options.some((option) => option.id === question.correctAnswers[0]))).toBe(true);
+    for (const [number, answer, text] of [[53, "E", "BCD"], [64, "E", "BCD"], [94, "E", "BCD"], [101, "F", "BCDE"], [392, "E", "ABC"]] as const) {
+      const question = subject.questions.find((item) => item.number === number)!;
+      expect(question).toMatchObject({ type: "single-choice", correctAnswers: [answer] });
+      expect(question.options.find((option) => option.id === answer)?.text).toBe(text);
+    }
+    expect(subject.questions.find((question) => question.number === 81)).toMatchObject({ needsReview: true, reviewNotes: mln111Data.questions[80].reviewNotes });
+    expect(subject.questions.find((question) => question.number === 177)).toMatchObject({ needsReview: true, sourceNotes: mln111Data.questions[176].sourceNotes, correctAnswers: ["C"] });
+    expect(subject.questions.find((question) => question.number === 71)?.question).toBe(subject.questions.find((question) => question.number === 107)?.question);
+    expect(subject.dataQuality.duplicatePromptGroups).toEqual([[71, 107]]);
+    for (const [index, raw] of active.entries()) {
+      expect(subject.questions[index]).toMatchObject({ id: raw.id, number: raw.number, question: raw.question, correctAnswers: raw.correctAnswers, sourcePages: raw.sourcePages, answerTextFromSource: raw.answerTextFromSource, needsReview: raw.needsReview, reviewNotes: raw.reviewNotes });
+      const options = raw.options.map(({ key, ...option }, optionIndex, rawOptions) => rawOptions.slice(0, optionIndex).some((item) => item.key === key) ? { id: `${key}-${optionIndex + 1}`, sourceLabel: key, ...option } : { id: key, ...option });
+      expect(subject.questions[index].options).toEqual(options);
+      expect(subject.questions[index].source).toMatchObject(raw.source);
+      expect(subject.questions[index].sourceNotes).toBe(raw.sourceNotes);
+    }
+    expect(mln111Data).toEqual(before);
   });
 
   it("registers MLN131 Final Exam Nhung Hoang as an independent bank without mutation or content loss", () => {
@@ -287,7 +319,7 @@ describe("subject data", () => {
     expect(subject.dataQuality.duplicatePromptGroups).toEqual([[51, 307], [158, 288], [187, 296], [283, 450]]);
     expect(subject.questions.every((question) => question.type === "single-choice" && question.options.some((option) => option.id === question.correctAnswer))).toBe(true);
     expect(mlnData).toEqual(before);
-    expect(subjects.map((item) => item.slug)).toEqual(["vnr-fe-chubedan", "vnr-fe-nhunghoang", "hcm202-fe-nhunghoang", "mln131-fe-nhunghoang", "hcm202-fe-chubedan", "hcm202-pt", "pmg201c", "fe-swd392", "mln122", "mma301", "swd392"]);
+    expect(subjects.map((item) => item.slug)).toEqual(["vnr-fe-chubedan", "vnr-fe-nhunghoang", "hcm202-fe-nhunghoang", "mln131-fe-nhunghoang", "mln111-fe", "hcm202-fe-chubedan", "hcm202-pt", "pmg201c", "fe-swd392", "mln122", "mma301", "swd392"]);
     expect(subjectsBySlug.mln122).toEqual(subject);
     expect(subjectsBySlug["fe-swd392"]).toEqual(adaptFeSwd392(feSwdData));
     expect(subjectsBySlug["fe-swd392"].id).not.toBe(subjectsBySlug.swd392.id);

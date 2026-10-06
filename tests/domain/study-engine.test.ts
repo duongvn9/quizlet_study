@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
+import mln111Data from "@/data/subjects/FE_MLN111.json";
+import { adaptMln111Fe } from "@/domain/subjects/mln111-fe-adapter";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import { createProgress, createSession } from "@/domain/study/create-session";
 import { answer, goToQuestion, move, replaceAnswer } from "@/domain/study/reducer";
@@ -234,6 +236,56 @@ describe("study engine", () => {
       expect(resumeProgress(completed, "later")).toBe(completed);
       expect(arranged.activeSession?.completedAt).toBeNull();
     }
+  });
+
+  describe("MLN111", () => {
+    const freshMln111 = () => {
+      const mln111 = adaptMln111Fe(mln111Data);
+      const progress = createProgress(mln111.id, mln111.contentVersion, mln111.questions);
+      return { ...progress, activeSession: createSession(mln111.id, mln111.contentVersion, mln111.questions, {}, deps) };
+    };
+
+    it("creates 533 separate progress and session identities, including duplicate questions", () => {
+      const mln111 = adaptMln111Fe(mln111Data);
+      const progress = freshMln111();
+      const q71 = mln111.questions.find((question) => question.number === 71)!;
+      const q107 = mln111.questions.find((question) => question.number === 107)!;
+      expect(mln111.questionCount).toBe(533);
+      expect(Object.keys(progress.questionProgress)).toHaveLength(533);
+      expect(progress.activeSession?.queue).toHaveLength(533);
+      expect(q71.question).toBe(q107.question);
+      expect(q71.id).not.toBe(q107.id);
+      expect(progress.questionProgress[q71.id]).toBeDefined();
+      expect(progress.questionProgress[q107.id]).toBeDefined();
+      expect(selectStats(progress, mln111.questionCount)).toMatchObject({ seenCount: 0, newCount: 533, remainingCount: 533, totalAttempts: 0 });
+      expect(selectLearnCounters(progress, mln111.questions.map((question) => question.id)).total).toBe(533);
+      let answered = answer(goToQuestion(progress, q71.id, deps.now()), q71, q71.correctAnswer, deps);
+      expect(answered.questionProgress[q71.id]).toMatchObject({ totalAttempts: 1, correctCount: 1 });
+      expect(answered.questionProgress[q107.id]).toEqual(progress.questionProgress[q107.id]);
+      answered = answer(goToQuestion(answered, q107.id, deps.now()), q107, q107.options.find((option) => option.id !== q107.correctAnswer)!.id, deps);
+      expect(answered.questionProgress[q71.id]).toMatchObject({ totalAttempts: 1, correctCount: 1, incorrectCount: 0 });
+      expect(answered.questionProgress[q107.id]).toMatchObject({ totalAttempts: 1, correctCount: 0, incorrectCount: 1 });
+      expect(selectStats(answered, mln111.questionCount)).toMatchObject({ seenCount: 2, newCount: 531, remainingCount: 533, totalAttempts: 2 });
+    });
+
+    it("grades ordinary question 1 correct and wrong", () => {
+      const mln111 = adaptMln111Fe(mln111Data);
+      const question = mln111.questions.find((item) => item.number === 1)!;
+      const wrong = question.options.find((option) => option.id !== "A")!.id;
+      expect(answer(freshMln111(), question, "A", deps).activeSession?.attempts[0].result).toBe("correct");
+      expect(answer(freshMln111(), question, wrong, deps).activeSession?.attempts[0].result).toBe("incorrect");
+    });
+
+    it.each([[53, "E", ["B", "C", "D"]], [101, "F", ["B", "C", "D", "E"]]] as const)("grades aggregate question %i only by its aggregate key", (number, key, constituents) => {
+      const mln111 = adaptMln111Fe(mln111Data);
+      const question = mln111.questions.find((item) => item.number === number)!;
+      const base = createProgress(mln111.id, mln111.contentVersion, [question]);
+      const fresh = () => ({ ...base, activeSession: createSession(mln111.id, mln111.contentVersion, [question], {}, deps) });
+      expect(question).toMatchObject({ type: "single-choice", correctAnswers: [key], correctAnswer: key });
+      expect(answer(fresh(), question, key, deps).activeSession?.attempts[0].result).toBe("correct");
+      expect(answer(fresh(), question, [...constituents], deps).activeSession?.attempts[0].result).toBe("incorrect");
+      for (const constituent of constituents) expect(answer(fresh(), question, constituent, deps).activeSession?.attempts[0].result).toBe("incorrect");
+    });
   });
 
   describe("Learn counters", () => {

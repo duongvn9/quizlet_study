@@ -7,6 +7,7 @@ import { adaptPmg201c } from "../src/domain/subjects/pmg201c-adapter";
 import { adaptHcm202FeChubedan } from "../src/domain/subjects/hcm202-fe-chubedan-adapter";
 import { adaptHcm202FeNhunghoang } from "../src/domain/subjects/hcm202-fe-nhunghoang-adapter";
 import { adaptMln131FeNhunghoang } from "../src/domain/subjects/mln131-fe-nhunghoang-adapter";
+import { adaptMln111Fe } from "../src/domain/subjects/mln111-fe-adapter";
 import { adaptHcm202Pt } from "../src/domain/subjects/hcm202-pt-adapter";
 import { adaptVnrFeChubedan } from "../src/domain/subjects/vnr-fe-chubedan-adapter";
 import { adaptVnrFeNhunghoang } from "../src/domain/subjects/vnr-fe-nhunghoang-adapter";
@@ -18,6 +19,7 @@ const adapters = {
   "hcm202_fe_chubedan.json": adaptHcm202FeChubedan,
   "hcm202_fe_nhunghoang.json": adaptHcm202FeNhunghoang,
   "MLN131_FE_NhungHoang.json": adaptMln131FeNhunghoang,
+  "FE_MLN111.json": adaptMln111Fe,
   "FE_VNR_ChuBeDan.json": adaptVnrFeChubedan,
   "FE_VNR_NhungHoang.json": adaptVnrFeNhunghoang,
   "hcm202_pt.json": adaptHcm202Pt,
@@ -30,19 +32,19 @@ const ignoredFiles = new Set<string>();
 const jsonFiles = readdirSync(dir).filter((file) => file.endsWith(".json") && !ignoredFiles.has(file)).sort();
 const unknownFiles = jsonFiles.filter((file) => !(file in adapters));
 if (unknownFiles.length) throw new Error(`Unregistered subject JSON: ${unknownFiles.join(", ")}`);
-const subjectOrder: (keyof typeof adapters)[] = ["FE_VNR_ChuBeDan.json", "FE_VNR_NhungHoang.json", "hcm202_fe_nhunghoang.json", "MLN131_FE_NhungHoang.json", "hcm202_fe_chubedan.json", "hcm202_pt.json", "pmg201c.json", "fe-swd392.json", "mln122.json", "mma301.json", "swd392.json"];
+const subjectOrder: (keyof typeof adapters)[] = ["FE_VNR_ChuBeDan.json", "FE_VNR_NhungHoang.json", "hcm202_fe_nhunghoang.json", "MLN131_FE_NhungHoang.json", "FE_MLN111.json", "hcm202_fe_chubedan.json", "hcm202_pt.json", "pmg201c.json", "fe-swd392.json", "mln122.json", "mma301.json", "swd392.json"];
 const files = subjectOrder;
 const ids = new Set<string>();
 const slugs = new Set<string>();
 const normalizedFiles = new Set<string>();
 const subjects = files.map((file) => {
-  if (!["hcm202_fe_chubedan.json", "hcm202_fe_nhunghoang.json", "hcm202_pt.json", "MLN131_FE_NhungHoang.json", "FE_VNR_ChuBeDan.json", "FE_VNR_NhungHoang.json"].includes(file) && !/^[a-z0-9-]+\.json$/.test(file)) throw new Error(`Invalid subject filename: ${file}`);
+  if (!["hcm202_fe_chubedan.json", "hcm202_fe_nhunghoang.json", "hcm202_pt.json", "MLN131_FE_NhungHoang.json", "FE_MLN111.json", "FE_VNR_ChuBeDan.json", "FE_VNR_NhungHoang.json"].includes(file) && !/^[a-z0-9-]+\.json$/.test(file)) throw new Error(`Invalid subject filename: ${file}`);
   const normalized = file.toLowerCase();
   if (normalizedFiles.has(normalized)) throw new Error(`Duplicate canonical filename: ${file}`);
   normalizedFiles.add(normalized);
   const value = JSON.parse(readFileSync(join(dir, file), "utf8"));
   const subject = adapters[file](value);
-  const expectedSlug = file === "hcm202_pt.json" ? "hcm202-pt" : file === "hcm202_fe_chubedan.json" ? "hcm202-fe-chubedan" : file === "hcm202_fe_nhunghoang.json" ? "hcm202-fe-nhunghoang" : file === "MLN131_FE_NhungHoang.json" ? "mln131-fe-nhunghoang" : file === "FE_VNR_ChuBeDan.json" ? "vnr-fe-chubedan" : file === "FE_VNR_NhungHoang.json" ? "vnr-fe-nhunghoang" : basename(file, ".json");
+  const expectedSlug = file === "hcm202_pt.json" ? "hcm202-pt" : file === "hcm202_fe_chubedan.json" ? "hcm202-fe-chubedan" : file === "hcm202_fe_nhunghoang.json" ? "hcm202-fe-nhunghoang" : file === "MLN131_FE_NhungHoang.json" ? "mln131-fe-nhunghoang" : file === "FE_MLN111.json" ? "mln111-fe" : file === "FE_VNR_ChuBeDan.json" ? "vnr-fe-chubedan" : file === "FE_VNR_NhungHoang.json" ? "vnr-fe-nhunghoang" : basename(file, ".json");
   if (subject.slug !== expectedSlug) throw new Error(`Filename and slug mismatch: ${file} != ${subject.slug}`);
   if (ids.has(subject.id)) throw new Error(`Duplicate subject id: ${subject.id}`);
   if (slugs.has(subject.slug)) throw new Error(`Duplicate subject slug: ${subject.slug}`);
@@ -52,12 +54,13 @@ const subjects = files.map((file) => {
 });
 
 const imports = files.map((file, index) => `import subject${index} from "../subjects/${file}";`).join("\n");
-const adapterImports = `import { adaptHcm202FeChubedan } from "@/domain/subjects/hcm202-fe-chubedan-adapter";\nimport { adaptHcm202FeNhunghoang } from "@/domain/subjects/hcm202-fe-nhunghoang-adapter";\nimport { adaptVnrFeChubedan } from "@/domain/subjects/vnr-fe-chubedan-adapter";\nimport { adaptVnrFeNhunghoang } from "@/domain/subjects/vnr-fe-nhunghoang-adapter";\nimport { adaptMln131FeNhunghoang } from "@/domain/subjects/mln131-fe-nhunghoang-adapter";\nimport { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";\nimport { adaptFeSwd392 } from "@/domain/subjects/fe-swd392-adapter";\nimport { adaptMln122 } from "@/domain/subjects/mln122-adapter";\nimport { adaptMma301 } from "@/domain/subjects/mma301-adapter";\nimport { adaptPmg201c } from "@/domain/subjects/pmg201c-adapter";\nimport { subjectSchema } from "@/domain/subjects/schemas";`;
+const adapterImports = `import { adaptHcm202FeChubedan } from "@/domain/subjects/hcm202-fe-chubedan-adapter";\nimport { adaptHcm202FeNhunghoang } from "@/domain/subjects/hcm202-fe-nhunghoang-adapter";\nimport { adaptVnrFeChubedan } from "@/domain/subjects/vnr-fe-chubedan-adapter";\nimport { adaptVnrFeNhunghoang } from "@/domain/subjects/vnr-fe-nhunghoang-adapter";\nimport { adaptMln131FeNhunghoang } from "@/domain/subjects/mln131-fe-nhunghoang-adapter";\nimport { adaptMln111Fe } from "@/domain/subjects/mln111-fe-adapter";\nimport { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";\nimport { adaptFeSwd392 } from "@/domain/subjects/fe-swd392-adapter";\nimport { adaptMln122 } from "@/domain/subjects/mln122-adapter";\nimport { adaptMma301 } from "@/domain/subjects/mma301-adapter";\nimport { adaptPmg201c } from "@/domain/subjects/pmg201c-adapter";\nimport { subjectSchema } from "@/domain/subjects/schemas";`;
 const generatedAdapters = {
   "fe-swd392.json": "adaptFeSwd392",
   "hcm202_fe_chubedan.json": "adaptHcm202FeChubedan",
   "hcm202_fe_nhunghoang.json": "adaptHcm202FeNhunghoang",
   "MLN131_FE_NhungHoang.json": "adaptMln131FeNhunghoang",
+  "FE_MLN111.json": "adaptMln111Fe",
   "FE_VNR_ChuBeDan.json": "adaptVnrFeChubedan",
   "FE_VNR_NhungHoang.json": "adaptVnrFeNhunghoang",
   "hcm202_pt.json": "adaptHcm202Pt",

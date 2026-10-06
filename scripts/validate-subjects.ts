@@ -7,13 +7,14 @@ import { adaptPmg201c, pmg201cRawSchema } from "../src/domain/subjects/pmg201c-a
 import { adaptHcm202FeChubedan } from "../src/domain/subjects/hcm202-fe-chubedan-adapter";
 import { adaptHcm202FeNhunghoang } from "../src/domain/subjects/hcm202-fe-nhunghoang-adapter";
 import { adaptMln131FeNhunghoang } from "../src/domain/subjects/mln131-fe-nhunghoang-adapter";
+import { adaptMln111Fe } from "../src/domain/subjects/mln111-fe-adapter";
 import { adaptHcm202Pt } from "../src/domain/subjects/hcm202-pt-adapter";
 import { adaptVnrFeChubedan, vnrFeChubedanRawSchema } from "../src/domain/subjects/vnr-fe-chubedan-adapter";
 import { adaptVnrFeNhunghoang, vnrFeNhunghoangRawSchema } from "../src/domain/subjects/vnr-fe-nhunghoang-adapter";
 import { subjectSchema } from "../src/domain/subjects/schemas";
 
 const dir = join(process.cwd(), "src/data/subjects");
-const adapters = { "hcm202_fe_chubedan.json": adaptHcm202FeChubedan, "hcm202_fe_nhunghoang.json": adaptHcm202FeNhunghoang, "MLN131_FE_NhungHoang.json": adaptMln131FeNhunghoang, "FE_VNR_ChuBeDan.json": adaptVnrFeChubedan, "FE_VNR_NhungHoang.json": adaptVnrFeNhunghoang, "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
+const adapters = { "hcm202_fe_chubedan.json": adaptHcm202FeChubedan, "hcm202_fe_nhunghoang.json": adaptHcm202FeNhunghoang, "MLN131_FE_NhungHoang.json": adaptMln131FeNhunghoang, "FE_MLN111.json": adaptMln111Fe, "FE_VNR_ChuBeDan.json": adaptVnrFeChubedan, "FE_VNR_NhungHoang.json": adaptVnrFeNhunghoang, "hcm202_pt.json": adaptHcm202Pt, "fe-swd392.json": adaptFeSwd392, "mln122.json": adaptMln122, "mma301.json": adaptMma301, "pmg201c.json": adaptPmg201c, "swd392.json": subjectSchema.parse } as const;
 let failed = false;
 for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
   try {
@@ -37,6 +38,20 @@ for (const file of Object.keys(adapters).sort() as (keyof typeof adapters)[]) {
       const optionCounts = Object.fromEntries([2, 3, 4, 5].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]));
       if (JSON.stringify(optionCounts) !== JSON.stringify({ 2: 1, 3: 194, 4: 442, 5: 2 })) throw new Error("HCM202 Nhung Hoang option distribution mismatch");
       if (subject.dataQuality.needsReviewCount !== 0 || subject.dataQuality.duplicatePromptGroups.length !== 0) throw new Error("HCM202 Nhung Hoang review metadata mismatch");
+    }
+    if (subject.slug === "mln111-fe") {
+      if (subject.questions.length !== 533 || subject.questionCount !== 533) throw new Error("MLN111 must have exactly 533 active questions");
+      if (!subject.questions.every((question, index) => question.number === index + 1)) throw new Error("MLN111 question numbers must be continuous from 1 through 533");
+      if (subject.questions.some((question) => question.type !== "single-choice" || question.correctAnswers.length !== 1 || !question.options.some((option) => option.id === question.correctAnswers[0]))) throw new Error("MLN111 single-choice answer reference mismatch");
+      const duplicateOptionQuestion = subject.questions[211];
+      if (duplicateOptionQuestion.options[1].id !== "B" || duplicateOptionQuestion.options[2].id !== "B-3" || duplicateOptionQuestion.options[2].sourceLabel !== "B") throw new Error("MLN111 duplicate source option key metadata mismatch");
+      if (JSON.stringify(subject.dataQuality.duplicatePromptGroups) !== JSON.stringify([[71, 107]])) throw new Error("MLN111 duplicate metadata mismatch");
+      for (const [number, answer, text] of [[53, "E", "BCD"], [64, "E", "BCD"], [94, "E", "BCD"], [101, "F", "BCDE"], [392, "E", "ABC"]] as const) {
+        const question = subject.questions[number - 1];
+        if (JSON.stringify(question.correctAnswers) !== JSON.stringify([answer]) || question.options.find((option) => option.id === answer)?.text !== text) throw new Error(`MLN111 aggregate option mismatch at ${number}`);
+      }
+      for (const number of [81, 177, 71, 107]) if (!subject.questions.some((question) => question.number === number)) throw new Error(`MLN111 question ${number} missing`);
+      if (!subject.questions.find((question) => question.number === 81)?.needsReview || !subject.questions.find((question) => question.number === 177)?.needsReview) throw new Error("MLN111 review metadata mismatch");
     }
     if (subject.slug === "mln131-fe-nhunghoang") {
       if (subject.questions.length !== 432 || subject.questionCount !== 432) throw new Error("MLN131 Nhung Hoang must have exactly 432 active questions");
