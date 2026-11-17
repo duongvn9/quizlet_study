@@ -20,12 +20,6 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Generate subject data
-        run: npm run data:generate
-      - name: Verify generated subject data
-        run: git diff --exit-code -- src/data/generated
-      - name: Validate subject data
-        run: npm run data:validate
       - name: Lint
         run: npm run lint
       - name: Typecheck

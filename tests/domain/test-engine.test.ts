@@ -1,25 +1,19 @@
 import { describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
 import hcmPtData from "@/data/subjects/hcm202_pt.json";
-import mln131Data from "@/data/subjects/MLN131_FE_NhungHoang.json";
-import mln111Data from "@/data/subjects/FE_MLN111.json";
-import vnrData from "@/data/subjects/FE_VNR_ChuBeDan.json";
-import vnrNhunghoangData from "@/data/subjects/FE_VNR_NhungHoang.json";
-import { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";
+import { subjectsBySlug } from "@/data/subjects";
+import { adaptExtractedBank } from "@/domain/subjects/extracted-bank-adapter";
 import { createProgress, createSession } from "@/domain/study/create-session";
 import { answer } from "@/domain/study/reducer";
 import mmaData from "@/data/subjects/mma301.json";
 import { adaptMma301 } from "@/domain/subjects/mma301-adapter";
-import { adaptMln111Fe } from "@/domain/subjects/mln111-fe-adapter";
-import { adaptMln131FeNhunghoang } from "@/domain/subjects/mln131-fe-nhunghoang-adapter";
-import { adaptVnrFeChubedan } from "@/domain/subjects/vnr-fe-chubedan-adapter";
-import { adaptVnrFeNhunghoang } from "@/domain/subjects/vnr-fe-nhunghoang-adapter";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import { createTestSession, eligibleQuestions, validateTestCount } from "@/domain/test/generation";
 import { goToQuestion, selectResponse } from "@/domain/test/reducer";
 import { submitTest } from "@/domain/test/scoring";
 
 const subject = subjectSchema.parse(data);
+const hcmPtMeta = { id: "hcm202-pt", name: "HCM202 PT", description: (n: number) => `${n} câu hỏi` };
 const deps = { random: () => 0, id: () => "session-1", now: () => "2026-01-01T00:00:00.000Z" };
 
 describe("test domain", () => {
@@ -27,7 +21,7 @@ describe("test domain", () => {
   it("validates counts and filters mastered questions", () => { expect(validateTestCount(1, 2)).toBe(true); expect(validateTestCount(1.5, 2)).toBe(false); expect(eligibleQuestions(subject.questions.slice(0, 2), "unmastered", { [subject.questions[0].id]: { questionId: subject.questions[0].id, status: "mastered", totalAttempts: 0, correctCount: 0, incorrectCount: 0, dontKnowCount: 0, correctStreak: 0, lastSelectedOptionId: null, lastResult: null, firstSeenAt: null, lastSeenAt: null, masteredAt: null } })).toHaveLength(1); });
   it("scores multiple-choice answers as exact sets", () => { const mma = adaptMma301(mmaData); const question = mma.questions.find((item) => item.type === "multiple-choice" && item.correctAnswers.length > 1)!; let session = createTestSession(mma.id, mma.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps); for (const id of question.correctAnswers.slice(0, -1)) session = selectResponse(session, id, "partial", true); expect(submitTest(session, [question], "done").score?.correct).toBe(0); session = createTestSession(mma.id, mma.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps); for (const id of [...question.correctAnswers].reverse()) session = selectResponse(session, id, "exact", true); expect(submitTest(session, [question], "done").score?.correct).toBe(1); });
   it("grades MLN111 question 1 through the single-choice selection path", () => {
-    const mln111 = adaptMln111Fe(mln111Data);
+    const mln111 = subjectsBySlug["mln111-fe"];
     const question = mln111.questions.find((item) => item.number === 1)!;
     const create = () => createTestSession(mln111.id, mln111.contentVersion, [question], { count: 1, pool: "all", shuffleQuestions: false, shuffleOptions: false }, deps);
     let session = selectResponse(create(), "A", "correct");
@@ -39,7 +33,7 @@ describe("test domain", () => {
     expect(submitTest(session, [question], "done").score?.correct).toBe(0);
   });
   it.each([[53, "E", ["B", "C", "D"]], [101, "F", ["B", "C", "D", "E"]]] as const)("grades MLN111 aggregate question %i only by key %s", (number, key, constituents) => {
-    const mln111 = adaptMln111Fe(mln111Data);
+    const mln111 = subjectsBySlug["mln111-fe"];
     const question = mln111.questions.find((item) => item.number === number)!;
     expect(question).toMatchObject({ type: "single-choice", correctAnswers: [key], correctAnswer: key });
     const test = (selection: string[]) => {
@@ -52,7 +46,7 @@ describe("test domain", () => {
     for (const constituent of constituents) expect(test([constituent])).toBe(0);
   });
   it.each([18, 46])("grades MLN131 question %i as an exact canonical-key set in learn and test modes", (number) => {
-    const mln131 = adaptMln131FeNhunghoang(mln131Data);
+    const mln131 = subjectsBySlug["mln131-fe-nhunghoang"];
     const question = mln131.questions.find((item) => item.number === number)!;
     const missing = question.correctAnswers.slice(0, -1);
     const extra = question.options.find((option) => !question.correctAnswers.includes(option.id))!.id;
@@ -66,7 +60,7 @@ describe("test domain", () => {
     expect(submitTest(testSession, [question], "done").score?.correct).toBe(1);
   });
   it.each([110, 359])("grades VNR Nhung Hoang question %i as an exact canonical-key set in learn and test modes", (number) => {
-    const vnr = adaptVnrFeNhunghoang(vnrNhunghoangData);
+    const vnr = subjectsBySlug["vnr-fe-nhunghoang"];
     const question = vnr.questions.find((item) => item.number === number)!;
     const missing = question.correctAnswers.slice(0, -1);
     const extra = question.options.find((option) => !question.correctAnswers.includes(option.id))!.id;
@@ -80,7 +74,7 @@ describe("test domain", () => {
     expect(submitTest(testSession, [question], "done").score?.correct).toBe(1);
   });
   it.each([153, 212])("grades VNR question %i as an exact canonical-key set in learn and test modes", (number) => {
-    const vnr = adaptVnrFeChubedan(vnrData);
+    const vnr = subjectsBySlug["vnr-fe-chubedan"];
     const question = vnr.questions.find((item) => item.number === number)!;
     const missing = question.correctAnswers.slice(0, -1);
     const extra = question.options.find((option) => !question.correctAnswers.includes(option.id))!.id;
@@ -97,7 +91,7 @@ describe("test domain", () => {
     const raw = structuredClone(hcmPtData);
     const base = raw.questions[0];
     raw.questions = [{ ...base, id: "HCM202-PT-MULTI", type: "multiple_choice", options: [{ key: "A", text: "Alpha", sourceLabel: "1" }, { key: "B", text: "Beta", sourceLabel: "A" }, { key: "C", text: "Gamma", sourceLabel: "2" }], correctAnswers: ["A", "C"], answerTextFromSource: "1, 2" }];
-    const multipleSubject = adaptHcm202Pt(raw);
+    const multipleSubject = adaptExtractedBank(raw, hcmPtMeta);
     const question = multipleSubject.questions[0];
     const progress = createProgress(multipleSubject.id, multipleSubject.contentVersion, [question]);
     const session = createSession(multipleSubject.id, multipleSubject.contentVersion, [question], {}, deps);
@@ -109,7 +103,7 @@ describe("test domain", () => {
     for (const key of ["C", "A"]) testSession = selectResponse(testSession, key, "done", true);
     expect(submitTest(testSession, [question], "done").score?.correct).toBe(1);
     raw.questions = [{ ...base, id: "HCM202-PT-ONE", type: "multiple_choice", options: [{ key: "A", text: "Alpha", sourceLabel: "B" }, { key: "B", text: "Beta", sourceLabel: "A" }], correctAnswers: ["B"], answerTextFromSource: "A" }];
-    const one = adaptHcm202Pt(raw).questions[0];
+    const one = adaptExtractedBank(raw, hcmPtMeta).questions[0];
     expect(one).toMatchObject({ type: "multiple-choice", correctAnswers: ["B"], correctAnswer: "B", options: [{ id: "A", sourceLabel: "B" }, { id: "B", sourceLabel: "A" }] });
     const oneProgress = createProgress(multipleSubject.id, multipleSubject.contentVersion, [one]);
     expect(answer({ ...oneProgress, activeSession: createSession(multipleSubject.id, multipleSubject.contentVersion, [one], {}, deps) }, one, ["B"], deps).activeSession?.attempts[0].result).toBe("correct");

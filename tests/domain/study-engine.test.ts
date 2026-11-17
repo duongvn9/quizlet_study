@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import data from "@/data/subjects/swd392.json";
-import mln111Data from "@/data/subjects/FE_MLN111.json";
-import { adaptMln111Fe } from "@/domain/subjects/mln111-fe-adapter";
+import { subjectsBySlug } from "@/data/subjects";
 import { subjectSchema } from "@/domain/subjects/schemas";
 import { createProgress, createSession } from "@/domain/study/create-session";
 import { answer, goToQuestion, move, replaceAnswer } from "@/domain/study/reducer";
@@ -240,13 +239,13 @@ describe("study engine", () => {
 
   describe("MLN111", () => {
     const freshMln111 = () => {
-      const mln111 = adaptMln111Fe(mln111Data);
+      const mln111 = subjectsBySlug["mln111-fe"];
       const progress = createProgress(mln111.id, mln111.contentVersion, mln111.questions);
       return { ...progress, activeSession: createSession(mln111.id, mln111.contentVersion, mln111.questions, {}, deps) };
     };
 
     it("creates 533 separate progress and session identities, including duplicate questions", () => {
-      const mln111 = adaptMln111Fe(mln111Data);
+      const mln111 = subjectsBySlug["mln111-fe"];
       const progress = freshMln111();
       const q71 = mln111.questions.find((question) => question.number === 71)!;
       const q107 = mln111.questions.find((question) => question.number === 107)!;
@@ -269,7 +268,7 @@ describe("study engine", () => {
     });
 
     it("grades ordinary question 1 correct and wrong", () => {
-      const mln111 = adaptMln111Fe(mln111Data);
+      const mln111 = subjectsBySlug["mln111-fe"];
       const question = mln111.questions.find((item) => item.number === 1)!;
       const wrong = question.options.find((option) => option.id !== "A")!.id;
       expect(answer(freshMln111(), question, "A", deps).activeSession?.attempts[0].result).toBe("correct");
@@ -277,7 +276,7 @@ describe("study engine", () => {
     });
 
     it.each([[53, "E", ["B", "C", "D"]], [101, "F", ["B", "C", "D", "E"]]] as const)("grades aggregate question %i only by its aggregate key", (number, key, constituents) => {
-      const mln111 = adaptMln111Fe(mln111Data);
+      const mln111 = subjectsBySlug["mln111-fe"];
       const question = mln111.questions.find((item) => item.number === number)!;
       const base = createProgress(mln111.id, mln111.contentVersion, [question]);
       const fresh = () => ({ ...base, activeSession: createSession(mln111.id, mln111.contentVersion, [question], {}, deps) });

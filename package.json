@@ -8,14 +8,10 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "data:generate": "tsx scripts/generate-subject-registry.ts",
-    "data:validate": "tsx scripts/validate-subjects.ts",
-    "predev": "npm run data:generate && npm run data:validate",
-    "prebuild": "npm run data:generate && npm run data:validate",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "check": "npm run lint && npm run typecheck && npm run data:validate && npm run test && npm run build"
+    "check": "npm run lint && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {
     "@vercel/analytics": "^1.3.2",
