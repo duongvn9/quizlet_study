@@ -1,0 +1,1874 @@
+{
+  "schemaVersion": "1.0",
+  "subject": {
+    "code": "PRM393",
+    "title": "PRM393",
+    "assessment": "Final Exam",
+    "collection": "SU26 - RE",
+    "language": "en"
+  },
+  "source": {
+    "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+    "note": "Converted from text provided by the user; answers preserved as given."
+  },
+  "statistics": {
+    "totalEntries": 50,
+    "singleChoice": 50
+  },
+  "dataQuality": {
+    "duplicatePromptGroups": []
+  },
+  "extractionWarnings": [],
+  "questions": [
+    {
+      "id": "PRM393-SU26-FE-RE-001",
+      "number": 1,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What does a Dart class primarily represent?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A UI widget only"
+        },
+        {
+          "key": "B",
+          "text": "A blueprint for creating objects"
+        },
+        {
+          "key": "C",
+          "text": "A database table"
+        },
+        {
+          "key": "D",
+          "text": "A network request"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 1
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-002",
+      "number": 2,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What type of data is SharedPreferences best suited for?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Large datasets"
+        },
+        {
+          "key": "B",
+          "text": "Simple primitive values"
+        },
+        {
+          "key": "C",
+          "text": "Images"
+        },
+        {
+          "key": "D",
+          "text": "Complex objects"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 2
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-003",
+      "number": 3,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is the main purpose of app architecture?",
+      "options": [
+        {
+          "key": "A",
+          "text": "UI design"
+        },
+        {
+          "key": "B",
+          "text": "Organize code structure"
+        },
+        {
+          "key": "C",
+          "text": "Improve animations"
+        },
+        {
+          "key": "D",
+          "text": "Handle API"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 3
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-004",
+      "number": 4,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which component is required to run and test Flutter applications on a local machine?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A cloud hosting service"
+        },
+        {
+          "key": "B",
+          "text": "A physical server"
+        },
+        {
+          "key": "C",
+          "text": "An emulator or physical device"
+        },
+        {
+          "key": "D",
+          "text": "A database management system"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 4
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-005",
+      "number": 5,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What does REST stand for?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Remote State Transfer"
+        },
+        {
+          "key": "B",
+          "text": "Representational State Transfer"
+        },
+        {
+          "key": "C",
+          "text": "Reactive Service Transport"
+        },
+        {
+          "key": "D",
+          "text": "Request State Transfer"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 5
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-006",
+      "number": 6,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is pagination used for?",
+      "options": [
+        {
+          "key": "A",
+          "text": "UI animation"
+        },
+        {
+          "key": "B",
+          "text": "Handling large datasets efficiently"
+        },
+        {
+          "key": "C",
+          "text": "Theme management"
+        },
+        {
+          "key": "D",
+          "text": "Authentication"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 6
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-007",
+      "number": 7,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What does Navigator.pop() do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Open a new screen"
+        },
+        {
+          "key": "B",
+          "text": "Close current screen"
+        },
+        {
+          "key": "C",
+          "text": "Restart app"
+        },
+        {
+          "key": "D",
+          "text": "Clear stack"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 7
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-008",
+      "number": 8,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is rebuild scope optimization in Flutter?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reducing widget tree depth"
+        },
+        {
+          "key": "B",
+          "text": "Limiting rebuild to affected widgets"
+        },
+        {
+          "key": "C",
+          "text": "Caching API responses"
+        },
+        {
+          "key": "D",
+          "text": "Avoiding global state"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 8
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-009",
+      "number": 9,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which pattern separates storage logic from UI?",
+      "options": [
+        {
+          "key": "A",
+          "text": "MVC"
+        },
+        {
+          "key": "B",
+          "text": "Repository pattern"
+        },
+        {
+          "key": "C",
+          "text": "Singleton"
+        },
+        {
+          "key": "D",
+          "text": "Factory"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 9
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-010",
+      "number": 10,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is the purpose of building a release version of a Flutter app?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Debug code"
+        },
+        {
+          "key": "B",
+          "text": "Prepare app for distribution"
+        },
+        {
+          "key": "C",
+          "text": "Test UI"
+        },
+        {
+          "key": "D",
+          "text": "Change theme"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 10
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-011",
+      "number": 11,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Why should navigation logic be well-structured?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reduce UI size"
+        },
+        {
+          "key": "B",
+          "text": "Improve maintainability"
+        },
+        {
+          "key": "C",
+          "text": "Increase speed"
+        },
+        {
+          "key": "D",
+          "text": "Avoid widgets"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 11
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-012",
+      "number": 12,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Why is logout functionality important?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Free memory"
+        },
+        {
+          "key": "B",
+          "text": "End user session securely"
+        },
+        {
+          "key": "C",
+          "text": "Improve UI"
+        },
+        {
+          "key": "D",
+          "text": "Change theme"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 12
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-013",
+      "number": 13,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which widget animates between two widgets?",
+      "options": [
+        {
+          "key": "A",
+          "text": "AnimatedSwitcher"
+        },
+        {
+          "key": "B",
+          "text": "AnimatedOpacity"
+        },
+        {
+          "key": "C",
+          "text": "AnimatedAlign"
+        },
+        {
+          "key": "D",
+          "text": "AnimatedSize"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 13
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-014",
+      "number": 14,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which method is used to update the UI when state changes?",
+      "options": [
+        {
+          "key": "A",
+          "text": "build()"
+        },
+        {
+          "key": "B",
+          "text": "setState()"
+        },
+        {
+          "key": "C",
+          "text": "initState()"
+        },
+        {
+          "key": "D",
+          "text": "dispose()"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 14
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-015",
+      "number": 15,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which programming language is used to develop Flutter applications?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Kotlin"
+        },
+        {
+          "key": "B",
+          "text": "Swift"
+        },
+        {
+          "key": "C",
+          "text": "Dart"
+        },
+        {
+          "key": "D",
+          "text": "JavaScript"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 15
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-016",
+      "number": 16,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Why is the widget tree considered immutable?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Widgets cannot be removed"
+        },
+        {
+          "key": "B",
+          "text": "Widgets are recreated instead of modified"
+        },
+        {
+          "key": "C",
+          "text": "Widgets are stored permanently"
+        },
+        {
+          "key": "D",
+          "text": "Widgets cannot contain data"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 16
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-017",
+      "number": 17,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Why are const widgets recommended?",
+      "options": [
+        {
+          "key": "A",
+          "text": "They improve readability"
+        },
+        {
+          "key": "B",
+          "text": "They reduce rebuild cost"
+        },
+        {
+          "key": "C",
+          "text": "They add state"
+        },
+        {
+          "key": "D",
+          "text": "They handle navigation"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 17
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-018",
+      "number": 18,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which feature of Dart helps prevent null reference errors at compile time?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Dynamic typing"
+        },
+        {
+          "key": "B",
+          "text": "Hot reload"
+        },
+        {
+          "key": "C",
+          "text": "Null safety"
+        },
+        {
+          "key": "D",
+          "text": "Asynchronous execution"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 18
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-019",
+      "number": 19,
+      "type": "single_choice",
+      "status": "active",
+      "question": "When should you prefer Provider over setState()?",
+      "options": [
+        {
+          "key": "A",
+          "text": "For simple UI updates"
+        },
+        {
+          "key": "B",
+          "text": "For global or shared state"
+        },
+        {
+          "key": "C",
+          "text": "For animations"
+        },
+        {
+          "key": "D",
+          "text": "For navigation"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 19
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-020",
+      "number": 20,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What advantage does a single codebase provide in Flutter development?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Higher memory usage"
+        },
+        {
+          "key": "B",
+          "text": "Simpler UI customization"
+        },
+        {
+          "key": "C",
+          "text": "Reduced development and maintenance effort"
+        },
+        {
+          "key": "D",
+          "text": "Automatic database synchronization"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 20
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-021",
+      "number": 21,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which widget is commonly used as the root of a Flutter app?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Scaffold"
+        },
+        {
+          "key": "B",
+          "text": "MaterialApp"
+        },
+        {
+          "key": "C",
+          "text": "Container"
+        },
+        {
+          "key": "D",
+          "text": "Column"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 21
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-022",
+      "number": 22,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Why should setState() be called sparingly?",
+      "options": [
+        {
+          "key": "A",
+          "text": "It increases app size"
+        },
+        {
+          "key": "B",
+          "text": "It may trigger unnecessary rebuilds"
+        },
+        {
+          "key": "C",
+          "text": "It blocks UI thread"
+        },
+        {
+          "key": "D",
+          "text": "It causes memory leaks"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 22
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-023",
+      "number": 23,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What triggers a rebuild of a widget?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Navigation only"
+        },
+        {
+          "key": "B",
+          "text": "Calling setState()"
+        },
+        {
+          "key": "C",
+          "text": "Restarting the IDE"
+        },
+        {
+          "key": "D",
+          "text": "Changing the SDK"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 23
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-024",
+      "number": 24,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What does BLoC stand for?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Business Logic Component"
+        },
+        {
+          "key": "B",
+          "text": "Backend Logic Controller"
+        },
+        {
+          "key": "C",
+          "text": "Build Logic Component"
+        },
+        {
+          "key": "D",
+          "text": "Basic Logic Controller"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 24
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-025",
+      "number": 25,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which widget can hide user input text when configured for password entry?",
+      "options": [
+        {
+          "key": "A",
+          "text": "TextField"
+        },
+        {
+          "key": "B",
+          "text": "ObscureText"
+        },
+        {
+          "key": "C",
+          "text": "SecureInput"
+        },
+        {
+          "key": "D",
+          "text": "PasswordField"
+        }
+      ],
+      "correctAnswers": [
+        "A"
+      ],
+      "answerTextFromSource": "A",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 25
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-026",
+      "number": 26,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which sliver is commonly used to display a scrolling list?",
+      "options": [
+        {
+          "key": "A",
+          "text": "SliverGrid"
+        },
+        {
+          "key": "B",
+          "text": "SliverList"
+        },
+        {
+          "key": "C",
+          "text": "SliverAppBar"
+        },
+        {
+          "key": "D",
+          "text": "SliverFillRemaining"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 26
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-027",
+      "number": 27,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What happens if form validation fails?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Form submits"
+        },
+        {
+          "key": "B",
+          "text": "Error messages are shown"
+        },
+        {
+          "key": "C",
+          "text": "App crashes"
+        },
+        {
+          "key": "D",
+          "text": "Data is saved"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 27
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-028",
+      "number": 28,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which HTTP method is typically used to retrieve data?",
+      "options": [
+        {
+          "key": "A",
+          "text": "POST"
+        },
+        {
+          "key": "B",
+          "text": "PUT"
+        },
+        {
+          "key": "C",
+          "text": "GET"
+        },
+        {
+          "key": "D",
+          "text": "DELETE"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 28
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-029",
+      "number": 29,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Why should authentication state be centralized?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reduce UI code"
+        },
+        {
+          "key": "B",
+          "text": "Ensure consistent access control"
+        },
+        {
+          "key": "C",
+          "text": "Improve animations"
+        },
+        {
+          "key": "D",
+          "text": "Simplify layout"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 29
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-030",
+      "number": 30,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which Dart keyword is used to define a constant value at compile time?",
+      "options": [
+        {
+          "key": "A",
+          "text": "final"
+        },
+        {
+          "key": "B",
+          "text": "static"
+        },
+        {
+          "key": "C",
+          "text": "const"
+        },
+        {
+          "key": "D",
+          "text": "var"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 30
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-031",
+      "number": 31,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which status code indicates resource not found?",
+      "options": [
+        {
+          "key": "A",
+          "text": "200"
+        },
+        {
+          "key": "B",
+          "text": "301"
+        },
+        {
+          "key": "C",
+          "text": "404"
+        },
+        {
+          "key": "D",
+          "text": "500"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 31
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-032",
+      "number": 32,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What represents the output of a BLoC?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Events"
+        },
+        {
+          "key": "B",
+          "text": "Widgets"
+        },
+        {
+          "key": "C",
+          "text": "States"
+        },
+        {
+          "key": "D",
+          "text": "Controllers"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 32
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-033",
+      "number": 33,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which widget is most commonly used to arrange children vertically?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Row"
+        },
+        {
+          "key": "B",
+          "text": "Stack"
+        },
+        {
+          "key": "C",
+          "text": "Column"
+        },
+        {
+          "key": "D",
+          "text": "Expanded"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 33
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-034",
+      "number": 34,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which curve creates a bounce effect?",
+      "options": [
+        {
+          "key": "A",
+          "text": "linear"
+        },
+        {
+          "key": "B",
+          "text": "easeIn"
+        },
+        {
+          "key": "C",
+          "text": "bounceOut"
+        },
+        {
+          "key": "D",
+          "text": "decelerate"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 34
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-035",
+      "number": 35,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which test runs fastest?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Integration test"
+        },
+        {
+          "key": "B",
+          "text": "Widget test"
+        },
+        {
+          "key": "C",
+          "text": "Unit test"
+        },
+        {
+          "key": "D",
+          "text": "Manual test"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 35
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-036",
+      "number": 36,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is the main purpose of hot reload in Flutter?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Improve runtime performance"
+        },
+        {
+          "key": "B",
+          "text": "Instantly reflect code changes in UI"
+        },
+        {
+          "key": "C",
+          "text": "Publish apps faster"
+        },
+        {
+          "key": "D",
+          "text": "Reduce memory usage"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 36
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-037",
+      "number": 37,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Why should database operations be asynchronous?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Simplify syntax"
+        },
+        {
+          "key": "B",
+          "text": "Avoid blocking UI thread"
+        },
+        {
+          "key": "C",
+          "text": "Reduce code"
+        },
+        {
+          "key": "D",
+          "text": "Improve theme"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 37
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-038",
+      "number": 38,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is the primary purpose of ThemeData in Flutter?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Manage navigation"
+        },
+        {
+          "key": "B",
+          "text": "Define application-wide visual styles"
+        },
+        {
+          "key": "C",
+          "text": "Handle state changes"
+        },
+        {
+          "key": "D",
+          "text": "Control animations"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 38
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-039",
+      "number": 39,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Why should API responses be mapped to models?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reduce JSON size"
+        },
+        {
+          "key": "B",
+          "text": "Ensure type safety"
+        },
+        {
+          "key": "C",
+          "text": "Speed up UI"
+        },
+        {
+          "key": "D",
+          "text": "Improve theme"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 39
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-040",
+      "number": 40,
+      "type": "single_choice",
+      "status": "active",
+      "question": "How can data be passed to a new screen?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Using global variables"
+        },
+        {
+          "key": "B",
+          "text": "Via constructor arguments"
+        },
+        {
+          "key": "C",
+          "text": "Using ThemeData"
+        },
+        {
+          "key": "D",
+          "text": "Using Scaffold"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 40
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-041",
+      "number": 41,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What role does the Flutter framework play in application development?",
+      "options": [
+        {
+          "key": "A",
+          "text": "It manages database servers"
+        },
+        {
+          "key": "B",
+          "text": "It provides UI components and rendering logic"
+        },
+        {
+          "key": "C",
+          "text": "It replaces the operating system"
+        },
+        {
+          "key": "D",
+          "text": "It runs backend business logic"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 41
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-042",
+      "number": 42,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is the main benefit of using Maps in Dart?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Storing values without keys"
+        },
+        {
+          "key": "B",
+          "text": "Storing key-value pairs"
+        },
+        {
+          "key": "C",
+          "text": "Rendering UI components"
+        },
+        {
+          "key": "D",
+          "text": "Managing asynchronous tasks"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 42
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-043",
+      "number": 43,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which Flutter service simplifies authentication implementation?",
+      "options": [
+        {
+          "key": "A",
+          "text": "sqflite"
+        },
+        {
+          "key": "B",
+          "text": "Firebase Authentication"
+        },
+        {
+          "key": "C",
+          "text": "Provider"
+        },
+        {
+          "key": "D",
+          "text": "http"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 43
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-044",
+      "number": 44,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Why should animations be disposed properly?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Improve UI"
+        },
+        {
+          "key": "B",
+          "text": "Prevent memory leaks"
+        },
+        {
+          "key": "C",
+          "text": "Speed up builds"
+        },
+        {
+          "key": "D",
+          "text": "Fix layout"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 44
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-045",
+      "number": 45,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which widget is best used to add fixed empty space?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Padding"
+        },
+        {
+          "key": "B",
+          "text": "Expanded"
+        },
+        {
+          "key": "C",
+          "text": "SizedBox"
+        },
+        {
+          "key": "D",
+          "text": "Container"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 45
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-046",
+      "number": 46,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is the purpose of the Flutter SDK?",
+      "options": [
+        {
+          "key": "A",
+          "text": "To store application data permanently"
+        },
+        {
+          "key": "B",
+          "text": "To provide tools and libraries for Flutter development"
+        },
+        {
+          "key": "C",
+          "text": "To deploy applications directly to app stores"
+        },
+        {
+          "key": "D",
+          "text": "To replace the operating system of a device"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 46
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-047",
+      "number": 47,
+      "type": "single_choice",
+      "status": "active",
+      "question": "What is the main goal of performance optimization in Flutter apps?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Improve UI colors"
+        },
+        {
+          "key": "B",
+          "text": "Ensure smooth and responsive UI"
+        },
+        {
+          "key": "C",
+          "text": "Reduce code size"
+        },
+        {
+          "key": "D",
+          "text": "Add features"
+        }
+      ],
+      "correctAnswers": [
+        "B"
+      ],
+      "answerTextFromSource": "B",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 47
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-048",
+      "number": 48,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which widget is suitable for displaying items in a grid layout?",
+      "options": [
+        {
+          "key": "A",
+          "text": "ListView"
+        },
+        {
+          "key": "B",
+          "text": "Column"
+        },
+        {
+          "key": "C",
+          "text": "GridView"
+        },
+        {
+          "key": "D",
+          "text": "Stack"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 48
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-049",
+      "number": 49,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which platforms can Flutter applications target using a single codebase?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Android only"
+        },
+        {
+          "key": "B",
+          "text": "iOS only"
+        },
+        {
+          "key": "C",
+          "text": "Android, iOS, web, and desktop"
+        },
+        {
+          "key": "D",
+          "text": "Web servers only"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 49
+      }
+    },
+    {
+      "id": "PRM393-SU26-FE-RE-050",
+      "number": 50,
+      "type": "single_choice",
+      "status": "active",
+      "question": "Which Flutter plugin provides SQLite support?",
+      "options": [
+        {
+          "key": "A",
+          "text": "hive"
+        },
+        {
+          "key": "B",
+          "text": "moor"
+        },
+        {
+          "key": "C",
+          "text": "sqflite"
+        },
+        {
+          "key": "D",
+          "text": "shared_preferences"
+        }
+      ],
+      "correctAnswers": [
+        "C"
+      ],
+      "answerTextFromSource": "C",
+      "explanation": "",
+      "sourcePages": [],
+      "needsReview": false,
+      "reviewNotes": [],
+      "source": {
+        "file": "PRM393 - SU26 - FE - RE (user-provided text)",
+        "sourceQuestionNumber": 50
+      }
+    }
+  ]
+}

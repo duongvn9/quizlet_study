@@ -757,6 +757,27 @@ exports[`summary of pmg201c matches the reviewed snapshot 1`] = `
 }
 `;
 
+exports[`summary of prm393-su26-fe-re matches the reviewed snapshot 1`] = `
+{
+  "answers": {
+    "A": 3,
+    "B": 32,
+    "C": 15,
+  },
+  "contentVersion": 1,
+  "duplicatePromptGroups": [],
+  "id": "prm393-su26-fe-re",
+  "needsReview": [],
+  "optionCounts": {
+    "4": 50,
+  },
+  "questionCount": 50,
+  "types": {
+    "single-choice": 50,
+  },
+}
+`;
+
 exports[`summary of swd392 matches the reviewed snapshot 1`] = `
 {
   "answers": {

@@ -182,7 +182,7 @@ describe("subject data", () => {
     expect(subject.dataQuality.duplicatePromptGroups).toEqual([[51, 307], [158, 288], [187, 296], [283, 450]]);
     expect(subject.questions.every((question) => question.type === "single-choice" && question.options.some((option) => option.id === question.correctAnswer))).toBe(true);
     expect(mlnData).toEqual(before);
-    expect(subjects.map((item) => item.slug)).toEqual(["vnr-fe-chubedan", "vnr-fe-nhunghoang", "hcm202-fe-nhunghoang", "mln131-fe-nhunghoang", "mln111-fe", "hcm202-fe-chubedan", "hcm202-pt", "pmg201c", "fe-swd392", "mln122", "mma301", "swd392"]);
+    expect(subjects.map((item) => item.slug)).toEqual(["prm393-su26-fe-re", "vnr-fe-chubedan", "vnr-fe-nhunghoang", "hcm202-fe-nhunghoang", "mln131-fe-nhunghoang", "mln111-fe", "hcm202-fe-chubedan", "hcm202-pt", "pmg201c", "fe-swd392", "mln122", "mma301", "swd392"]);
     expect(subjectsBySlug.mln122).toEqual(subject);
     expect(subjectsBySlug["fe-swd392"]).toEqual(adaptFeSwd392(feSwdData));
     expect(subjectsBySlug["fe-swd392"].id).not.toBe(subjectsBySlug.swd392.id);
