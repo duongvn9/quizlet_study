@@ -1,5 +1,6 @@
 // Registry of every subject shown in the app. To add a subject: put its JSON in ./subjects, import it here and add one entry.
 // Keep `id` and `contentVersion` stable: they key saved progress. Bump `contentVersion` by 1 after changing answers/content.
+import prm393Su26FeRe from "./subjects/prm393_su26_fe_re.json";
 import vnrChubedan from "./subjects/FE_VNR_ChuBeDan.json";
 import vnrNhunghoang from "./subjects/FE_VNR_NhungHoang.json";
 import hcm202FeNhunghoang from "./subjects/hcm202_fe_nhunghoang.json";
@@ -21,6 +22,7 @@ import { subjectSchema } from "@/domain/subjects/schemas";
 import type { Subject } from "@/domain/subjects/types";
 
 export const subjects: Subject[] = [
+  adaptExtractedBank(prm393Su26FeRe, { id: "prm393-su26-fe-re", name: "PRM393 - SU26 - FE - RE", description: (n) => `Bộ ${n} câu hỏi Final Exam môn PRM393 - SU26 - RE.` }),
   adaptExtractedBank(vnrChubedan, { id: "vnr-fe-chubedan", name: "VNR - Final Exam - Chu Be Dan", description: (n) => `Bộ ${n} câu hỏi có đáp án Final Exam môn VNR - Chu Be Dan.` }),
   adaptExtractedBank(vnrNhunghoang, { id: "vnr-fe-nhunghoang", name: "VNR - Final Exam - Nhung Hoang", description: (n) => `Bộ ${n} câu hỏi có đáp án Final Exam môn VNR - Nhung Hoang.` }),
   adaptExtractedBank(hcm202FeNhunghoang, { id: "hcm202-fe-nhunghoang", name: "HCM202 - Tư tưởng Hồ Chí Minh - Final Exam - Nhung Hoang", description: (n) => `Bộ ${n} câu hỏi Final Exam môn Tư tưởng Hồ Chí Minh - Nhung Hoang.` }),
