@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { SubjectStudyWorkspace } from "@/components/study/SubjectStudyWorkspace";
 import type { StudyMode } from "@/components/study/StudyModeSelector";
-import { getSubject, subjectSlugs } from "@/data/generated/subjects.generated";
+import { getSubject, subjectSlugs } from "@/data/subjects";
 
 export const generateStaticParams = () => subjectSlugs.map((slug) => ({ slug }));
 

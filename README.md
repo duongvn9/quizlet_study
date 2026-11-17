@@ -14,8 +14,6 @@ npm run dev
 ## Kiểm tra
 
 ```bash
-npm run data:generate
-npm run data:validate
 npm run lint
 npm run typecheck
 npm run test
@@ -24,7 +22,7 @@ npx playwright install chromium
 npm run test:e2e
 ```
 
-CI chạy tuần tự các bước trên, kiểm tra generated registry sạch, cài riêng Chromium và tải Playwright report khi thất bại.
+CI chạy tuần tự các bước trên, cài riêng Chromium và tải Playwright report khi thất bại.
 
 ## SWD392 v2
 
@@ -40,9 +38,11 @@ Backend tùy chọn được mô tả tại [kiến trúc](docs/BASE-ARCHITECTUR
 
 `src/domain/subjects` định nghĩa Zod schema; `src/domain/study` là engine thuần; `src/lib/storage` xác thực persistence; `src/components` và `src/app` là presentation. Mỗi subject có `schemaVersion`, `contentVersion`, metadata và questions. Mỗi question có stable `id`, `number`, `correctAnswers` (mảng; `correctAnswer` chỉ là compatibility field), options, `needsReview`, `reviewNotes` và `explanation` tùy chọn.
 
-Để thêm môn canonical: đặt JSON hợp lệ tại `src/data/subjects/<slug>.json`, bảo đảm filename trùng slug và ID/slug không trùng môn khác, đăng ký rõ trong generator/validator, chạy `npm run data:generate`, `npm run data:validate` rồi build. Với schema nguồn khác canonical, thêm adapter Zod trong `src/domain/subjects`, giữ nguyên dữ liệu nguồn, đăng ký adapter ở cả hai script và thêm regression tests. Generator từ chối raw schema chưa đăng ký, identity trùng và không âm thầm ghi đè registry.
+Mọi môn được đăng ký trong `src/data/subjects.ts` (một dòng import + một entry); dữ liệu được parse và kiểm tra bằng Zod ngay khi load, nên `dev`/`build`/test sẽ báo lỗi nếu JSON sai.
 
-Để sửa đáp án/nội dung: giữ nguyên `id` và `number`; cập nhật trường cần thiết; bảo đảm mọi `correctAnswers` tồn tại trong options; tăng `contentVersion` đúng 1; chạy đầy đủ kiểm tra và commit generated output. Lần truy cập sau chỉ tiến độ môn bị cập nhật được đặt lại.
+Để thêm môn: đặt JSON tại `src/data/subjects/`. Nếu JSON theo format trích xuất chung (`schemaVersion: "1.0"`, có `subject`, `source`, `questions` với `options[].key`, `correctAnswers`, `status`…), chỉ cần thêm `adaptExtractedBank(data, { id, name, description })` vào `src/data/subjects.ts`; `id` cũng là slug, phải dạng `chu-thuong-gach-ngang` và không trùng môn khác. Câu `status` khác `active` bị bỏ qua; câu không có đáp án phải có `needsReview: true` và được ghi vào `source.reviewOnlyQuestionNumbers`. Format nguồn khác thì viết adapter Zod riêng trong `src/domain/subjects` (xem `pmg201c-adapter.ts`). Sau đó chạy `npx vitest run -u` để ghi snapshot tóm tắt của môn mới (`tests/data/__snapshots__`), xem lại rồi commit.
+
+Để sửa đáp án/nội dung: giữ nguyên `id` và `number`; cập nhật trường cần thiết; bảo đảm mọi `correctAnswers` tồn tại trong options; tăng `contentVersion` đúng 1; chạy `npx vitest run -u`, xem diff snapshot tóm tắt rồi commit. Lần truy cập sau chỉ tiến độ môn bị cập nhật được đặt lại.
 
 ## Chế độ học
 

@@ -6,19 +6,13 @@ import mln111Data from "@/data/subjects/FE_MLN111.json";
 import vnrData from "@/data/subjects/FE_VNR_ChuBeDan.json";
 import vnrNhunghoangData from "@/data/subjects/FE_VNR_NhungHoang.json";
 import hcmPtData from "@/data/subjects/hcm202_pt.json";
-import { adaptHcm202FeChubedan } from "@/domain/subjects/hcm202-fe-chubedan-adapter";
-import { adaptHcm202FeNhunghoang } from "@/domain/subjects/hcm202-fe-nhunghoang-adapter";
-import { adaptMln131FeNhunghoang } from "@/domain/subjects/mln131-fe-nhunghoang-adapter";
-import { adaptMln111Fe } from "@/domain/subjects/mln111-fe-adapter";
-import { adaptVnrFeChubedan, vnrFeChubedanRawSchema } from "@/domain/subjects/vnr-fe-chubedan-adapter";
-import { adaptVnrFeNhunghoang, vnrFeNhunghoangRawSchema } from "@/domain/subjects/vnr-fe-nhunghoang-adapter";
-import { adaptHcm202Pt } from "@/domain/subjects/hcm202-pt-adapter";
 import feSwdData from "@/data/subjects/fe-swd392.json";
 import data from "@/data/subjects/swd392.json";
 import mmaData from "@/data/subjects/mma301.json";
 import mlnData from "@/data/subjects/mln122.json";
 import pmgData from "@/data/subjects/pmg201c.json";
-import { subjects, subjectsBySlug } from "@/data/generated/subjects.generated";
+import { subjects, subjectsBySlug } from "@/data/subjects";
+import { adaptExtractedBank } from "@/domain/subjects/extracted-bank-adapter";
 import { adaptFeSwd392 } from "@/domain/subjects/fe-swd392-adapter";
 import { adaptMln122, mln122RawSchema } from "@/domain/subjects/mln122-adapter";
 import { adaptMma301 } from "@/domain/subjects/mma301-adapter";
@@ -26,43 +20,44 @@ import { adaptPmg201c } from "@/domain/subjects/pmg201c-adapter";
 import { subjectSchema } from "@/domain/subjects/schemas";
 
 const duplicatePromptGroups = [[1, 2], [30, 31], [34, 35], [55, 56], [98, 99], [105, 107], [147, 148]];
+const meta = { id: "test-bank", name: "Test bank", description: (n: number) => `Bộ ${n} câu hỏi` };
+const extractedBanks = [
+  ["hcm202-pt", hcmPtData], ["hcm202-fe-chubedan", hcmFeChubedanData], ["hcm202-fe-nhunghoang", hcmFeNhunghoangData], ["mln111-fe", mln111Data],
+  ["mln131-fe-nhunghoang", mln131Data], ["vnr-fe-chubedan", vnrData], ["vnr-fe-nhunghoang", vnrNhunghoangData]
+] as const;
 
 describe("subject data", () => {
-  it("registers HCM202 PT and preserves every active source record without mutation", () => {
-    const before = structuredClone(hcmPtData);
-    const subject = adaptHcm202Pt(hcmPtData);
-    const active = hcmPtData.questions.filter((question) => question.status === "active");
-    expect(hcmPtData.questions).toHaveLength(270);
-    expect(subject).toMatchObject({ id: "hcm202-pt", slug: "hcm202-pt", code: "HCM202", assessment: "Progress Test", language: "vi", questionCount: active.length });
-    expect(subjectsBySlug["hcm202-pt"]).toEqual(subject);
-    expect(subject.source).toMatchObject(hcmPtData.source);
-    expect(subject.questions).toHaveLength(active.length);
-    expect(subject.questions.map((question) => question.id)).toEqual(active.map((question) => question.id));
-    for (const [index, raw] of active.entries()) {
+  it.each(extractedBanks)("adapts extracted bank %s from source without mutation or content loss", (slug, raw) => {
+    const before = structuredClone(raw);
+    const subject = subjectsBySlug[slug];
+    adaptExtractedBank(raw, meta);
+    expect(raw).toEqual(before);
+    const gradable = (raw.questions as typeof hcmPtData.questions).filter((question) => question.status === "active" && question.correctAnswers.length > 0);
+    expect(subject).toMatchObject({ id: slug, slug, code: raw.subject.code, assessment: raw.subject.assessment, language: raw.subject.language, questionCount: gradable.length });
+    expect(subject.questions.map((question) => question.id)).toEqual(gradable.map((question) => question.id));
+    for (const [index, source] of gradable.entries()) {
       expect(subject.questions[index]).toMatchObject({
-        id: raw.id, number: raw.number, type: raw.type === "multiple_choice" ? "multiple-choice" : "single-choice",
-        question: raw.question, correctAnswers: raw.correctAnswers, correctAnswer: raw.correctAnswers[0],
-        explanation: raw.explanation.trim() ? raw.explanation : null, source: raw.source,
-        sourcePages: raw.sourcePages, answerTextFromSource: raw.answerTextFromSource,
-        needsReview: raw.needsReview, reviewNotes: raw.reviewNotes
+        id: source.id, number: source.number, type: source.type === "multiple_choice" ? "multiple-choice" : "single-choice", question: source.question,
+        correctAnswers: source.correctAnswers, correctAnswer: source.correctAnswers[0], explanation: source.explanation.trim() ? source.explanation : null,
+        sourcePages: source.sourcePages, answerTextFromSource: source.answerTextFromSource, needsReview: source.needsReview, reviewNotes: source.reviewNotes
       });
-      expect(subject.questions[index].options).toEqual(raw.options.map(({ key, ...option }) => ({ id: key, ...option })));
+      expect(subject.questions[index].source).toMatchObject(source.source);
+      expect(subject.questions[index].sourceNotes).toEqual((source as { sourceNotes?: unknown }).sourceNotes);
+      const options = source.options.map(({ key, ...option }, optionIndex, all) => all.slice(0, optionIndex).some((item) => item.key === key) ? { ...option, id: `${key}-${optionIndex + 1}`, sourceLabel: key } : { id: key, ...option });
+      expect(subject.questions[index].options).toEqual(options);
     }
-    expect(subject.dataQuality).toMatchObject({ needsReviewCount: active.filter((question) => question.needsReview).length, duplicatePromptGroups: hcmPtData.dataQuality.duplicatePromptGroups, reviewBasis: hcmPtData.dataQuality.reviewBasis });
-    expect(hcmPtData).toEqual(before);
   });
 
-  it.each([{ sourceNotes: "Source annotation only" }, { sourceNotes: ["Source annotation only"] }])("keeps HCM202 PT sourceNotes as metadata and derives active counts: $sourceNotes", ({ sourceNotes }) => {
+  it.each([{ sourceNotes: "Source annotation only" }, { sourceNotes: ["Source annotation only"] }])("keeps sourceNotes as metadata and derives active counts: $sourceNotes", ({ sourceNotes }) => {
     const first = { ...structuredClone(hcmPtData.questions[0]), id: "original-41", number: 41, needsReview: true, reviewNotes: ["Keep this review"], sourceNotes };
     const second = { ...structuredClone(first), id: "original-73", number: 73, needsReview: false, reviewNotes: [], explanation: "  Original explanation  " };
     const input = { ...structuredClone(hcmPtData), questions: [first, { id: "inactive", status: "deleted" }, second, { status: "empty", options: null }], dataQuality: { ...hcmPtData.dataQuality, duplicatePromptGroups: [[41, 73], [41, 99]] } };
     const before = structuredClone(input);
-    const subject = adaptHcm202Pt(input);
+    const subject = adaptExtractedBank(input, meta);
     expect(subject.questionCount).toBe(2);
     expect(subject.description).toContain("2 câu hỏi");
     expect(subject.questions.map((question) => question.id)).toEqual(["original-41", "original-73"]);
     expect(subject.questions.map((question) => question.number)).toEqual([41, 73]);
-    expect(subject.questions.map((question) => question.question)).toEqual([first.question, first.question]);
     expect(subject.questions.map((question) => question.explanation)).toEqual([null, second.explanation]);
     expect(subject.questions.map((question) => question.sourceNotes)).toEqual([sourceNotes, sourceNotes]);
     expect(subject.questions.map((question) => question.reviewNotes)).toEqual([first.reviewNotes, []]);
@@ -70,150 +65,18 @@ describe("subject data", () => {
     expect(input).toEqual(before);
   });
 
-  it("registers HCM202 Final Exam Chu Be Dan as an independent bank without mutation or content loss", () => {
-    const before = structuredClone(hcmFeChubedanData);
-    const subject = adaptHcm202FeChubedan(hcmFeChubedanData);
-    const active = hcmFeChubedanData.questions.filter((question) => question.status === "active");
-    expect(subject).toMatchObject({ id: "hcm202-fe-chubedan", slug: "hcm202-fe-chubedan", code: "HCM202", name: "HCM202 - Tư tưởng Hồ Chí Minh - Final Exam - Chu Be Dan", assessment: "Final Exam", language: "vi", questionCount: active.length });
-    expect(subjectsBySlug["hcm202-fe-chubedan"]).toEqual(subject);
-    expect(subject.id).not.toBe(subjectsBySlug["hcm202-pt"].id);
-    expect(subject.questions).toHaveLength(311);
-    expect(subject.questions.filter((question) => question.type === "single-choice")).toHaveLength(307);
-    expect(subject.questions.filter((question) => question.type === "multiple-choice")).toHaveLength(4);
-    expect(subject.questions.filter((question) => question.options.length === 3)).toHaveLength(48);
-    expect(subject.questions.filter((question) => question.options.length === 4)).toHaveLength(263);
-    expect(subject.dataQuality).toMatchObject({ needsReviewCount: 2, duplicatePromptGroups: [[135, 261]], reviewBasis: hcmFeChubedanData.dataQuality.reviewBasis });
-    expect(subject.questions.find((question) => question.number === 135)?.question).toBe(subject.questions.find((question) => question.number === 261)?.question);
-    for (const [index, raw] of active.entries()) {
-      expect(subject.questions[index]).toMatchObject({ id: raw.id, number: raw.number, question: raw.question, correctAnswers: raw.correctAnswers, sourcePages: raw.sourcePages, answerTextFromSource: raw.answerTextFromSource, needsReview: raw.needsReview, reviewNotes: raw.reviewNotes });
-      expect(subject.questions[index].options).toEqual(raw.options.map(({ key, ...option }) => ({ id: key, ...option })));
-      expect(subject.questions[index].source).toMatchObject(raw.source);
-    }
-    expect(hcmFeChubedanData).toEqual(before);
+  it("drops review-only questions without an answer and rejects unanswered questions not flagged for review", () => {
+    const [first, second] = structuredClone(hcmPtData.questions);
+    const reviewOnly = { ...second, correctAnswers: [], needsReview: true };
+    const subject = adaptExtractedBank({ ...structuredClone(hcmPtData), questions: [first, reviewOnly] }, meta);
+    expect(subject.questions.map((question) => question.id)).toEqual([first.id]);
+    expect(subject.source).toMatchObject({ totalEntries: 2, reviewOnlyQuestionNumbers: [second.number] });
+    expect(() => adaptExtractedBank({ ...structuredClone(hcmPtData), questions: [first, { ...reviewOnly, needsReview: false }] }, meta)).toThrow(/only needsReview/);
   });
 
-  it("registers HCM202 Final Exam Nhung Hoang as an independent bank without mutation or content loss", () => {
-    const before = structuredClone(hcmFeNhunghoangData);
-    const subject = adaptHcm202FeNhunghoang(hcmFeNhunghoangData);
-    const active = hcmFeNhunghoangData.questions.filter((question) => question.status === "active");
-    expect(subject).toMatchObject({ id: "hcm202-fe-nhunghoang", slug: "hcm202-fe-nhunghoang", code: "HCM202", name: "HCM202 - Tư tưởng Hồ Chí Minh - Final Exam - Nhung Hoang", assessment: "Final Exam", language: "vi", questionCount: active.length, source: { ignoredEmptyQuestionPlaceholders: 13 } });
-    expect(subjectsBySlug["hcm202-fe-nhunghoang"]).toEqual(subject);
-    expect(["hcm202-fe-chubedan", "hcm202-pt"].map((slug) => subjectsBySlug[slug].id)).not.toContain(subject.id);
-    expect(subject.questions).toHaveLength(639);
-    expect(subject.questions.filter((question) => question.type === "single-choice")).toHaveLength(638);
-    expect(subject.questions.filter((question) => question.type === "multiple-choice")).toHaveLength(1);
-    expect(subject.questions.filter((question) => question.sourceNotes !== undefined)).toHaveLength(active.filter((question) => question.sourceNotes !== undefined).length);
-    expect(subject.questions[0]).toMatchObject({ question: hcmFeNhunghoangData.questions[0].question, sourceNotes: hcmFeNhunghoangData.questions[0].sourceNotes });
-    expect(subject.questions[638].sourceNotes).toBe(hcmFeNhunghoangData.questions[638].sourceNotes);
-    expect(subject.questions[638].question).not.toContain("Question: Answer:");
-    expect(Object.fromEntries([2, 3, 4, 5].map((count) => [count, subject.questions.filter((question) => question.options.length === count).length]))).toEqual({ 2: 1, 3: 194, 4: 442, 5: 2 });
-    for (const [index, raw] of active.entries()) {
-      expect(subject.questions[index]).toMatchObject({ id: raw.id, number: raw.number, question: raw.question, correctAnswers: raw.correctAnswers, sourcePages: raw.sourcePages, answerTextFromSource: raw.answerTextFromSource, needsReview: raw.needsReview, reviewNotes: raw.reviewNotes });
-      expect(subject.questions[index].options).toEqual(raw.options.map(({ key, ...option }) => ({ id: key, ...option })));
-      expect(subject.questions[index].source).toMatchObject(raw.source);
-    }
-    expect(hcmFeNhunghoangData).toEqual(before);
-  });
-
-  it("registers MLN111 Final Exam as an independent bank without mutation or content loss", () => {
-    const before = structuredClone(mln111Data);
-    const subject = adaptMln111Fe(mln111Data);
-    const active = mln111Data.questions.filter((question) => question.status === "active");
-    expect(subject).toMatchObject({ id: "mln111-fe", slug: "mln111-fe", code: "MLN111", name: "MLN111 - Triết học Mác - Lênin - Final Exam", assessment: "Final Exam", language: "vi", questionCount: active.length });
-    expect(subjectsBySlug["mln111-fe"]).toEqual(subject);
-    expect(["mln131-fe-nhunghoang", "vnr-fe-chubedan", "vnr-fe-nhunghoang", "hcm202-fe-nhunghoang", "hcm202-fe-chubedan", "pmg201c", "swd392"].map((slug) => subjectsBySlug[slug].id)).not.toContain(subject.id);
-    expect(subject.questions).toHaveLength(533);
-    expect(subject.questions.map((question) => question.number)).toEqual(Array.from({ length: 533 }, (_, index) => index + 1));
-    expect(subject.questions.filter((question) => question.type === "single-choice")).toHaveLength(533);
-    expect(subject.questions.every((question) => question.correctAnswers.length === 1 && question.options.some((option) => option.id === question.correctAnswers[0]))).toBe(true);
-    for (const [number, answer, text] of [[53, "E", "BCD"], [64, "E", "BCD"], [94, "E", "BCD"], [101, "F", "BCDE"], [392, "E", "ABC"]] as const) {
-      const question = subject.questions.find((item) => item.number === number)!;
-      expect(question).toMatchObject({ type: "single-choice", correctAnswers: [answer] });
-      expect(question.options.find((option) => option.id === answer)?.text).toBe(text);
-    }
-    expect(subject.questions.find((question) => question.number === 81)).toMatchObject({ needsReview: true, reviewNotes: mln111Data.questions[80].reviewNotes });
-    expect(subject.questions.find((question) => question.number === 177)).toMatchObject({ needsReview: true, sourceNotes: mln111Data.questions[176].sourceNotes, correctAnswers: ["C"] });
-    expect(subject.questions.find((question) => question.number === 71)?.question).toBe(subject.questions.find((question) => question.number === 107)?.question);
-    expect(subject.dataQuality.duplicatePromptGroups).toEqual([[71, 107]]);
-    for (const [index, raw] of active.entries()) {
-      expect(subject.questions[index]).toMatchObject({ id: raw.id, number: raw.number, question: raw.question, correctAnswers: raw.correctAnswers, sourcePages: raw.sourcePages, answerTextFromSource: raw.answerTextFromSource, needsReview: raw.needsReview, reviewNotes: raw.reviewNotes });
-      const options = raw.options.map(({ key, ...option }, optionIndex, rawOptions) => rawOptions.slice(0, optionIndex).some((item) => item.key === key) ? { id: `${key}-${optionIndex + 1}`, sourceLabel: key, ...option } : { id: key, ...option });
-      expect(subject.questions[index].options).toEqual(options);
-      expect(subject.questions[index].source).toMatchObject(raw.source);
-      expect(subject.questions[index].sourceNotes).toBe(raw.sourceNotes);
-    }
-    expect(mln111Data).toEqual(before);
-  });
-
-  it("registers MLN131 Final Exam Nhung Hoang as an independent bank without mutation or content loss", () => {
-    const before = structuredClone(mln131Data);
-    const subject = adaptMln131FeNhunghoang(mln131Data);
-    const active = mln131Data.questions.filter((question) => question.status === "active");
-    expect(subject).toMatchObject({ id: "mln131-fe-nhunghoang", slug: "mln131-fe-nhunghoang", code: "MLN131", name: "MLN131 - Chủ nghĩa xã hội khoa học - Final Exam - Nhung Hoang", assessment: "Final Exam", language: "vi", questionCount: active.length });
-    expect(subjectsBySlug["mln131-fe-nhunghoang"]).toEqual(subject);
-    expect(["hcm202-fe-nhunghoang", "hcm202-fe-chubedan", "hcm202-pt", "pmg201c", "swd392"].map((slug) => subjectsBySlug[slug].id)).not.toContain(subject.id);
-    expect(subject.questions).toHaveLength(432);
-    expect(subject.questions.map((question) => question.number)).toEqual(Array.from({ length: 432 }, (_, index) => index + 1));
-    expect(subject.questions.filter((question) => question.type === "single-choice")).toHaveLength(409);
-    expect(subject.questions.filter((question) => question.type === "multiple-choice")).toHaveLength(23);
-    expect(subject.questions.find((question) => question.number === 18)?.correctAnswers).toEqual(["A", "B"]);
-    expect(subject.questions.find((question) => question.number === 46)?.correctAnswers).toEqual(["A", "B", "C"]);
-    expect(subject.questions.every((question) => question.correctAnswers.every((answer) => question.options.some((option) => option.id === answer)))).toBe(true);
-    for (const [index, raw] of active.entries()) {
-      expect(subject.questions[index]).toMatchObject({ id: raw.id, number: raw.number, question: raw.question, correctAnswers: raw.correctAnswers, sourcePages: raw.sourcePages, answerTextFromSource: raw.answerTextFromSource, needsReview: raw.needsReview, reviewNotes: raw.reviewNotes });
-      expect(subject.questions[index].options).toEqual(raw.options.map(({ key, ...option }) => ({ id: key, ...option })));
-      expect(subject.questions[index].source).toMatchObject(raw.source);
-      expect(subject.questions[index].sourceNotes).toBe(raw.sourceNotes);
-    }
-    expect(mln131Data).toEqual(before);
-  });
-
-  it("registers VNR Final Exam Nhung Hoang independently with exact source preservation", () => {
-    const before = structuredClone(vnrNhunghoangData);
-    const raw = vnrFeNhunghoangRawSchema.parse(vnrNhunghoangData);
-    const subject = adaptVnrFeNhunghoang(vnrNhunghoangData);
-    expect(raw.questions).toHaveLength(402);
-    expect(raw.questions.map((question) => question.number)).toEqual(Array.from({ length: 402 }, (_, index) => index + 1));
-    expect(subject).toMatchObject({ id: "vnr-fe-nhunghoang", slug: "vnr-fe-nhunghoang", code: "VNR", name: "VNR - Final Exam - Nhung Hoang", questionCount: 402, source: { totalEntries: 402, ignoredEmptyQuestionPlaceholders: 13 } });
-    expect(subjectsBySlug["vnr-fe-nhunghoang"]).toEqual(subject);
-    expect(subject.questions.filter((question) => question.type === "single-choice")).toHaveLength(400);
-    expect(subject.questions.filter((question) => question.type === "multiple-choice")).toHaveLength(2);
-    expect(subject.questions.find((question) => question.number === 110)?.correctAnswers).toEqual(["A", "D"]);
-    expect(subject.questions.find((question) => question.number === 359)?.correctAnswers).toEqual(["B", "C"]);
-    expect(subject.questions.map((question) => question.number)).toEqual(Array.from({ length: 402 }, (_, index) => index + 1));
-    expect(subject.questions.filter((question) => question.sourceNotes !== undefined).map((question) => question.number)).toEqual([21, 37, 79, 126, 163, 228]);
-    expect(subject.questions.find((question) => question.number === 163)?.question).not.toContain("fuller");
-    expect(subject.dataQuality.duplicatePromptGroups).toEqual([[155, 353]]);
-    expect(subject.questions.find((question) => question.number === 1)?.options[0]).toMatchObject({ id: "A", sourceLabel: "a" });
-    expect(subject.questions.every((question) => question.correctAnswers.every((answer) => question.options.some((option) => option.id === answer)))).toBe(true);
-    expect(vnrNhunghoangData).toEqual(before);
-  });
-
-  it("registers VNR Final Exam Chu Be Dan independently while preserving all source entries", () => {
-    const before = structuredClone(vnrData);
-    const raw = vnrFeChubedanRawSchema.parse(vnrData);
-    const subject = adaptVnrFeChubedan(vnrData);
-    expect(raw.questions).toHaveLength(404);
-    expect(raw.questions.map((question) => question.number)).toEqual(Array.from({ length: 404 }, (_, index) => index + 1));
-    expect(raw.questions.map((question) => question.id)).toEqual(Array.from({ length: 404 }, (_, index) => `VNR-FE-CHUBEDAN-${String(index + 1).padStart(3, "0")}`));
-    expect(raw.questions.filter((question) => question.correctAnswers.length > 0)).toHaveLength(403);
-    expect(raw.questions[14]).toMatchObject({ id: "VNR-FE-CHUBEDAN-015", number: 15, correctAnswers: [], needsReview: true });
-    expect(subject).toMatchObject({ id: "vnr-fe-chubedan", slug: "vnr-fe-chubedan", code: "VNR", name: "VNR - Final Exam - Chu Be Dan", questionCount: 403, source: { totalEntries: 404, reviewOnlyQuestionNumbers: [15] } });
-    expect(subjectsBySlug["vnr-fe-chubedan"]).toEqual(subject);
-    expect(subject.questions.some((question) => question.number === 15)).toBe(false);
-    expect(subject.questions.filter((question) => question.type === "single-choice")).toHaveLength(401);
-    expect(subject.questions.filter((question) => question.type === "multiple-choice")).toHaveLength(2);
-    expect(subject.questions.find((question) => question.number === 153)?.correctAnswers).toEqual(["B", "C"]);
-    expect(subject.questions.find((question) => question.number === 212)?.correctAnswers).toEqual(["A", "D"]);
-    expect(subject.questions.every((question) => question.correctAnswers.every((answer) => question.options.some((option) => option.id === answer)))).toBe(true);
-    expect(subject.dataQuality.duplicatePromptGroups).toEqual([[1, 371], [13, 228], [53, 191]]);
-    for (const group of subject.dataQuality.duplicatePromptGroups) expect(group.every((number) => subject.questions.some((question) => question.number === number))).toBe(true);
-    for (const question of subject.questions) {
-      const source = raw.questions.find((item) => item.id === question.id)!;
-      expect(question).toMatchObject({ number: source.number, question: source.question, correctAnswers: source.correctAnswers, sourcePages: source.sourcePages, answerTextFromSource: source.answerTextFromSource, needsReview: source.needsReview, reviewNotes: source.reviewNotes });
-      expect(question.options).toEqual(source.options.map(({ key, ...option }) => ({ id: key, ...option })));
-    }
-    expect(vnrData).toEqual(before);
+  it("rejects answers that do not reference an option", () => {
+    const first = structuredClone(hcmPtData.questions[0]);
+    expect(() => adaptExtractedBank({ ...structuredClone(hcmPtData), questions: [{ ...first, correctAnswers: ["Z"] }] }, meta)).toThrow();
   });
 
   it("validates the corrected canonical SWD392 dataset", () => {

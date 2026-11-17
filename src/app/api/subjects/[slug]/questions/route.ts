@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSubject } from "@/data/generated/subjects.generated";
+import { getSubject } from "@/data/subjects";
 
 const PAGE_SIZE = 30;
 
